@@ -7,7 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: schema
-  name: schema
+  name: schema-deployment
 spec:
   replicas: 1
   selector:
@@ -22,7 +22,7 @@ spec:
         kompose.version: 1.26.0 (40646f47)
       creationTimestamp: null
       labels:
-        io.kompose.network/: "true"
+        io.kompose.network: "true"
         io.kompose.service: schema
     spec:
       containers:

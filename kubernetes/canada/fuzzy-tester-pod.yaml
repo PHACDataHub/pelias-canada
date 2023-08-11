@@ -6,9 +6,9 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.network/: "true"
+    io.kompose.network: "true"
     io.kompose.service: fuzzy-tester
-  name: fuzzy-tester
+  name: fuzzy-tester-pod
 spec:
   containers:
     - args:

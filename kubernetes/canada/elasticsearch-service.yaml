@@ -7,7 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: elasticsearch
-  name: elasticsearch
+  name: elasticsearch-service
 spec:
   ports:
     - name: "9200"

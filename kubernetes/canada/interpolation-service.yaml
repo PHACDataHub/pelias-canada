@@ -7,7 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: interpolation
-  name: interpolation
+  name: interpolation-service
 spec:
   ports:
     - name: "4300"

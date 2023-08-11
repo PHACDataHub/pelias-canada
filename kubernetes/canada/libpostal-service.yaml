@@ -7,7 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: libpostal
-  name: libpostal
+  name: libpostal-service
 spec:
   ports:
     - name: "4400"
