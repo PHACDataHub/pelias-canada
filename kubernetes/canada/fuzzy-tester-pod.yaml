@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -v -f docker-compose.yml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/: "true"
+    io.kompose.service: fuzzy-tester
+  name: fuzzy-tester
+spec:
+  containers:
+    - args:
+        - --help
+      image: pelias/fuzzy-tester:master
+      name: pelias-fuzzy-tester
+      resources: {}
+      volumeMounts:
+        - mountPath: /code/pelias.json
+          name: fuzzy-tester-claim0
+        - mountPath: /code/pelias/fuzzy-tester/test_cases
+          name: fuzzy-tester-claim1
+  restartPolicy: Never
+  volumes:
+    - name: fuzzy-tester-claim0
+      persistentVolumeClaim:
+        claimName: fuzzy-tester-claim0
+    - name: fuzzy-tester-claim1
+      persistentVolumeClaim:
+        claimName: fuzzy-tester-claim1
+status: {}

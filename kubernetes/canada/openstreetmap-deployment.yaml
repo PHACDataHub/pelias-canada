@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -v -f docker-compose.yml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: openstreetmap
+  name: openstreetmap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: openstreetmap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -v -f docker-compose.yml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/: "true"
+        io.kompose.service: openstreetmap
+    spec:
+      containers:
+        - image: pelias/openstreetmap:master
+          name: pelias-openstreetmap
+          resources: {}
+          securityContext:
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /code/pelias.json
+              name: openstreetmap-claim0
+            - mountPath: /data
+              name: openstreetmap-claim1
+      restartPolicy: Always
+      volumes:
+        - name: openstreetmap-claim0
+          persistentVolumeClaim:
+            claimName: openstreetmap-claim0
+        - name: openstreetmap-claim1
+          persistentVolumeClaim:
+            claimName: openstreetmap-claim1
+status: {}

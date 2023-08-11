@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -v -f docker-compose.yml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pip
+  name: pip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: pip
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -v -f docker-compose.yml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/: "true"
+        io.kompose.service: pip
+    spec:
+      containers:
+        - env:
+            - name: PORT
+              value: "4200"
+          image: pelias/pip-service:master
+          name: pelias-pip-service
+          ports:
+            - containerPort: 4200
+          resources: {}
+          securityContext:
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /code/pelias.json
+              name: pip-claim0
+            - mountPath: /data
+              name: pip-claim1
+      restartPolicy: Always
+      volumes:
+        - name: pip-claim0
+          persistentVolumeClaim:
+            claimName: pip-claim0
+        - name: pip-claim1
+          persistentVolumeClaim:
+            claimName: pip-claim1
+status: {}
