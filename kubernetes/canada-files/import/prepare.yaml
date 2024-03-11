@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-preparer
+spec:
+  backoffLimit: 0   
+  template:
+    spec:
+      initContainers:
+        - name: prepare-polylines
+          image: pelias/polylines:master
+          command: ["./docker_extract.sh"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+        - name: prepare-placeholder-extract
+          image: pelias/placeholder:master
+          command: ["./cmd/extract.sh"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+        - name: prepare-placeholder-build
+          image: pelias/placeholder:master
+          command: ["./cmd/build.sh"]  
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+      containers:
+        - name: prepare-interpolation
+          image: pelias/interpolation:master
+          command: ["./docker_build.sh"]
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-volume
+        - name: config-volume
+          configMap:
+            name: pelias-configmap

@@ -1,0 +1,17 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  version: 7.16.1
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        initContainers:
+        - name: install-plugin
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+          command: ["sh", "-c", "/usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu"]

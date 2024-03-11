@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-importer
+spec:
+  backoffLimit: 0 
+  template:
+    spec:
+      containers:
+        - name: whosonfirst-import
+          image: pelias/whosonfirst:master
+          command: ["./bin/start"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+        - name: openaddresses-import
+          image: pelias/openaddresses:master
+          command: ["./bin/start"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+        - name: openstreetmap-import
+          image: pelias/openstreetmap:master
+          command: ["./bin/start"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+        - name: prepare-polylines
+          image: pelias/polylines:master
+          command: ["./bin/start"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-volume
+        - name: config-volume
+          configMap:
+            name: pelias-configmap

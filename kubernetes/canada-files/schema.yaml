@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-index-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: schema
+        image: pelias/schema:master
+        # command: ["./bin/create_index"]
+        command: ["sh", "-c", "while true; do sleep 3600; done"]
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+        - name: config-volume
+          mountPath: /code/pelias.json
+          subPath: pelias.json
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: data-volume
+      - name: config-volume
+        configMap:
+          name: pelias-configmap
