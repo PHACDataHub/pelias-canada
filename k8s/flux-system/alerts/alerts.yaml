@@ -1,0 +1,39 @@
+#  ___| | __ _  ___| | __
+# / __| |/ _` |/ __| |/ /
+# \__ \ | (_| | (__|   <
+# |___/_|\__,_|\___|_|\_\
+#Login to gcloud via gcloud auth application-default login
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+  name: slack-bot
+  namespace: flux-system
+spec:
+  type: slack
+  channel: geocoder-alerts
+  address: https://slack.com/api/chat.postMessage
+  secretRef:
+    name: slack-bot-token
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: slack
+  namespace: flux-system
+spec:
+  summary: "Notifications for flux reconciliations"
+  eventMetadata:
+    cluster: "gke_phx-01hnn9wb0eg_northamerica-northeast1_pelias-cluster"
+    region: "northamerica-northeast1"
+  providerRef:
+    name: slack-bot
+  eventSeverity: info
+  eventSources:
+    - kind: GitRepository
+      name: '*'
+    - kind: Kustomization
+      name: '*'
+    - kind: ImageUpdateAutomation
+      name: '*'
+  exclusionList:
+    - "^Dependencies.*"
