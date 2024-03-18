@@ -15,6 +15,6 @@ spec:
         prefix: /
     route:
     - destination:
-        host: geocoder.geocoder.svc.cluster.local
+        host: nginx-service.geocoder.svc.cluster.local
         port:
           number: 8080
