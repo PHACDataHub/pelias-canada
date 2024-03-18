@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: geocoder
+  labels:
+    istio.io/rev: asm-managed
+spec: {}
+status: {}
