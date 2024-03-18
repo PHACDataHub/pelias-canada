@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: geocoder-virtual-service
+  namespace: geocoder
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-ingress/mesh-gateway
+  http:
+  - name: gateway-to-geocoder
+    match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: geocoder.geocoder.svc.cluster.local
+        port:
+          number: 80
