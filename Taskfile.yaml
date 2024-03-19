@@ -1,0 +1,114 @@
+version: '3'
+
+# Define global variables to be used across tasks for consistency and ease of updates.
+vars:
+  PROJECT_ID: phx-01hnn9wb0eg                # Google Cloud Project ID where the resources will be deployed.
+  REGION: northamerica-northeast1            # Deployment region for Google Cloud resources.
+  NAME: pelias-geocoder                               # Naming prefix for created resources, aiding in identification and organization.
+  FLEET_HOST_PROJECT_ID: php-fleet-monitoring # ID for the project hosting the fleet, used in Anthos Service Mesh (ASM).
+
+tasks:
+  infra-up:
+    desc: Create infrastructure components up to the cluster-level
+    cmds:
+      # Enable necessary Google Cloud APIs required for the project's infrastructure setup.
+      - gcloud services enable container.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable mesh.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable serviceusage.googleapis.com --project={{.PROJECT_ID}}
+
+      # Create a custom VPC network and a subnetwork for the GKE cluster, with specified MTU and BGP routing mode.
+      - >
+        gcloud compute networks create {{.NAME}}-net --subnet-mode=custom
+        --bgp-routing-mode=regional --mtu=1460 --project={{.PROJECT_ID}}
+      - >
+        gcloud compute networks subnets create {{.NAME}}-subnet --network={{.NAME}}-net
+        --range=10.162.0.0/20 --region={{.REGION}} --enable-flow-logs
+        --project={{.PROJECT_ID}}
+
+      # Establish a service account for GKE nodes, granting minimal necessary permissions for operation, monitoring, and management.
+      - gcloud iam service-accounts create gke-default --project {{.PROJECT_ID}}
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:gke-default@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role roles/logging.logWriter
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:gke-default@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role roles/monitoring.metricWriter
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:gke-default@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role roles/monitoring.viewer
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:gke-default@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role roles/stackdriver.resourceMetadata.writer
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:gke-default@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role roles/autoscaling.metricsWriter
+      - >
+        gcloud container --project={{.PROJECT_ID}} clusters create-auto {{.NAME}}-cluster
+        --region={{.REGION}} --release-channel "regular"
+        --network="projects/{{.PROJECT_ID}}/global/networks/{{.NAME}}-net"
+        --subnetwork="projects/{{.PROJECT_ID}}/regions/{{.REGION}}/subnetworks/{{.NAME}}-subnet"
+        --service-account="gke-default@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+
+      # Provision an autopilot GKE cluster, specifying the network and subnetwork created earlier, and using the created service account.
+      - gcloud iam service-accounts create {{.NAME}}-provisioner --project {{.PROJECT_ID}}
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member="serviceAccount:{{.NAME}}-provisioner@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role="roles/owner"
+      - >
+        gcloud iam service-accounts add-iam-policy-binding
+        {{.NAME}}-provisioner@{{.PROJECT_ID}}.iam.gserviceaccount.com
+        --member="serviceAccount:{{.PROJECT_ID}}.svc.id.goog[cnrm-system/cnrm-controller-manager-cnrm-system]"
+        --role="roles/iam.workloadIdentityUser" --project {{.PROJECT_ID}}
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member="serviceAccount:{{.NAME}}-provisioner@{{.PROJECT_ID}}.iam.gserviceaccount.com"
+        --role="roles/monitoring.metricWriter"
+
+  install-asm:
+    desc: Install and configure ASM
+    cmds:
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:service-{{.FLEET_HOST_PROJECT_NUMBER}}@gcp-sa-servicemesh.iam.gserviceaccount.com"
+        --role roles/anthosservicemesh.serviceAgent
+      - >
+        gcloud projects add-iam-policy-binding {{.FLEET_HOST_PROJECT_ID}}
+        --member "serviceAccount:service-{{.FLEET_HOST_PROJECT_NUMBER}}@gcp-sa-gkehub.iam.gserviceaccount.com"
+        --role roles/gkehub.serviceAgent
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:service-{{.FLEET_HOST_PROJECT_NUMBER}}@gcp-sa-gkehub.iam.gserviceaccount.com"
+        --role roles/gkehub.serviceAgent
+      - >
+        gcloud projects add-iam-policy-binding {{.PROJECT_ID}}
+        --member "serviceAccount:service-{{.FLEET_HOST_PROJECT_NUMBER}}@gcp-sa-gkehub.iam.gserviceaccount.com"
+        --role roles/gkehub.crossProjectServiceAgent
+      - >
+        gcloud container clusters update {{.NAME}}-cluster --location={{.REGION}}
+        --fleet-project={{.FLEET_HOST_PROJECT_ID}} --project={{.PROJECT_ID}}
+      - >
+        gcloud container fleet mesh update
+        --management automatic
+        --memberships {{.NAME}}-cluster
+        --project {{.FLEET_HOST_PROJECT_ID}}
+        --location {{.REGION}}
+    vars:
+      FLEET_HOST_PROJECT_NUMBER:
+        sh: gcloud projects describe {{.FLEET_HOST_PROJECT_ID}} --format "value(projectNumber)"
+
+  install-flux:
+    desc: Install and configure Flux
+    cmds:
+      - >
+        flux bootstrap git
+        --url=ssh://git@github.com/PHACDataHub/pelias-canada
+        --branch=main
+        --path=./k8s/
+        --components="source-controller,kustomize-controller,notification-controller"
+        --components-extra="image-reflector-controller,image-automation-controller"
