@@ -43,7 +43,7 @@ data:
             "url": "http://libpostal:4400"
           },
           "placeholder": {
-            "url": "http://placeholder:4100"
+            "url": "http://placeholder:3000"
           },
           "interpolation": {
             "url": "http://interpolation:4300"
