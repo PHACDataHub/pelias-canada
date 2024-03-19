@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openstreetmap-importer
+spec:
+  backoffLimit: 0 
+  template:
+    spec:
+      initContainers:
+        - name: openstreetmap-download
+          image: pelias/openstreetmap:master
+          command: ["./bin/download"]
+          volumeMounts:
+          - name: data-volume
+            mountPath: /data
+          - name: config-volume
+            mountPath: /code/pelias.json
+            subPath: pelias.json
+          - name: config-volume
+            mountPath: /data/blacklist/osm.txt
+            subPath: osm.txt
+      containers:
+        - name: openstreetmap-import
+          image: pelias/openstreetmap:master
+          command: ["./bin/start"]
+          resources:
+            limits:
+              cpu: 3
+              memory: 16Gi
+              ephemeral-storage: 4Gi
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-volume
+        - name: config-volume
+          configMap:
+            name: pelias-configmap

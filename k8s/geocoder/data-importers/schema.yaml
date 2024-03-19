@@ -3,13 +3,13 @@ kind: Job
 metadata:
   name: create-index-job
 spec:
+  backoffLimit: 0 
   template:
     spec:
       containers:
       - name: schema
         image: pelias/schema:master
-        # command: ["./bin/create_index"]
-        command: ["sh", "-c", "while true; do sleep 3600; done"]
+        command: ["./bin/create_index"]
         volumeMounts:
         - name: data-volume
           mountPath: /data

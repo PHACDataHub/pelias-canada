@@ -1,51 +1,52 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: data-importer
+  name: 
 spec:
-  backoffLimit: 0 
+  backoffLimit: 0   
   template:
     spec:
+      initContainers:
+        - name: prepare-placeholder-extract
+          image: pelias/placeholder:master
+          command: ["./cmd/extract.sh"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+        - name: prepare-placeholder-build
+          image: pelias/placeholder:master
+          command: ["./cmd/build.sh"]  
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
+        - name: prepare-interpolation
+          image: pelias/interpolation:master
+          command: ["./bin/build.sh"]  
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+            - name: config-volume
+              mountPath: /data/blacklist/osm.txt
+              subPath: osm.txt
       containers:
-        - name: whosonfirst-import
-          image: pelias/whosonfirst:master
-          command: ["./bin/start"]
-          volumeMounts:
-            - name: data-volume
-              mountPath: /data
-            - name: config-volume
-              mountPath: /code/pelias.json
-              subPath: pelias.json
-            - name: config-volume
-              mountPath: /data/blacklist/osm.txt
-              subPath: osm.txt
-        - name: openaddresses-import
-          image: pelias/openaddresses:master
-          command: ["./bin/start"]
-          volumeMounts:
-            - name: data-volume
-              mountPath: /data
-            - name: config-volume
-              mountPath: /code/pelias.json
-              subPath: pelias.json
-            - name: config-volume
-              mountPath: /data/blacklist/osm.txt
-              subPath: osm.txt
-        - name: openstreetmap-import
-          image: pelias/openstreetmap:master
-          command: ["./bin/start"]
-          volumeMounts:
-            - name: data-volume
-              mountPath: /data
-            - name: config-volume
-              mountPath: /code/pelias.json
-              subPath: pelias.json
-            - name: config-volume
-              mountPath: /data/blacklist/osm.txt
-              subPath: osm.txt
-        - name: prepare-polylines
-          image: pelias/polylines:master
-          command: ["./bin/start"]
+        - name: placeholder-import
+          image: pelias/placeholder:master
+          command: ["./cmd/build.sh"]  
           volumeMounts:
             - name: data-volume
               mountPath: /data
