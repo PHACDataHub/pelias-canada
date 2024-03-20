@@ -2,13 +2,17 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: openstreetmap-importer
+  namespace: geocoder
 spec:
   backoffLimit: 0 
   template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       initContainers:
         - name: openstreetmap-download
-          image: pelias/openstreetmap:master
+          image: pelias/openstreetmap:v6.0.0
           command: ["./bin/download"]
           volumeMounts:
           - name: data-volume
@@ -16,12 +20,9 @@ spec:
           - name: config-volume
             mountPath: /code/pelias.json
             subPath: pelias.json
-          - name: config-volume
-            mountPath: /data/blacklist/osm.txt
-            subPath: osm.txt
       containers:
         - name: openstreetmap-import
-          image: pelias/openstreetmap:master
+          image: pelias/openstreetmap:v6.0.0
           command: ["./bin/start"]
           resources:
             limits:
@@ -34,9 +35,6 @@ spec:
             - name: config-volume
               mountPath: /code/pelias.json
               subPath: pelias.json
-            - name: config-volume
-              mountPath: /data/blacklist/osm.txt
-              subPath: osm.txt
       restartPolicy: Never
       securityContext:
         fsGroup: 1000

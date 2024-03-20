@@ -2,13 +2,17 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: whosonfirst-importer
+  namespace: geocoder
 spec:
   backoffLimit: 0 
   template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       initContainers:
         - name: whosonfirst-download
-          image: pelias/whosonfirst:master
+          image: pelias/whosonfirst:v6.0.0
           command: ["./bin/download"]
           volumeMounts:
             - name: data-volume
@@ -18,7 +22,7 @@ spec:
               subPath: pelias.json
       containers:
         - name: whosonfirst-import
-          image: pelias/whosonfirst:master
+          image: pelias/whosonfirst:v6.0.0
           command: ["./bin/start"]
           volumeMounts:
             - name: data-volume
