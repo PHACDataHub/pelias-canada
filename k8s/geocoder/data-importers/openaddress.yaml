@@ -2,9 +2,13 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: openaddresses-importer
+  namespace: geocoder  
 spec:
   backoffLimit: 0 
   template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"  
     spec:
       initContainers:
         - name: openaddresses-download
@@ -16,9 +20,6 @@ spec:
           - name: config-volume
             mountPath: /code/pelias.json
             subPath: pelias.json
-          - name: config-volume
-            mountPath: /data/blacklist/osm.txt
-            subPath: osm.txt
       containers:
         - name: openaddresses-import
           image: pelias/openaddresses:master
@@ -33,9 +34,6 @@ spec:
             - name: config-volume
               mountPath: /code/pelias.json
               subPath: pelias.json
-            - name: config-volume
-              mountPath: /data/blacklist/osm.txt
-              subPath: osm.txt
       restartPolicy: Never
       securityContext:
         fsGroup: 1000
