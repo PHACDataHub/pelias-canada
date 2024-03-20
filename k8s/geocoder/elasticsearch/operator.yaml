@@ -1,11 +1,3 @@
-# Source: eck-operator/templates/operator-namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: geocoder
-  labels:
-    name: geocoder
----
 # Source: eck-operator/templates/service-account.yaml
 apiVersion: v1
 kind: ServiceAccount
