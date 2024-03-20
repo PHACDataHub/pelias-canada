@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: whosonfirst-downloader
+  name: whosonfirst-importer
 spec:
   backoffLimit: 0 
   template:
     spec:
-      containers:
+      initContainers:
         - name: whosonfirst-download
           image: pelias/whosonfirst:master
           command: ["./bin/download"]
@@ -16,9 +16,16 @@ spec:
             - name: config-volume
               mountPath: /code/pelias.json
               subPath: pelias.json
+      containers:
+        - name: whosonfirst-import
+          image: pelias/whosonfirst:master
+          command: ["./bin/start"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
             - name: config-volume
-              mountPath: /data/blacklist/osm.txt
-              subPath: osm.txt
+              mountPath: /code/pelias.json
+              subPath: pelias.json
       restartPolicy: Never
       securityContext:
         fsGroup: 1000
