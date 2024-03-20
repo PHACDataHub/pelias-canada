@@ -12,7 +12,7 @@ spec:
     spec:
       initContainers:
         - name: openaddresses-download
-          image: pelias/openaddresses:master
+          image: pelias/openaddresses:v4.0.0
           command: ["./bin/download"]
           volumeMounts:
           - name: data-volume
@@ -22,7 +22,7 @@ spec:
             subPath: pelias.json
       containers:
         - name: openaddresses-import
-          image: pelias/openaddresses:master
+          image: pelias/openaddresses:v4.0.0
           command: ["./bin/start"]
           resources:
             limits:
