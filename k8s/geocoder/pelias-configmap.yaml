@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pelias-configmap
+  namespace: geocoder
 data:
   pelias.json: |
     {
@@ -15,7 +16,7 @@ data:
           { 
             "protocol": "https", 
             "host": "quickstart-es-http",
-            "auth": "elastic:a0t5P5Ne1Q4wM5tya6U1Vf10"
+            "auth": "elastic:KOo1juFs431ogsL52463q3ob"
           }
         ]
       },

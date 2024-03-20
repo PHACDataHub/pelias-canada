@@ -2,13 +2,17 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-index-job
+  namespace: geocoder
 spec:
   backoffLimit: 0 
   template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       containers:
       - name: schema
-        image: pelias/schema:master
+        image: pelias/schema:v7.0.0
         command: ["./bin/create_index"]
         volumeMounts:
         - name: data-volume
