@@ -2,13 +2,17 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: prepare-placeholder
+  namespace: geocoder   
 spec:
-  backoffLimit: 0   
+  backoffLimit: 0 
   template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false" 
     spec:
       initContainers:
         - name: prepare-placeholder-extract
-          image: pelias/placeholder:latest
+          image: pelias/placeholder:v3.15.0
           command: ["./cmd/extract.sh"]
           volumeMounts:
             - name: data-volume
@@ -18,7 +22,7 @@ spec:
               subPath: pelias.json
       containers:
         - name: prepare-placeholder-build
-          image: pelias/placeholder:latest
+          image: pelias/placeholder:v3.15.0
           command: ["./cmd/build.sh"]  
           volumeMounts:
             - name: data-volume
