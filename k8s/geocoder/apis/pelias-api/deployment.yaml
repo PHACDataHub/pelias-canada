@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pelias-api-cnt
-          image: pelias/api:latest
+          image: pelias/api:master-2024-03-20-e6f532b18577c8436a10651c07e5a2e9f5fdb1ea
           ports:
             - containerPort: 3100          
           volumeMounts:

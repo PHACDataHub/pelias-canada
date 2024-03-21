@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pip
+  namespace: geocoder
 spec:
   selector:
     app: pelias-pip
