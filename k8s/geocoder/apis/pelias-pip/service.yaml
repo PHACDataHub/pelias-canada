@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pip
+  namespace: geocoder
+spec:
+  selector:
+    app: pelias-pip
+  ports:
+    - protocol: TCP
+      port: 3102
+      targetPort: 3102

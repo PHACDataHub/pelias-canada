@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 2m0s
-  path: ./k8s/geocoder/geocoder
+  path: ./k8s/geocoder/apis/pelias-api
   prune: true
   sourceRef:
     kind: GitRepository

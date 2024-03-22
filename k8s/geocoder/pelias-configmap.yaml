@@ -1,0 +1,523 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pelias-configmap
+  namespace: geocoder
+data:
+  pelias.json: |
+    {
+      "logger": {
+        "level": "info",
+        "timestamp": false
+      },
+      "esclient": {
+        "apiVersion": "7.5",
+        "hosts": [
+          { 
+            "protocol": "https", 
+            "host": "quickstart-es-http",
+            "auth": "elastic:KOo1juFs431ogsL52463q3ob"
+          }
+        ]
+      },
+      "elasticsearch": {
+        "settings": {
+          "index": {
+            "refresh_interval": "10s",
+            "number_of_replicas": "0",
+            "number_of_shards": "4"
+          }
+        }
+      },
+      "acceptance-tests": {
+        "endpoints": {
+          "docker": "http://api:4000/v1/"
+        }
+      },
+      "api": {
+        "textAnalyzer": "libpostal",
+        "services": {
+          "pip": {
+            "url": "http://pip:3102"
+          },
+          "libpostal": {
+            "url": "http://libpostal:4400"
+          },
+          "placeholder": {
+            "url": "http://placeholder:3000"
+          },
+          "interpolation": {
+            "url": "http://interpolation:4300"
+          }
+        }
+      },
+      "imports": {
+        "adminLookup": {
+          "enabled": true
+        },
+        "geonames": {
+          "datapath": "/data/geonames",
+          "countryCode": "CA"
+        },
+        "openstreetmap": {
+          "download": [
+            {
+              "sourceURL": "http://download.geofabrik.de/north-america/canada-latest.osm.pbf"
+            }
+          ],
+          "leveldbpath": "/tmp",
+          "datapath": "/data/openstreetmap",
+          "import": [
+            {
+              "filename": "canada-latest.osm.pbf"
+            }
+          ]
+        },
+        "openaddresses": {
+          "datapath": "/data/openaddresses",
+          "files": [
+            "ca/ab/airdrie.csv",
+            "ca/ab/calgary.csv",
+            "ca/ab/city_of_airdrie.csv",
+            "ca/ab/city_of_banff.csv",
+            "ca/ab/city_of_black_diamond.csv",
+            "ca/ab/city_of_canmore.csv",
+            "ca/ab/city_of_chestermere.csv",
+            "ca/ab/city_of_cochrane.csv",
+            "ca/ab/city_of_edmonton.csv",
+            "ca/ab/city_of_lethbridge.csv",
+            "ca/ab/city_of_medicine_hat.csv",
+            "ca/ab/city_of_red_deer.csv",
+            "ca/ab/city_of_turner_valley.csv",
+            "ca/ab/grande_prairie.csv",
+            "ca/ab/province.csv",
+            "ca/ab/strathcona-county.csv",
+            "ca/bc/capital-regional-district.csv",
+            "ca/bc/city_of_burnaby.csv",
+            "ca/bc/city_of_coquitlam.csv",
+            "ca/bc/city_of_kelowna.csv",
+            "ca/bc/city_of_new_westminster.csv",
+            "ca/bc/city_of_saanich.csv",
+            "ca/bc/city_of_west_kelowna.csv",
+            "ca/bc/columbia-shuswap.csv",
+            "ca/bc/cowichan_valley.csv",
+            "ca/bc/east_kootenay.csv",
+            "ca/bc/kamloops.csv",
+            "ca/bc/kelowna.csv",
+            "ca/bc/langley.csv",
+            "ca/bc/nanaimo.csv",
+            "ca/bc/north_cowichan.csv",
+            "ca/bc/prince_george.csv",
+            "ca/bc/province.csv",
+            "ca/bc/sunshine_coast.csv",
+            "ca/bc/thompson-nicola-regional-district.csv",
+            "ca/bc/vancouver.csv",
+            "ca/bc/vernon.csv",
+            "ca/bc/victoria.csv",
+            "ca/bc/west_kelowna.csv",
+            "ca/mb/brandon.csv",
+            "ca/mb/city_of_steinbach.csv",
+            "ca/mb/city_of_winnipeg.csv",
+            "ca/mb/province.csv",
+            "ca/nb/city_of_fredericton.csv",
+            "ca/nb/city_of_moncton.csv",
+            "ca/nb/city_of_st_john.csv",
+            "ca/nb/province.csv",
+            "ca/ns/halifax.csv",
+            "ca/ns/province.csv",
+            "ca/nt/city_of_yellow_knife.csv",
+            "ca/on/adelaide.csv",
+            "ca/on/amherstburg.csv",
+            "ca/on/belleville.csv",
+            "ca/on/brant.csv",
+            "ca/on/bruce.csv",
+            "ca/on/chatham_kent.csv",
+            "ca/on/city_of_ajax.csv",
+            "ca/on/city_of_barrie.csv",
+            "ca/on/city_of_brampton.csv",
+            "ca/on/city_of_burlington.csv",
+            "ca/on/city_of_cambridge.csv",
+            "ca/on/city_of_guelph.csv",
+            "ca/on/city_of_hamilton.csv",
+            "ca/on/city_of_hanover.csv",
+            "ca/on/city_of_kingston.csv",
+            "ca/on/city_of_kitchener.csv",
+            "ca/on/city_of_niagara_falls.csv",
+            "ca/on/city_of_oakville.csv",
+            "ca/on/city_of_ottawa.csv",
+            "ca/on/city_of_pickering.csv",
+            "ca/on/city_of_sault_ste_marie.csv",
+            "ca/on/city_of_thunder_bay.csv",
+            "ca/on/city_of_toronto.csv",
+            "ca/on/city_of_welland.csv",
+            "ca/on/city_of_windsor.csv",
+            "ca/on/cobourg.csv",
+            "ca/on/couchicing.csv",
+            "ca/on/dufferin.csv",
+            "ca/on/elgin.csv",
+            "ca/on/essex.csv",
+            "ca/on/grey.csv",
+            "ca/on/grey_dufferin.csv",
+            "ca/on/haldimand.csv",
+            "ca/on/haliburton.csv",
+            "ca/on/halton.csv",
+            "ca/on/hastings.csv",
+            "ca/on/lambton.csv",
+            "ca/on/lasalle.csv",
+            "ca/on/leeds_grenville.csv",
+            "ca/on/lennoxaddington.csv",
+            "ca/on/lucan_biddulph.csv",
+            "ca/on/middlesex_centre.csv",
+            "ca/on/muskoka.csv",
+            "ca/on/newbury.csv",
+            "ca/on/niagara_region.csv",
+            "ca/on/norfolk.csv",
+            "ca/on/north_glengarry.csv",
+            "ca/on/north_middlesex.csv",
+            "ca/on/northumberland.csv",
+            "ca/on/oxford.csv",
+            "ca/on/parry_sound.csv",
+            "ca/on/peel-region.csv",
+            "ca/on/perth.csv",
+            "ca/on/peterborough.csv",
+            "ca/on/prescott_russell.csv",
+            "ca/on/prince_edward.csv",
+            "ca/on/quinte_west.csv",
+            "ca/on/rainy_river.csv",
+            "ca/on/renfrew.csv",
+            "ca/on/seguin.csv",
+            "ca/on/seine_river.csv",
+            "ca/on/simcoe.csv",
+            "ca/on/southwest-middlesex.csv",
+            "ca/on/stormont_dundas_glengarry.csv",
+            "ca/on/stratford.csv",
+            "ca/on/strathroy-caradoc.csv",
+            "ca/on/thames_centre.csv",
+            "ca/on/town_of_oakville.csv",
+            "ca/on/township_of_durham.csv",
+            "ca/on/waterloo.csv",
+            "ca/on/west_parry_sound_district.csv",
+            "ca/on/york.csv",
+            "ca/pe/province.csv",
+            "ca/qc/gatineau.csv",
+            "ca/qc/laval.csv",
+            "ca/qc/longueuil.csv",
+            "ca/qc/montreal.csv",
+            "ca/qc/rimouski.csv",
+            "ca/qc/rouyn-noranda.csv",
+            "ca/sk/moosejaw.csv",
+            "ca/sk/regina.csv",
+            "ca/sk/saskatoon.csv",
+            "ca/yt/whitehorse.csv"
+          ]
+        },
+        "polyline": {
+          "datapath": "/data/polylines",
+          "files": [
+            "extract.0sv"
+          ]
+        },
+        "whosonfirst": {
+          "datapath": "/data/whosonfirst",
+          "countryCode": "CA",
+          "importPostalcodes": true,
+          "importPlace": "85633041"
+        }
+      }
+    }
+  osm.txt: | 
+    openstreetmap:venue:way:59581827 # remove the problematic portland airport record
+  valhalla.json: |
+    {
+      "additional_data": {
+        "elevation": "/data/valhalla/elevation/"
+      },
+      "httpd": {
+        "service": {
+          "drain_seconds": 28,
+          "interrupt": "ipc:///tmp/interrupt",
+          "listen": "tcp://*:8002",
+          "loopback": "ipc:///tmp/loopback",
+          "shutdown_seconds": 1,
+          "timeout_seconds": -1
+        }
+      },
+      "loki": {
+        "actions": [
+          "locate",
+          "route",
+          "height",
+          "sources_to_targets",
+          "optimized_route",
+          "isochrone",
+          "trace_route",
+          "trace_attributes",
+          "transit_available",
+          "expansion",
+          "centroid",
+          "status"
+        ],
+        "logging": {
+          "color": true,
+          "file_name": "path_to_some_file.log",
+          "long_request": 100.0,
+          "type": "std_out"
+        },
+        "service": {
+          "proxy": "ipc:///tmp/loki"
+        },
+        "service_defaults": {
+          "heading_tolerance": 60,
+          "minimum_reachability": 50,
+          "node_snap_tolerance": 5,
+          "radius": 0,
+          "search_cutoff": 35000,
+          "street_side_max_distance": 1000,
+          "street_side_tolerance": 5
+        },
+        "use_connectivity": true
+      },
+      "meili": {
+        "auto": {
+          "search_radius": 50,
+          "turn_penalty_factor": 200
+        },
+        "bicycle": {
+          "turn_penalty_factor": 140
+        },
+        "customizable": [
+          "mode",
+          "search_radius",
+          "turn_penalty_factor",
+          "gps_accuracy",
+          "interpolation_distance",
+          "sigma_z",
+          "beta",
+          "max_route_distance_factor",
+          "max_route_time_factor"
+        ],
+        "default": {
+          "beta": 3,
+          "breakage_distance": 2000,
+          "geometry": false,
+          "gps_accuracy": 5.0,
+          "interpolation_distance": 10,
+          "max_route_distance_factor": 5,
+          "max_route_time_factor": 5,
+          "max_search_radius": 100,
+          "route": true,
+          "search_radius": 50,
+          "sigma_z": 4.07,
+          "turn_penalty_factor": 0
+        },
+        "grid": {
+          "cache_size": 100240,
+          "size": 500
+        },
+        "logging": {
+          "color": true,
+          "file_name": "path_to_some_file.log",
+          "type": "std_out"
+        },
+        "mode": "auto",
+        "multimodal": {
+          "turn_penalty_factor": 70
+        },
+        "pedestrian": {
+          "search_radius": 50,
+          "turn_penalty_factor": 100
+        },
+        "service": {
+          "proxy": "ipc:///tmp/meili"
+        },
+        "verbose": false
+      },
+      "mjolnir": {
+        "admin": "/home/valhalla_tiles/admins.sqlite",
+        "data_processing": {
+          "allow_alt_name": false,
+          "apply_country_overrides": true,
+          "grid_divisions_within_tile": 32,
+          "infer_internal_intersections": true,
+          "infer_turn_channels": true,
+          "scan_tar": false,
+          "use_admin_db": true,
+          "use_direction_on_ways": false,
+          "use_rest_area": false,
+          "use_urban_tag": false
+        },
+        "global_synchronized_cache": false,
+        "hierarchy": true,
+        "id_table_size": 1300000000,
+        "import_bike_share_stations": false,
+        "include_bicycle": true,
+        "include_construction": false,
+        "include_driveways": true,
+        "include_driving": true,
+        "include_pedestrian": true,
+        "include_platforms": false,
+        "landmarks": "/data/valhalla/landmarks.sqlite",
+        "logging": {
+          "color": true,
+          "file_name": "path_to_some_file.log",
+          "type": "std_err"
+        },
+        "lru_mem_cache_hard_control": false,
+        "max_cache_size": 1000000000,
+        "max_concurrent_reader_users": 1,
+        "reclassify_links": true,
+        "shortcuts": true,
+        "tile_dir": "/home/valhalla_tiles",
+        "tile_extract": "/home/valhalla_tiles.tar",
+        "timezone": "/home/valhalla_tiles/timezones.sqlite",
+        "traffic_extract": "/data/valhalla/traffic.tar",
+        "transit_dir": "/data/valhalla/transit",
+        "transit_feeds_dir": "/data/valhalla/transit_feeds",
+        "transit_pbf_limit": 20000,
+        "use_lru_mem_cache": false,
+        "use_simple_mem_cache": false
+      },
+      "odin": {
+        "logging": {
+          "color": true,
+          "file_name": "path_to_some_file.log",
+          "type": "std_out"
+        },
+        "markup_formatter": {
+          "markup_enabled": false,
+          "phoneme_format": "<TEXTUAL_STRING> (<span class=<QUOTES>phoneme<QUOTES>>/<VERBAL_STRING>/</span>)"
+        },
+        "service": {
+          "proxy": "ipc:///tmp/odin"
+        }
+      },
+      "service_limits": {
+        "auto": {
+          "max_distance": 5000000.0,
+          "max_locations": 20,
+          "max_matrix_distance": 400000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "bicycle": {
+          "max_distance": 500000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 200000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "bikeshare": {
+          "max_distance": 500000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 200000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "bus": {
+          "max_distance": 5000000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 400000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "centroid": {
+          "max_distance": 200000.0,
+          "max_locations": 5
+        },
+        "isochrone": {
+          "max_contours": 4,
+          "max_distance": 25000.0,
+          "max_distance_contour": 200,
+          "max_locations": 1,
+          "max_time_contour": 120
+        },
+        "max_alternates": 2,
+        "max_distance_disable_hierarchy_culling": 0,
+        "max_exclude_locations": 50,
+        "max_exclude_polygons_length": 10000,
+        "max_radius": 200,
+        "max_reachability": 100,
+        "max_timedep_distance": 500000,
+        "max_timedep_distance_matrix": 0,
+        "motor_scooter": {
+          "max_distance": 500000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 200000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "motorcycle": {
+          "max_distance": 500000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 200000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "multimodal": {
+          "max_distance": 500000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 0.0,
+          "max_matrix_location_pairs": 0
+        },
+        "pedestrian": {
+          "max_distance": 250000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 200000.0,
+          "max_matrix_location_pairs": 2500,
+          "max_transit_walking_distance": 10000,
+          "min_transit_walking_distance": 1
+        },
+        "skadi": {
+          "max_shape": 750000,
+          "min_resample": 10.0
+        },
+        "status": {
+          "allow_verbose": false
+        },
+        "taxi": {
+          "max_distance": 5000000.0,
+          "max_locations": 20,
+          "max_matrix_distance": 400000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "trace": {
+          "max_alternates": 3,
+          "max_alternates_shape": 100,
+          "max_distance": 200000.0,
+          "max_gps_accuracy": 100.0,
+          "max_search_radius": 100.0,
+          "max_shape": 16000
+        },
+        "transit": {
+          "max_distance": 500000.0,
+          "max_locations": 50,
+          "max_matrix_distance": 200000.0,
+          "max_matrix_location_pairs": 2500
+        },
+        "truck": {
+          "max_distance": 5000000.0,
+          "max_locations": 20,
+          "max_matrix_distance": 400000.0,
+          "max_matrix_location_pairs": 2500
+        }
+      },
+      "statsd": {
+        "port": 8125,
+        "prefix": "valhalla"
+      },
+      "thor": {
+        "clear_reserved_memory": false,
+        "costmatrix_allow_second_pass": false,
+        "costmatrix_check_reverse_connection": false,
+        "extended_search": false,
+        "logging": {
+          "color": true,
+          "file_name": "path_to_some_file.log",
+          "long_request": 110.0,
+          "type": "std_out"
+        },
+        "max_reserved_labels_count_astar": 2000000,
+        "max_reserved_labels_count_bidir_astar": 1000000,
+        "max_reserved_labels_count_bidir_dijkstras": 2000000,
+        "max_reserved_labels_count_dijkstras": 4000000,
+        "max_reserved_locations_costmatrix": 25,
+        "service": {
+          "proxy": "ipc:///tmp/thor"
+        },
+        "source_to_target_algorithm": "select_optimal"
+      }
+    }

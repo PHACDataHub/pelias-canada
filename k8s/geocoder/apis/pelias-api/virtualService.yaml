@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: pelias-api-virtual-service
+  namespace: geocoder
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-ingress/mesh-gateway
+  http:
+  - name: gateway-to-pelias-api
+    match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: pelias-api.geocoder.svc.cluster.local
+        port:
+          number: 3100

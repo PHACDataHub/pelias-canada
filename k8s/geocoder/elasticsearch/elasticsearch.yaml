@@ -1,0 +1,42 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+  namespace: geocoder
+spec:
+  version: 7.16.1
+  nodeSets:
+  - name: default
+    count: 3
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 15Gi
+        storageClassName: standard
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      metadata:
+        annotations:
+          traffic.sidecar.istio.io/includeInboundPorts: "*"
+          traffic.sidecar.istio.io/excludeOutboundPorts: "9300,443" 
+          traffic.sidecar.istio.io/excludeInboundPorts: "9300"
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            requests:
+              cpu: 2
+              memory: 4Gi
+            limits:
+              cpu: 2  
+              memory: 4Gi
+        initContainers:
+        - name: install-plugin
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+          command: ["sh", "-c", "/usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu"]
