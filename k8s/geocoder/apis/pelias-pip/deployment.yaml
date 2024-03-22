@@ -4,6 +4,7 @@ metadata:
   name: pelias-pip
   namespace: geocoder
 spec:
+
   replicas: 1
   selector:
     matchLabels:
@@ -26,6 +27,10 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+        runAsNonRoot: true              
       volumes:
         - name: config-volume
           configMap:
