@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: transit-importer
+  namespace: geocoder   
+spec:
+  backoffLimit: 0 
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false" 
+    spec:
+      initContainers:
+        - name: transit-download
+          image: pelias/transit:v3.0.0
+          command: ["./bin/download"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+      containers:
+        - name: transit-import
+          image: pelias/transit:v3.0.0
+          command: ["./bin/start"]  
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json             
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-volume
+        - name: config-volume
+          configMap:
+            name: pelias-configmap              
