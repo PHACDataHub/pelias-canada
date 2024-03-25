@@ -12,5 +12,3 @@ spec:
     name: flux-system
   dependsOn:
     - name: flux-system
-  decryption:
-    provider: sops

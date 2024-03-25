@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: es-crds
+  namespace: flux-system
+spec:
+  interval: 2m0s
+  path: ./k8s/elastic-operator/crds
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: es-resources
+  namespace: flux-system
+spec:
+  interval: 2m0s
+  path: ./k8s/elastic-operator
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: true
+  dependsOn:
+    - name: es-crds
