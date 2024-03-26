@@ -108,7 +108,7 @@ tasks:
       - >
         flux bootstrap git
         --url=ssh://git@github.com/PHACDataHub/pelias-canada
-        --branch=main
+        --branch=k8s-flux
         --path=./k8s/
         --components="source-controller,kustomize-controller,notification-controller"
         --components-extra="image-reflector-controller,image-automation-controller"
