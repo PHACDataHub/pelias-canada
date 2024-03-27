@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pelias-interpolation
+  namespace: geocoder  
+spec:
+  backoffLimit: 0 
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"  
+    spec:
+      initContainers:
+        - name: interpolation-download
+          image: pelias/interpolation:v1.0.0
+          command: ["./script/download_tiger"]
+          args: ["2023", "latest"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+      containers:
+        - name: interpolation-process
+          image: pelias/interpolation:v1.0.0
+          command: ["./interpolate", "build", "/data/interpolation"]
+          resources:
+            limits:
+              cpu: "4"
+              memory: "32Gi"
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: interpolation-data-volume
+        - name: config-volume
+          configMap:
+            name: pelias-configmap
