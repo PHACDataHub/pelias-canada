@@ -13,8 +13,7 @@ spec:
       containers:
       - name: schema
         image: pelias/schema:v7.0.0
-        # command: ["./bin/create_index"]
-        command: ["sleep", "infinity"]
+        command: ["./bin/create_index"]
         env:
           - name: ELASTIC_PASSWORD
             valueFrom:
