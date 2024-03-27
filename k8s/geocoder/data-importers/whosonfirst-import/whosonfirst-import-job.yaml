@@ -10,20 +10,32 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
-      initContainers:
-        - name: whosonfirst-download
-          image: pelias/whosonfirst:v6.0.0
-          command: ["./bin/download"]
-          volumeMounts:
-            - name: data-volume
-              mountPath: /data
-            - name: config-volume
-              mountPath: /code/pelias.json
-              subPath: pelias.json
+      # initContainers:
+      #   - name: whosonfirst-download
+      #     image: pelias/whosonfirst:v6.0.0
+      #     command: ["./bin/download"]
+      #     env:
+      #       - name: ELASTIC_PASSWORD
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: quickstart-es-elastic-user
+      #             key: password
+      #     volumeMounts:
+      #       - name: data-volume
+      #         mountPath: /data
+      #       - name: config-volume
+      #         mountPath: /code/pelias.json
+      #         subPath: pelias.json
       containers:
         - name: whosonfirst-import
           image: pelias/whosonfirst:v6.0.0
           command: ["./bin/start"]
+          env:
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quickstart-es-elastic-user
+                  key: elastic
           volumeMounts:
             - name: data-volume
               mountPath: /data

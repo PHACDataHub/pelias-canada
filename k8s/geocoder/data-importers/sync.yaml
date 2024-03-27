@@ -1,0 +1,86 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: volumes
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./k8s/geocoder/data-importers/volumes
+  interval: 60m
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pre-import
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: volumes
+  path: ./k8s/geocoder/data-importers/pre-import
+  interval: 60m
+  prune: true
+  wait: true
+  force: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: whosonfirst-import
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: volumes
+    - name: pre-import
+  path: ./k8s/geocoder/data-importers/whosonfirst
+  interval: 60m
+  prune: true
+  wait: true
+  force: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: openaddress-import
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: volumes
+    - name: pre-import
+    - name: whosonfirst-import
+  path: ./k8s/geocoder/data-importers/openaddress
+  interval: 60m
+  prune: true
+  wait: true
+  force: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: openstreetmap-import
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: volumes
+    - name: pre-import
+    - name: whosonfirst-import
+  path: ./k8s/geocoder/data-importers/openstreetmap
+  interval: 60m
+  prune: true
+  wait: true
+  force: true

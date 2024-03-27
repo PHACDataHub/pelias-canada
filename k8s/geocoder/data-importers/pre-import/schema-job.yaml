@@ -13,7 +13,14 @@ spec:
       containers:
       - name: schema
         image: pelias/schema:v7.0.0
-        command: ["./bin/create_index"]
+        # command: ["./bin/create_index"]
+        command: ["sleep", "infinity"]
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: quickstart-es-elastic-user
+                key: elastic
         volumeMounts:
         - name: data-volume
           mountPath: /data
