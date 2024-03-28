@@ -16,7 +16,7 @@ data:
           { 
             "protocol": "https", 
             "host": "quickstart-es-http",
-            "auth": "elastic:KOo1juFs431ogsL52463q3ob"
+            "auth": "elastic:29bPQl2u8cOV86ml6RYa1u40"
           }
         ]
       },
