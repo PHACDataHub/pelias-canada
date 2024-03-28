@@ -23,6 +23,7 @@ spec:
     name: flux-system
   dependsOn:
     - name: volumes
+    - name: es-cluster
   path: ./k8s/geocoder/data-importers/pre-import
   interval: 60m
   prune: true
