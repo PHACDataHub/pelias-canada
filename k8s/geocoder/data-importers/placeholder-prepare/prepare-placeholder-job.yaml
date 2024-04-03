@@ -1,19 +1,19 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: whosonfirst-importer
-  namespace: geocoder
+  name: prepare-placeholder
+  namespace: geocoder   
 spec:
   backoffLimit: 0 
   template:
     metadata:
       annotations:
-        sidecar.istio.io/inject: "false"
+        sidecar.istio.io/inject: "false" 
     spec:
       initContainers:
-        - name: whosonfirst-download
-          image: pelias/whosonfirst:v6.0.0
-          command: ["./bin/download"]
+        - name: prepare-placeholder-extract
+          image: pelias/placeholder:v3.15.0
+          command: ["./cmd/extract.sh"]
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -21,15 +21,15 @@ spec:
               mountPath: /code/pelias.json
               subPath: pelias.json
       containers:
-        - name: whosonfirst-import
-          image: pelias/whosonfirst:v6.0.0
-          command: ["./bin/start"]
+        - name: prepare-placeholder-build
+          image: pelias/placeholder:v3.15.0
+          command: ["./cmd/build.sh"]  
           volumeMounts:
             - name: data-volume
               mountPath: /data
             - name: config-volume
               mountPath: /code/pelias.json
-              subPath: pelias.json
+              subPath: pelias.json             
       restartPolicy: Never
       securityContext:
         fsGroup: 1000
@@ -39,4 +39,4 @@ spec:
             claimName: data-volume
         - name: config-volume
           configMap:
-            name: pelias-configmap
+            name: pelias-configmap              
