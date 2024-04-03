@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: openstreetmap-importer
-  namespace: default
+  namespace: geocoder
 spec:
   backoffLimit: 0 
   template:

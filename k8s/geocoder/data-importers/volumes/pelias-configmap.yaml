@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pelias-configmap
-  namespace: default
+  namespace: geocoder
 data:
   pelias.json: |
     {
@@ -225,8 +225,6 @@ data:
         }
       }
     }
-  osm.txt: | 
-    openstreetmap:venue:way:59581827 # remove the problematic portland airport record
   valhalla.json: |
     {
       "additional_data": {

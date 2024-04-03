@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-index-job
-  namespace: default
+  namespace: geocoder
 spec:
   backoffLimit: 0 
   template:
