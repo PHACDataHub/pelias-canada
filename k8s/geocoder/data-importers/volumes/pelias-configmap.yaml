@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pelias-configmap
-  namespace: geocoder
+  # namespace: geocoder
 data:
   pelias.json: |
     {

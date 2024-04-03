@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: prepare-placeholder
-  namespace: geocoder   
+  # namespace: geocoder   
 spec:
   backoffLimit: 0 
   template:

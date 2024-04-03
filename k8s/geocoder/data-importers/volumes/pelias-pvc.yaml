@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: data-volume
-  namespace: geocoder
+  # namespace: geocoder
 spec:
   accessModes:
     - ReadWriteOnce
