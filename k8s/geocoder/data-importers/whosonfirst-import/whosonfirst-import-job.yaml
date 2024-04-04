@@ -29,7 +29,7 @@ spec:
       containers:
         - name: whosonfirst-import
           image: pelias/whosonfirst:v6.0.0
-          command: ["sleep", "infinity"]
+          command: ["./bin/start"]
           env:
             - name: ELASTIC_PASSWORD
               valueFrom:
