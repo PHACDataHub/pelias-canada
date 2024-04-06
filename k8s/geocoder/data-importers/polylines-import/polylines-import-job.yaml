@@ -55,19 +55,6 @@ spec:
             limits:
               cpu: 1
               memory: 4Gi
-        - name: interpolation-prepare
-          image: pelias/interpolation:v2.23.0
-          command: ["./docker_build.sh"]  
-          resources:
-            limits:
-              memory: 4Gi
-              cpu: 1
-          volumeMounts:
-            - name: data-volume
-              mountPath: /data
-            - name: config-volume
-              mountPath: /code/pelias.json
-              subPath: pelias.json
       restartPolicy: Never
       securityContext:
         fsGroup: 1000

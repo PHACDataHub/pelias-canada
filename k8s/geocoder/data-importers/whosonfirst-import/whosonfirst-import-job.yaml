@@ -14,6 +14,12 @@ spec:
         - name: whosonfirst-download
           image: pelias/whosonfirst:v6.0.0
           command: ["./bin/download"]
+          env:
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quickstart-es-elastic-user
+                  key: elastic
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -24,6 +30,12 @@ spec:
         - name: whosonfirst-import
           image: pelias/whosonfirst:v6.0.0
           command: ["./bin/start"]
+          env:
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quickstart-es-elastic-user
+                  key: elastic
           volumeMounts:
             - name: data-volume
               mountPath: /data
