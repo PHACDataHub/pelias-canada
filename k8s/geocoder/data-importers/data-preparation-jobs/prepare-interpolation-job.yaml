@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prepare-interpolation
+  namespace: geocoder
+spec:
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - name: interpolation-prepare-container
+          image: pelias/interpolation:v2.23.0
+          command: ["./docker_build.sh"]  
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 1
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+            - name: config-volume
+              mountPath: /code/pelias.json
+              subPath: pelias.json
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      volumes:
+        - name: config-volume
+          configMap:
+            name: pelias-configmap
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-volume
+        - name: tiles-volume
+          emptyDir: {}
