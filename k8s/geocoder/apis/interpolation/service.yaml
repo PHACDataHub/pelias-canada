@@ -8,5 +8,5 @@ spec:
         app: interpolation
     ports:
         - protocol: TCP
-          port: 4400
-          targetPort: 4400
+          port: 4300
+          targetPort: 4300
