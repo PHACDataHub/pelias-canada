@@ -5,6 +5,7 @@ metadata:
   namespace: geocoder
 spec:
   version: 7.16.1
+  volumeClaimDeletePolicy: DeleteOnScaledownOnly
   nodeSets:
   - name: default
     count: 3
