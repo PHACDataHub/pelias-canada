@@ -28,6 +28,10 @@ spec:
               value: "/etc/config/pelias.json"
             - name: PORT
               value: "4300"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi 
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
