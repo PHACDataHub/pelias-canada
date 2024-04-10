@@ -17,7 +17,7 @@ spec:
         - name: pelias-interpolation-service
           image: pelias/interpolation:v2.23.0
           ports:
-            - containerPort: 4400          
+            - containerPort: 4300          
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
