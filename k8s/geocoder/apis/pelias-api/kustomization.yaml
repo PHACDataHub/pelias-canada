@@ -4,4 +4,4 @@ resources:
   - deployment.yaml
   - service.yaml
   - virtualService.yaml
-  - hpa.yaml
+  # - hpa.yaml
