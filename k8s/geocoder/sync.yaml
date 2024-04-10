@@ -79,22 +79,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: data-importer-volumes
-  namespace: flux-system
-spec:
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./k8s/geocoder/data-importers/
-  interval: 2m0s
-  prune: true
-  wait: true
-  dependsOn:
-    - name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: es-cluster
   namespace: flux-system
 spec:
