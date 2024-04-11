@@ -14,7 +14,7 @@ spec:
         app: libpostal
     spec:
       containers:
-        - name: pelias-libpostal-service
+        - name: libpostal
           image: pelias/libpostal-service:master-2023-12-01-b360390646d4d576ded7ab7fd97d2c081ae1003a
           ports:
             - containerPort: 4400          
@@ -24,10 +24,6 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
-          resources:
-            requests:
-              cpu: 500m
-              memory: 1Gi 
           readinessProbe:
             httpGet:
               path: /ping

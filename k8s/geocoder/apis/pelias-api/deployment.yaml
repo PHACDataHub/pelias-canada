@@ -14,8 +14,8 @@ spec:
         app: pelias-api
     spec:
       containers:
-        - name: pelias-api-cnt
-          image: pelias/api:master-2024-03-20-e6f532b18577c8436a10651c07e5a2e9f5fdb1ea
+        - name: pelias-api
+          image: pelias/api:v5.60.0
           ports:
             - containerPort: 3100          
           volumeMounts:
@@ -24,10 +24,6 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
-          resources:
-            requests:
-              cpu: 250m
-              memory: 512Mi          
           readinessProbe:
             httpGet:
               path: /status

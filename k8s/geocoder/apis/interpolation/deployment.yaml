@@ -14,7 +14,7 @@ spec:
         app: interpolation
     spec:
       containers:
-        - name: pelias-interpolation-service
+        - name: interpolation
           image: pelias/interpolation:v2.23.0
           ports:
             - containerPort: 4300          
@@ -28,10 +28,6 @@ spec:
               value: "/etc/config/pelias.json"
             - name: PORT
               value: "4300"
-          resources:
-            requests:
-              cpu: 500m
-              memory: 1Gi 
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
