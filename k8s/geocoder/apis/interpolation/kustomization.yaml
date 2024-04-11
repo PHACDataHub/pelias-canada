@@ -3,3 +3,32 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
+
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: interpolation
+        namespace: geocoder
+      spec:
+        template:
+          spec:
+            containers:
+              - name: interpolation
+                resources:
+                  requests:
+                    cpu: 500m
+                    memory: 1Gi
+              - name: istio-proxy
+                image: auto
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 112Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+    target:
+      kind: Deployment
+      name: interpolation
+      namespace: geocoder
