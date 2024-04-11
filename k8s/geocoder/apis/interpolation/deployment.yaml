@@ -41,5 +41,5 @@ spec:
                 path: pelias.json
         - name: data-volume
           persistentVolumeClaim:
-            claimName: data-volume
+            claimName: data-volume-1
 
