@@ -222,7 +222,13 @@ data:
           "countryCode": "CA",
           "importPostalcodes": true,
           "importPlace": "85633041"
-        }
+        },
+        "csv": {
+      "datapath": "/data/csv-importer-files",
+      "files": [],
+      "download": []
+    }
+
       }
     }
   valhalla.json: |
