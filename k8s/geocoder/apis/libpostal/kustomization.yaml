@@ -17,14 +17,14 @@ patches:
               - name: libpostal
                 resources:
                   requests:
-                    cpu: 500m
-                    memory: 1Gi
+                    cpu: 200m
+                    memory: 2Gi
               - name: istio-proxy
                 image: auto
                 resources:
                   requests:
                     cpu: 50m
-                    memory: 112Mi
+                    memory: 56Mi
                 securityContext:
                   allowPrivilegeEscalation: false
     target:
