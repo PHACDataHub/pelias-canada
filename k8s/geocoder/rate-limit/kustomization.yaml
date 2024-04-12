@@ -1,0 +1,62 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - filter-ratelimit-svc.yaml
+  - filter-ratelimit.yaml
+  - rate-limit-config.yaml
+  - rate-limit-service.yaml
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: redis
+        namespace: geocoder
+      spec:
+        template:
+          spec:
+            containers:
+              - name: redis
+                resources:
+                  requests:
+                    cpu: 200m
+                    memory: 400Mi
+              - name: istio-proxy
+                image: auto
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 112Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+    target:
+      kind: Deployment
+      name: redis
+      namespace: geocoder
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ratelimit
+        namespace: geocoder
+      spec:
+        template:
+          spec:
+            containers:
+              - name: ratelimit
+                resources:
+                  requests:
+                    cpu: 200m
+                    memory: 400Mi
+              - name: istio-proxy
+                image: auto
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 112Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+    target:
+      kind: Deployment
+      name: ratelimit
+      namespace: geocoder
