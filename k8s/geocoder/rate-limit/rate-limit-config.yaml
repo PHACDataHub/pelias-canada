@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ratelimit-config
+  namespace: geocoder
+data:
+  config.yaml: |
+    domain: ratelimit
+    descriptors:
+      - key: PATH
+        rate_limit:
+          unit: minute
+          requests_per_unit: 200
