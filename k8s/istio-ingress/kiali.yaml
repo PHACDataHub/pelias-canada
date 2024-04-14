@@ -112,7 +112,7 @@ data:
     identity:
       cert_file: ""
       private_key_file: ""
-    istio_namespace: istio-system
+    istio_namespace: istio-ingress
     kiali_feature_flags:
       certificates_information_indicators:
         enabled: true
