@@ -102,9 +102,7 @@ data:
       custom_dashboards:
         enabled: true
       istio:
-        component_status:
-          enabled: true
-        istio_namespace: istio-ingress
+        root_namespace: istio-ingress
       grafana:
         enabled: false
       prometheus:
