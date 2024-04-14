@@ -102,7 +102,13 @@ data:
       custom_dashboards:
         enabled: true
       istio:
-        root_namespace: istio-system
+        component_status:
+          enabled: true
+        istio_namespace: istio-ingress
+      grafana:
+        enabled: false
+      prometheus:
+        url: "http://prometheus.istio-system:9090"
     identity:
       cert_file: ""
       private_key_file: ""
