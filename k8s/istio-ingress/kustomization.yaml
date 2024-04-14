@@ -6,6 +6,8 @@ resources:
 - mesh-gateway.yaml
 - ingress.yaml
 - namespace.yaml
+- prometheus.yaml
+- kiali.yaml
 
 patches:
 # Patch the Istio ingress service so that our IP is used.
