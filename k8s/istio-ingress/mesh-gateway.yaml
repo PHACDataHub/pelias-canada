@@ -7,23 +7,23 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - "geocoder.alpha.phac.gc.ca"
-      tls:
-        httpsRedirect: true
-    - port:
-        number: 443
-        name: https
-        protocol: HTTPS
-      hosts:
-        - "geocoder.alpha.phac.gc.ca"
-      tls:
-        mode: SIMPLE
-        credentialName: tlskeys
-        privateKey: sds
-        serverCertificate: sds
-        minProtocolVersion: TLSV1_3
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+      - "geocoder.alpha.phac.gc.ca"
+      - "es.geocoder.alpha.phac.gc.ca"
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+      - "geocoder.alpha.phac.gc.ca"
+      - "es.geocoder.alpha.phac.gc.ca"
+    tls:
+      mode: SIMPLE
+      credentialName: tlskeys
+      minProtocolVersion: TLSV1_3

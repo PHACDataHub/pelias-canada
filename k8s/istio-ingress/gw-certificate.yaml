@@ -6,6 +6,7 @@ metadata:
 spec:
   dnsNames:
     - geocoder.alpha.phac.gc.ca
+    - es.geocoder.alpha.phac.gc.ca
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-production

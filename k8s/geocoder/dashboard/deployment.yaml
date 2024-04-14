@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pelias-dashboard
+  namespace: geocoder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pelias-dashboard
+  template:
+    metadata:
+      labels:
+        app: pelias-dashboard
+    spec:
+      containers:
+      - name: pelias-dashboard
+        image: northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/smashing-dashboard:latest
+        ports:
+        - containerPort: 3030
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3030
+        env:
+        - name: ELASTIC_URL
+          value: "https://quickstart-es-http.geocoder.svc.cluster.local:9200/"
+        - name: ELASTIC_USERNAME
+          value: elastic
+        - name: ELASTIC_INDEX
+          value: pelias
+        - name: ELASTIC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: quickstart-es-elastic-user
+              key: elastic

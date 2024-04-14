@@ -1,0 +1,15 @@
+<% content_for :title do %>Dashboard<% end %>
+  <div class="gridster">
+    <ul>
+      <!-- Elasticsearch Indices Document Counts -->
+      <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+        <div data-id="types-counts" data-view="List" data-title="Document Counts per Layer" data-moreinfo="Counts of documents per index layer"></div>
+      </li>
+
+      <!-- Elasticsearch Health Stats -->
+      <li data-row="1" data-col="2" data-sizex="2" data-sizey="2">
+        <div data-id="cluster_health" data-view="List" data-title="Cluster Health"></div> 
+      </li>
+ 
+    </ul>
+  </div>
