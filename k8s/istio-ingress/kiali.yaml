@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kiali
+  template:
+    metadata:
+      labels:
+        app: kiali
+    spec:
+      containers:
+      - name: kiali
+        image: quay.io/kiali/kiali:v1.42
+        ports:
+        - containerPort: 20001
+        env:
+          - name: AUTH_STRATEGY
+            value: "anonymous"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  ports:
+  - name: http
+    port: 20001
+    protocol: TCP
+    targetPort: 20001
+  selector:
+    app: kiali
