@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kiali
-  namespace: istio-ingress
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.79.0
     app: kiali
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kiali
-  namespace: istio-ingress
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.79.0
     app: kiali
@@ -78,7 +78,7 @@ data:
         log_level: info
         sampler_rate: "1"
         time_field_format: 2006-01-02T15:04:05Z07:00
-      namespace: istio-ingress
+      namespace: istio-system
       node_selector: {}
       pod_annotations: {}
       pod_labels:
@@ -102,17 +102,16 @@ data:
       custom_dashboards:
         enabled: true
       istio:
-        root_namespace: istio-ingress
-      tracing:
-        enabled: false
+        root_namespace: istio-system
+        config_map_name: istio-asm-managed
       grafana:
         enabled: false
-      prometheus:
-        url: "http://prometheus.istio-ingress:9090"
+      tracing:
+        enabled: false
     identity:
       cert_file: ""
       private_key_file: ""
-    istio_namespace: istio-ingress
+    istio_namespace: istio-system
     kiali_feature_flags:
       certificates_information_indicators:
         enabled: true
@@ -348,7 +347,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kiali
-  namespace: istio-ingress
+  namespace: istio-system
 ...
 ---
 # Source: kiali-server/templates/role-controlplane.yaml
@@ -356,7 +355,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: kiali-controlplane
-  namespace: istio-ingress
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.79.0
     app: kiali
@@ -384,7 +383,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: kiali-controlplane
-  namespace: istio-ingress
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.79.0
     app: kiali
@@ -401,7 +400,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kiali
-  namespace: istio-ingress
+  namespace: istio-system
 ...
 ---
 # Source: kiali-server/templates/service.yaml
@@ -409,7 +408,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kiali
-  namespace: istio-ingress
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.79.0
     app: kiali
@@ -436,7 +435,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kiali
-  namespace: istio-ingress
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.79.0
     app: kiali
