@@ -103,9 +103,10 @@ data:
         enabled: true
       istio:
         root_namespace: istio-system
-        config_map_name: istio-asm-managed
       grafana:
         enabled: false
+      prometheus:
+        url: "http://prometheus.istio-system:9090"
       tracing:
         enabled: false
     identity:
