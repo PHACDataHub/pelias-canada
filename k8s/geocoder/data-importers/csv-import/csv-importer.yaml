@@ -16,6 +16,8 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
+            # Ensure the directory exists
+            mkdir -p /data/csv-importer-files/
             # Find the latest CSV file in the bucket
             LATEST_FILE=$(gsutil ls gs://pelias-bucket | sort | tail -n 1)
             # Copy the latest CSV file to the shared volume
@@ -31,15 +33,15 @@ spec:
           - name: data-volume
             mountPath: /data
           - name: config-volume
-            mountPath: /code
+            mountPath: /code/pelias.json
             subPath: pelias.json
       restartPolicy: Never
       securityContext:
         fsGroup: 1000
       volumes:
       - name: data-volume
-          persistentVolumeClaim:
-            claimName: data-volume
+        persistentVolumeClaim:
+          claimName: data-volume
       - name: config-volume
         configMap:
           name: pelias-configmap
