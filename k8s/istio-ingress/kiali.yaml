@@ -102,7 +102,7 @@ data:
       custom_dashboards:
         enabled: true
       istio:
-        root_namespace: istio-system
+        enabled: false
       grafana:
         enabled: false
       prometheus:
@@ -112,7 +112,7 @@ data:
     identity:
       cert_file: ""
       private_key_file: ""
-    istio_namespace: istio-system
+    istio_namespace: istio-ingress
     kiali_feature_flags:
       certificates_information_indicators:
         enabled: true
