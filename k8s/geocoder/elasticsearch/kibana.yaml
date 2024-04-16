@@ -8,3 +8,5 @@ spec:
   count: 1
   elasticsearchRef:
     name: quickstart
+  config:
+    server.host: "0.0.0.0"
