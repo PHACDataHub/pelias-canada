@@ -13,8 +13,8 @@ data:
       "esclient": {
         "apiVersion": "7.5",
         "hosts": [
-          { 
-            "protocol": "https", 
+          {
+            "protocol": "https",
             "host": "quickstart-es-http",
             "auth": "elastic:ODWZ8v023G1YaZ9kxdx7t842"
           }
@@ -50,11 +50,11 @@ data:
             "url": "http://interpolation:4300"
           }
         },
-      "target": {
+        "target": {
           "layers_by_source": {
             "custom": ["address"]
-       }
-       } 
+          }
+        }
       },
       "imports": {
         "adminLookup": {
@@ -229,11 +229,10 @@ data:
           "importPlace": "85633041"
         },
         "csv": {
-      "datapath": "/data/csv-importer-files",
-      "files": [],
-      "download": []
-    }
-
+          "datapath": "/data/csv-importer-files",
+          "files": [],
+          "download": []
+        }
       }
     }
   valhalla.json: |
