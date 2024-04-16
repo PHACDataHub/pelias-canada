@@ -49,7 +49,12 @@ data:
           "interpolation": {
             "url": "http://interpolation:4300"
           }
-        }
+        },
+      "target": {
+          "layers_by_source": {
+            "custom": ["address"]
+       }
+       } 
       },
       "imports": {
         "adminLookup": {
