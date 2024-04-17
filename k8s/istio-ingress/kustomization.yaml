@@ -8,7 +8,6 @@ resources:
 - namespace.yaml
 - prometheus.yaml
 - kiali.yaml
-- mesh-wide-mTLS.yaml
 patches:
 # Patch the Istio ingress service so that our IP is used.
 - patch: |-
