@@ -46,9 +46,19 @@ task install-flux
 ```  
 This step assumes that you have ssh setup on your machine. The key generated (and saved in the kubernetes cluster) will be printed on the screen. This will have to added as an deploy key in the repo used for project.
 
-While flux will reconcile and bring up the apis and the elasticsearch operator and cluster, data importer jobs have to be run for the services to be green and ready. Since the apis depend on the same data volume, we've created two new volume claims and sync between teh two through a job in k8s/geocoder/data-importers/volume-cm/volume-copy-job.yaml. It would just be easier to deploy the elastic operator and elasticsearch cluster, and run the data-importers before bringing up the apis.
+While flux will reconcile and bring up the apis and the elasticsearch operator and cluster, data importer jobs have to be run for the services to be green and ready. Since the apis depend on the same data volume, we've created two new volume claims and sync between teh two through a job in k8s/geocoder/data-importers/volume-cm/volume-copy-job.yaml. It would just be easier to deploy the elastic operator and elasticsearch cluster, and run the data-importers before bringing up the apis. This can be done with the following.  
+**Note:** If you don't have ```kustomize``` installed, use ```kubectl kustomize```. 
 
-## Data Importer Order
+```cmd
+kustomize build k8s/elastic-operator/crds | kubectl apply -f
+kustomize build k8s/elastic-operator | kubectl apply -f
+
+kustomize build k8s/geocoder/elasticsearch | kubectl apply -f
+```
+
+Flux can then be installed to start syncing with the repo. (The apis still won't start without importing data).
+
+## Importing Data
 
 The manifest for the data importers and related jobs can be found in the path k8s/geocoder/data-importers
 

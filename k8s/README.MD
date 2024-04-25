@@ -1,0 +1,1 @@
+Contains all manifests to host pelias geocoder instance on kubernetes. Instructions can be found in [parent directory](./..).
