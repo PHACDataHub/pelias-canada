@@ -37,7 +37,7 @@ gcloud container clusters get-credentials <cluster-name> --zone=<zone>
 
 3. Install anthos service mesh on the cluster for istio. 
 ```cmd
-install-asm
+task install-asm
 ```
 
 4. Install Flux  
