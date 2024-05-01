@@ -13,4 +13,4 @@ spec:
         namespaces: ["geocoder", "elastic-system"]
   - to:
     - operation:
-        methods: ["*"]
+        methods: ["GET"]
