@@ -4,4 +4,3 @@ resources:
   - namespace.yaml
   - elasticsearch.yaml
   - kibana.yaml
-  - authpolicy.yaml
