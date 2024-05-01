@@ -1,5 +1,0 @@
-encryptionsalt: v1:GkcUFv0zrRU=:v1:tIauo4geX2SeRmpf:se+5i/deYltAmVEcrRv4G3JAftJJkg==
-config:
-  gcp:project: phx-jchang
-  gcp:region: northamerica-northeast1-a
-  pelias-can:nodesPerZone: "1"
