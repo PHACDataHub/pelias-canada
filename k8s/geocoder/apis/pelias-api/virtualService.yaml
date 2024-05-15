@@ -32,3 +32,14 @@ spec:
         host: pelias-dashboard.geocoder.svc.cluster.local
         port:
           number: 3030
+  - name: gateway-to-frontend
+    match:
+    - uri:
+        prefix: "/frontend"
+      authority:
+        exact: "geocoder.alpha.phac.gc.ca"
+    route:
+    - destination:
+        host: frontend.geocoder.svc.cluster.local
+        port:
+          number: 3000
