@@ -9,9 +9,9 @@ import {
 
 function MainContent() {
   useEffect(() => {
-    document.body.style.backgroundColor = 'white'; // Ensures the background color is white when the component mounts
+    document.body.style.backgroundColor = 'white';
     return () => {
-      document.body.style.backgroundColor = ''; // Resets the background color on unmount
+      document.body.style.backgroundColor = '';
     };
   }, []);
 
@@ -23,10 +23,10 @@ function MainContent() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center', // Centers children horizontally in the container
-          justifyContent: 'center', // Centers children vertically in the container
-          height: '100vh', // Takes up at least the full height of the viewport
-          textAlign: 'center', // Ensures text within children is also centered
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          textAlign: 'center',
         }}
       >
         <GcdsHeading
@@ -41,7 +41,6 @@ function MainContent() {
           {' '}
           Pelias Geocoder
         </GcdsHeading>
-        {/* Any additional content would go here */}
       </div>
 
       <GcdsFooter
