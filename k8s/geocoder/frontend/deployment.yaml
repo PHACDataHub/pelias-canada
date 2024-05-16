@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
+        imagePullPolicy: Always
         image: northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/rs-pack:latest
         ports:
         - containerPort: 3000
