@@ -10,28 +10,6 @@ spec:
   - "geocoder.alpha.phac.gc.ca"
   - "es.geocoder.alpha.phac.gc.ca"
   http:
-  - name: gateway-to-pelias-api
-    match:
-    - uri:
-        prefix: /
-      authority:
-        exact: "geocoder.alpha.phac.gc.ca"
-    route:
-    - destination:
-        host: pelias-api.geocoder.svc.cluster.local
-        port:
-          number: 3100
-  - name: gateway-to-pelias-dashboard
-    match:
-    - uri:
-        prefix: /
-      authority:
-        exact: "es.geocoder.alpha.phac.gc.ca"
-    route:
-    - destination:
-        host: pelias-dashboard.geocoder.svc.cluster.local
-        port:
-          number: 3030
   - name: gateway-to-frontend
     match:
     - uri:
@@ -43,3 +21,25 @@ spec:
         host: frontend.geocoder.svc.cluster.local
         port:
           number: 3000
+  - name: gateway-to-pelias-api
+    match:
+    - uri:
+        prefix: "/"
+      authority:
+        exact: "geocoder.alpha.phac.gc.ca"
+    route:
+    - destination:
+        host: pelias-api.geocoder.svc.cluster.local
+        port:
+          number: 3100
+  - name: gateway-to-pelias-dashboard
+    match:
+    - uri:
+        prefix: "/"
+      authority:
+        exact: "es.geocoder.alpha.phac.gc.ca"
+    route:
+    - destination:
+        host: pelias-dashboard.geocoder.svc.cluster.local
+        port:
+          number: 3030
