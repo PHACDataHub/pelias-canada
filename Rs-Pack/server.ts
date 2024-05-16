@@ -1,4 +1,4 @@
-import { serve } from "https://deno.land/std/http/server.ts";
+import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
 
 const MIME_TYPES: Record<string, string> = {
     ".html": "text/html",
@@ -31,6 +31,6 @@ async function handleRequest(request: Request): Promise<Response> {
     }
 }
 
-const PORT = 3000;
+const PORT = parseInt(Deno.env.get("PORT") || "3000");
 console.log(`Server running on http://localhost:${PORT}/`);
 await serve(handleRequest, { port: PORT });

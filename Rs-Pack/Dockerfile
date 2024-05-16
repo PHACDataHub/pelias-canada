@@ -7,8 +7,8 @@ COPY src/ src/
 COPY index.html .
 RUN npm run build
 
-# Stage 2: Setup the Deno runtime environment using a minimal base image
-FROM denoland/deno:alpine
+# Stage 2: Setup the Deno runtime environment using a specific version of the Deno base image
+FROM denoland/deno:1.24.3-alpine
 ENV DENO_DIR=/app/deno_dir
 WORKDIR /app
 
@@ -17,11 +17,8 @@ RUN adduser -D myuser && \
     chown myuser:myuser $DENO_DIR
 
 USER myuser
-
 COPY --from=builder /app/dist ./dist
 COPY server.ts .
-
-# Expose the port the server is running on
 EXPOSE 3000
 
 ENTRYPOINT ["deno"]
