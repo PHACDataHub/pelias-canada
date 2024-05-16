@@ -9,12 +9,13 @@
   "dependencies": {
     "@cdssnc/gcds-components": "^0.21.0",
     "@cdssnc/gcds-components-react": "^0.21.0",
+    "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
-    "@rspack/cli": "0.6.5",
+    "@rspack/cli": "^0.6.5",
     "@rspack/core": "0.6.5",
     "@rspack/plugin-react-refresh": "0.6.5",
     "@types/react": "^18.2.48",
