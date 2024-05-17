@@ -10,21 +10,10 @@ spec:
   - "geocoder.alpha.phac.gc.ca"
   - "es.geocoder.alpha.phac.gc.ca"
   http:
-  - name: gateway-to-frontend
-    match:
-    - uri:
-        prefix: "/frontend"
-      authority:
-        exact: "geocoder.alpha.phac.gc.ca"
-    route:
-    - destination:
-        host: frontend.geocoder.svc.cluster.local
-        port:
-          number: 3000
   - name: gateway-to-pelias-api
     match:
     - uri:
-        prefix: "/"
+        prefix: "/v1"
       authority:
         exact: "geocoder.alpha.phac.gc.ca"
     route:
@@ -32,6 +21,17 @@ spec:
         host: pelias-api.geocoder.svc.cluster.local
         port:
           number: 3100
+  - name: gateway-to-frontend
+    match:
+    - uri:
+        prefix: "/"
+      authority:
+        exact: "geocoder.alpha.phac.gc.ca"
+    route:
+    - destination:
+        host: frontend.geocoder.svc.cluster.local
+        port:
+          number: 3000
   - name: gateway-to-pelias-dashboard
     match:
     - uri:
