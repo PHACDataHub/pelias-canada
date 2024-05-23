@@ -17,32 +17,49 @@ function MainContent() {
 
   return (
     <>
-      <GcdsHeader langHref="#" skipToHref="#"></GcdsHeader>
+
+      <div style={{
+          backgroundColor: '#f1f2f3',
+          marginTop:'-20px',
+        }}
+      >
+        <GcdsHeader langHref="#" skipToHref="#">
+        </GcdsHeader>
+      </div>
 
       <div
         style={{
           display: 'flex',
+          marginTop: '-15px',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
           textAlign: 'center',
+          backgroundColor: '#33465c',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <GcdsHeading
           tag="h2"
           style={{
-            color: 'black',
-            margin: '20px 0',
             marginRight: '810px',
             marginLeft: '810px',
+            color: 'white',
+            display: 'flex',
+            marginTop: '-25px'
           }}
         >
           {' '}
-          Pelias Geocoder
+          Geocoder
         </GcdsHeading>
       </div>
 
+      <div style={{
+        height: '100vh',
+      }}
+      >
+
+      </div>
       <GcdsFooter
         display="compact"
         contextualHeading="Government of Canada"
