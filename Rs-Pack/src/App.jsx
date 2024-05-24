@@ -28,7 +28,7 @@ function MainContent() {
       <h1
         style={{
           color: 'white',
-          padding: '5px 0px',
+          padding: '15px 0px',
           display: 'flex',
           marginTop: '-15px',
           flexDirection: 'column',
@@ -37,6 +37,7 @@ function MainContent() {
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
+          fontSize: '28px',
         }}
       >
         {' '}
