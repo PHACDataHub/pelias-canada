@@ -12,7 +12,7 @@ function MainContent() {
   return (
     <>
            
-      <GcdsHeader skipToHref="#" 
+      <GcdsHeader skipToHref="#main-content" 
         style={{
           backgroundColor: '#f1f2f3',
       }}>
@@ -38,7 +38,7 @@ function MainContent() {
         Geocoder
       </h1>
 
-      <main style={{
+      <main id="main-content" style={{
         height: '100vh',
         width: '1920px',
       }}
