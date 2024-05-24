@@ -8,41 +8,43 @@ import {
 } from '@cdssnc/gcds-components-react';
 
 function MainContent() {
-  useEffect(() => {
-    document.body.style.backgroundColor = 'white';
-    return () => {
-      document.body.style.backgroundColor = '';
-    };
-  }, []);
-
+  
   return (
     <>
-      <GcdsHeader langHref="#" skipToHref="#"></GcdsHeader>
-
-      <div
+           
+      <GcdsHeader skipToHref="#main-content" 
         style={{
+          backgroundColor: '#f1f2f3',
+      }}>
+      </GcdsHeader>
+
+      
+      <h1
+        style={{
+          color: 'white',
+          padding: '15px 0px',
           display: 'flex',
+          marginTop: '-15px',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
           textAlign: 'center',
+          backgroundColor: '#33465c',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: '28px',
         }}
       >
-        <GcdsHeading
-          tag="h2"
-          style={{
-            color: 'black',
-            margin: '20px 0',
-            marginRight: '810px',
-            marginLeft: '810px',
-          }}
-        >
-          {' '}
-          Pelias Geocoder
-        </GcdsHeading>
-      </div>
+        {' '}
+        Geocoder
+      </h1>
 
+      <main id="main-content" style={{
+        height: '100vh',
+        width: '1920px',
+      }}
+      >
+
+      </main>
       <GcdsFooter
         display="compact"
         contextualHeading="Government of Canada"
