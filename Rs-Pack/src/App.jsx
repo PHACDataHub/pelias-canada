@@ -17,20 +17,18 @@ function MainContent() {
 
   return (
     <>
-      <div style={{
-        marginTop: '-20px',
-      }}
-      >        
-        <GcdsHeader langHref="#" skipToHref="#" 
-          style={{
-            backgroundColor: '#f1f2f3',
-            marginTop:'-20px',
-        }}>
-        </GcdsHeader>
-      </div>
-
-      <div
+           
+      <GcdsHeader skipToHref="#" 
         style={{
+          backgroundColor: '#f1f2f3',
+      }}>
+      </GcdsHeader>
+
+      
+      <h1
+        style={{
+          color: 'white',
+          padding: '5px 0px',
           display: 'flex',
           marginTop: '-15px',
           flexDirection: 'column',
@@ -41,17 +39,9 @@ function MainContent() {
           alignItems: 'center',
         }}
       >
-        <h2
-          style={{
-            color: 'white',
-            display: 'flex',
-            padding: '5px 0px',
-          }}
-        >
-          {' '}
-          Geocoder
-        </h2>
-      </div>
+        {' '}
+        Geocoder
+      </h1>
 
       <main style={{
         height: '100vh',
