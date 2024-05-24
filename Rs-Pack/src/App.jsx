@@ -8,13 +8,7 @@ import {
 } from '@cdssnc/gcds-components-react';
 
 function MainContent() {
-  useEffect(() => {
-    document.body.style.backgroundColor = 'white';
-    return () => {
-      document.body.style.backgroundColor = '';
-    };
-  }, []);
-
+  
   return (
     <>
            
