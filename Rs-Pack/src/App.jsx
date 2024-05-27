@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react';
-import 'leaflet/dist/leaflet.css';
-import '@cdssnc/gcds-components-react/gcds.css';
+import React, { useEffect } from 'react'
+import 'leaflet/dist/leaflet.css'
+import '@cdssnc/gcds-components-react/gcds.css'
 import {
   GcdsHeader,
   GcdsFooter,
   GcdsHeading,
-} from '@cdssnc/gcds-components-react';
+} from '@cdssnc/gcds-components-react'
 
 function MainContent() {
-  
   return (
     <>
-           
-      <GcdsHeader skipToHref="#main-content" 
+      <GcdsHeader
+        skipToHref="#main-content"
         style={{
           backgroundColor: '#f1f2f3',
-      }}>
-      </GcdsHeader>
+        }}
+      ></GcdsHeader>
 
-      
       <h1
         style={{
           color: 'white',
@@ -38,20 +36,20 @@ function MainContent() {
         Geocoder
       </h1>
 
-      <main id="main-content" style={{
-        height: '100vh',
-        width: '1920px',
-      }}
-      >
-
-      </main>
+      <main
+        id="main-content"
+        style={{
+          height: '100vh',
+          width: '1920px',
+        }}
+      ></main>
       <GcdsFooter
         display="compact"
         contextualHeading="Government of Canada"
         contextualLinks='{ "About": "#", "Features": "#", "Information": "#" }'
       ></GcdsFooter>
     </>
-  );
+  )
 }
 
-export default MainContent;
+export default MainContent
