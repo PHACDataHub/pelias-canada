@@ -13,7 +13,7 @@ steps:
     entrypoint: npm
     args: ['test']
 
-  # Step 3: Generate and save the image name in the workspace for subsequent steps
+  # Step 3: Generate and echo the image name, store it in workspace
   - name: 'gcr.io/cloud-builders/gcloud'
     id: generate-image-name
     entrypoint: 'bash'
@@ -21,8 +21,9 @@ steps:
     args:
       - '-c'
       - |
-        echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
-        echo "Generated image name: $(cat /workspace/imagename)"
+        IMAGE_NAME="northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)"
+        echo $IMAGE_NAME > /workspace/imagename
+        echo "Generated image name: $IMAGE_NAME"
 
   # Step 4: Build Docker image if on main branch
   - name: 'gcr.io/cloud-builders/docker'
