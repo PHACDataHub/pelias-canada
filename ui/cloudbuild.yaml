@@ -1,28 +1,29 @@
 steps:
+  # Captures the current commit SHA and exports it for subsequent steps
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        # Capture the current commit SHA
         COMMIT_SHA=$(git rev-parse HEAD)
-        echo "COMMIT_SHA=$COMMIT_SHA" >> $BUILDER_OUTPUT/output
+        echo $COMMIT_SHA > commit_sha.txt
 
+  # Builds the Docker image using the commit SHA from a file
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-docker-image'
-    args: ['build', '-t', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)', '.']
     dir: 'ui'
     waitFor: ['get-commit-sha']
 
+  # Tests if the Docker image was built successfully
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        # Simple test script to check if the Docker image exists
-        if docker images northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA | grep -q ui; then
+        if docker image inspect northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat ../commit_sha.txt) > /dev/null; then
           echo "Docker image exists."
           exit 0
         else
@@ -32,14 +33,15 @@ steps:
     dir: 'ui'
     waitFor: ['build-docker-image']
 
+  # Pushes the Docker image to the registry if the current branch is the main branch
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-docker-image'
-    args: ['push', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA']
+    args: ['push', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)']
     waitFor: ['test-docker-image']
-    condition: '$_IS_MAIN_BRANCH'
+    condition: '$_IS_MAIN_BRANCH == "true"'
 
 images:
-  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA'
+  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)'
 
 substitutions:
   _IS_MAIN_BRANCH: 'false'
