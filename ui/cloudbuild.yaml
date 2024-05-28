@@ -6,7 +6,9 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'git rev-parse HEAD | cut -c 1-7 > /workspace/commit_sha.txt'  # Directly pipe output to cut command without extra echo.
+      - |
+        git rev-parse HEAD | cut -c 1-7 > /workspace/commit_sha.txt
+        date +%Y%m%d%H%M%S > /workspace/timestamp.txt
 
   # Step 2: Build the Docker image using the shortened commit SHA.
   # Docker's caching options are used to speed up the build process by reusing layers from previous builds when possible.
@@ -17,10 +19,11 @@ steps:
       - '-c'
       - |
         COMMIT_SHA=$(cat /workspace/commit_sha.txt)
-        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" \
-                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" .
+        TIMESTAMP=$(cat /workspace/timestamp.txt)
+        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" \
+                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" .
     dir: 'ui'
-    waitFor: ['get-commit-sha']
+    waitFor: ['get-commit-sha-and-time']
 
   # Step 3: Test the newly built Docker image to ensure it exists.
   # This step attempts to inspect the image using Docker's inspect command, which will fail if the image does not exist.
