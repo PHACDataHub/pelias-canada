@@ -1,46 +1,22 @@
 steps:
-  # Step 1: Generate a commit tag with SHA and timestamp, and build the Docker image.
-  - name: 'gcr.io/cloud-builders/git'
-    id: 'get-commit-sha'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        # Generate the shortened commit SHA and timestamp within the script.
-        COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
-        BUILD_TIMESTAMP=$(date +%Y%m%d%H%M%S)
-        COMMIT_TAG="main-$COMMIT_SHA-$BUILD_TIMESTAMP"
-        echo "COMMIT_TAG is $COMMIT_TAG"
-        echo $COMMIT_TAG > /workspace/commit_tag.txt
-        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" \
-                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" .
-    dir: 'ui'
-
-  # Step 2: Test the newly built Docker image to ensure it exists.
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'test-docker-image'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        COMMIT_TAG=$(cat /workspace/commit_tag.txt)
-        echo "Testing Docker image with tag $COMMIT_TAG"
-        if docker image inspect "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" > /dev/null; then
-          echo "Docker image exists."
-          exit 0
-        else
-          echo "Docker image does not exist."
-          exit 1
-        fi
-    dir: 'ui'
-
-  # Step 3: Push the Docker image to a container registry.
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'push-docker-image'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        COMMIT_TAG=$(cat /workspace/commit_tag.txt)
-        echo "Pushing Docker image with tag $COMMIT_TAG"
-        docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG"
+- name: 'gcr.io/cloud-builders/git'
+  id: 'setup-environment'
+  entrypoint: 'bash'
+  args:
+    - './setup_env.sh'
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'build-docker-image'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      source .env.cloud_build
+      docker build --tag "gcr.io/$PROJECT_ID/my-app:$IMAGE_TAG" .
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'push-docker-image'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      source .env.cloud_build
+      docker push "gcr.io/$PROJECT_ID/my-app:$IMAGE_TAG"
