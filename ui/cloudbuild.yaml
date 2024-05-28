@@ -33,12 +33,19 @@ steps:
     dir: 'ui'
     waitFor: ['build-docker-image']
 
-  # Pushes the Docker image to the registry if the current branch is the main branch
+  # Pushes the Docker image to the registry based on branch logic
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-docker-image'
-    args: ['push', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$_IS_MAIN_BRANCH" = "true" ]; then
+          docker push northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat ../commit_sha.txt)
+        else
+          echo "Not pushing image as this is not the main branch."
+        fi
     waitFor: ['test-docker-image']
-    condition: '$_IS_MAIN_BRANCH == "true"'
 
 images:
   - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)'
