@@ -1,13 +1,15 @@
 steps:
-  # Captures the current commit SHA and writes it to a file
+  # Step 1: Get the current Git commit SHA, shorten it to the first 7 characters, and save it to a file.
+  # This identifier will be used to tag the Docker image, making it easier to track which commit a build corresponds to.
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha'
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'echo "$(git rev-parse HEAD)" > /workspace/commit_sha.txt'
+      - 'echo "$(git rev-parse HEAD | cut -c 1-7)" > /workspace/commit_sha.txt'
 
-  # Builds the Docker image using the commit SHA from the file
+  # Step 2: Build the Docker image using the shortened commit SHA.
+  # We use Docker's caching options to speed up the build process by reusing layers from previous builds when possible.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-docker-image'
     entrypoint: 'bash'
@@ -15,11 +17,12 @@ steps:
       - '-c'
       - |
         COMMIT_SHA=$(cat /workspace/commit_sha.txt)
-        docker build -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" .
+        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" .
     dir: 'ui'
     waitFor: ['get-commit-sha']
 
-  # Tests if the Docker image was built successfully
+  # Step 3: Test the newly built Docker image to ensure it exists.
+  # This step attempts to inspect the image using Docker's inspect command, which will fail if the image does not exist.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test-docker-image'
     entrypoint: 'bash'
@@ -37,7 +40,8 @@ steps:
     dir: 'ui'
     waitFor: ['build-docker-image']
 
-  # Pushes the Docker image to the registry if on the main branch
+  # Step 4: Push the Docker image to a container registry.
+  # This step will only run if the previous test step confirms the image exists, ensuring we do not attempt to push a non-existent image.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-docker-image'
     entrypoint: 'bash'
@@ -47,7 +51,3 @@ steps:
         COMMIT_SHA=$(cat /workspace/commit_sha.txt)
         docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA"
     waitFor: ['test-docker-image']
-
-
-options:
-  substitutionOption: 'ALLOW_LOOSE'
