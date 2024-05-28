@@ -1,18 +1,19 @@
 steps:
-  # Step 1: Combine commands to generate a commit tag with SHA and timestamp, then build the Docker image.
+  # Step 1: Generate a commit tag with SHA and timestamp, and build the Docker image.
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        # Generate the shortened commit SHA and timestamp
+        # Generate the shortened commit SHA and timestamp.
         COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
         DATE=$(date +%Y%m%d%H%M%S)
         COMMIT_TAG="main-$COMMIT_SHA-$DATE"
+        echo "COMMIT_TAG is $COMMIT_TAG"
         echo $COMMIT_TAG > /workspace/commit_tag.txt
 
-        # Build the Docker image using the generated tag
+        # Build the Docker image using the generated tag.
         docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" \
                      -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" .
     dir: 'ui'
@@ -25,6 +26,7 @@ steps:
       - '-c'
       - |
         COMMIT_TAG=$(cat /workspace/commit_tag.txt)
+        echo "Testing Docker image with tag $COMMIT_TAG"
         if docker image inspect "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" > /dev/null; then
           echo "Docker image exists."
           exit 0
@@ -42,4 +44,5 @@ steps:
       - '-c'
       - |
         COMMIT_TAG=$(cat /workspace/commit_tag.txt)
+        echo "Pushing Docker image with tag $COMMIT_TAG"
         docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG"
