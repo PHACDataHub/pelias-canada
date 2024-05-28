@@ -139,3 +139,53 @@ spec:
   wait: true
   dependsOn:
     - name: es-cluster
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: geocoder
+  namespace: flux-system
+spec:
+  image: northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui
+  interval: 1m0s
+  provider: gcp
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: geocoder
+  namespace: flux-system
+spec:
+  filterTags:
+    extract: $ts
+    pattern: ^main-[a-fA-F0-9]+-(?P<ts>.*)
+  imageRepositoryRef:
+    name: geocoder
+  policy:
+    numerical:
+      order: desc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: geocoder-image-updater
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 5m
+  update:
+    strategy: Setters
+    path: .
+  git:
+    checkout:
+      ref:
+        branch: "main"
+    commit:
+      author:
+        name: fluxbot
+        email: fluxcd@users.noreply.github.com
+      messageTemplate: "[ci skip] {{range .Updated.Images}}{{println .}}{{end}}"
+    push:
+      branch: "main"
