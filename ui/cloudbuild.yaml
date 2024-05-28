@@ -8,8 +8,8 @@ steps:
       - |
         # Generate the shortened commit SHA and timestamp within the script.
         COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
-        DATE=$(date +%Y%m%d%H%M%S)  # Generate the timestamp here, only for local use
-        COMMIT_TAG="main-$COMMIT_SHA-$DATE"
+        TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        COMMIT_TAG="main-$COMMIT_SHA-$TIMESTAMP"
         echo "COMMIT_TAG is $COMMIT_TAG"
         echo $COMMIT_TAG > /workspace/commit_tag.txt
         # Build the Docker image using the generated tag.
