@@ -1,57 +1,50 @@
 steps:
-  # Step 1: Install dependencies
   - name: node:18-alpine
-    id: install-dependencies
+    id: install
     dir: ui
     entrypoint: npm
     args: ['ci', '--no-optional']
 
-  # Step 2: Run tests
   - name: node:18-alpine
-    id: run-tests
+    id: test
     dir: ui
     entrypoint: npm
     args: ['test']
 
-  # Step 3: Generate and echo the image name, store it in workspace
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/docker'
     id: generate-image-name
     entrypoint: 'bash'
     dir: ui
     args:
       - '-c'
       - |
-        IMAGE_NAME="northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)"
-        echo $IMAGE_NAME > /workspace/imagename
-        echo "Generated image name: $IMAGE_NAME"
+        echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
 
-  # Step 4: Build Docker image if on main branch
   - name: 'gcr.io/cloud-builders/docker'
-    id: build-docker-image
+    id: build-if-main
     entrypoint: 'bash'
     dir: ui
     args:
       - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "main" ]]; then
-          IMAGE=$(cat /workspace/imagename)
-          docker build --cache-from $IMAGE -t $IMAGE -f ./Dockerfile.prod .
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
+          image=$(cat /workspace/imagename)
+          docker build -t $image -f ./Dockerfile .
         else
-          echo "Skipping build for non-main branch"
           exit 0
         fi
 
-  # Step 5: Push Docker image if on main branch
   - name: 'gcr.io/cloud-builders/docker'
-    id: push-docker-image
+    id: push-if-main
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "main" ]]; then
-          IMAGE=$(cat /workspace/imagename)
-          docker push $IMAGE
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
+          image=$(cat /workspace/imagename)
+          docker push $image
         else
-          echo "Skipping push for non-main branch"
           exit 0
         fi
