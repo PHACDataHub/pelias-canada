@@ -1,26 +1,23 @@
 steps:
-  # Step 1: Get the current Git commit SHA, shorten it to the first 7 characters, and append a timestamp to create a custom tag directly within the step.
+  # Step 1: Combine commands to generate a commit tag with SHA and timestamp, then build the Docker image.
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha'
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7); DATE=$(date +%Y%m%d%H%M%S); echo "main-$COMMIT_SHA-$DATE" > /workspace/commit_tag.txt'
-
-  # Step 2: Build the Docker image using the custom tag that includes the commit SHA and timestamp.
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'build-docker-image'
-    entrypoint: 'bash'
-    args:
-      - '-c'
       - |
-        COMMIT_TAG=$(cat /workspace/commit_tag.txt)
+        # Generate the shortened commit SHA and timestamp
+        COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
+        DATE=$(date +%Y%m%d%H%M%S)
+        COMMIT_TAG="main-$COMMIT_SHA-$DATE"
+        echo $COMMIT_TAG > /workspace/commit_tag.txt
+
+        # Build the Docker image using the generated tag
         docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" \
                      -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" .
     dir: 'ui'
-    waitFor: ['get-commit-sha']
 
-  # Step 3: Test the newly built Docker image to ensure it exists.
+  # Step 2: Test the newly built Docker image to ensure it exists.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test-docker-image'
     entrypoint: 'bash'
@@ -36,9 +33,8 @@ steps:
           exit 1
         fi
     dir: 'ui'
-    waitFor: ['build-docker-image']
 
-  # Step 4: Push the Docker image to a container registry.
+  # Step 3: Push the Docker image to a container registry.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-docker-image'
     entrypoint: 'bash'
@@ -47,4 +43,3 @@ steps:
       - |
         COMMIT_TAG=$(cat /workspace/commit_tag.txt)
         docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG"
-    waitFor: ['test-docker-image']
