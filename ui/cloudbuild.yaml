@@ -7,12 +7,17 @@ steps:
       - '-c'
       - |
         COMMIT_SHA=$(git rev-parse HEAD)
-        echo $COMMIT_SHA > commit_sha.txt
+        echo "COMMIT_SHA=$COMMIT_SHA" > /workspace/commit_sha.env
+        echo $COMMIT_SHA > /workspace/commit_sha.txt
 
   # Builds the Docker image using the commit SHA from a file
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-docker-image'
-    args: ['build', '-t', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)', '.']
+    args:
+      - 'build'
+      - '-t'
+      - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat /workspace/commit_sha.txt)'
+      - '.'
     dir: 'ui'
     waitFor: ['get-commit-sha']
 
@@ -23,7 +28,7 @@ steps:
     args:
       - '-c'
       - |
-        if docker image inspect northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat ../commit_sha.txt) > /dev/null; then
+        if docker image inspect northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat /workspace/commit_sha.txt) > /dev/null; then
           echo "Docker image exists."
           exit 0
         else
@@ -41,17 +46,18 @@ steps:
       - '-c'
       - |
         if [ "$_IS_MAIN_BRANCH" = "true" ]; then
-          docker push northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat ../commit_sha.txt)
+          docker push northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat /workspace/commit_sha.txt)
         else
           echo "Not pushing image as this is not the main branch."
         fi
     waitFor: ['test-docker-image']
 
 images:
-  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$(cat commit_sha.txt)'
+  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:${COMMIT_SHA}'
 
 substitutions:
   _IS_MAIN_BRANCH: 'false'
+  COMMIT_SHA: 'latest'  # Default, will be overridden by actual commit SHA in the build process.
 
 options:
   substitutionOption: 'ALLOW_LOOSE'
