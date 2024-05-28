@@ -12,7 +12,6 @@ steps:
         COMMIT_TAG="main-$COMMIT_SHA-$BUILD_TIMESTAMP"
         echo "COMMIT_TAG is $COMMIT_TAG"
         echo $COMMIT_TAG > /workspace/commit_tag.txt
-        # Build the Docker image using the generated tag.
         docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" \
                      -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_TAG" .
     dir: 'ui'
