@@ -7,7 +7,7 @@ steps:
       - '-c'
       - |
         COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
-        TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        TIMESTAMP=$(date +%s)
         echo "COMMIT_SHA=$COMMIT_SHA" > /workspace/env_vars.sh
         echo "TIMESTAMP=$TIMESTAMP" >> /workspace/env_vars.sh
         cat /workspace/env_vars.sh
