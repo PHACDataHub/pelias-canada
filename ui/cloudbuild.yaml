@@ -45,15 +45,9 @@ steps:
       - '-c'
       - |
         COMMIT_SHA=$(cat /workspace/commit_sha.txt)
-        if [ "$_IS_MAIN_BRANCH" = "true" ]; then
-          docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA"
-        else
-          echo "Not pushing image as this is not the main branch."
-        fi
+        docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA"
     waitFor: ['test-docker-image']
 
-substitutions:
-  _IS_MAIN_BRANCH: 'false'
 
 options:
   substitutionOption: 'ALLOW_LOOSE'
