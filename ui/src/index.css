@@ -27,12 +27,13 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  display: block; /* Change flex to block to remove centering */
   min-width: 320px;
   min-height: 100vh;
   background-color: white;
 }
+
+
 
 h1 {
   font-size: 3.2em;
