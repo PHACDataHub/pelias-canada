@@ -1,32 +1,35 @@
 steps:
-  # Captures the current commit SHA and writes it to a file
+  # Captures the current commit SHA and exports it as an environment variable
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha'
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'echo "$(git rev-parse HEAD)" > /workspace/commit_sha.txt'
+      - |
+        COMMIT_SHA=$(git rev-parse HEAD)
+        echo "export COMMIT_SHA=$COMMIT_SHA" > /workspace/commit_sha.sh
+        chmod +x /workspace/commit_sha.sh
 
-  # Reads COMMIT_SHA from the file and builds the Docker image
+  # Source the commit SHA and build the Docker image using it
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        COMMIT_SHA=$(cat /workspace/commit_sha.txt)
+        source /workspace/commit_sha.sh
         docker build -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" .
     dir: 'ui'
     waitFor: ['get-commit-sha']
 
-  # Checks if the Docker image exists
+  # Source the commit SHA again and test if the Docker image was built successfully
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        COMMIT_SHA=$(cat /workspace/commit_sha.txt)
+        source /workspace/commit_sha.sh
         if docker image inspect "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA" > /dev/null; then
           echo "Docker image exists."
           exit 0
@@ -37,14 +40,14 @@ steps:
     dir: 'ui'
     waitFor: ['build-docker-image']
 
-  # Pushes the Docker image to the registry if on the main branch
+  # Source the commit SHA once more and push the Docker image if on the main branch
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        COMMIT_SHA=$(cat /workspace/commit_sha.txt)
+        source /workspace/commit_sha.sh
         if [ "$_IS_MAIN_BRANCH" = "true" ]; then
           docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA"
         else
@@ -53,7 +56,7 @@ steps:
     waitFor: ['test-docker-image']
 
 images:
-  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:${COMMIT_SHA}'
+  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA'
 
 substitutions:
   _IS_MAIN_BRANCH: 'false'
