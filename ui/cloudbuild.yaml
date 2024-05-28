@@ -1,36 +1,36 @@
 steps:
-  # Step 1: Get the current Git commit SHA, and generate a timestamp.
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha-and-time'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
+        # Safely capture the current commit SHA and the timestamp
         COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
         TIMESTAMP=$(date +%Y%m%d%H%M%S)
         echo "COMMIT_SHA=$COMMIT_SHA" > /workspace/env_vars.sh
         echo "TIMESTAMP=$TIMESTAMP" >> /workspace/env_vars.sh
 
-  # Step 2: Build the Docker image using the shortened commit SHA and TIMESTAMP.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
+        # Source environment variables and perform Docker build
         source /workspace/env_vars.sh
         docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" \
                      -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" .
     dir: 'ui'
     waitFor: ['get-commit-sha-and-time']
 
-  # Step 3: Test the newly built Docker image to ensure it exists.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
+        # Verify the existence of the Docker image
         source /workspace/env_vars.sh
         if docker image inspect "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" > /dev/null; then
           echo "Docker image exists."
@@ -42,13 +42,13 @@ steps:
     dir: 'ui'
     waitFor: ['build-docker-image']
 
-  # Step 4: Push the Docker image to a container registry.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-docker-image'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
+        # Push the Docker image to the registry
         source /workspace/env_vars.sh
         docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP"
     waitFor: ['test-docker-image']
