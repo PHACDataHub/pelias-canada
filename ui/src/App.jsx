@@ -40,7 +40,6 @@ function MainContent() {
         id="main-content"
         style={{
           height: '100vh',
-          width: '1920px',
         }}
       ></main>
       <GcdsFooter
