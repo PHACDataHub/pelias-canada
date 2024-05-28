@@ -7,8 +7,10 @@ steps:
     args:
       - '-c'
       - |
-        git rev-parse HEAD | cut -c 1-7 > /workspace/commit_sha.txt
-        date +%Y%m%d%H%M%S > /workspace/timestamp.txt
+        COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
+        TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        echo $COMMIT_SHA > /workspace/commit_sha.txt
+        echo $TIMESTAMP > /workspace/timestamp.txt
 
   # Step 2: Build the Docker image using the shortened commit SHA.
   # Docker's caching options are used to speed up the build process by reusing layers from previous builds when possible.
