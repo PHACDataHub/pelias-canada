@@ -7,7 +7,9 @@ steps:
       - '-c'
       - |
         COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
+        TIMESTAMP=$(date +%Y%m%d%H%M%S)
         echo "COMMIT_SHA=$COMMIT_SHA" > /workspace/env_vars.sh
+        echo "TIMESTAMP=$TIMESTAMP" >> /workspace/env_vars.sh
 
   # Step 2: Build the Docker image using the shortened commit SHA and TIMESTAMP
   - name: 'gcr.io/cloud-builders/docker'
@@ -17,8 +19,8 @@ steps:
       - '-c'
       - |
         source /workspace/env_vars.sh
-        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-${COMMIT_SHA}-${date +%Y%m%d%H%M%S}" \
-                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-${COMMIT_SHA}-${date +%Y%m%d%H%M%S}" .
+        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-${COMMIT_SHA}-${TIMESTAMP}" \
+                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-${COMMIT_SHA}-${TIMESTAMP}" .
     dir: 'ui'
     waitFor: ['get-commit-sha-and-time']
 
