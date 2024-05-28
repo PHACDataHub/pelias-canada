@@ -1,4 +1,4 @@
-import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
+import { serve } from "https://deno.land/std/http/server.ts";
 
 const MIME_TYPES: Record<string, string> = {
     ".html": "text/html",

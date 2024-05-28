@@ -8,7 +8,7 @@ COPY index.html .
 RUN npm run build
 
 # Stage 2: Setup the Deno runtime environment using a specific version of the Deno base image
-FROM denoland/deno:1.24.3-alpine
+FROM denoland/deno:alpine-1.43.5
 ENV DENO_DIR=/app/deno_dir
 WORKDIR /app
 
@@ -22,4 +22,4 @@ COPY server.ts .
 EXPOSE 3000
 
 ENTRYPOINT ["deno"]
-CMD ["run", "--allow-net=0.0.0.0:3000", "--allow-read=./dist", "server.ts"]
+CMD ["run", "--allow-net=0.0.0.0:3000", "--allow-env", "--allow-read=./dist", "server.ts"]

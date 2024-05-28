@@ -1,0 +1,48 @@
+steps:
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'get-commit-sha'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Capture the current commit SHA
+        COMMIT_SHA=$(git rev-parse HEAD)
+        echo "COMMIT_SHA=$COMMIT_SHA" >> $BUILDER_OUTPUT/output
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-docker-image'
+    args: ['build', '-t', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA', '.']
+    dir: 'ui'
+    waitFor: ['get-commit-sha']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'test-docker-image'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Simple test script to check if the Docker image exists
+        if docker images northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA | grep -q ui; then
+          echo "Docker image exists."
+          exit 0
+        else
+          echo "Docker image does not exist."
+          exit 1
+        fi
+    dir: 'ui'
+    waitFor: ['build-docker-image']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-docker-image'
+    args: ['push', 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA']
+    waitFor: ['test-docker-image']
+    condition: '$_IS_MAIN_BRANCH'
+
+images:
+  - 'northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:$COMMIT_SHA'
+
+substitutions:
+  _IS_MAIN_BRANCH: 'false'
+
+options:
+  substitutionOption: 'ALLOW_LOOSE'
