@@ -1,6 +1,5 @@
 steps:
-  # Step 1: Get the current Git commit SHA, shorten it to the first 7 characters, and generate a timestamp.
-  # Both identifiers will be used to tag the Docker image.
+  # Step 1: Get the current Git commit SHA, and generate a timestamp.
   - name: 'gcr.io/cloud-builders/git'
     id: 'get-commit-sha-and-time'
     entrypoint: 'bash'
