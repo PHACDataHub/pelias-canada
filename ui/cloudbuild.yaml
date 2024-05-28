@@ -1,15 +1,13 @@
 steps:
   - name: 'gcr.io/cloud-builders/git'
-    id: 'get-commit-sha-and-time'
+    id: 'get-commit-sha'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        # Safely capture the current commit SHA and the timestamp
+        # Capture the current commit SHA
         COMMIT_SHA=$(git rev-parse HEAD | cut -c 1-7)
-        TIMESTAMP=$(date +%Y%m%d%H%M%S)
         echo "COMMIT_SHA=$COMMIT_SHA" > /workspace/env_vars.sh
-        echo "TIMESTAMP=$TIMESTAMP" >> /workspace/env_vars.sh
 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-docker-image'
@@ -17,12 +15,12 @@ steps:
     args:
       - '-c'
       - |
-        # Source environment variables and perform Docker build
+        # Source environment variables and perform Docker build using the TIMESTAMP substitution
         source /workspace/env_vars.sh
-        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" \
-                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" .
+        docker build --pull --cache-from "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-${_TIMESTAMP}" \
+                     -t "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-${_TIMESTAMP}" .
     dir: 'ui'
-    waitFor: ['get-commit-sha-and-time']
+    waitFor: ['get-commit-sha']
 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test-docker-image'
@@ -30,9 +28,9 @@ steps:
     args:
       - '-c'
       - |
-        # Verify the existence of the Docker image
+        # Verify the existence of the Docker image using the TIMESTAMP substitution
         source /workspace/env_vars.sh
-        if docker image inspect "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP" > /dev/null; then
+        if docker image inspect "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-${_TIMESTAMP}" > /dev/null; then
           echo "Docker image exists."
           exit 0
         else
@@ -48,7 +46,7 @@ steps:
     args:
       - '-c'
       - |
-        # Push the Docker image to the registry
+        # Push the Docker image to the registry using the TIMESTAMP substitution
         source /workspace/env_vars.sh
-        docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-$TIMESTAMP"
+        docker push "northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-$COMMIT_SHA-${_TIMESTAMP}"
     waitFor: ['test-docker-image']
