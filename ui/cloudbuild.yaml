@@ -10,6 +10,7 @@ steps:
         TIMESTAMP=$(date +%Y%m%d%H%M%S)
         echo "COMMIT_SHA=$COMMIT_SHA" > /workspace/env_vars.sh
         echo "TIMESTAMP=$TIMESTAMP" >> /workspace/env_vars.sh
+        cat /workspace/env_vars.sh
 
   # Step 2: Build the Docker image using the shortened commit SHA and TIMESTAMP
   - name: 'gcr.io/cloud-builders/docker'
