@@ -1,30 +1,27 @@
 steps:
-  
   # Step 1: Generate the Docker image name and save to a workspace file
   - name: 'gcr.io/cloud-builders/docker'
     id: generate-image-name
-    dir: ui
     entrypoint: 'bash'
+    dir: ui
     args:
       - '-c'
       - |
-        echo "Image name: northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
+        echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
 
   # Step 2: Build the Docker image if the branch is 'main'
   - name: 'gcr.io/cloud-builders/docker'
     id: build-if-main
-    dir: ui
     entrypoint: 'bash'
+    dir: ui
     args:
       - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "main" ]]; then
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
           image=$(cat /workspace/imagename)
-          echo "Building Docker image for main branch..."
           docker build -t $image -f ./Dockerfile .
-          echo "Build completed."
         else
-          echo "Build skipped, not on main branch."
           exit 0
         fi
 
@@ -35,12 +32,10 @@ steps:
     args:
       - '-c'
       - |
-        if [[ "$BRANCH_NAME" == "main" ]]; then
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
           image=$(cat /workspace/imagename)
-          echo "Pushing Docker image to registry..."
           docker push $image
-          echo "Image successfully pushed."
         else
-          echo "Push skipped, not on main branch."
           exit 0
         fi
