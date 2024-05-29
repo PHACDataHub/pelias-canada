@@ -1,4 +1,5 @@
 steps:
+  
   # Step 1: Generate the Docker image name and save to a workspace file
   - name: 'gcr.io/cloud-builders/docker'
     id: generate-image-name
