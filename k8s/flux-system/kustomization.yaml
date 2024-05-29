@@ -35,3 +35,17 @@ patches:
     target:
       kind: ServiceAccount
       name: kustomize-controller
+  
+  # patch image-reflector-controller service account to access artifact registry
+  # See https://fluxcd.io/flux/components/image/imagerepositories/#provider
+  - patch: |
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: image-reflector-controller
+        namespace: flux-system
+        annotations:
+          iam.gke.io/gcp-service-account: gcr-credentials-sync@phx-01hnn9wb0eg.iam.gserviceaccount.com
+    target:
+      kind: ServiceAccount
+      name: image-reflector-controller
