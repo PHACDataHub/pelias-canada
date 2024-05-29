@@ -1,13 +1,15 @@
+import Layout from "../../layout/layout";
 
 
 export default function LandingPage() {
 
     return (
-
         <> 
-         <Layout>
+      <Layout> 
 
-            <h1> This is the landding page</h1>
+            <h1 style={{color:"black"}}> 
+            Welcome to geocoder
+            </h1>
          </Layout>
         </>
     )
