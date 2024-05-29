@@ -6,17 +6,12 @@ import {
   GcdsFooter,
   GcdsHeading,
 } from '@cdssnc/gcds-components-react'
+import Layout from './layout/layout'
 
 function MainContent() {
   return (
     <>
-      <GcdsHeader
-        skipToHref="#main-content"
-        style={{
-          backgroundColor: '#f1f2f3',
-        }}
-      ></GcdsHeader>
-
+         <Layout > 
       <h1
         style={{
           color: 'white',
@@ -42,11 +37,8 @@ function MainContent() {
           height: '100vh',
         }}
       ></main>
-      <GcdsFooter
-        display="compact"
-        contextualHeading="Government of Canada"
-        contextualLinks='{ "About": "#", "Features": "#", "Information": "#" }'
-      ></GcdsFooter>
+     
+</Layout>
     </>
   )
 }
