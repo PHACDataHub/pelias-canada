@@ -7,14 +7,12 @@ import {
   GcdsHeading,
 } from '@cdssnc/gcds-components-react'
 import Layout from './layout/layout'
+import LandingPage from './pages/landingPage/Ladingpage'
 
 function MainContent() {
   return (
     <>
-         <Layout > 
-     
-     
-</Layout>
+      <LandingPage/>
     </>
   )
 }
