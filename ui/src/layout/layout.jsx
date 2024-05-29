@@ -1,4 +1,4 @@
-import { GcdsHeader, GcdsDateModified , GcdsFooter ,GcdsContainer} from "@cdssnc/gcds-components-react";
+import { GcdsHeader, GcdsDateModified , GcdsFooter ,GcdsContainer, GcdsHeading} from "@cdssnc/gcds-components-react";
 import "@cdssnc/gcds-components-react/gcds.css"; // Import the CSS file if necessary
 
 export default function Layout({ children}) {
@@ -6,9 +6,10 @@ export default function Layout({ children}) {
   return (
 <>
 <GcdsHeader></GcdsHeader>
-
-<GcdsContainer size="xl" border centered padding="400">
-  <p>This is a responsive container, you can replace this text with any content or other components.</p>
+<GcdsContainer size="xl"  centered >  
+<GcdsHeading tag="h1" marginTop="50" marginBottom="0"> Geocoder </GcdsHeading>
+</GcdsContainer>
+<GcdsContainer size="xl"  centered padding="400">  
   {children}
 </GcdsContainer>
 <GcdsDateModified>
