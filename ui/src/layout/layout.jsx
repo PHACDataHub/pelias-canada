@@ -17,20 +17,37 @@ export default function Layout({ children }) {
           Geocoder
         </GcdsHeading>
       </GcdsContainer>
-      {/* en Heading H1 */}
+      {/* end Heading H1 */}
 
       {/* start Body content */}
-      <GcdsContainer size="xl" centered padding="400" minH="75%" color="black">
+      <GcdsContainer 
+        size="xl" 
+        centered 
+        padding="400" 
+        minH="75%" 
+        color="black" 
+        style={{
+          boxSizing: 'border-box',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: '1', 
+        }}
+      >
         {children}
       </GcdsContainer>
       {/* end Body content */}
 
       {/* date-modified (YYYY-MM-DD) */}
       <GcdsDateModified>2024-05-29</GcdsDateModified>
-      <GcdsFooter
-        contextualHeading="Contextual navigation"
-        //   contextualLinks='{ "": "#", "Features": "#", "Activity on GC Notify": "#" }'
+      <GcdsFooter 
+        style={{
+          flexGrow: '0', 
+          flexShrink: '0', 
+        }}
+        contextualHeading="Contextual navigation" 
       ></GcdsFooter>
     </>
   )
 }
+
