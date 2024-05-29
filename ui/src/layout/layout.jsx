@@ -20,7 +20,7 @@ export default function Layout({ children }) {
       {/* en Heading H1 */}
 
       {/* start Body content */}
-      <GcdsContainer size="xl" centered padding="400" minH="75%" color="black">
+      <GcdsContainer size="xl" centered padding="400" height="100vh" minH="100%" color="black">
         {children}
       </GcdsContainer>
       {/* end Body content */}
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
       {/* date-modified (YYYY-MM-DD) */}
       <GcdsDateModified>2024-05-29</GcdsDateModified>
       <GcdsFooter
-        contextualHeading="Contextual navigation"
+        contextualHeading="Contextual navigation" flex-grow="0" flex-shrink="0"
         //   contextualLinks='{ "": "#", "Features": "#", "Activity on GC Notify": "#" }'
       ></GcdsFooter>
     </>
