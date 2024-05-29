@@ -16,7 +16,7 @@ spec:
       containers:
       - name: frontend
         imagePullPolicy: Always
-        image: northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-0fc985a-1716949258 # {"$imagepolicy": "flux-system:geocoder"}
+        image: northamerica-northeast1-docker.pkg.dev/phx-01hnn9wb0eg/pelias-geocoder/ui:main-9473c56-1717001214 # {"$imagepolicy": "flux-system:geocoder"}
         ports:
         - containerPort: 3000
         readinessProbe:
