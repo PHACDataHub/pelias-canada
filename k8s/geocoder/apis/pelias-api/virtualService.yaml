@@ -13,7 +13,7 @@ spec:
   - name: gateway-to-pelias-api
     match:
     - uri:
-        prefix: "/v1"
+        prefix: "/api"
       authority:
         exact: "geocoder.alpha.phac.gc.ca"
     route:
