@@ -9,8 +9,9 @@ import '@cdssnc/gcds-components-react/gcds.css' // Import the CSS file if necess
 
 export default function Layout({ children }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <>
       <GcdsHeader></GcdsHeader>
+      
       {/* start Heading H1 */}
       <GcdsContainer size="xl" centered>
         <GcdsHeading tag="h1" marginTop="50" marginBottom="0">
@@ -23,14 +24,10 @@ export default function Layout({ children }) {
       <GcdsContainer 
         size="xl" 
         centered 
-        padding="400" 
-        minH="75%" 
+        padding="500" 
         color="black" 
         style={{
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: '1', 
+          minHeight: '100%',
         }}
       >
         {children}
@@ -39,14 +36,14 @@ export default function Layout({ children }) {
 
       {/* date-modified (YYYY-MM-DD) */}
       <GcdsDateModified>2024-05-29</GcdsDateModified>
-        <GcdsFooter 
-          style={{
-            flexGrow: '0', 
-            flexShrink: '0', 
-            marginTop: 'auto',
-          }}
-          contextualHeading="Contextual navigation" 
-        ></GcdsFooter>
-    </div>
+      <GcdsFooter 
+        style={{
+          marginTop: 'auto'
+        }}
+        contextualHeading="Contextual navigation" 
+      >
+      </GcdsFooter>
+    </>
   )
 }
+  
