@@ -23,15 +23,10 @@ export default function Layout({ children }) {
       <GcdsContainer 
         size="xl" 
         centered 
-        padding="400" 
-        minH="75%" 
+        padding="400"
         color="black" 
         style={{
-          boxSizing: 'border-box',
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: '1', 
+          flexGrow: '1',
         }}
       >
         {children}
@@ -40,11 +35,7 @@ export default function Layout({ children }) {
 
       {/* date-modified (YYYY-MM-DD) */}
       <GcdsDateModified>2024-05-29</GcdsDateModified>
-      <GcdsFooter 
-        style={{
-          flexGrow: '0', 
-          flexShrink: '0', 
-        }}
+      <GcdsFooter
         contextualHeading="Contextual navigation" 
       ></GcdsFooter>
     </>
