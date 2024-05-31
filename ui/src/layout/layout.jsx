@@ -4,28 +4,63 @@ import {
   GcdsFooter,
   GcdsContainer,
   GcdsHeading,
+  GcdsTopNav,
+  GcdsNavGroup,
+  GcdsNavLink,
 } from '@cdssnc/gcds-components-react'
 import '@cdssnc/gcds-components-react/gcds.css' // Import the CSS file if necessary
+import {dateModified} from "../assets/updateDateModified"
+
 
 export default function Layout({ children }) {
   return (
     <>
-      <GcdsHeader></GcdsHeader>
+      <GcdsHeader
+        // langHref="#"
+        skipToHref="#"
+        padding="150px"
+      >
+        {/* 
+        Skip Nav for Accesssibility to be added at a later date
+        <div slot="skip-to-nav"></div> 
+        */}
+
+        {/* start Menu */}
+        <div slot="menu">
+          <GcdsTopNav label="Top navigation" alignment="right">
+            <GcdsNavLink href="#home" slot="home">
+              Geocoder
+            </GcdsNavLink>
+            <GcdsNavLink href="#">What is Geocoder</GcdsNavLink>
+
+            <GcdsNavGroup openTrigger="API Features" menuLabel="API Features">
+              <GcdsNavLink href="#">
+                How to use our API
+              </GcdsNavLink>
+              <GcdsNavLink href="#">Rshiny API</GcdsNavLink>
+              <GcdsNavLink href="#">Python API</GcdsNavLink>
+            </GcdsNavGroup>
+            <GcdsNavLink href="#">Bulk File Input</GcdsNavLink>
+          </GcdsTopNav>
+        </div>
+        {/* end Menu */}
+
+      </GcdsHeader>
       {/* start Heading H1 */}
       <GcdsContainer size="xl" centered>
-        <GcdsHeading tag="h1" marginTop="50" marginBottom="0">
-          Geocoder
-        </GcdsHeading>
       </GcdsContainer>
       {/* end Heading H1 */}
 
       {/* start Body content */}
-      <GcdsContainer 
-        size="xl" 
-        centered 
-        padding="400"
-        color="black" 
+      <GcdsContainer
+        size="xl"
+        centered
+        color="black"
         style={{
+          boxSizing: 'border-box',
+          minHeight: '80vh',
+          display: 'flex',
+          flexDirection: 'column',
           flexGrow: '1',
         }}
       >
@@ -34,11 +69,18 @@ export default function Layout({ children }) {
       {/* end Body content */}
 
       {/* date-modified (YYYY-MM-DD) */}
-      <GcdsDateModified>2024-05-29</GcdsDateModified>
+      <GcdsDateModified>2024-05-30
+ 
+
+
+      </GcdsDateModified>
       <GcdsFooter
-        contextualHeading="Contextual navigation" 
+        style={{
+          flexGrow: '0',
+          flexShrink: '0',
+        }}
+        contextualHeading="Contextual navigation"
       ></GcdsFooter>
     </>
   )
 }
-
