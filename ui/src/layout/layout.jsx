@@ -9,7 +9,7 @@ import {
   GcdsNavLink,
 } from '@cdssnc/gcds-components-react'
 import '@cdssnc/gcds-components-react/gcds.css' // Import the CSS file if necessary
-import {dateModified} from "../assets/updateDateModified"
+
 
 
 export default function Layout({ children }) {
@@ -29,18 +29,21 @@ export default function Layout({ children }) {
         <div slot="menu">
           <GcdsTopNav label="Top navigation" alignment="right">
             <GcdsNavLink href="#home" slot="home">
-              Geocoder
+              Pelias Geocoder
             </GcdsNavLink>
-            <GcdsNavLink href="#">What is Geocoder</GcdsNavLink>
+            <GcdsNavLink href="#">Home</GcdsNavLink>
 
-            <GcdsNavGroup openTrigger="API Features" menuLabel="API Features">
+
+            {/* <GcdsNavLink href="#">What is Pelias Geocoder</GcdsNavLink> */}
+
+            {/* <GcdsNavGroup openTrigger="API Features" menuLabel="API Features">
               <GcdsNavLink href="#">
                 How to use our API
               </GcdsNavLink>
               <GcdsNavLink href="#">Rshiny API</GcdsNavLink>
               <GcdsNavLink href="#">Python API</GcdsNavLink>
             </GcdsNavGroup>
-            <GcdsNavLink href="#">Bulk File Input</GcdsNavLink>
+            <GcdsNavLink href="#">Bulk File Input</GcdsNavLink> */}
           </GcdsTopNav>
         </div>
         {/* end Menu */}
