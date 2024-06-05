@@ -28,19 +28,9 @@ export default function Layout({ children }) {
         {/* start Menu */}
         <div slot="menu">
           <GcdsTopNav label="Top navigation" alignment="right">
-            <GcdsNavLink href="#home" slot="home">
+            <GcdsNavLink href="/" slot="home">
               Geocoder
             </GcdsNavLink>
-            <GcdsNavLink href="#">What is Geocoder</GcdsNavLink>
-
-            <GcdsNavGroup openTrigger="API Features" menuLabel="API Features">
-              <GcdsNavLink href="#">
-                How to use our API
-              </GcdsNavLink>
-              <GcdsNavLink href="#">Rshiny API</GcdsNavLink>
-              <GcdsNavLink href="#">Python API</GcdsNavLink>
-            </GcdsNavGroup>
-            <GcdsNavLink href="#">Bulk File Input</GcdsNavLink>
           </GcdsTopNav>
         </div>
         {/* end Menu */}
@@ -64,12 +54,6 @@ export default function Layout({ children }) {
       </GcdsContainer>
       {/* end Body content */}
 
-      {/* date-modified (YYYY-MM-DD) */}
-      <GcdsDateModified>2024-05-30
- 
-
-
-      </GcdsDateModified>
       <GcdsFooter
         contextualHeading="Contextual navigation"
       ></GcdsFooter>
