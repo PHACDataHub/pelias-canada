@@ -57,10 +57,6 @@ export default function Layout({ children }) {
         centered
         color="black"
         style={{
-          boxSizing: 'border-box',
-          minHeight: '80vh',
-          display: 'flex',
-          flexDirection: 'column',
           flexGrow: '1',
         }}
       >
@@ -75,10 +71,6 @@ export default function Layout({ children }) {
 
       </GcdsDateModified>
       <GcdsFooter
-        style={{
-          flexGrow: '0',
-          flexShrink: '0',
-        }}
         contextualHeading="Contextual navigation"
       ></GcdsFooter>
     </>
