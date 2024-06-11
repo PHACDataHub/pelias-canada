@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - elasticsearch.yaml
-  - kibana.yaml
+  # - kibana.yaml
+  # Removing Kibana
