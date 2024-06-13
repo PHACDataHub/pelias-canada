@@ -4,6 +4,45 @@ GcdsHeading,
 
 } from '@cdssnc/gcds-components-react'
 import '@cdssnc/gcds-components-react/gcds.css' // Import the CSS file if necessary
+import './styles.css'
+
+const rCode = `library(httr)
+ 
+# Set the Pelias API endpoint URL
+pelias_url <- "https://geocoder.alpha.phac.gc.ca/api/search"
+ 
+# Read the quakes dataset
+data("USArrests")
+USArrests$address <- rownames(USArrests)
+# Initialize an empty address column
+USArrests$lat <- NA
+USArrests$long <- NA
+# Iterate over each row in the quakes dataset
+for (i in seq_len(nrow(USArrests))) {
+  # Get the latitude and longitude for the current row
+  address <- USArrests$address[i]
+  # Set the search parameters for the Pelias API
+  params <- list(text = address)
+  # Make the API request
+  response <- GET(pelias_url, query = params)
+  # Check the response status
+  if (response$status_code == 200) {
+    # Parse the JSON response
+    result <- content(response, as = "parsed")
+    # Extract the address from the response
+    lat <- result$features[[1]]$geometry$coordinates[2]
+    long <- result$features[[1]]$geometry$coordinates[1]
+    # Store the address in the quakes dataset
+    USArrests$lat[i] <- lat
+    USArrests$long[i] <- long
+  } else {
+    # Handle the error
+    USArrests$lat[i] <- NA
+    USArrests$long[i] <- NA
+    print('error')
+  }
+}
+print(USArrests)`
 
 export default function LandingPage() {
   return (
@@ -12,10 +51,7 @@ export default function LandingPage() {
       <div style={{textAlign:"justify"}}>
         <p> Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.</p>
       </div>
-      {/* RShiny code will go here
-      <div>
-      </div>
-       */}
+    <pre> <code> {rCode} </code></pre>
     </Layout>
   )
 }
