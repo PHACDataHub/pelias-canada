@@ -7,10 +7,8 @@ import '@cdssnc/gcds-components-react/gcds.css' // Import the CSS file if necess
 import './styles.css'
 
 const rCode = `library(httr)
- 
 # Set the Pelias API endpoint URL
 pelias_url <- "https://geocoder.alpha.phac.gc.ca/api/search"
- 
 # Read the quakes dataset
 data("USArrests")
 USArrests$address <- rownames(USArrests)
@@ -51,6 +49,7 @@ export default function LandingPage() {
       <div style={{textAlign:"justify"}}>
         <p> Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.</p>
       </div>
+     <h2>Geocode Example using R</h2>
     <pre> <code> {rCode} </code></pre>
     </Layout>
   )
