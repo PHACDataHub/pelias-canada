@@ -1,0 +1,11 @@
+pre {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+code {
+  font-family: monospace;
+  font-size: 14px;
+}
