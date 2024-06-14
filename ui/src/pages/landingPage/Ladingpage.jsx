@@ -17,29 +17,18 @@ USArrests$lat <- NA
 USArrests$long <- NA
 # Iterate over each row in the quakes dataset
 for (i in seq_len(nrow(USArrests))) {
-  # Get the latitude and longitude for the current row
-  address <- USArrests$address[i]
-  # Set the search parameters for the Pelias API
-  params <- list(text = address)
-  # Make the API request
-  response <- GET(pelias_url, query = params)
+  response <- GET(pelias_url, query = list(text = USArrests$address[i]))
   # Check the response status
-  if (response$status_code == 200) {
-    # Parse the JSON response
+  if (response$status_code == 200) {# Parse the JSON response
     result <- content(response, as = "parsed")
     # Extract the address from the response
     lat <- result$features[[1]]$geometry$coordinates[2]
     long <- result$features[[1]]$geometry$coordinates[1]
     # Store the address in the quakes dataset
     USArrests$lat[i] <- lat
-    USArrests$long[i] <- long
-  } else {
-    # Handle the error
+    USArrests$long[i] <- long} else { # Handle the error
     USArrests$lat[i] <- NA
-    USArrests$long[i] <- NA
-    print('error')
-  }
-}
+    USArrests$long[i] <- NA  } }
 print(USArrests)`
 
 export default function LandingPage() {
