@@ -7,8 +7,6 @@ import '@cdssnc/gcds-components-react/gcds.css' // Import the CSS file if necess
 import './styles.css'
 
 const rCode = `library(httr)
-# Set the Pelias API endpoint URL
-pelias_url <- "https://geocoder.alpha.phac.gc.ca/api/search"
 # Read the quakes dataset
 data("USArrests")
 USArrests$address <- rownames(USArrests)
@@ -17,7 +15,7 @@ USArrests$lat <- NA
 USArrests$long <- NA
 # Iterate over each row in the quakes dataset
 for (i in seq_len(nrow(USArrests))) {
-  response <- GET(pelias_url, query = list(text = USArrests$address[i]))
+  response <- GET("https://geocoder.alpha.phac.gc.ca/api/search", query = list(text = USArrests$address[i]))
   # Check the response status
   if (response$status_code == 200) {# Parse the JSON response
     result <- content(response, as = "parsed")
