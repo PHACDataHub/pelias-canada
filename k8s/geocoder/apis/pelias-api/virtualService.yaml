@@ -17,7 +17,7 @@ spec:
       authority:
         exact: "geocoder.alpha.phac.gc.ca"
     rewrite:
-      uri: "/api/v1"
+      uri: "/v1"
     route:
     - destination:
         host: pelias-api.geocoder.svc.cluster.local
