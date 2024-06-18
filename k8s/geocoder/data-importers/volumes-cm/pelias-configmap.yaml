@@ -56,7 +56,7 @@ data:
           }
         },
         "endpoints": {
-          "search": "/api/v1/search"
+          "search": "/v1/search"
         }
       },
       "imports": {
