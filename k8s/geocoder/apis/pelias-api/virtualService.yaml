@@ -13,11 +13,9 @@ spec:
   - name: gateway-to-pelias-api
     match:
     - uri:
-        prefix: "/api"
+        prefix: "/api/v1"
       authority:
         exact: "geocoder.alpha.phac.gc.ca"
-    rewrite:
-      uri: "/api/v1"
     route:
     - destination:
         host: pelias-api.geocoder.svc.cluster.local
