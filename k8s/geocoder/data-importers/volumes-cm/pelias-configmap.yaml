@@ -54,6 +54,9 @@ data:
           "layers_by_source": {
             "custom": ["address"]
           }
+        },
+        "endpoints": {
+          "search": "/api/v1/search"
         }
       },
       "imports": {
