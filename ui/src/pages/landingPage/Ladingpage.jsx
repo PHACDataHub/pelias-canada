@@ -15,7 +15,7 @@ USArrests$lat <- NA
 USArrests$long <- NA
 # Iterate over each row in the quakes dataset
 for (i in seq_len(nrow(USArrests))) {
-  response <- GET("https://geocoder.alpha.phac.gc.ca/api/search", query = list(text = USArrests$address[i]))
+  response <- GET("https://geocoder.alpha.phac.gc.ca/api/v1/search", query = list(text = USArrests$address[i]))
   # Check the response status
   if (response$status_code == 200) {# Parse the JSON response
     result <- content(response, as = "parsed")
