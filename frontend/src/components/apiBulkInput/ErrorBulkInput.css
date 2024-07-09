@@ -1,0 +1,37 @@
+.error-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+    text-align: justify;
+	min-height: 300px; /* Ensure full viewport height */
+}
+
+.error-box {
+	background-color: #f44336;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	border-radius: 25px;
+	max-width: 400px;
+}
+
+.error-box h4 {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.error-box p {
+	margin-bottom: 10px;
+ 
+}
+
+.error-box a {
+	color: white;
+	text-decoration: underline;
+	transition: color 0.3s ease;
+}
+
+.error-box a:hover {
+	color: blue;
+}
