@@ -1,10 +1,9 @@
 steps:
   # Step 1: Generate the Docker image name and save to a workspace file
-  
   - name: 'gcr.io/cloud-builders/docker'
     id: generate-image-name
     entrypoint: 'bash'
-    dir: ui
+    dir: frontend
     args:
       - '-c'
       - |
@@ -14,7 +13,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: build-if-main
     entrypoint: 'bash'
-    dir: ui
+    dir: frontend
     args:
       - '-c'
       - |
