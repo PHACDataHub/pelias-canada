@@ -16,10 +16,10 @@ const ErrorBulkInput = ({ refreshLink }) => {
 			<div className="error-box">
 				<h4>Error</h4>
 				<p>
-					An error has occurred.{" "}
+					An error has occurred.
 					<Link to={refreshLink} onClick={handleReset}>
 						Click here
-					</Link>{" "}
+					</Link>
 					to try again.
 				</p>
 				<p>

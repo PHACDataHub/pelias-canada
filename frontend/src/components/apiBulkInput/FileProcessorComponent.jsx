@@ -326,7 +326,7 @@ const FileProcessorComponent = ({ jsonData }) => {
 										<strong>Match Type:</strong> {properties.match_type || "Unknown"} <br />
 										<strong>Accuracy:</strong> {properties.accuracy || "Unknown"} <br />
 										<strong>Source:</strong> {properties.source || "Unknown"} <br />
-										<strong>Date and Time (YYYY-MM-DD HH:MM:SS AM/PM) ::</strong> {convertTimestamp(geocoding.timestamp) || "Unknown"} <br />{" "}
+										<strong>Date and Time (YYYY-MM-DD HH:MM:SS AM/PM) ::</strong> {convertTimestamp(geocoding.timestamp) || "Unknown"} <br />
 										{/* Adjusted to safely access timestamp */}
 										<strong>Longitude:</strong> {geometry.coordinates ? geometry.coordinates[0] : "N/A"} <br />
 										<strong>Latitude:</strong> {geometry.coordinates ? geometry.coordinates[1] : "N/A"} <br />

@@ -21,7 +21,7 @@ export default function APIfetch() {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		const fullAddress = `${address}, ${city}, ${province}`
+		const fullAddress = `${address.trim()}, ${city.trim()}, ${province.trim()}`
 
 		if (!address || !city || !province) {
 			toast.error("Please enter address, city, and province.")
@@ -172,6 +172,15 @@ export default function APIfetch() {
 		return `${dateString} ${timeString}`
 	}
 
+	// Ensure that responseData and its nested properties exist before accessing them
+	const name = responseData?.features?.[0]?.properties?.name || ""
+	const county = responseData?.features?.[0]?.properties?.county || ""
+	const region = responseData?.features?.[0]?.properties?.region_a || ""
+
+	const returnAddress = [name, county, region].filter(Boolean).join(", ")
+
+	console.log("return address:", returnAddress || "")
+
 	return (
 		<div style={{ padding: "40px" }}>
 			<form
@@ -192,7 +201,7 @@ export default function APIfetch() {
 					}}
 				>
 					<label>Address:</label>
-					<input required type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder="110 Laurier Ave W" />
+					<input required type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder="110 Laurier Avenue West" />
 				</div>
 				<div
 					style={{
@@ -253,38 +262,53 @@ export default function APIfetch() {
 						returned:
 					</h2>
 					<div style={{ border: "1px solid black", padding: "4px" }}>
-						
 						<div>
-							{responseData.features[0].properties.label === responseData.geocoding.query.text ? (
+							{returnAddress.toLowerCase() === responseData.geocoding.query.text.toLowerCase() ? (
 								<h3>Accuracy information</h3>
 							) : (
 								<>
 									<div style={{ padding: "20px", backgroundColor: "#f44336", color: "white", marginBottom: "15px" }}>
-										<strong>The input address and return address do not match</strong>. Please check the following for more accurate results:
+										<strong>The input address and return address do not match exactly. This may result in inaccurate results.</strong>
+										For more accurate results, please check the following:
 										<ul>
 											<li>
-												is the
+												Is the
 												<strong>
-													<i> Address </i>
+													<i>Address</i>
 												</strong>
-												correct
+												correct?
 											</li>
 											<li>
-												is the
+												Is the
 												<strong>
-													<i> City </i>
+													<i>Street Type</i>
 												</strong>
-												correct
+												in short form?
 											</li>
 											<li>
-												is the
+												Is the
 												<strong>
-													<i> Province </i>
+													<i>Street Direction</i>
 												</strong>
-												correct
+												in short form?
+											</li>
+											<li>
+												Is the
+												<strong>
+													<i>City</i>
+												</strong>
+												correct?
+											</li>
+											<li>
+												Is the
+												<strong>
+													<i>Province</i>
+												</strong>
+												correct?
 											</li>
 										</ul>
 									</div>
+
 									<h3>Accuracy information</h3>
 								</>
 							)}
