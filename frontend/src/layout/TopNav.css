@@ -1,0 +1,190 @@
+.active {
+	background-color: #26374a;
+	color: #fff;
+}
+
+.dropdown-menu li a.active {
+	background-color: #26374a;
+	color: #fff;
+}
+
+.active-exclude {
+	background-color: transparent;
+	color: inherit;
+}
+
+.body {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #333333;
+	position: sticky;
+	top: 0;
+}
+
+nav .title {
+	font-size: 1.5rem;
+	margin: 1rem;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333333;
+}
+
+nav ul {
+	display: flex;
+}
+
+nav ul li {
+	list-style: none;
+}
+
+nav ul li a {
+	display: block;
+	text-decoration: none;
+	color: #333333;
+	padding: 0.5rem;
+	margin: 0 0.5rem;
+	border-radius: 0.5rem;
+}
+
+nav ul li a:hover {
+	background-color: #bbb;
+	color: black;
+}
+
+nav .menu {
+	display: none;
+	position: absolute;
+	top: 0.75rem;
+	right: 0.5rem;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 2rem;
+	height: 1.75rem;
+}
+
+nav .menu span {
+	height: 0.4rem;
+	width: 100%;
+	background-color: #333;
+	border-radius: 0.2rem;
+}
+
+nav .dropdown {
+	position: relative;
+	padding: 0.2rem 0;
+	margin: 0 0.3rem;
+}
+
+nav .dropdown-button {
+	background: none;
+	border: none;
+	color: #333;
+	padding: 0.5rem;
+	margin: 0 0.5rem;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+nav .dropdown-button:hover {
+	background-color: #bbb;
+	color: black;
+	padding: 0.5rem;
+	margin: 0 0.5rem;
+	border-radius: 0.5rem;
+}
+
+nav .dropdown-menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+	padding: 0.5rem 0;
+	z-index: 1;
+	width: 200px;
+	justify-content: center;
+	margin-top: 20px;
+	border-radius: 7px;
+}
+
+nav .dropdown-menu.open {
+	display: block;
+}
+
+nav .dropdown-menu li a {
+	display: block;
+	padding: 0.5rem 1rem;
+	text-decoration: none;
+	color: #333333;
+}
+
+nav .dropdown-menu li a:hover {
+	background-color: #d6d9dd;
+	color: #5d7ad7;
+}
+
+@media (max-width: 680px) {
+	nav .menu {
+		display: flex;
+	}
+
+	nav {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	nav ul {
+		display: none;
+		flex-direction: column;
+		width: 100%;
+		margin-bottom: 0.25rem;
+		position: absolute;
+		top: 2.5rem; /* Adjust this value based on your layout */
+		left: 0;
+		background-color: #f1f2f3; /* Add background color to the dropdown */
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+	}
+
+	nav ul.open {
+		display: flex;
+		background-color: #f3f2f1;
+		border-top: 1px solid black;
+	}
+
+	nav ul li {
+		width: 100%;
+		text-align: center;
+	}
+
+	nav ul li a {
+		margin: 0.2rem 0.5rem;
+		padding: 0.5rem;
+	}
+
+	.no-scroll {
+		overflow: hidden;
+	}
+
+	body.menu-open {
+		height: auto; /* Allows the body to grow */
+	}
+
+	nav .dropdown-button {
+		width: 96%;
+		margin: 0.2rem 0.5rem;
+		padding: 0.5rem;
+	}
+	nav .dropdown-menu {
+		position: static;
+		box-shadow: none;
+		padding: 0;
+		width: 100%; /* Adjust the dropdown menu width as needed */
+		border-radius: 0;
+	}
+
+	nav .dropdown-menu li a {
+		padding: 0.5rem;
+	}
+}
