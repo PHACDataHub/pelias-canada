@@ -1,31 +1,42 @@
-# React + Vite + GH-pages
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## File Structure
 
-Currently, two official plugins are available:
+### /src
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **main.jsx**: Entry point of the application.
+- **App.jsx**: Manages the routing for the application.
+- **Layout**: Contains the headers, top navigation, breadcrumbs, main content (Outlet), and footer.
+- **/pages**: Contains the different pages of the application.
+- **/components**: Contains reusable component groups.
 
-# Use template to get started
+### /public
 
-1. create repo in github
-1. select template repo
-1. clone repo
-1. open cloned repo
-1. run bash command to update and install dependancies
+- **public**: Contains the CSV file for the FAQ.
+
+## Running the Application Locally
+
+To run the application in a development environment:
+
+```sh
+cd frontend/
+npm install
+npm run dev
 ```
-npm update && npm install
+
+## Running the Local Server
+To run the local server using Deno:
+
+```sh
+cd frontend/
+npm install
+deno run --allow-net server.ts
 ```
+## Building the Docker Image
+To build the Docker image for the frontend:
 
-
-## Once installed and updated
-1. in file vite.config.js-> change the base: "/gh-template/" to the github repo name
-1. in file package.json -> change the base: "homepage": "https://graganold.github.io/gh-template/", to "homepage": "https://graganold.github.io/< GITHUB-REPO-NAME >/"
-
-
-## Lastly
- - run bash command to deploy the github pages
- ```
- npm run deploy
- ```
+```sh
+cd frontend/
+npm install
+docker build . -t frontend
+```

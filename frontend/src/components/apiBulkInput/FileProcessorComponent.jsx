@@ -338,7 +338,7 @@ const FileProcessorComponent = ({ jsonData }) => {
 					</div>
 				</>
 			)}
-			{!isProcessing && !Error(
+			{!isProcessing && (
 				<div style={{ paddingTop: "40px", paddingBottom: "40px" }}>
 					<GcdsDetails detailsTitle="View the Map">
 						<MapComponentOL mapContentJSON={mapContentJSON} />
