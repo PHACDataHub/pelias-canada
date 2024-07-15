@@ -1,18 +1,11 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-
 import { GcdsButton } from "@cdssnc/gcds-components-react"
 import { useState } from "react"
-import {  toast } from "react-toastify"
+import { toast } from "react-toastify"
 import PropTypes from "prop-types"
 
 const UseLocationButton = ({ ButtonResponseData }) => {
-	const [location, setLocation] = useState(null)
-	const [responseData, setResponseData] = useState(null)
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [latitude, setLatitude] = useState("")
-	const [longitude, setLongitude] = useState("")
 
 	const getLocation = () => {
 		if (navigator.geolocation) {
@@ -23,11 +16,6 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 	}
 
 	const showPosition = position => {
-		const newLocation = {
-			latitude: position.coords.latitude,
-			longitude: position.coords.longitude,
-		}
-		setLocation(newLocation)
 		sendRequest(position.coords.latitude, position.coords.longitude)
 	}
 
@@ -49,8 +37,6 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 				setLoading(false)
 
 				const result = data.features && data.features.length > 0 ? { ...data, coordinates: data.features[0].geometry.coordinates } : { ...data }
-
-				setResponseData(result)
 				ButtonResponseData(result)
 			})
 			.catch(error => {
@@ -82,16 +68,22 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 	return (
 		<div
 			style={{
-        display: "flex",
-        placeItems: "center",
-        height: "100%",
-        flexDirection: "column",
-        justifyContent: "space-between",
+				display: "flex",
+				placeItems: "center",
+				height: "100%",
+				flexDirection: "column",
+				justifyContent: "space-between",
 			}}
 		>
 			<h4>Click to use your current location</h4>
-      <p><i>Please note web location <br/> access must be authorized </i></p>
+			<p>
+				<i>
+					Please note web location <br /> access must be authorized{" "}
+				</i>
+			</p>
 			<br />
+
+			
 			<div
 				style={{
 					paddingX: "40px",
@@ -106,6 +98,8 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 					Get Location
 				</GcdsButton>
 			</div>
+			{error !== "" ? (null): (error)}
+			{loading === false ? (null): ("Loading")}
 		</div>
 	)
 }

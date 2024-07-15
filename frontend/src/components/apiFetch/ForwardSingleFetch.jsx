@@ -1,30 +1,26 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import { useState } from "react"
-import { GcdsButton, GcdsDetails } from "@cdssnc/gcds-components-react"
+import { GcdsButton} from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
-import Loading from "../Loading"
-import PercentageCircle from "../PercentageCircle"
-import { copyToClipboard } from "../../assets/copyToClipboard" // Adjust the path as necessary
-import { ToastContainer, toast } from "react-toastify"
+import {  toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import MapComponentOL from "../MapComponent" // Adjust the path as necessary
+import PropTypes from "prop-types"
 
-export default function ForwardSinglefetch({ onResponseData, UserInput }) {
+ForwardSinglefetch.propTypes = {
+	onResponseData: PropTypes.func.isRequired,
+}
+
+export default function ForwardSinglefetch({ onResponseData }) {
 	const [address, setAddress] = useState("")
 	const [city, setCity] = useState("")
 	const [province, setProvince] = useState("")
 	const [responseData, setResponseData] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const [latitude, setLatitude] = useState(null)
-	const [longitude, setLongitude] = useState(null)
-	const [confidence, setConfidence] = useState(null)
-	const [unitNumber, setUnitNumber] = useState(null)
+
 
 	const handleSubmit = e => {
 		e.preventDefault()
 		const fullAddress = `${address.trim()}, ${city.trim()}, ${province.trim()}`
-		const userInput = { fullAddress }
+	
 
 		if (!address || !city || !province) {
 			toast.error("Please enter address, city, and province.")
@@ -76,7 +72,6 @@ export default function ForwardSinglefetch({ onResponseData, UserInput }) {
 		setLoading(true)
 
 		const { streetAddress, apartmentNumber, unitNumber } = extractApartmentNumber(fullAddress)
-		setUnitNumber(unitNumber)
 
 		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(streetAddress)}`
 
@@ -93,12 +88,7 @@ export default function ForwardSinglefetch({ onResponseData, UserInput }) {
 				console.log("Received data:", data)
 				setLoading(false)
 
-				if (data.features && data.features.length > 0) {
-					const coords = data.features[0].geometry.coordinates
-					setLatitude(coords[1])
-					setLongitude(coords[0])
-					setConfidence(data.features[0].properties.confidence)
-
+				if (data.features && data.features.length > 0) {					
 					const result = {
 						...data,
 						apartmentNumber,
@@ -196,6 +186,8 @@ export default function ForwardSinglefetch({ onResponseData, UserInput }) {
 						</GcdsButton>
 					</div>
 				</form>
+			{loading === false ? (null): ("Loading")}
+
 			</div>
 		</>
 	)
