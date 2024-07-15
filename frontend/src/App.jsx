@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import Layout from "./layout/Layout"
 import BulkInput from "./pages/bulkInput/BulkInput"
-import LandingPage from "./pages/landingPage/LandingPage"
+import LandingPage from "./pages/landingPage/Landingpage"
 import RShinyAPIPage from "./pages/apiPages/RShinyAPIPage"
 import PythonAPIPage from "./pages/apiPages/PythonApiPage"
 import FAQ from "./pages/FAQ/FAQ"
