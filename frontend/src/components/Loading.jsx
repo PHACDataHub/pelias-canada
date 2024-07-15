@@ -14,6 +14,7 @@ export default function Loading() {
               height: 120px;
               -webkit-animation: spin 2s linear infinite;
               animation: spin 2s linear infinite;
+              margin-top: 10px
             }
   
             @-webkit-keyframes spin {
