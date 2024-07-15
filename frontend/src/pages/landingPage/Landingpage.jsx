@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
-
 import { useState } from "react"
 import ForwardSinglefetch from "../../components/apiFetch/ForwardSingleFetch"
 import SingleFetchResults from "../../components/apiFetch/ResultsSingleFetch"
-import UseLocationButton from "../../components/apiFetch/UseLocationButton" // Adjust the path if necessary
+import UseLocationButton from "../../components/apiFetch/UseLocationButton" 
 import { GcdsButton } from "@cdssnc/gcds-components-react"
 import ReverseSingleFetch from "../../components/apiFetch/ReverseSingleFetch"
 
@@ -46,10 +43,10 @@ export default function LandingPage() {
 
 			<div>
 				<p>
-					Developing in-house, geolocation services (i.e. "batch geocoding") within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common
+					Developing in-house, geolocation services (i.e. &quot;batch geocoding&quot;) within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common
 					but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage.
 					Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party
-					services, ensuring data stays within PHAC's network and reducing costs associated with external.
+					services, ensuring data stays within PHAC&apos;s network and reducing costs associated with external.
 				</p>
 			</div>
 			<section>

@@ -1,17 +1,20 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
+
 import { useState } from "react"
 import { GcdsButton } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
-import Loading from "../Loading"
-import { ToastContainer, toast } from "react-toastify"
+import {  toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import PropTypes from "prop-types"
+
+ReverseSinglefetch.propTypes = {
+	onResponseData: PropTypes.func.isRequired,
+  };
 
 export default function ReverseSinglefetch({ onResponseData }) {
 	const [latitude, setLatitude] = useState("")
 	const [longitude, setLongitude] = useState("")
-	const [responseData, setResponseData] = useState(null)
 	const [loading, setLoading] = useState(false)
+
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -51,11 +54,9 @@ export default function ReverseSinglefetch({ onResponseData }) {
 					const result = {
 						...data,
 					}
-					setResponseData(result)
 					onResponseData(result) // <-- Call the callback here
 				} else {
 					const result = { ...data }
-					setResponseData(result)
 					onResponseData(result) // <-- Call the callback here
 				}
 			})
@@ -78,7 +79,6 @@ export default function ReverseSinglefetch({ onResponseData }) {
 						flexDirection: "column",
 						gap: "10px",
 						alignItems: "center",
-						
 					}}
 				>
 					<div
@@ -101,7 +101,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 						<label>Latitude:</label>
 						<input required type="text" value={latitude} onChange={e => setLatitude(e.target.value)} placeholder="43.642567" />
 					</div>
-					<br/>
+					<br />
 					<div
 						style={{
 							display: "flex",
@@ -111,24 +111,26 @@ export default function ReverseSinglefetch({ onResponseData }) {
 							marginBottom: "2",
 						}}
 					>
-						<GcdsButton type="submit"   buttonId="submit reverse geolocation" size="small" name="submit reverse geolocation">
+						<GcdsButton type="submit" buttonId="submit reverse geolocation" size="small" name="submit reverse geolocation">
 							Search
 						</GcdsButton>
 						<GcdsButton
 							type="reset"
 							buttonRole="secondary"
 							buttonId="reset reverse geolocation"
-							size="small" name="submit reverse geolocation"
+							size="small"
+							name="submit reverse geolocation"
 							onClick={() => {
 								setLatitude("")
-								setLongitude("")
-								setResponseData(null)
+								setLongitude("")								
 							}}
 						>
 							Reset
 						</GcdsButton>
 					</div>
 				</form>
+			{loading === false ? (null): ("Loading")}
+
 			</div>
 		</>
 	)
