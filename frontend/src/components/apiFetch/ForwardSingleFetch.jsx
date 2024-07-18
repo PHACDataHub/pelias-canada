@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { GcdsButton} from "@cdssnc/gcds-components-react"
+import { GcdsButton } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
-import {  toast } from "react-toastify"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PropTypes from "prop-types"
+import { useTranslation } from "react-i18next"
 
 ForwardSinglefetch.propTypes = {
 	onResponseData: PropTypes.func.isRequired,
@@ -13,21 +14,17 @@ export default function ForwardSinglefetch({ onResponseData }) {
 	const [address, setAddress] = useState("")
 	const [city, setCity] = useState("")
 	const [province, setProvince] = useState("")
-	const [responseData, setResponseData] = useState(null)
 	const [loading, setLoading] = useState(false)
-
+	const { t } = useTranslation()
 
 	const handleSubmit = e => {
 		e.preventDefault()
 		const fullAddress = `${address.trim()}, ${city.trim()}, ${province.trim()}`
-	
 
 		if (!address || !city || !province) {
 			toast.error("Please enter address, city, and province.")
 			return
 		}
-
-		console.log("Form submitted with address:", fullAddress)
 		sendRequest(fullAddress)
 	}
 
@@ -75,8 +72,6 @@ export default function ForwardSinglefetch({ onResponseData }) {
 
 		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(streetAddress)}`
 
-		console.log("Sending request to:", url)
-
 		fetch(url)
 			.then(response => {
 				if (!response.ok) {
@@ -88,17 +83,16 @@ export default function ForwardSinglefetch({ onResponseData }) {
 				console.log("Received data:", data)
 				setLoading(false)
 
-				if (data.features && data.features.length > 0) {					
+				if (data.features && data.features.length > 0) {
 					const result = {
 						...data,
 						apartmentNumber,
 						unitNumber,
 					}
-					setResponseData(result)
-					onResponseData(result) // <-- Call the callback here
+
+					onResponseData(result)
 				} else {
 					const result = { ...data, apartmentNumber, unitNumber }
-					setResponseData(result)
 					onResponseData(result) // <-- Call the callback here
 				}
 			})
@@ -109,17 +103,10 @@ export default function ForwardSinglefetch({ onResponseData }) {
 			})
 	}
 
-	const name = responseData?.features?.[0]?.properties?.name || ""
-	const county = responseData?.features?.[0]?.properties?.county || ""
-	const region = responseData?.features?.[0]?.properties?.region_a || ""
-
-	const returnAddress = [name, county, region].filter(Boolean).join(", ")
-
-	console.log("return address:", returnAddress || "")
 	return (
 		<>
 			<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-around", gap: "10px" }}>
-				<h4>Enter an address, city, and province</h4>
+				<h4>{t("components.apiFetch.forwardSingleFetch.inputHeader")}</h4>
 				<form
 					onSubmit={handleSubmit}
 					style={{
@@ -136,7 +123,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 							justifyContent: "space-between",
 						}}
 					>
-						<label>Address:</label>
+						<label>{t("components.apiFetch.forwardSingleFetch.address")}:</label>
 						<input required type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder="110 Laurier Ave W" />
 					</div>
 					<div
@@ -146,7 +133,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 							justifyContent: "space-between",
 						}}
 					>
-						<label>City:</label>
+						<label>{t("components.apiFetch.forwardSingleFetch.city")}:</label>
 						<input required type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Ottawa" />
 					</div>
 					<div
@@ -156,7 +143,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 							justifyContent: "space-between",
 						}}
 					>
-						<label>Province:</label>
+						<label>{t("components.apiFetch.forwardSingleFetch.province")}:</label>
 						<input required type="text" value={province} onChange={e => setProvince(e.target.value)} placeholder="ON" />
 					</div>
 					<div
@@ -167,7 +154,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 						}}
 					>
 						<GcdsButton type="submit" buttonId="submit forward geolocation" size="small" name="submit forward geolocation">
-							Search
+							{t("search")}
 						</GcdsButton>
 						<GcdsButton
 							type="reset"
@@ -179,15 +166,13 @@ export default function ForwardSinglefetch({ onResponseData }) {
 								setAddress("")
 								setCity("")
 								setProvince("")
-								setResponseData(null)
 							}}
 						>
-							Reset
+							{t("reset")}
 						</GcdsButton>
 					</div>
 				</form>
-			{loading === false ? (null): ("Loading")}
-
+				{loading === false ? null : "Loading"}
 			</div>
 		</>
 	)

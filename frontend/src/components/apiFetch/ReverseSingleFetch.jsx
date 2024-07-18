@@ -1,20 +1,20 @@
-
 import { useState } from "react"
 import { GcdsButton } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
-import {  toast } from "react-toastify"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PropTypes from "prop-types"
+import { useTranslation } from "react-i18next"
 
 ReverseSinglefetch.propTypes = {
 	onResponseData: PropTypes.func.isRequired,
-  };
+}
 
 export default function ReverseSinglefetch({ onResponseData }) {
 	const [latitude, setLatitude] = useState("")
 	const [longitude, setLongitude] = useState("")
 	const [loading, setLoading] = useState(false)
-
+	const { t } = useTranslation()
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -70,7 +70,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 	return (
 		<>
 			<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "10px" }}>
-				<h4>Enter a Latitude and a Longitude</h4>
+				<h4>{t("components.apiFetch.reverseSingleFetch.inputHeader")}</h4>
 
 				<form
 					onSubmit={handleSubmit}
@@ -88,7 +88,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 							justifyContent: "space-between",
 						}}
 					>
-						<label>Longitude:</label>
+						<label>{t("components.apiFetch.reverseSingleFetch.long")}:</label>
 						<input required type="text" value={longitude} onChange={e => setLongitude(e.target.value)} placeholder="-79.387054" />
 					</div>
 					<div
@@ -98,7 +98,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 							justifyContent: "space-between",
 						}}
 					>
-						<label>Latitude:</label>
+						<label>{t("components.apiFetch.reverseSingleFetch.lat")}:</label>
 						<input required type="text" value={latitude} onChange={e => setLatitude(e.target.value)} placeholder="43.642567" />
 					</div>
 					<br />
@@ -112,7 +112,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 						}}
 					>
 						<GcdsButton type="submit" buttonId="submit reverse geolocation" size="small" name="submit reverse geolocation">
-							Search
+							{t("search")}
 						</GcdsButton>
 						<GcdsButton
 							type="reset"
@@ -122,15 +122,14 @@ export default function ReverseSinglefetch({ onResponseData }) {
 							name="submit reverse geolocation"
 							onClick={() => {
 								setLatitude("")
-								setLongitude("")								
+								setLongitude("")
 							}}
 						>
-							Reset
+							{t("reset")}
 						</GcdsButton>
 					</div>
 				</form>
-			{loading === false ? (null): ("Loading")}
-
+				{loading === false ? null : "Loading"}
 			</div>
 		</>
 	)

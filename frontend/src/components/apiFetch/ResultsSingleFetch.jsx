@@ -231,9 +231,8 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
   );
 }
 
-// PropTypes validation
 SingleFetchResults.propTypes = {
-  forwardResponse: PropTypes.func.isRequired,
-  buttonResponse: PropTypes.func.isRequired,
-  reverseResponse: PropTypes.func.isRequired,
+  forwardResponse: PropTypes.any ,
+  buttonResponse: PropTypes.any ,
+  reverseResponse: PropTypes.any ,
 };

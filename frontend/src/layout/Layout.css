@@ -34,3 +34,21 @@
   text-decoration: underline;
   font-weight: bold;
 }
+
+.astext {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  cursor: pointer;
+  color: rgb(0, 0, 255);
+}
+.astext:hover{
+background:none;
+border:none;
+margin:0;
+padding:0;
+cursor: pointer;
+color: rgb(0,0,200);
+text-decoration: underline;
+}

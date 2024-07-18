@@ -2,10 +2,12 @@ import { GcdsButton } from "@cdssnc/gcds-components-react"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import PropTypes from "prop-types"
+import { useTranslation } from "react-i18next"
 
 const UseLocationButton = ({ ButtonResponseData }) => {
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
+	const { t } = useTranslation()
 
 	const getLocation = () => {
 		if (navigator.geolocation) {
@@ -75,15 +77,12 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 				justifyContent: "space-between",
 			}}
 		>
-			<h4>Click to use your current location</h4>
-			<p>
-				<i>
-					Please note web location <br /> access must be authorized{" "}
-				</i>
+			<h4>{t("components.apiFetch.useLocationButton.header")}</h4>
+			<p style={{ textAlign: "center", paddingLeft: "15px", paddingRight: "15px" }}>
+				<i>{t("components.apiFetch.useLocationButton.warning")}</i>
 			</p>
 			<br />
 
-			
 			<div
 				style={{
 					paddingX: "40px",
@@ -95,11 +94,11 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 				}}
 			>
 				<GcdsButton onClick={getLocation} center buttonId="Get Location" size="small" name="Get Location">
-					Get Location
+				{t("components.apiFetch.useLocationButton.getLocation")}
 				</GcdsButton>
 			</div>
-			{error !== "" ? (null): (error)}
-			{loading === false ? (null): ("Loading")}
+			{error !== "" ? null : error}
+			{loading === false ? null : "Loading"}
 		</div>
 	)
 }
