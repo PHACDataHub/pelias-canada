@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsButton } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
 import { copyToClipboard } from "../../assets/copyToClipboard.jsx" // Adjust the path as necessary
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { useTranslation } from "react-i18next"
 
 export default function PythonAPIPage() {
 	const pythonCodeForward = `
@@ -41,7 +42,7 @@ for filename in uploaded.keys():
             Longitude: {longitude}, Score: {score}, Match Type: {match_type}, Source: {source}")
       else:
         print(f"File: {filename}, Failed to geocode address: {address}")
-		`
+    `
 
 	const pythonCodeReverse = `
 import pandas as pd
@@ -138,7 +139,7 @@ output_csv = f"{output_dir}/{output_file_name}.csv"
 process_csv(input_csv, output_csv)
 
 print(f"Output CSV file saved as {output_csv}")
-		`
+    `
 	// copied has to stay for toastify to work
 	// eslint-disable-next-line no-unused-vars
 	const [copied, setCopied] = useState(false)
@@ -163,49 +164,46 @@ print(f"Output CSV file saved as {output_csv}")
 		backgroundColor: "#eeeeee",
 		position: "relative",
 		padding: "20px",
-		borderLeft: "5px solid black"
-	};
+		borderLeft: "5px solid black",
+	}
 
 	const codeBlockStyles = {
 		marginTop: "40px",
 		overflowWrap: "break-word",
-		overflowX: "auto"
-	};
-
+		overflowX: "auto",
+	}
+	const { t } = useTranslation()
 	return (
 		<>
-			<GcdsHeading tag="h2" marginTop="50">
-				Python API
-			</GcdsHeading>
-			<div style={{ textAlign: "justify" }}>
-				<p>
-					Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration,
-					prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external
-					resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC&apos;s network and reducing costs associated with external
-					queries.
-				</p>
+			<h1>{t("pages.python.title")}</h1>
+			<div style={{ textAlign: "justify", overflow: "auto" }}>
+				<p>{t("pages.python.pythonParagraph")}</p>
 			</div>
 			<div style={{ display: "flex", width: "100%", flexDirection: "column" }}>
 				<blockquote style={commonStyles}>
-					<h3>Geocode Example using Python</h3>
+					<h2>{t("pages.python.forwardPythoncode")}</h2>
 					<div style={{ position: "absolute", top: "10px", right: "10px" }}>
-						<GcdsButton size="small" onClick={handleCopyPythonCodeForward}>
-							Copy code
+						<GcdsButton size="small" onClick={handleCopyPythonCodeForward} aria-label="Copy Address Geocoding Python code to clipboard">
+							{t("copyCode")}
 						</GcdsButton>
 					</div>
 					<pre style={codeBlockStyles}>
-						<code style={codeBlockStyles}>{pythonCodeForward}</code>
+						<code style={codeBlockStyles} aria-label="Address Geocoding Python Code">
+							{pythonCodeForward}
+						</code>
 					</pre>
 				</blockquote>
 				<blockquote style={commonStyles}>
-					<h3>Reverse Geocode Example using Python</h3>
+					<h2>{t("pages.python.reversePythonCode")}</h2>
 					<div style={{ position: "absolute", top: "10px", right: "10px" }}>
-						<GcdsButton size="small" onClick={handleCopyPythonCodeReverse}>
-							Copy code
+						<GcdsButton size="small" onClick={handleCopyPythonCodeReverse} aria-label="Copy Reverse Geocoding Python code to clipboard">
+							{t("copyCode")}
 						</GcdsButton>
 					</div>
 					<pre style={codeBlockStyles}>
-						<code style={codeBlockStyles}>{pythonCodeReverse}</code>
+						<code style={codeBlockStyles} aria-label="Reverse Geocoding Python Code">
+							{pythonCodeReverse}
+						</code>
 					</pre>
 				</blockquote>
 			</div>

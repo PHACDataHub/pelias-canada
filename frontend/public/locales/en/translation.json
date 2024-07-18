@@ -1,0 +1,70 @@
+{
+	"components": {
+		"apiFetch": {
+			"forwardSingleFetch": {
+				"inputHeader": "Enter an address, a city, and a province",
+				"address": "Address",
+				"city": "City",
+				"province": "Province"
+			},
+			"reverseSingleFetch": {
+				"inputHeader": "Enter a Latitude and a Longitude",
+				"lat": "Latitude",
+				"long": "Longitude"
+			},
+			"useLocationButton": {
+				"header": "Click to use your current location",
+				"warning": "Please note web location access must be authorized",
+				"getLocation": "Get Location"
+			}
+		}
+	},
+	"menu": {
+		"title": "Pelias Geocoder",
+		"home": "Home",
+		"bulkFile": "Bulk Files",
+		"addressBulkFile": "Address Bulk Files ",
+		"developers": "Developers"
+	},
+	"footer": {
+		"additionalNav": "Additional navigation",
+		"resultsExplained": "Geocoding Results Explanation",
+		"faq": "Frequently Asked Questions"
+	},
+	"pages": {
+		"addressBulkFile": {
+			"title": "Address Bulk Files"
+		},
+		"landingPage": {
+			"title": "Welcome to Pelias Geocoder",
+			"underHeader": "We're excited to offer our in-house geolocation services, including batch geocoding, to ensure your data is accurate, cost-effective, secure, and transparent. This service is the essential starting point for a variety of analytical and spatial projects. Our process includes tech exploration, prototyping, refining based on user feedback, and expanding coverage to meet your needs.",
+			"cardFlipCaption": "By using our in-house solution, you can rely on trusted results without the risks and costs associated with external providers. Join us on this journey to improve efficiency and safeguard your data.",
+			"cardFlip": {
+				"enhancedPrivacyTitle": "Enhanced privacy",
+				"enhancedPrivacyPara": "Ensuring data stays within PHAC's network",
+				"costSavingTitle": "Cost savings",
+				"costSavingPara": "Reduce expenses by avoiding third-party services.",
+				"traceabilityTitle": "Traceability",
+				"traceabilityPara": "Easily track and manage your data.",
+				"flexibilityTitle": "Flexibility and modularity",
+				"flexibilityPara": "Adapt our services to fit your specific needs."
+			}
+		},
+		"python": {
+			"title": "Python API",
+			"pythonParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
+			"forwardPythoncode": "Address Geocoding example using Python",
+			"reversePythonCode": "Reverse Geocoding example using Python"
+		},
+		"rshiny": {
+			"title": "R Shiny API",
+			"rshinyParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
+			"forwardRcode": "Address Geocoding example using R",
+			"reverseRCode": "Reverse Geocoding example using R"
+		}
+	},
+	"copyCode": "Copy code",
+	"search": "Search",
+	"reset": "Reset",
+	"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. "
+}

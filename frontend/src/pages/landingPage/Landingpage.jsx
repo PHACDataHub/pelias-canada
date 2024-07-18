@@ -1,23 +1,20 @@
 import { useState } from "react"
 import ForwardSinglefetch from "../../components/apiFetch/ForwardSingleFetch"
 import SingleFetchResults from "../../components/apiFetch/ResultsSingleFetch"
-import UseLocationButton from "../../components/apiFetch/UseLocationButton" 
-import { GcdsButton } from "@cdssnc/gcds-components-react"
+import UseLocationButton from "../../components/apiFetch/UseLocationButton"
+import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import ReverseSingleFetch from "../../components/apiFetch/ReverseSingleFetch"
+import { useTranslation } from "react-i18next"
+// import FlipCard from "../../components/flipCard/FlipCard"
 
 export default function LandingPage() {
 	const [forwardResponsedata, setForwardResponsedata] = useState("")
-	const [forwardInput, setForwardInput] = useState("")
 	const [reverseResponsedata, setReverseResponsedata] = useState("")
 	const [useLocationButtonResults, setUseLocationButtonResults] = useState("")
 
 	const handleForwardResponseData = data => {
 		resetData()
 		setForwardResponsedata(data)
-	}
-
-	const handleForwardInput = data => {
-		setForwardInput(data)
 	}
 
 	const handleUseButtonLocationResponseData = data => {
@@ -36,31 +33,69 @@ export default function LandingPage() {
 		setUseLocationButtonResults("")
 	}
 
-	
+	const { t } = useTranslation()
+
+	// function LandingPageCardFLipSection() {
+	// 	return (
+	// 		<>
+	// 			<GcdsGrid container="xl" columns="repeat(auto-fit, minmax(100px, 200px))" justifyContent="space-evenly" equalRowHeight>
+	// 				<FlipCard
+	// 					frontText={t("pages.landingPage.cardFlip.enhancedPrivacyTitle")}
+	// 					backText={t("pages.landingPage.cardFlip.enhancedPrivacyPara")}
+	// 					backColor="#90909020"
+	// 					textColor="#26374a"
+	// 					flipCardHeight={"225px"}
+	// 					flipCardWidth={"200px"}
+	// 				/>
+	// 				<FlipCard
+	// 					frontText={t("pages.landingPage.cardFlip.costSavingTitle")}
+	// 					backText={t("pages.landingPage.cardFlip.costSavingPara")}
+	// 					backColor="#90909020"
+	// 					textColor="#26374a"
+	// 					flipCardHeight={"225px"}
+	// 					flipCardWidth={"200px"}
+	// 				/>
+
+	// 				<FlipCard
+	// 					frontText={t("pages.landingPage.cardFlip.traceabilityTitle")}
+	// 					backText={t("pages.landingPage.cardFlip.traceabilityPara")}
+	// 					backColor="#90909020"
+	// 					textColor="#26374a"
+	// 					flipCardHeight={"225px"}
+	// 					flipCardWidth={"200px"}
+	// 				/>
+	// 				<FlipCard
+	// 					frontText={t("pages.landingPage.cardFlip.flexibilityTitle")}
+	// 					backText={t("pages.landingPage.cardFlip.flexibilityPara")}
+	// 					backColor="#90909020"
+	// 					textColor="#26374a"
+	// 					flipCardHeight={"225px"}
+	// 					flipCardWidth={"200px"}
+	// 				/>
+	// 			</GcdsGrid>
+	// 		</>
+	// 	)
+	// }
+
 	return (
 		<>
-			<h1>Welcome to Pelias Geocoder</h1>
-
-			<div>
-				<p>
-					Developing in-house, geolocation services (i.e. &quot;batch geocoding&quot;) within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common
-					but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage.
-					Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party
-					services, ensuring data stays within PHAC&apos;s network and reducing costs associated with external.
-				</p>
-			</div>
+			<h1>{t("pages.landingPage.title")}</h1>
 			<section>
-				<div style={{ display: "flex", justifyContent: "space-around"  }} >
+				{/* <h2 style={{ textAlign: "justify", fontWeight: "normal", paddingTop: "15px", paddingBottom: "15px" }}>
+				{t("pages.landingPage.underHeader")}
+				</h2>
+				<LandingPageCardFLipSection />
+				<h3 style={{ textAlign: "justify", fontWeight: "normal", paddingTop: "15px", paddingBottom: "15px" }}>
+				{t("pages.landingPage.cardFlipCaption")}
+				</h3> */}
+				<p>{t("landingPagePara")}</p>
+			</section>
+
+			<section>
+				<GcdsGrid container="xl" columns="repeat(auto-fit, minmax(100px, 300px))" justifyContent="space-evenly" equalRowHeight>
 					<div style={{ display: "flex", justifyContent: "center" }}>
-						<ForwardSinglefetch onResponseData={handleForwardResponseData} UserInput={handleForwardInput} />
+						<ForwardSinglefetch onResponseData={handleForwardResponseData} />
 					</div>
-					<div
-						style={{
-							width: "2px",
-							backgroundColor: "#26374a",
-							margin: "5px 0",
-						}}
-					></div>
 					<div
 						style={{
 							display: "flex",
@@ -73,27 +108,22 @@ export default function LandingPage() {
 					</div>
 					<div
 						style={{
-							width: "2px",
-							backgroundColor: "#26374a",
-							margin: "5px 0",
-						}}
-					></div>
-					<div
-						style={{
 							display: "flex",
 							justifyContent: "center",
 						}}
 					>
 						<ReverseSingleFetch onResponseData={handleReverseResponseData} />
 					</div>
-				</div>
-				
+				</GcdsGrid>
+
 				{useLocationButtonResults !== "" || forwardResponsedata !== "" || reverseResponsedata !== "" ? (
 					<>
 						<div>
 							<br />
 							<GcdsButton
-							buttonId="Clear Results" size="small" name="Clear Results"
+								buttonId="Clear Results"
+								size="small"
+								name="Clear Results"
 								onClick={() => {
 									resetData()
 								}}
@@ -101,7 +131,7 @@ export default function LandingPage() {
 								Clear Results
 							</GcdsButton>
 
-							<SingleFetchResults forwardResponse={forwardResponsedata} userInput={forwardInput} buttonResponse={useLocationButtonResults} reverseResponse={reverseResponsedata} />
+							<SingleFetchResults forwardResponse={forwardResponsedata} buttonResponse={useLocationButtonResults} reverseResponse={reverseResponsedata} />
 						</div>
 					</>
 				) : (

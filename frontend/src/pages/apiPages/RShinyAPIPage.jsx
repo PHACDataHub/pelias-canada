@@ -1,12 +1,13 @@
-import  { useState } from 'react';
-import { GcdsHeading } from '@cdssnc/gcds-components-react';
-import '@cdssnc/gcds-components-react/gcds.css'; // Import the CSS file if necessary
-import { copyToClipboard } from '../../assets/copyToClipboard.jsx'; // Adjust the path as necessary
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react"
+import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
+import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
+import { copyToClipboard } from "../../assets/copyToClipboard.jsx" // Adjust the path as necessary
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { useTranslation } from "react-i18next"
 
 export default function RShinyAPIPage() {
-  const rCode = `library(httr)
+	const rCode = `library(httr)
  
 # Set the Pelias API endpoint URL
 pelias_url <- "https://geocoder.alpha.phac.gc.ca/api/v1/search?text="
@@ -42,40 +43,40 @@ for (i in seq_len(nrow(USArrests))) {
     print('error')
   }
 }
-print(USArrests)`;
+print(USArrests)`
 
-// copied must stay for toast to work   
-// eslint-disable-next-line no-unused-vars
-  const [copied, setCopied] = useState(false);
+	// copied must stay for toast to work
+	// eslint-disable-next-line no-unused-vars
+	const [copied, setCopied] = useState(false)
 
-  const handleCopy = () => {
-    copyToClipboard(rCode, () => {
-      setCopied(true);
-      toast.success('Code copied to clipboard!');
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  return (
-    <>
-      <GcdsHeading tag="h2" marginTop="50">
-        R Shiny API
-      </GcdsHeading>
-      <div style={{ textAlign: "justify", overflow: "auto" }}>
-        <p>
-          Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC&apos;s network and reducing costs associated with external queries.
-        </p>
-        <blockquote style={{ backgroundColor: '#eeeeee', position: 'relative', padding: '20px', borderLeft: '5px solid black' }}>
-          <h3>Geocode Example using R</h3>
-          <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <button onClick={handleCopy}>Copy code</button>
-          </div>
-          <pre style={{ marginTop: '40px' }}>
-            <code>{rCode}</code>
-          </pre>
-        </blockquote>
-      </div>
-      <ToastContainer />
-    </>
-  );
+	const handleCopy = () => {
+		copyToClipboard(rCode, () => {
+			setCopied(true)
+			toast.success("Code copied to clipboard!")
+			setTimeout(() => setCopied(false), 2000)
+		})
+	}
+	const { t } = useTranslation()
+	return (
+		<>
+			<GcdsHeading tag="h2" marginTop="50">
+				{t("pages.rshiny.title")}
+			</GcdsHeading>
+			<div style={{ textAlign: "justify", overflow: "auto" }}>
+				<p>{t("pages.rshiny.rshinyParagraph")} </p>
+				<blockquote style={{ backgroundColor: "#eeeeee", position: "relative", padding: "20px", borderLeft: "5px solid black" }}>
+					<h3>{t("pages.rshiny.forwardRcode")}</h3>
+					<div style={{ position: "absolute", top: "10px", right: "10px" }}>
+						<GcdsButton size="small" onClick={handleCopy}>
+							{t("copyCode")}
+						</GcdsButton>
+					</div>
+					<pre style={{ marginTop: "40px" }}>
+						<code>{rCode}</code>
+					</pre>
+				</blockquote>
+			</div>
+			<ToastContainer />
+		</>
+	)
 }
