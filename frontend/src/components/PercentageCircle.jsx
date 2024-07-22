@@ -11,9 +11,9 @@ export default function PercentageCircle({ confidencePercentage }) {
 
   // Determine the color based on the confidencePercentage
   let color;
-  if (confidencePercentage < 0.5) {
+  if (confidencePercentage  <= 0.5) {
     color = '#ff0000'; // Red for percentages below 50%
-  } else if (confidencePercentage <= 0.8) {
+  } else if (confidencePercentage <= 0.85) {
     color = '#ffff00'; // Yellow for percentages between 51% and 80%
   } else {
     color = '#00ff00'; // Green for percentages above 80%
@@ -23,10 +23,11 @@ export default function PercentageCircle({ confidencePercentage }) {
   const centerText = `${(confidencePercentage * 100).toFixed(1)}%`;
 
   return (
+    <div>
     <svg className="percentage-circle" width="200" height="200">
       <circle
         className="percentage-circle-background"
-        cx="75"
+        cx="100"
         cy="75"
         r={radius}
         stroke="#e6e6e6" // Background color
@@ -35,7 +36,7 @@ export default function PercentageCircle({ confidencePercentage }) {
       />
       <circle
         className="percentage-circle-progress"
-        cx="75"
+        cx="100"
         cy="75"
         r={radius}
         style={{
@@ -48,7 +49,7 @@ export default function PercentageCircle({ confidencePercentage }) {
         }}
       />
       <text
-        x="75"
+        x="100"
         y="75"
         textAnchor="middle"
         dy=".3em"
@@ -57,7 +58,7 @@ export default function PercentageCircle({ confidencePercentage }) {
       >
         {centerText}
       </text>
-    </svg>
+    </svg></div>
   );
 }
 

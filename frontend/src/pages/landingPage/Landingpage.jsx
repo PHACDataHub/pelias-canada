@@ -128,7 +128,7 @@ export default function LandingPage() {
 									resetData()
 								}}
 							>
-								Clear Results
+								{t("pages.landingPage.clearResults")}
 							</GcdsButton>
 
 							<SingleFetchResults forwardResponse={forwardResponsedata} buttonResponse={useLocationButtonResults} reverseResponse={reverseResponsedata} />

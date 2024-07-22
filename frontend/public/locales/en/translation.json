@@ -7,6 +7,24 @@
 				"city": "City",
 				"province": "Province"
 			},
+			"resultSingleFetch": {
+				"infoReturn": "Information returned",
+				"addressReturn": "Address returned for ",
+				"geoReturn": "Geolocation returned for (longitude, latitude)",
+				"confidence": "Confidence in search results",
+				"matchType": "Match Type",
+				"accuracy": "Accuracy",
+				"source": "Source",
+				"infoVersion": "Information provided by Pelias Geocoder",
+				"dateTime": "Date and Time (YYYY-MM-DD HH:MM:SS AM/PM",
+				"address": "Address",
+				"longitude": "Longitude",
+				"latitude": "Latitude",
+				"seeMoreOpts": "See more options",
+				"longlat": "Longitude, Latitude:",
+				"latlong": "Latitude, Longitude:",
+				"viewMap": "View the Map"
+			},
 			"reverseSingleFetch": {
 				"inputHeader": "Enter a Latitude and a Longitude",
 				"lat": "Latitude",
@@ -19,17 +37,17 @@
 			}
 		}
 	},
+	"footer": {
+		"additionalNav": "Additional navigation",
+		"resultsExplained": "Geocoding Results Explanation",
+		"faq": "Frequently Asked Questions"
+	},
 	"menu": {
 		"title": "Pelias Geocoder",
 		"home": "Home",
 		"bulkFile": "Bulk Files",
 		"addressBulkFile": "Address Bulk Files ",
 		"developers": "Developers"
-	},
-	"footer": {
-		"additionalNav": "Additional navigation",
-		"resultsExplained": "Geocoding Results Explanation",
-		"faq": "Frequently Asked Questions"
 	},
 	"pages": {
 		"addressBulkFile": {
@@ -48,7 +66,8 @@
 				"traceabilityPara": "Easily track and manage your data.",
 				"flexibilityTitle": "Flexibility and modularity",
 				"flexibilityPara": "Adapt our services to fit your specific needs."
-			}
+			},
+			"clearResults": "Clear the Results"
 		},
 		"python": {
 			"title": "Python API",
@@ -64,6 +83,7 @@
 		}
 	},
 	"copyCode": "Copy code",
+	"copy": "Copy",
 	"search": "Search",
 	"reset": "Reset",
 	"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. "
