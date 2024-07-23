@@ -12,7 +12,7 @@ export default function Footer() {
 				<GcdsContainer size="xl" centered padding="200">
 					<p>{t("footer.additionalNav")}</p>
 					<div style={{ display: "flex", w: "100%", paddingTop: "0px", gap: "5%" }} className="body">
-						<NavLink to="/geocoding-explanation" style={{ color: "white" }}>
+						<NavLink to="/geocoding-results-explanation" style={{ color: "white" }}>
 						{t("footer.resultsExplained")}
 						</NavLink>
 						<NavLink to="/frequently-asked-questions" style={{ color: "white" }}>

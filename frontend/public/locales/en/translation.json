@@ -73,6 +73,107 @@
 			},
 			"clearResults": "Clear the Results"
 		},
+		"geocodingExplanation": {
+			"title": "Geocoding Results Explanation",
+			"underTitleHeader": "Understanding Match Types in Pelias",
+			"underTitlePara": "When Pelias returns geocoding results, it uses different types of matches to determine the accuracy of the location.",
+			"matchTypes": {
+				"title": "Match types",
+				"exact": "Exact/Rooftop Matches",
+				"exactPara": "These matches are very accurate and pinpoint the exact location of an address.",
+				"centroid": "Centroid Match",
+				"centroidPara": "These matches place the address at the center of a larger area, like a city or postal code region.",
+				"interpolation": "Interpolation Matches",
+				"interpolationPara": "These matches estimate the address location based on nearby known addresses or along road segments."
+			},
+			"improvingAccuracy": {
+				"title": "Improving Geocoding Accuracy",
+				"underTitle": "To improve the accuracy of geocoding results, follow these steps",
+				"verifyAddress": {
+					"title": "Verify Address Format",
+					"para": "Ensure the address is in a standardized format."
+				},
+				"spellingAbbrevs": {
+					"title": "Check Spelling and Abbreviations",
+					"para": "Correct spelling errors and standardize abbreviations."
+				},
+				"details": {
+					"title": "Include Relevant Details",
+					"para": "Provide complete address details like unit numbers and building names."
+				},
+				"splitIntoComponents": {
+					"title": "Split Civic Addresses into Components",
+					"para": "Break down addresses into street number, street name, city, province, etc."
+				},
+				"billingualReqs": {
+					"title": "Consider Bilingual Requirements",
+					"para": "Handle bilingual addresses and special characters correctly."
+				},
+				"standardDigraphs": {
+					"title": "Convert Provinces/Territories to Standard Digraphs",
+					"para": "Use two-letter codes for provinces and territories."
+				},
+				"specialChars": {
+					"title": "Remove Special Characters",
+					"para": "Clean data by removing non-alphanumeric characters."
+				},
+				"capitilization": {
+					"title": "Standardize Capitalization",
+					"para": "Ensure consistent capitalization."
+				},
+				"addressVars": {
+					"title": "Account for Address Variations",
+					"para": "Handle different address formats consistently."
+				}
+			},
+			"lessAccurateMatch": {
+				"title": "Implications of Less Accurate Matches",
+				"underTitle": "Less accurate matches, like centroid or interpolation matches, can impact spatial accuracy and limit the reliability of spatial analyses.",
+				"spatialAccuracy": "Spatial Accuracy",
+				"spatialAccuracyPara": "Matches that are not exact may place addresses at centroids or interpolate along road segments, potentially misrepresenting spatial contexts.",
+				"limitedSpatialAccuracy": "Limitations to Spatial Analyses",
+				"limitedSpatialAccuracyPAra": "Inaccurate geocoding matches can introduce errors in studies such as demographic analysis or emergency response planning."
+			},
+			"understandingGeocodingResults": "Understanding Geocoding Results",
+			"understandingGeocodingResultsPara": "Geocoding is the process of converting addresses into geographic coordinates (like latitude and longitude). When you use a geocoding service like Pelias, you get structured output.",
+			"apiFeature": {
+				"title": "API Features",
+				"features": "Represents the list of results you get from the geocoding service.",
+				"bbox": "The bounding box of the feature, defining the area that includes the location.",
+				"geometry": {
+					"coordinates": "The latitude and longitude of the location in decimal degrees, based on WGS 1984.",
+					"type": " The type of geometry (e.g., Point, Polygon)."
+				},
+				"type": "The type of feature (e.g., Feature).",
+				"properties": {
+					"properties": "Additional information about the feature.",
+					"country": "The country of the location.",
+					"gid": "A unique identifier for the location.",
+					"locality_gid": "The unique identifier for the locality (city or town).",
+					"neighbourhood_gid": " The unique identifier for the neighborhood.",
+					"confidence": "A score indicating how confident the service is about the accuracy of the location.",
+					"country_a": "The abbreviation for the country.",
+					"county": "The county of the location.",
+					"locality": "The locality (city or town) of the location.",
+					"accuracy": "The type of accuracy (e.g., rooftop, centroid).",
+					"source": "The data source of the location.",
+					"label": "A human-readable label for the location.",
+					"region_a": "The abbreviation for the region.",
+					"layer": "The layer or category of the feature (e.g., address, venue).",
+					"country_code": "The country code.",
+					"street": "The street name.",
+					"neighbourhood": "The neighborhood.",
+					"region_gid": "The unique identifier for the region.",
+					"name": "The name of the location.",
+					"match_type": "The type of match (e.g., exact, fallback, interpolated).",
+					"id": "A unique ID and source of the location.",
+					"source_id": "The source ID of the location.",
+					"country_gid": "The unique identifier for the country.",
+					"region": "The region of the location.",
+					"county_gid": "The unique identifier for the county."
+				}
+			}
+		},
 		"python": {
 			"title": "Python API",
 			"pythonParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",

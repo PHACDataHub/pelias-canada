@@ -251,6 +251,58 @@ const FileProcessorComponent = ({ jsonData }) => {
 		},
 		[exportTitle]
 	)
+	const exportToGeoJSON = useCallback(() => {
+		const geojson = {
+			type: "FeatureCollection",
+			features: results.map(result => {
+				if (!result.data || !result.data.features || !result.data.features[0] || !result.data.features[0].properties) {
+					return null
+				}
+	
+				const inputAddress = result.address
+				const feature = result.data.features[0]
+				const properties = feature.properties
+				const confidence = properties.confidence ? (properties.confidence * 100).toFixed(2) + " %" : ""
+				const matchType = properties.match_type || ""
+				const accuracy = properties.accuracy || ""
+				const source = properties.source || ""
+				const timestamp = convertTimestamp(result.data.geocoding.timestamp) || "" // Use optional chaining to handle undefined geocoding
+				const unitNumber = processedData.find(row => row["Physical Address"] === inputAddress)?.["Unit Number"] || ""
+	
+				return {
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: feature.geometry.coordinates
+					},
+					properties: {
+						Address: unitNumber ? `${unitNumber} ${inputAddress}` : inputAddress,
+						Confidence: confidence,
+						"Match Type": matchType,
+						Accuracy: accuracy,
+						Source: source,
+						Timestamp: timestamp,
+						UnitNumber: unitNumber
+					}
+				}
+			}).filter(feature => feature !== null)
+		}
+	
+		downloadGeoJSON(geojson)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [results, processedData])
+	
+	const downloadGeoJSON = useCallback(
+		geojson => {
+			const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: "application/json" })
+			const link = document.createElement("a")
+			link.href = window.URL.createObjectURL(blob)
+			link.download = `${exportTitle || "export"}_geocoding_results.geojson`
+			link.click()
+		},
+		[exportTitle]
+	)
+	
 
 	const mapContentJSON = Object.keys(apiResponses).map(address => {
 		const result = apiResponses[address]
@@ -293,8 +345,13 @@ const FileProcessorComponent = ({ jsonData }) => {
 					<GcdsButton size="small" onClick={exportToExcel}>
 						Export to Excel
 					</GcdsButton>
+
 					<GcdsButton size="small" onClick={exportToCSV} style={{ marginLeft: 10 }}>
 						Export to CSV
+					</GcdsButton>
+					
+					<GcdsButton size="small" onClick={exportToGeoJSON} style={{ marginLeft: 10 }}>
+						Export to GeoJson
 					</GcdsButton>
 					<div>
 						<h2>Results Count:</h2>
@@ -326,7 +383,7 @@ const FileProcessorComponent = ({ jsonData }) => {
 										<strong>Match Type:</strong> {properties.match_type || "Unknown"} <br />
 										<strong>Accuracy:</strong> {properties.accuracy || "Unknown"} <br />
 										<strong>Source:</strong> {properties.source || "Unknown"} <br />
-										<strong>Date and Time (YYYY-MM-DD HH:MM:SS AM/PM) ::</strong> {convertTimestamp(geocoding.timestamp) || "Unknown"} <br />{" "}
+										<strong>Date and Time (YYYY-MM-DD HH:MM:SS AM/PM) :</strong> {convertTimestamp(geocoding.timestamp) || "Unknown"} <br />{" "}
 										{/* Adjusted to safely access timestamp */}
 										<strong>Longitude:</strong> {geometry.coordinates ? geometry.coordinates[0] : "N/A"} <br />
 										<strong>Latitude:</strong> {geometry.coordinates ? geometry.coordinates[1] : "N/A"} <br />
