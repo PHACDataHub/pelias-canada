@@ -171,7 +171,7 @@ export default function TopNav() {
               </li> */}
 							<li>
 								<NavLink to="/forward-bulk-files" ref={lastBulkDropMenuItemRef} onClick={handleCloseMenu}>
-                {t("menu.addressBulkFile")}
+									{t("menu.addressBulkFile")}
 								</NavLink>
 							</li>
 						</ul>
@@ -196,8 +196,8 @@ export default function TopNav() {
 							onBlur={() => {}} // Placeholder onBlur handler
 						>
 							<li>
-								<NavLink to="/r-shiny-api" onClick={handleCloseMenu}>
-									R Shiny Api
+								<NavLink to="/r-api" onClick={handleCloseMenu}>
+									R Api
 								</NavLink>
 							</li>
 							<li>

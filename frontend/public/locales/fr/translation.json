@@ -35,6 +35,10 @@
 				"warning": "Veuillez noter que l'accès à un site web l'accès doit être autorisé",
 				"getLocation": "Obtenir l'emplacement"
 			}
+		},
+		"CodeZips": {
+			"pythonDownload": "Télécharger les fichiers Python",
+			"rDownload": "Télécharger les fichiers R"
 		}
 	},
 	"footer": {
@@ -66,7 +70,8 @@
 				"traceabilityPara": "Suivez et gérez facilement vos données.",
 				"flexibilityTitle": "Flexibilité et modularité",
 				"flexibilityPara": "Adapter nos services à vos besoins spécifiques."
-			},				"clearResults": "Effacer les résultats"
+			},
+			"clearResults": "Effacer les résultats"
 		},
 
 		"python": {
@@ -76,7 +81,7 @@
 			"reversePythonCode": "Exemple de géocodage inversé avec Python"
 		},
 		"rshiny": {
-			"title": "R Shiny API",
+			"title": "R API",
 			"rshinyParagraph": "Développer des services de géolocalisation internes à l'ASPC afin d'améliorer l'exactitude, la précision, la rentabilité, la sécurité et la transparence. Les phases comprennent l'exploration technologique, le prototypage, l'affinement en fonction de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la protection de la vie privée, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux requêtes externes.",
 			"forwardRcode": "Exemple de géocodage d'adresses avec R",
 			"reverseRCode": "Exemple de géocodage inversé avec R"

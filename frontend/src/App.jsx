@@ -16,7 +16,7 @@ function App() {
 				<Route path="home" element={<LandingPage />} />
 				{/* Render BulkInput component for the "/bulkinput" route */}
 				<Route path="forward-bulk-files" element={<BulkInput />} />
-				<Route path="r-shiny-api" element={<RShinyAPIPage />} />
+				<Route path="r-api" element={<RShinyAPIPage />} />
 				<Route path="python-api" element={<PythonAPIPage />} />
 				<Route path="frequently-asked-questions" element={<FAQ />} />
 				<Route path="geocoding-explanation" element={<GeocodingExplanation />} />
