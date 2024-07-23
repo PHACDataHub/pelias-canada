@@ -73,7 +73,107 @@
 			},
 			"clearResults": "Effacer les résultats"
 		},
-
+		"geocodingExplanation": {
+			"title": "Explication des résultats du géocodage",
+			"underTitleHeader": "Comprendre les types de match dans Pelias",
+			"underTitlePara": "Lorsque Pelias renvoie des résultats de géocodage, il utilise différents types de correspondances pour déterminer la précision de l'emplacement.",
+			"matchTypes": {
+				"title": "Types de matches",
+				"exact": "Correspondances exactes/complètes",
+				"exactPara": "Ces matches sont très précises et permettent de localiser exactement une adresse.",
+				"centroid": "Match des centroïdes",
+				"centroidPara": "Ces matches placent l'adresse au centre d'une zone plus large, comme une ville ou un code postal.",
+				"interpolation": "Match d'interpolation",
+				"interpolationPara": "Ces matches permet d'estimer l'emplacement de l'adresse sur la base d'adresses connues proches ou le long de segments de route."
+			},
+			"improvingAccuracy": {
+				"title": "Améliorer la précision du géocodage",
+				"underTitle": "Pour améliorer la précision des résultats du géocodage, suivre les étapes suivantes",
+				"verifyAddress": {
+					"title": "Vérifier le format de l'adresse",
+					"para": "Assurez-vous que l'adresse est dans un format normalisé."
+				},
+				"spellingAbbrevs": {
+					"title": "Vérifier l'orthographe et les abréviations",
+					"para": "Corriger les fautes d'orthographe et normaliser les abréviations."
+				},
+				"details": {
+					"title": "Indiquez les détails pertinents",
+					"para": "Fournissez des informations complètes sur l'adresse, comme le numéro de l'unité et le nom de l'immeuble."
+				},
+				"splitIntoComponents": {
+					"title": "Diviser les adresses civiques en éléments",
+					"para": "Décomposez les adresses en numéro de rue, nom de rue, ville, province, etc."
+				},
+				"billingualReqs": {
+					"title": "Tenir compte des exigences en matière de bilinguisme",
+					"para": "Traitez correctement les adresses bilingues et les caractères spéciaux."
+				},
+				"standardDigraphs": {
+					"title": "Convertir les provinces/territoires en digraphes standard",
+					"para": "Utiliser des codes à deux lettres pour les provinces et les territoires."
+				},
+				"specialChars": {
+					"title": "Supprimer les caractères spéciaux",
+					"para": "Nettoyer les données en supprimant les caractères non alphanumériques."
+				},
+				"capitilization": {
+					"title": "Normaliser les majuscules",
+					"para": "Veillez à ce que les majuscules soient cohérentes."
+				},
+				"addressVars": {
+					"title": "Tenir compte des variations d'adresse",
+					"para": "Traitez les différents formats d'adresses de manière cohérente."
+				}
+			},
+			"lessAccurateMatch": {
+				"title": "Implications d'une match moins précise",
+				"underTitle": "Les matches moins précises, comme les matches de centroïdes ou d'interpolation, peuvent avoir un impact sur la précision spatiale et limiter la fiabilité des analyses spatiales.",
+				"spatialAccuracy": "Précision spatiale",
+				"spatialAccuracyPara": "Les correspondances qui ne sont pas exactes peuvent placer les adresses au niveau des centroïdes ou interpoler le long des segments de route, ce qui peut fausser la représentation des contextes spatiaux.",
+				"limitedSpatialAccuracy": "Limites des analyses spatiales",
+				"limitedSpatialAccuracyPAra": "Des correspondances de géocodage imprécises peuvent introduire des erreurs dans des études telles que l'analyse démographique ou la planification des interventions d'urgence."
+			},
+			"understandingGeocodingResults": "Comprendre les résultats du géocodage",
+			"understandingGeocodingResultsPara": "Le géocodage est le processus de conversion des adresses en coordonnées géographiques (comme la latitude et la longitude). Lorsque vous utilisez un service de géocodage comme Pelias, vous obtenez un résultat structuré.",
+			"apiFeature": {
+				"title": "Caractéristiques de l'API",
+				"features": "Représente la liste des résultats obtenus par le service de géocodage.",
+				"bbox": " La boîte de délimitation de l'élément, définissant la zone qui inclut l'emplacement.",
+				"geometry": {
+					"coordinates": "La latitude et la longitude de l'emplacement en degrés décimaux, basées sur WGS 1984.",
+					"type": "Le type de géométrie (par exemple, point, polygone)."
+				},
+				"type": "Le type d'élément (par exemple, élément)",
+				"properties": {
+					"properties": "Informations supplémentaires sur l'élément.",
+					"country": "Le pays de l'emplacement.",
+					"gid": "Un identifiant unique pour le lieu.",
+					"locality_gid": "L'identifiant unique de la localité (ville).",
+					"neighbourhood_gid": "L'identifiant unique du quartier.",
+					"confidence": "Note indiquant le degré de confiance du service dans l'exactitude de la localisation.",
+					"country_a": "Abréviation du pays.",
+					"county": "Le comté du lieu",
+					"locality": "La localité (ville ou village) du lieu.",
+					"accuracy": "Le type de précision (par exemple, toit, centroïde).",
+					"source": "La source de données de l'emplacement.",
+					"label": "Une étiquette lisible par l'homme pour l'emplacement.",
+					"region_a": "Abréviation de la région.",
+					"layer": "La couche ou la catégorie de l'élément (par exemple, adresse, lieu).",
+					"country_code": "L'indicatif du pays.",
+					"street": "Le nom de la rue.",
+					"neighbourhood": "Le quartier.",
+					"region_gid": "L'identifiant unique de la région.",
+					"name": "Le nom de l'emplacement.",
+					"match_type": "Le type de correspondance (par exemple, exacte, de secours, interpolée).",
+					"id": "Un identifiant unique et la source de l'emplacement.",
+					"source_id": "L'identifiant de la source de l'emplacement",
+					"country_gid": "L'identifiant unique du pays.",
+					"region": "La région de l'emplacement.",
+					"county_gid": "L'identifiant unique du comté."
+				}
+			}
+		},
 		"python": {
 			"title": "Python API",
 			"pythonParagraph": "Développer des services de géolocalisation internes à l'ASPC afin d'améliorer l'exactitude, la précision, la rentabilité, la sécurité et la transparence. Les phases comprennent l'exploration technologique, le prototypage, l'affinement en fonction de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la protection de la vie privée, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux requêtes externes.",

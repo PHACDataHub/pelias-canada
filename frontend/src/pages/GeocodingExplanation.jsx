@@ -1,172 +1,214 @@
+import { useTranslation } from "react-i18next"
+import "./GeocodingExplanation.css"
 
-const GeocodingExplanation = () => {
-  return (
-    <div className="geocoding-explanation">
-      <h1>Geocoding-Explanation </h1>
-      <section aria-labelledby="match-types">
-        <h2 id="match-types">Understanding Match Types in Pelias</h2>
-        <p>When Pelias returns geocoding results, it uses different types of matches to determine the accuracy of the location.</p>
-        <h3>Match Types</h3>
-        <ul>
-          <li>
-            <strong>Exact/Rooftop Matches</strong>: These matches are very accurate and pinpoint the exact location of an address.
-          </li>
-          <li>
-            <strong>Centroid Matches</strong>: These matches place the address at the center of a larger area, like a city or postal code region.
-          </li>
-          <li>
-            <strong>Interpolation Matches</strong>: These matches estimate the address location based on nearby known addresses or along road segments.
-          </li>
-        </ul>
-      </section>
+export default function GeocodingExplanation() {
+	const { t } = useTranslation()
+	return (
+		<div className="geocoding-explanation">
+			<h1>{t("pages.geocodingExplanation.title")}</h1>
+			<section aria-labelledby="match-types">
+				<h2 id="match-types">{t("pages.geocodingExplanation.underTitleHeader")}</h2>
+				<p>{t("pages.geocodingExplanation.underTitlePara")}</p>
+				<h3>{t("pages.geocodingExplanation.matchTypes.title")}</h3>
+				<ul>
+					<li>
+						<strong>{t("pages.geocodingExplanation.matchTypes.exact")}</strong>:{t("pages.geocodingExplanation.matchTypes.exactPara")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.matchTypes.centroid")}</strong>:{t("pages.geocodingExplanation.matchTypes.centroidPara")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.matchTypes.interpolation")}</strong>: {t("pages.geocodingExplanation.matchTypes.interpolationPara")}
+					</li>
+				</ul>
+			</section>
 
-      <section aria-labelledby="improving-accuracy">
-        <h2 id="improving-accuracy">Improving Geocoding Accuracy</h2>
-        <p>To improve the accuracy of geocoding results, follow these steps:</p>
-        <ol>
-          <li>
-            <strong>Verify Address Format:</strong> Ensure the address is in a standardized format.
-          </li>
-          <li>
-            <strong>Check Spelling and Abbreviations:</strong> Correct spelling errors and standardize abbreviations.
-          </li>
-          <li>
-            <strong>Include Relevant Details:</strong> Provide complete address details like unit numbers and building names.
-          </li>
-          <li>
-            <strong>Split Civic Addresses into Components:</strong> Break down addresses into street number, street name, city, province, etc.
-          </li>
-          <li>
-            <strong>Consider Bilingual Requirements:</strong> Handle bilingual addresses and special characters correctly.
-          </li>
-          <li>
-            <strong>Convert Provinces/Territories to Standard Digraphs:</strong> Use two-letter codes for provinces and territories.
-          </li>
-          <li>
-            <strong>Remove Special Characters:</strong> Clean data by removing non-alphanumeric characters.
-          </li>
-          <li>
-            <strong>Standardize Capitalization:</strong> Ensure consistent capitalization.
-          </li>
-          <li>
-            <strong>Account for Address Variations:</strong> Handle different address formats consistently.
-          </li>
-        </ol>
-      </section>
+			<section aria-labelledby="improving-accuracy">
+				<h2 id="improving-accuracy">{t("pages.geocodingExplanation.improvingAccuracy.title")}</h2>
+				<p>{t("pages.geocodingExplanation.improvingAccuracy.underTitle")}:</p>
+				<ol>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.verifyAddress.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.verifyAddress.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.details.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.details.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.title")}:</strong>{" "}
+						{t("pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.billingualReqs.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.billingualReqs.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.standardDigraphs.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.standardDigraphs.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.specialChars.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.specialChars.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.capitilization.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.capitilization.para")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.improvingAccuracy.addressVars.title")}:</strong> {t("pages.geocodingExplanation.improvingAccuracy.addressVars.para")}
+					</li>
+				</ol>
+			</section>
 
-      <section aria-labelledby="less-accurate-matches">
-        <h2 id="less-accurate-matches">Implications of Less Accurate Matches</h2>
-        <p>Less accurate matches, like centroid or interpolation matches, can impact spatial accuracy and limit the reliability of spatial analyses.</p>
-        <ul>
-          <li>
-            <strong>Spatial Accuracy:</strong> Matches that are not exact may place addresses at centroids or interpolate along road segments, potentially misrepresenting spatial contexts.
-          </li>
-          <li>
-            <strong>Limitations to Spatial Analyses:</strong> Inaccurate geocoding matches can introduce errors in studies such as demographic analysis or emergency response planning.
-          </li>
-        </ul>
-      </section>
+			<section aria-labelledby="less-accurate-matches">
+				<h2 id="less-accurate-matches">{t("pages.geocodingExplanation.lessAccurateMatch.title")}</h2>
+				<p>{t("pages.geocodingExplanation.lessAccurateMatch.underTitle")}</p>
+				<ul>
+					<li>
+						<strong>{t("pages.geocodingExplanation.lessAccurateMatch.spatialAccuracy")}</strong>: {t("pages.geocodingExplanation.lessAccurateMatch.spatialAccuracyPara")}
+					</li>
+					<li>
+						<strong>{t("pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracy")}</strong>:{" "}
+						{t("pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracyPAra")}
+					</li>
+				</ul>
+			</section>
 
-      <section aria-labelledby="geocoding-results">
-        <h2 id="geocoding-results">Understanding Geocoding Results</h2>
-        <p>Geocoding is the process of converting addresses into geographic coordinates (like latitude and longitude). When you use a geocoding service like Pelias, you get structured output.</p>
-        
-        <h3>Features</h3>
-        <ul>
-          <li>
-            <code>$.features</code>: Represents the list of results you get from the geocoding service.
-          </li>
-          <li>
-            <code>$.features[0].bbox</code>: The bounding box of the feature, defining the area that includes the location.
-          </li>
-          <li>
-            <code>$.features[0].geometry.coordinates</code>: The latitude and longitude of the location in decimal degrees, based on WGS 1984.
-          </li>
-          <li>
-            <code>$.features[0].geometry.type</code>: The type of geometry (e.g., Point, Polygon).
-          </li>
-          <li>
-            <code>$.features[0].type</code>: The type of feature (e.g., Feature).
-          </li>
-          <li>
-            <code>$.features[0].properties</code>: Additional information about the feature.
-          </li>
-          <li>
-            <code>$.features[0].properties.country</code>: The country of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.gid</code>: A unique identifier for the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.locality_gid</code>: The unique identifier for the locality (city or town).
-          </li>
-          <li>
-            <code>$.features[0].properties.neighbourhood_gid</code>: The unique identifier for the neighborhood.
-          </li>
-          <li>
-            <code>$.features[0].properties.confidence</code>: A score indicating how confident the service is about the accuracy of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.country_a</code>: The abbreviation for the country.
-          </li>
-          <li>
-            <code>$.features[0].properties.county</code>: The county of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.locality</code>: The locality (city or town) of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.accuracy</code>: The type of accuracy (e.g., rooftop, centroid).
-          </li>
-          <li>
-            <code>$.features[0].properties.source</code>: The data source of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.label</code>: A human-readable label for the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.region_a</code>: The abbreviation for the region.
-          </li>
-          <li>
-            <code>$.features[0].properties.layer</code>: The layer or category of the feature (e.g., address, venue).
-          </li>
-          <li>
-            <code>$.features[0].properties.country_code</code>: The country code.
-          </li>
-          <li>
-            <code>$.features[0].properties.street</code>: The street name.
-          </li>
-          <li>
-            <code>$.features[0].properties.neighbourhood</code>: The neighborhood.
-          </li>
-          <li>
-            <code>$.features[0].properties.region_gid</code>: The unique identifier for the region.
-          </li>
-          <li>
-            <code>$.features[0].properties.name</code>: The name of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.match_type</code>: The type of match (e.g., exact, fallback, interpolated).
-          </li>
-          <li>
-            <code>$.features[0].properties.id</code>: A unique ID and source of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.source_id</code>: The source ID of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.country_gid</code>: The unique identifier for the country.
-          </li>
-          <li>
-            <code>$.features[0].properties.region</code>: The region of the location.
-          </li>
-          <li>
-            <code>$.features[0].properties.county_gid</code>: The unique identifier for the county.
-          </li>
-        </ul>
-      </section>
-    </div>
-  );
-};
+			<section aria-labelledby="geocoding-results">
+  <h2 id="geocoding-results">{t("pages.geocodingExplanation.understandingGeocodingResults")}</h2>
+  <p>{t("pages.geocodingExplanation.understandingGeocodingResultsPara")}</p>
 
-export default GeocodingExplanation;
+  <h3>{t("pages.geocodingExplanation.apiFeature.title")}</h3>
+  <table id="features">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>$.features</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.features")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].bbox</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.bbox")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].geometry.coordinates</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.geometry.coordinates")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].geometry.type</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.geometry.type")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].type</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.type")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.country</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.country")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.gid</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.gid")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.locality_gid</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.locality_gid")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.neighbourhood_gid</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.neighbourhood_gid")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.confidence</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.confidence")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.country_a</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.country_a")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.county</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.county")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.locality</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.locality")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.accuracy</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.accuracy")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.source</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.source")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.label</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.label")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.region_a</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.region_a")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.layer</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.layer")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.country_code</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.country_code")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.street</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.street")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.neighbourhood</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.neighbourhood")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.region_gid</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.region_gid")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.name</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.name")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.match_type</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.match_type")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.id</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.id")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.source_id</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.source_id")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.country_gid</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.country_gid")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.region</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.region")}</td>
+      </tr>
+      <tr>
+        <td><code>$.features[0].properties.county_gid</code></td>
+        <td>{t("pages.geocodingExplanation.apiFeature.properties.county_gid")}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+		</div>
+	)
+}
