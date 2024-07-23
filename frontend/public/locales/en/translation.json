@@ -35,6 +35,10 @@
 				"warning": "Please note web location access must be authorized",
 				"getLocation": "Get Location"
 			}
+		},
+		"CodeZips": {
+			"pythonDownload": "Download Python files",
+			"rDownload": "Download R files"
 		}
 	},
 	"footer": {
@@ -76,7 +80,7 @@
 			"reversePythonCode": "Reverse Geocoding example using Python"
 		},
 		"rshiny": {
-			"title": "R Shiny API",
+			"title": "R API",
 			"rshinyParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
 			"forwardRcode": "Address Geocoding example using R",
 			"reverseRCode": "Reverse Geocoding example using R"
