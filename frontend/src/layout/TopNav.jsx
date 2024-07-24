@@ -165,10 +165,10 @@ export default function TopNav() {
 							onBlur={() => {}} // Placeholder onBlur handler
 						>
 							{/* <li>
-                <NavLink to="/bulk-input/item2"  onKeyDown={handleKeyDownInBulkDropdownMenu} onClick={handleCloseMenu}>
-                  Bulk Input Item 2
-                </NavLink>
-              </li> */}
+								<NavLink to="reverse-bulk-files" onClick={handleCloseMenu}>
+									ReverseBulkInput
+								</NavLink>
+							</li> */}
 							<li>
 								<NavLink to="/forward-bulk-files" ref={lastBulkDropMenuItemRef} onClick={handleCloseMenu}>
 									{t("menu.addressBulkFile")}
