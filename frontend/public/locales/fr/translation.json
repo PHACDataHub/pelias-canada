@@ -51,6 +51,7 @@
 		"home": "Accueil",
 		"bulkFile": "Fichiers en masse",
 		"addressBulkFile": "Fichiers d'adresses en masse",
+		"reverseBulkFile": "Fichier de masse de géolocalisation inversée ",
 		"developers": "Développeurs"
 	},
 	"pages": {
