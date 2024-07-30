@@ -51,6 +51,7 @@
 		"home": "Home",
 		"bulkFile": "Bulk Files",
 		"addressBulkFile": "Address Bulk Files ",
+		"reverseBulkFile": "Reverse Geolocation Bulk Files",
 		"developers": "Developers"
 	},
 	"pages": {

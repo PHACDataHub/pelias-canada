@@ -103,14 +103,13 @@ nav .dropdown-menu {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 	padding: 0.5rem 0;
 	z-index: 1;
-	min-width: 150px;
+	min-width: 200px;
 	width: auto;
 	justify-content: center;
 	margin-top: 20px;
 	border-radius: 7px;
 
 }
-
 nav .dropdown-menu.open {
 	display: block;
 }

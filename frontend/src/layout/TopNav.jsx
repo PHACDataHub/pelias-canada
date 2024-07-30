@@ -5,18 +5,18 @@ import { FaAngleDown } from "react-icons/fa"
 import { useTranslation } from "react-i18next"
 
 export default function TopNav() {
-	const [menuOpen, setMenuOpen] = useState(false) // State for toggling the main menu
-	const [dropdownOpen, setDropdownOpen] = useState(false) // State for toggling the Developers dropdown menu
-	const [bulkDropdownOpen, setBulkDropdownOpen] = useState(false) // State for toggling the Bulk Input dropdown menu
-	const lastMenuItemRef = useRef(null) // Ref for the last menu item in the main menu
-	const lastDropMenuItemRef = useRef(null) // Ref for the last menu item in the Developers dropdown menu
-	const lastBulkDropMenuItemRef = useRef(null) // Ref for the last menu item in the Bulk Input dropdown menu
-	const menuRef = useRef(null) // Ref for the main menu container
-	const dropdownMenuRef = useRef(null) // Ref for the Developers dropdown menu container
-	const bulkDropdownMenuRef = useRef(null) // Ref for the Bulk Input dropdown menu container
+	const [menuOpen, setMenuOpen] = useState(false)
+	const [dropdownOpen, setDropdownOpen] = useState(false)
+	const [bulkDropdownOpen, setBulkDropdownOpen] = useState(false)
+	const [screenWidth, setScreenWidth] = useState(window.innerWidth) // State for tracking screen width
+	const lastMenuItemRef = useRef(null)
+	const lastDropMenuItemRef = useRef(null)
+	const lastBulkDropMenuItemRef = useRef(null)
+	const menuRef = useRef(null)
+	const dropdownMenuRef = useRef(null)
+	const bulkDropdownMenuRef = useRef(null)
 	const { t } = useTranslation()
 
-	// Effect to handle body class when menu is open
 	useEffect(() => {
 		if (menuOpen) {
 			document.body.classList.add("no-scroll", "menu-open")
@@ -28,22 +28,18 @@ export default function TopNav() {
 		}
 	}, [menuOpen])
 
-	// Effect to handle Escape key to close the main menu
 	useEffect(() => {
 		const handleKeyDown = event => {
 			if (event.key === "Escape") {
 				setMenuOpen(false)
 			}
 		}
-
 		document.addEventListener("keydown", handleKeyDown)
-
 		return () => {
 			document.removeEventListener("keydown", handleKeyDown)
 		}
 	}, [])
 
-	// Effect to handle clicks outside the dropdown menus to close them
 	useEffect(() => {
 		function handleClickOutside(event) {
 			if (dropdownMenuRef.current && !dropdownMenuRef.current.contains(event.target)) {
@@ -53,58 +49,64 @@ export default function TopNav() {
 				setBulkDropdownOpen(false)
 			}
 		}
-
 		document.addEventListener("mousedown", handleClickOutside)
-
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside)
 		}
 	}, [])
 
-	// Function to toggle the main menu open/close
+	useEffect(() => {
+		const handleResize = () => {
+			setScreenWidth(window.innerWidth)
+		}
+		window.addEventListener("resize", handleResize)
+		return () => {
+			window.removeEventListener("resize", handleResize)
+		}
+	}, [])
+
+	useEffect(() => {
+		if (screenWidth < 700) {
+			setDropdownOpen(true)
+		}
+	}, [screenWidth])
+
 	const handleMenuToggle = () => {
 		setMenuOpen(!menuOpen)
 	}
 
-	// Function to toggle the Developers dropdown menu open/close
 	const handleDropdownToggle = () => {
 		setDropdownOpen(!dropdownOpen)
 	}
 
-	// Function to toggle the Bulk Input dropdown menu open/close
 	const handleBulkDropdownToggle = () => {
 		setBulkDropdownOpen(!bulkDropdownOpen)
 	}
 
-	// Function to handle focus out event on the main menu
 	const handleFocusOut = event => {
 		if (!menuRef.current.contains(event.relatedTarget)) {
 			setMenuOpen(false)
 		}
 	}
 
-	// Function to handle keydown events in the Developers dropdown menu
 	const handleKeyDownInDropdown = event => {
 		if (event.key === "Tab" && !event.shiftKey && event.target === lastMenuItemRef.current) {
 			setDropdownOpen(false)
 		}
 	}
 
-	// Function to handle keydown events in the last Developers dropdown menu item
 	const handleKeyDownInDropdownMenu = event => {
 		if (event.key === "Tab" && !event.shiftKey && event.target === lastDropMenuItemRef.current) {
 			setDropdownOpen(false)
 		}
 	}
 
-	// Function to handle keydown events in the Bulk Input dropdown menu
 	const handleKeyDownInBulkDropdown = event => {
 		if (event.key === "Tab" && !event.shiftKey && event.target === lastMenuItemRef.current) {
 			setBulkDropdownOpen(false)
 		}
 	}
 
-	// Function to close the menu when a NavLink is clicked
 	const handleCloseMenu = () => {
 		setMenuOpen(false)
 		setDropdownOpen(false)
@@ -113,13 +115,10 @@ export default function TopNav() {
 
 	return (
 		<nav>
-			<div className="body">
-				{/* Main Logo/Title */}
+			<div className="body" style={{ zIndex: 1000 }}>
 				<Link to="/" className="title">
 					{t("menu.title")}
 				</Link>
-
-				{/* Menu Toggle Button */}
 				<div
 					className="menu"
 					onClick={handleMenuToggle}
@@ -137,16 +136,12 @@ export default function TopNav() {
 					<span></span>
 					<span></span>
 				</div>
-
-				{/* Main Menu Items */}
 				<ul className={menuOpen ? "open" : ""} ref={menuRef} onBlur={handleFocusOut} tabIndex="-1">
 					<li>
 						<NavLink to="/home" tabIndex="0" className="active-exclude" onClick={handleCloseMenu}>
 							{t("menu.home")}
 						</NavLink>
 					</li>
-
-					{/* Bulk Input Dropdown Menu */}
 					<li className="dropdown">
 						<button
 							onClick={handleBulkDropdownToggle}
@@ -159,16 +154,16 @@ export default function TopNav() {
 							{!bulkDropdownOpen ? <FaAngleDown style={{ size: "5px" }} /> : <FaAngleDown style={{ size: "5px", transform: "rotateZ(180deg)", transition: "transform 0.3s" }} />}
 						</button>
 						<ul
-							ref={bulkDropdownMenuRef} // Assign ref to dropdown menu
+							ref={bulkDropdownMenuRef}
 							className={`dropdown-menu ${bulkDropdownOpen ? "open" : ""}`}
 							onKeyDown={handleKeyDownInBulkDropdown}
-							onBlur={() => {}} // Placeholder onBlur handler
+							onBlur={() => {}}
 						>
-							{/* <li>
+							<li>
 								<NavLink to="reverse-bulk-files" onClick={handleCloseMenu}>
-									ReverseBulkInput
+									{t("menu.reverseBulkFile")}
 								</NavLink>
-							</li> */}
+							</li>
 							<li>
 								<NavLink to="/forward-bulk-files" ref={lastBulkDropMenuItemRef} onClick={handleCloseMenu}>
 									{t("menu.addressBulkFile")}
@@ -176,8 +171,6 @@ export default function TopNav() {
 							</li>
 						</ul>
 					</li>
-
-					{/* Developers Dropdown Menu */}
 					<li className="dropdown">
 						<button
 							onClick={handleDropdownToggle}
@@ -190,10 +183,10 @@ export default function TopNav() {
 							{!dropdownOpen ? <FaAngleDown style={{ size: "5px" }} /> : <FaAngleDown style={{ size: "5px", transform: "rotateZ(180deg)", transition: "transform 0.3s" }} />}
 						</button>
 						<ul
-							ref={dropdownMenuRef} // Assign ref to dropdown menu
+							ref={dropdownMenuRef}
 							className={`dropdown-menu ${dropdownOpen ? "open" : ""}`}
 							onKeyDown={handleKeyDownInDropdown}
-							onBlur={() => {}} // Placeholder onBlur handler
+							onBlur={() => {}}
 						>
 							<li>
 								<NavLink to="/r-api" onClick={handleCloseMenu}>
