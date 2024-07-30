@@ -1,3 +1,4 @@
+import ReverseBulk from "../../components/reverseBulkFetch/ReverseBulk";
 
 
 // https://codepen.io/Niko-sy/pen/abgdjqP
@@ -8,6 +9,7 @@ export default function ReverseBulkInput() {
 
 			{/* <div style={{ textAlign: "justify" }}>				
 			</div> */}
+			<ReverseBulk />
 		</>
 	)
 }
