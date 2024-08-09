@@ -9,8 +9,8 @@ export default function ForwardBulkInput() {
 				<section aria-labelledby="what-is-the-bulk-upload">
 					<h2 id="what-is-the-bulk-upload">What is the Bulk Geocoding Input?</h2>
 					<p>
-						This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the
-						page.
+						This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool
+						then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page.
 					</p>
 				</section>
 
@@ -19,9 +19,10 @@ export default function ForwardBulkInput() {
 					<p>
 						<i>File type must be a CSV</i>
 					</p>
-					<ol>						
+					<ol>
 						<li>
-							For any data you wish to transform, ensure the column you wish to transform is called <strong>physicalAddress</strong> & there is a column called <strong>IndexID</strong>.
+							For any data you wish to transform, ensure the column you wish to transform is called <strong>physicalAddress</strong> & there is a column called{" "}
+							<strong>IndexID</strong>.
 						</li>
 						<li>The tool cleans and formats the addresses, preparing them for geocoding.</li>
 						<li>Once the data is prepared and ready, the data will be sent to the Pelias Application Programming Interface (API).</li>

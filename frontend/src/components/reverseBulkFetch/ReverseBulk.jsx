@@ -5,13 +5,13 @@ import CryptoJS from "crypto-js"
 import "leaflet/dist/leaflet.css"
 import "./reverseBulk.css"
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet"
-import { GcdsButton } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import Loading from "../Loading"
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 
 const ReverseBulk = () => {
 	const [file, setFile] = useState(null)
 	const [outputRows, setOutputRows] = useState([])
-	// eslint-disable-next-line no-unused-vars
 	const [metadata, setMetadata] = useState({})
 	const [progress, setProgress] = useState(0)
 	const processButtonRef = useRef(null)
@@ -20,8 +20,12 @@ const ReverseBulk = () => {
 	const markersLayerRef = useRef(null)
 	const [loading, setLoading] = useState(false)
 	const [mapReady, setMapReady] = useState(false)
-	const [userCadidatesSelection, setuserCadidatesSelection] = useState(5)
+	const [userCandidatesSelection, setuserCandidatesSelection] = useState(5)
 	const [originalRows, setOriginalRows] = useState([])
+	const [currentPage, setCurrentPage] = useState(1)
+	const [rowsPerPage, setRowsPerPage] = useState(10)
+	const resultsTableRef = useRef(null)
+	const [totalPages, setTotalPages] = useState(0)
 
 	// Initial coordinates
 	const initialLatLng = [45.4215, -75.6919]
@@ -95,8 +99,14 @@ const ReverseBulk = () => {
 
 			reader.readAsText(file)
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [file])
+
+	useEffect(() => {
+		// Update total pages whenever results or rowsPerPage change
+		setTotalPages(Math.ceil(outputRows.length / rowsPerPage))
+	}, [outputRows, rowsPerPage])
 
 	// Reverse geocode function
 	const reverseGeocode = async (lat, lon) => {
@@ -188,7 +198,7 @@ const ReverseBulk = () => {
 
 			const geoData = await reverseGeocode(lat, lon)
 
-			const maxCandidates = userCadidatesSelection
+			const maxCandidates = userCandidatesSelection
 			const prioritizedData = geoData.features.slice(0, maxCandidates)
 
 			if (prioritizedData.length > 0) {
@@ -309,9 +319,6 @@ const ReverseBulk = () => {
 	}
 
 	const convertArrayToGeoJSON = array => {
-		// Log the originalRows data to check its format
-		console.log("Original Rows Data:", originalRows)
-
 		// Create a map from inputID to original latitude and longitude
 		const originalCoordsMap = new Map(
 			originalRows.map(row => {
@@ -322,26 +329,19 @@ const ReverseBulk = () => {
 			})
 		)
 
-		console.log("Original Coordinates Map:", Array.from(originalCoordsMap.entries()))
-
-		const geojson = {
+		return {
 			type: "FeatureCollection",
 			features: array.map(row => {
 				// Find the original coordinates for the current inputID
 				const originalCoords = originalCoordsMap.get(row.inputID) || { lat: null, lon: null }
-
-				console.log(`Processing row with inputID ${row.inputID}:`, {
-					originalCoords,
-					row,
-				})
 
 				return {
 					type: "Feature",
 					properties: {
 						inputID: row.inputID,
 						matchConfidencePercentageDecimal: row.matchConfidencePercentageDecimal,
-						originalLatitude: row.lat,
-						originalLongitude: row.lon,
+						originalLatitude: originalCoords.lat,
+						originalLongitude: originalCoords.lon,
 						distanceKm: row.distanceKm,
 						accuracy: row.accuracy,
 						country: row.country,
@@ -363,10 +363,6 @@ const ReverseBulk = () => {
 				}
 			}),
 		}
-
-		console.log("Generated GeoJSON:", geojson)
-
-		return geojson
 	}
 
 	// Create and download zip file
@@ -386,121 +382,424 @@ const ReverseBulk = () => {
 	}
 
 	const handleSliderChange = event => {
-		setuserCadidatesSelection(Number(event.target.value))
+		setuserCandidatesSelection(Number(event.target.value))
+	}
+
+	const count_100 = outputRows.filter(result => result.matchConfidencePercentageDecimal * 100 === 100).length
+	const count_80_to_99 = outputRows.filter(result => result.matchConfidencePercentageDecimal * 100 >= 80 && result.matchConfidencePercentageDecimal * 100 < 100).length
+	const count_50_to_80 = outputRows.filter(result => result.matchConfidencePercentageDecimal * 100 >= 50 && result.matchConfidencePercentageDecimal * 100 < 80).length
+	const count_30_to_50 = outputRows.filter(result => result.matchConfidencePercentageDecimal * 100 >= 30 && result.matchConfidencePercentageDecimal * 100 < 50).length
+	const count_0_to_30 = outputRows.filter(result => result.matchConfidencePercentageDecimal * 100 >= 0 && result.matchConfidencePercentageDecimal * 100 < 30).length
+
+	const handleRowsPerPageChange = event => {
+		setRowsPerPage(parseInt(event.target.value, 10))
+		setCurrentPage(1) // Reset to first page when rows per page changes
+	}
+
+	const handlePageChange = event => {
+		setCurrentPage(parseInt(event.target.value, 10))
+	}
+
+	const [selectedRows, setSelectedRows] = useState(new Set())
+
+	// Toggle row selection
+	const toggleRowSelection = (inputID, rankingByInputId) => {
+		const key = `${inputID}-${rankingByInputId}`
+
+		setSelectedRows(prev => {
+			const updated = new Set(prev)
+			if (updated.has(key)) {
+				updated.delete(key)
+			} else {
+				updated.add(key)
+			}
+			return updated
+		})
+	}
+
+	// Render table rows with selection checkboxes
+	// Render table rows with selection checkboxes
+	const updateTable = () => {
+		const paginatedResults = outputRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+		let style1 = { background: "#fff", borderRight: "1px solid #fff" }
+		let style2 = { background: "#f1f2f3", borderRight: "1px solid #f1f2f3" }
+
+		return paginatedResults.map((result, index) => {
+			const key = `${result.inputID}-${result.rankingByInputId}`
+			const isSelected = selectedRows.has(key)
+
+			return (
+				<tr key={key} style={{ background: "grey", border: "1px solid grey" }}>
+					<td style={index % 2 === 0 ? style1 : style2}>
+						<input type="checkbox" checked={isSelected} onChange={() => toggleRowSelection(result.inputID, result.rankingByInputId)} />
+					</td>
+					<td style={index % 2 === 0 ? style1 : style2}>#{result.inputID}</td>
+					<td style={index % 2 === 0 ? style1 : style2}>#{result.rankingByInputId}</td>
+					<td style={index % 2 === 0 ? style1 : style2} id="address">
+						{result.name}, {result.county}, {result.region_a}
+					</td>
+					<td style={index % 2 === 0 ? style1 : style2}>{result.lat || "N/A"}</td>
+					<td style={index % 2 === 0 ? style1 : style2}>{result.lon || "N/A"}</td>
+					<td style={index % 2 === 0 ? style1 : style2}>{`${result.matchConfidencePercentageDecimal * 100} % ` || "N/A"}</td>
+					<td style={index % 2 === 0 ? style1 : style2}>{result.accuracy || "N/A"}</td>
+				</tr>
+			)
+		})
+	}
+
+	const exportSelectedRows = () => {
+		// Map of inputID and rankingByInputId combinations
+		const selectedData = outputRows.filter(row => {
+			const key = `${row.inputID}-${row.rankingByInputId}`
+			return selectedRows.has(key)
+		})
+
+		if (selectedData.length === 0) {
+			alert("No rows selected for export.")
+			return
+		}
+
+		const csvData = convertArrayToCSV(selectedData)
+		const geoJsonData = convertArrayToGeoJSON(selectedData)
+		const md5Checksum = CryptoJS.MD5(csvData).toString()
+		createAndDownloadZip(csvData, JSON.stringify(metadata, null, 2), geoJsonData, Date.now(), md5Checksum)
+	}
+
+	// Function to find inputIDs with only one return
+	const findSingleReturnInputIDs = () => {
+		// Create a map to count occurrences of each inputID
+		const inputIDCount = new Map()
+
+		// Iterate over outputRows to count each inputID
+		outputRows.forEach(row => {
+			const count = inputIDCount.get(row.inputID) || 0
+			inputIDCount.set(row.inputID, count + 1)
+		})
+
+		// Filter out the inputIDs with only one return
+		const singleReturnInputIDs = []
+		inputIDCount.forEach((count, inputID) => {
+			if (count === 1) {
+				singleReturnInputIDs.push(inputID)
+			}
+		})
+
+		// Return the list of inputIDs with only one return
+		return singleReturnInputIDs
+	}
+
+	const getPageNumbers = (currentPage, totalPages) => {
+		const PAGE_RANGE = 5
+		const startPage = Math.max(1, currentPage - Math.floor(PAGE_RANGE / 2))
+		const endPage = Math.min(totalPages, currentPage + Math.floor(PAGE_RANGE / 2))
+
+		let pages = []
+
+		for (let i = startPage; i <= endPage; i++) {
+			pages.push(i)
+		}
+
+		return pages
+	}
+
+	// In your component
+	const pageNumbers = getPageNumbers(currentPage, totalPages)
+
+	const clearSelectedRows = () => {
+		// Assuming `setSelectedRows` is a state updater function from `useState`
+		setSelectedRows(new Set()) // Clear the selected rows by setting an empty set
 	}
 
 	return (
 		<div className="reverse-bulk-container">
-			<input type="file" accept=".csv" onChange={handleFileUpload} />
 			<div>
-				<fieldset>
-					<label htmlFor="candidate-slider">Select Number of Candidates:</label>
-					<br />
-					<input id="candidate-slider" type="range" min="2" max="10" step="1" value={userCadidatesSelection} onChange={handleSliderChange} style={{ width: "100px" }} />
-					Value: {userCadidatesSelection}
-				</fieldset>
-			</div>
-			<GcdsButton size="small" disabled={!file} ref={processButtonRef}>
-				REVERSE GEOCODE
-			</GcdsButton>
+				<form>
+					<fieldset>
+						<legend>File Upload and Settings</legend>
 
-			<br />
-			<br />
-			<div
-				id="map"
-				ref={mapRef}
-				className="map-container"
-				style={{
-					height: "1px",
-					width: "1px",
-					position: "absolute", // Ensure it's removed from normal document flow
-					overflow: "hidden", // Hide any overflow content
-					clip: "rect(0, 0, 0, 0)", // Hide content but keep the space in the DOM
-					clipPath: "inset(50%)", // Alternative method to clip content
-				}}
-				aria-hidden="true" // Hide from screen readers
-				tabIndex="-1" // Hide from tab navigation
-			/>
+						<div>
+							<label htmlFor="file-upload">Upload a CSV file:</label>
+							<input
+								id="file-upload"
+								type="file"
+								accept=".csv"
+								onChange={handleFileUpload}
+								aria-required="true" // Indicates that file upload is required if applicable
+							/>
+						</div>
+
+						<div>
+							<fieldset>
+								<legend>Select Number of Return Candidates per input:</legend>
+								<label htmlFor="candidate-slider">Number of candidates:</label>
+								<input
+									id="candidate-slider"
+									type="range"
+									min="2"
+									max="10"
+									step="1"
+									value={userCandidatesSelection}
+									onChange={handleSliderChange}
+									aria-labelledby="candidate-slider-label"
+									aria-describedby="candidate-slider-description"
+									style={{ width: "100px" }}
+								/>
+								<span id="candidate-slider-description">Value: {userCandidatesSelection}</span>
+							</fieldset>
+						</div>
+					</fieldset>
+				</form>
+				<GcdsButton size="small" disabled={!file} ref={processButtonRef}>
+					REVERSE GEOCODE
+				</GcdsButton>
+			</div>
+			{progress < 100 && (
+				<div
+					id="map"
+					ref={mapRef}
+					className="map-container"
+					style={{
+						height: "1px",
+						width: "1px",
+						position: "absolute", // Ensure it's removed from normal document flow
+						overflow: "hidden", // Hide any overflow content
+						clip: "rect(0, 0, 0, 0)", // Hide content but keep the space in the DOM
+						clipPath: "inset(50%)", // Alternative method to clip content
+					}}
+					aria-hidden="true" // Hide from screen readers
+					tabIndex="-1" // Hide from tab navigation
+				/>
+			)}
 			{loading && progress === 0 && (
-				<div className="loading">
+				<div className="loading" aria-live="polite">
 					<Loading />
 				</div>
 			)}
-			{progress > 0 && progress < 100 && <progress value={progress / 100} />}
+
+			{progress > 0 && progress < 100 && <progress value={progress / 100} max="1" aria-label="Loading progress"></progress>}
 
 			{mapReady && !loading && progress <= 100 && (
-				<div style={{ height: "600px", width: "100%" }}>
-					<MapContainer center={initialLatLng} zoom={3} style={{ height: "100%" }}>
-						<TileLayer
-							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-						/>
-						{originalRows.map((row, index) => {
-							// Split the row by commas to get individual values
-							const [item1, item2, item3] = row.split(",").map(value => parseFloat(value))
+				<>
+					<div style={{ height: "600px", width: "100%", paddingTop: "40px" }}>
+						<MapContainer center={initialLatLng} zoom={3} style={{ height: "100%" }}>
+							<TileLayer
+								url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+								attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							/>
+							{originalRows.map((row, index) => {
+								const [item1, item2, item3] = row.split(",").map(value => parseFloat(value))
 
-							return (
-								<div key={index}>
+								return (
 									<CircleMarker
 										key={index}
 										center={[item2, item3]}
 										color="blue"
 										radius={5}
 										pathOptions={{
-											fillColor: "blue", // Fill color based on confidence
-											color: "black", // Stroke color
-											weight: 1, // Stroke width
-											opacity: 1, // Stroke opacity
-											fillOpacity: 0.8, // Fill opacity
+											fillColor: "blue",
+											color: "black",
+											weight: 1,
+											opacity: 1,
+											fillOpacity: 0.8,
 										}}
 									>
 										<Popup>
 											<div style={{ lineHeight: 0.1 }}>
-												<p>Row ID: {item1} </p>
-												<p>lat: {item2} </p>
-												<p>long: {item3}</p>
+												<p>Row ID: {item1}</p>
+												<p>Latitude: {item2}</p>
+												<p>Longitude: {item3}</p>
 											</div>
 										</Popup>
 									</CircleMarker>
-								</div>
-							)
-						})}
-						{outputRows.map((row, index) => (
-							<CircleMarker
-								key={index}
-								center={[row.ddLatOut, row.ddLongOut]}
-								color={calculateMarkerColor(row.matchConfidencePercentageDecimal)}
-								radius={5}
-								pathOptions={{
-									fillColor: calculateMarkerColor(row.matchConfidencePercentageDecimal), // Fill color based on confidence
-									color: "black", // Stroke color
-									weight: 1, // Stroke width
-									opacity: 1, // Stroke opacity
-									fillOpacity: 0.8, // Fill opacity
-								}}
-							>
-								<Popup>
-									<div style={{ lineHeight: 0.1, width: "auto" }}>
-										<p>
-											<strong>
-												{row.name && <>{row.name}</>}, {row.name && <> {row.locality} </>}, {row.name && <> {row.region} </>}
-											</strong>
-										</p>
-										<p>
-											Row ID & Ranking: {row.inputID} - #{row.rankingByInputId}
-										</p>
-										<p>Confidence: {row.matchConfidencePercentageDecimal * 100}%</p>
-										<p>Distance from original: {row.distanceKm} km</p>
-										{row.name && <p>Street name: {row.name} </p>}
-										{row.name && <p>Locality : {row.locality} </p>}
-										{row.name && <p>Province: {row.region} </p>}
-										{row.name && <p>Accuracy: {row.accuracy}</p>}
-									</div>
-								</Popup>
-							</CircleMarker>
-						))}
-					</MapContainer>
-				</div>
+								)
+							})}
+							{outputRows.map((row, index) => (
+								<CircleMarker
+									key={index}
+									center={[row.ddLatOut, row.ddLongOut]}
+									color={calculateMarkerColor(row.matchConfidencePercentageDecimal)}
+									radius={5}
+									pathOptions={{
+										fillColor: calculateMarkerColor(row.matchConfidencePercentageDecimal),
+										color: "black",
+										weight: 1,
+										opacity: 1,
+										fillOpacity: 0.8,
+									}}
+								>
+									<Popup>
+										<div style={{ lineHeight: 0.1, width: "auto" }}>
+											<p>
+												<strong>
+													{row.name && (
+														<>
+															{row.name}, {row.locality}, {row.region}
+														</>
+													)}
+												</strong>
+											</p>
+											<p>
+												Row ID & Ranking: {row.inputID} - #{row.rankingByInputId}
+											</p>
+											<p>Confidence: {row.matchConfidencePercentageDecimal * 100}%</p>
+											<p>Distance from original: {row.distanceKm} km</p>
+											{row.name && <p>Street name: {row.name}</p>}
+											{row.locality && <p>Locality: {row.locality}</p>}
+											{row.region && <p>Province: {row.region}</p>}
+											{row.accuracy && <p>Accuracy: {row.accuracy}</p>}
+										</div>
+									</Popup>
+								</CircleMarker>
+							))}
+						</MapContainer>
+					</div>
+
+					<div>
+						<h3>Results</h3>
+						<div>
+							<GcdsButton size="small" onClick={createAndDownloadZip}>
+								Download all results
+							</GcdsButton>
+						</div>
+						<div>
+							<p>
+								Total Rows Submitted / Returned: {originalRows.length} / {outputRows.length}
+							</p>
+							<fieldset>
+								<h4>The following inputs returned only 1 result:</h4>
+								<p>This means the latitude and/or longitude are not accurate enough to create a match. Please check these and try again.</p>
+								<ul>
+									{findSingleReturnInputIDs().map(inputID => (
+										<li key={inputID}>Input ID #{inputID}</li>
+									))}
+								</ul>
+							</fieldset>
+							<table border="1">
+								<thead>
+									<tr>
+										<th scope="col">Range</th>
+										<th scope="col">Count</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>100%</td>
+										<td>{count_100 || 0}</td>
+									</tr>
+									<tr>
+										<td>80% - 99%</td>
+										<td>{count_80_to_99 || 0}</td>
+									</tr>
+									<tr>
+										<td>50% - 80%</td>
+										<td>{count_50_to_80 || 0}</td>
+									</tr>
+									<tr>
+										<td>30% - 50%</td>
+										<td>{count_30_to_50 || 0}</td>
+									</tr>
+									<tr>
+										<td>0% - 30%</td>
+										<td>{count_0_to_30 || 0}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<GcdsGrid columns="repeat(auto-fit, minmax(100px, 225px))" container="full">
+							<div>
+								<label htmlFor="page-select" className="label-style">
+									Jump to page:
+								</label>
+								<select id="page-select" value={currentPage} onChange={handlePageChange} className="select-style">
+									{[...Array(totalPages).keys()].map(page => (
+										<option key={page + 1} value={page + 1}>
+											Page {page + 1}
+										</option>
+									))}
+								</select>
+							</div>
+							<div>
+								<label htmlFor="rows-select" className="label-style">
+									Rows per page:
+								</label>
+								<select id="rows-select" value={rowsPerPage} onChange={handleRowsPerPageChange} className="select-style">
+									<option value={10}>10</option>
+									<option value={25}>25</option>
+									<option value={50}>50</option>
+								</select>
+							</div>
+						</GcdsGrid>
+
+						<table ref={resultsTableRef}>
+							<thead>
+								<tr>
+									<th scope="col">Select</th>
+									<th scope="col">Input ID</th>
+									<th scope="col">Input ID Ranking</th>
+									<th scope="col">Physical Address</th>
+									<th scope="col">Latitude</th>
+									<th scope="col">Longitude</th>
+									<th scope="col">Confidence Level</th>
+									<th scope="col">Accuracy</th>
+								</tr>
+							</thead>
+							<tbody>{updateTable()}</tbody>
+						</table>
+						<div>
+							<br />
+							<GcdsButton size="small" onClick={exportSelectedRows} disabled={selectedRows.size === 0}>
+								Export Selected
+							</GcdsButton>
+							<GcdsButton style={{ padding: "2px" }} onClick={clearSelectedRows} size="small" disabled={selectedRows.size === 0}>
+								Clear Selected
+							</GcdsButton>
+						</div>
+
+						<div style={{ width: "full", display: "flex", justifyContent: "center" }}>
+							<div id="paginationContainer">
+								<GcdsButton size="small" onClick={() => setCurrentPage(1)} aria-label="First Page" disabled={currentPage === 1} style={{ padding: "2px" }}>
+									First
+								</GcdsButton>
+								<GcdsButton
+									size="small"
+									onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+									aria-label="Previous Page"
+									disabled={currentPage === 1}
+									style={{ padding: "2px" }}
+								>
+									<FaAngleLeft />
+								</GcdsButton>
+								{pageNumbers
+									.filter(page => !isNaN(page))
+									.map(page => (
+										<GcdsButton
+											style={{ padding: "2px" }}
+											size="small"
+											key={page}
+											value={page}
+											buttonRole={currentPage === page ? "primary" : "secondary"}
+											onClick={() => handlePageChange({ target: { value: page } })}
+										>
+											{page}
+										</GcdsButton>
+									))}
+								<GcdsButton
+									style={{ padding: "2px" }}
+									size="small"
+									onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+									aria-label="Next Page"
+									disabled={currentPage === totalPages}
+								>
+									<FaAngleRight />
+								</GcdsButton>
+								<GcdsButton style={{ padding: "2px" }} size="small" onClick={() => setCurrentPage(totalPages)} aria-label="Last Page" disabled={currentPage === totalPages}>
+									Last
+								</GcdsButton>
+							</div>
+						</div>
+					</div>
+				</>
 			)}
 		</div>
 	)
