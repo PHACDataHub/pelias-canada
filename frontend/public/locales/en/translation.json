@@ -39,7 +39,7 @@
 		"CodeZips": {
 			"pythonDownload": "Download Python files",
 			"rDownload": "Download R files"
-		}
+		}		
 	},
 	"footer": {
 		"additionalNav": "Additional navigation",
@@ -191,6 +191,9 @@
 	},
 	"copyCode": "Copy code",
 	"copy": "Copy",
+	"legend" : {
+		"confidence" : "Confidence"
+	},
 	"search": "Search",
 	"reset": "Reset",
 	"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. "
