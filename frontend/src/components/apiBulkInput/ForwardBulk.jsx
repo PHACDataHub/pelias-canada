@@ -9,8 +9,10 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import Loading from "../Loading"
 import CryptoJS from "crypto-js"
 import JSZip from "jszip"
+import { useTranslation } from "react-i18next"
 
 export default function ForwardBulk() {
+	const { t } = useTranslation()
 	const [results, setResults] = useState([])
 	const [progress, setProgress] = useState(0)
 	const [mapReady, setMapReady] = useState(false)
@@ -29,6 +31,7 @@ export default function ForwardBulk() {
 	const [metadata, setMetadata] = useState({})
 	const boundsRef = useRef(L.latLngBounds())
 	const [confidenceBreakdown, setConfidenceBreakdown] = useState({})
+	const [isFileUploaded, setIsFileUploaded] = useState(false)
 
 	const count_100 = results.filter(result => result.confidenceLevel === 100).length
 	const count_80_to_99 = results.filter(result => result.confidenceLevel >= 80 && result.confidenceLevel < 100).length
@@ -50,12 +53,13 @@ export default function ForwardBulk() {
 			div.style.backgroundColor = "rgba(255, 255, 255, 0.5)" // white background with 50% opacity
 			div.style.padding = "8px" // Add some padding
 			div.style.borderRadius = "4px" // Optional: make the corners rounded
+			div.style.fontSize = "14px" // Optional: make the corners rounded
 
 			// Add the legend title
-			div.innerHTML = "<strong>Confidence</strong><br>"
+			div.innerHTML = `<strong>Confidence / Confiance</strong><br>`
 
 			// Adjust the grades to avoid overlapping ranges
-			const grades = [0, 20, 50, 80, 99]
+			const grades = [0, 30, 50, 80, 99]
 			let labels = []
 			let from, to
 
@@ -64,12 +68,17 @@ export default function ForwardBulk() {
 				to = grades[i + 1]
 
 				labels.push(
-					'<i style="background:' + getColor(from + 1) + '; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ' + from + (to ? "&ndash;" + to : "+")
+					'<i style="background:' +
+						getColor(from + 1) +
+						'; width: 14px; height: 14px; display: inline-block; margin-right: 8px;"></i> ' +
+						from +
+						`%` +
+						(to ? "&ndash;" + to + `%` : "+")
 				)
 			}
 
 			// Add the final label for 100%
-			labels.push('<i style="background:' + getColor(100) + '; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> 100%')
+			labels.push('<i style="background:' + getColor(100) + '; width: 14px; height: 14px; display: inline-block; margin-right: 8px;"></i> 100%')
 
 			// Add the labels to the legend
 			div.innerHTML += labels.join("<br>")
@@ -100,6 +109,14 @@ export default function ForwardBulk() {
 		setTotalPages(Math.ceil(results.length / rowsPerPage))
 	}, [results, rowsPerPage])
 
+	const handleFileChange = e => {
+		if (e.target.files.length > 0) {
+			setIsFileUploaded(true)
+			// console.log("File selected:", e.target.files[0].name) // Log file name when a file is selected
+		} else {
+			setIsFileUploaded(false)
+		}
+	}
 	const handleFileUpload = () => {
 		const file = fileInputRef.current.files[0]
 		if (file) {
@@ -251,13 +268,13 @@ export default function ForwardBulk() {
 		}).addTo(mapRef.current)
 
 		marker.bindPopup(`
-            <b>InputID:</b> ${result.inputID}<br>
-            <b>Address:</b> ${result.physicalAddress}<br>
-            <b>Latitude:</b> ${lat}<br>
-            <b>Longitude:</b> ${lng}<br>
-            <b>Confidence:</b> ${confidence}%<br>
-            <b>Match Type:</b> ${matchType}<br>
-            <b>Accuracy:</b> ${accuracy}
+            <b>ID:</b> ${result.inputID}<br>
+            <b>Address/Adresse:</b><br> ${result.physicalAddress}<br>
+            <b>Latitude/Latitude:</b> ${lat}<br>
+            <b>Longitude/Longitude:</b> ${lng}<br>
+            <b>Confidence/Confiance:</b> ${confidence}%<br>
+            <b>Match Type/Type de match:</b> ${matchType}<br>
+            <b>Accuracy/Précision :</b> ${accuracy}
         `)
 		markers.current.push(marker)
 
@@ -412,28 +429,35 @@ export default function ForwardBulk() {
 
 	return (
 		<div>
-			<input type="file" accept=".csv" ref={fileInputRef} />
-			<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", width: "150px", paddingTop: "20px" }}>
-				<GcdsButton
-					size="small"
-					onClick={() => {
-						handleFileUpload()
-						setLoading(true)
-					}}
-				>
-					Submit
-				</GcdsButton>
-				<GcdsButton
-					size="small"
-					onClick={() => {
-						resetMapAndTable()
-						fileInputRef.current.value = ""
-						setLoading(false)
-					}}
-				>
-					Reset
-				</GcdsButton>
-			</div>
+			<fieldset>
+				<legend>File Upload </legend>
+				<input type="file" accept=".csv" ref={fileInputRef} onChange={handleFileChange}/>
+				<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", width: "150px", paddingTop: "20px" }}>
+					<GcdsButton
+						size="small"
+						onClick={() => {
+							handleFileUpload()
+							setLoading(true)
+						}}
+						disabled={!isFileUploaded}
+					>
+						Submit
+					</GcdsButton>
+					<GcdsButton
+						size="small"
+						onClick={() => {
+							resetMapAndTable()
+							fileInputRef.current.value = ""
+							setLoading(false)
+							setIsFileUploaded(false)
+						}}
+						disabled={!isFileUploaded}
+					>
+						Reset
+					</GcdsButton>
+				</div>
+			</fieldset>
+
 			{progress > 0 && progress < 100 && <p>Progress: {progress}%</p>}
 
 			{loading === true ? (

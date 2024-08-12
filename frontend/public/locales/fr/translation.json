@@ -8,22 +8,8 @@
 				"province": "Province"
 			},
 			"resultSingleFetch": {
-				"infoReturn": "Informations renvoyées",
-				"addressReturn": "Adresse renvoyée pour",
-				"geoReturn": "Géolocalisation renvoyée pour (longitude, latitude)",
-				"confidence": "Confiance dans le résultat de la recherche",
-				"matchType": "Type de match",
-				"accuracy": "Précision",
-				"source": "Source",
-				"infoVersion": "Informations fournies par Pelias Geocoder",
-				"dateTime": "Date et heure (AAAA-MM-JJ HH:MM:SS AM/PM",
-				"address": "Adresse",
-				"longitude": "Longitude",
-				"latitude": "Latitude",
-				"seeMoreOpts": "Voir d'autres options",
-				"longlat": "Longitude, Latitude:",
-				"latlong": "Latitude, Longitude:",
-				"viewMap": "Visualiser la carte"
+				"addressReturn": "Adresse renvoyée pour"
+				}
 			},
 			"reverseSingleFetch": {
 				"inputHeader": "Saisir une latitude et une longitude",
@@ -34,8 +20,8 @@
 				"header": "Cliquez pour utiliser votre position actuelle",
 				"warning": "Veuillez noter que l'accès à un site web l'accès doit être autorisé",
 				"getLocation": "Obtenir l'emplacement"
-			}
-		},
+			},
+		
 		"CodeZips": {
 			"pythonDownload": "Télécharger les fichiers Python",
 			"rDownload": "Télécharger les fichiers R"
@@ -191,6 +177,9 @@
 	},
 	"copyCode": "Copiez le code",
 	"copy": "Copiez",
+	"legend" : {
+		"confidence" : "Confiance"
+	},
 	"search": "Rechercher",
 	"reset": "Réinitialiser",
 	"landingPagePara": "Le développement de services de géolocalisation internes (c'est-à-dire le géocodage par lots) au sein de l'ASPC garantissant des résultats précis, rentables, sécurisés, fiables et transparents est le point de départ commun mais important de multiples parcours analytiques et spatiaux. Les phases comprennent l'exploration technologique, le prototypage, l'affinage sur la base de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la confidentialité, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux ressources externes.  "

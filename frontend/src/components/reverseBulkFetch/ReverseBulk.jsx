@@ -8,8 +8,10 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet"
 import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import Loading from "../Loading"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { useTranslation } from "react-i18next"
 
-export default function ReverseBulk  ()  {
+export default function ReverseBulk() {
+	const { t } = useTranslation
 	const [file, setFile] = useState(null)
 	const [outputRows, setOutputRows] = useState([])
 	const [metadata, setMetadata] = useState({})
@@ -35,12 +37,12 @@ export default function ReverseBulk  ()  {
 			return d >= 100 ? "green" : d > 80 ? "lightgreen" : d > 50 ? "yellow" : d > 30 ? "orange" : "red"
 		}
 
-		const grades = [0, 20, 50, 80, 100]
+		const grades = [0, 30, 50, 80, 99]
 		const labels = grades
 			.map((grade, i) => {
 				const nextGrade = grades[i + 1]
-				return `<i style="background:${getColor(grade + 1)}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${grade}${
-					nextGrade ? `&ndash;${nextGrade}` : "+"
+				return `<i style="background:${getColor(grade + 1)}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${grade}%${
+					nextGrade ? `&ndash;${nextGrade}%` : "+"
 				}`
 			})
 			.join("<br>")
@@ -55,12 +57,13 @@ export default function ReverseBulk  ()  {
 					backgroundColor: "rgba(255, 255, 255, 0.8)",
 					padding: "10px",
 					borderRadius: "5px",
+					fontSize: "14px",
 					zIndex: "1000",
 				}}
 			>
-				<strong>Confidence</strong>
+				<strong>Confidence / Confiance</strong>
 				<br />
-				<i style={{ background: "blue", width: "18px", height: "18px", display: "inline-block", marginRight: "8px" }}></i> Original
+				<i style={{ background: "blue", width: "18px", height: "18px", display: "inline-block", marginRight: "8px" }}></i> Input / Entrée
 				<br />
 				<div dangerouslySetInnerHTML={{ __html: labels }} />
 			</div>
@@ -555,7 +558,6 @@ export default function ReverseBulk  ()  {
 				<form>
 					<fieldset>
 						<legend>File Upload and Settings</legend>
-
 						<div>
 							<label htmlFor="file-upload">Upload a CSV file:</label>
 							<input
