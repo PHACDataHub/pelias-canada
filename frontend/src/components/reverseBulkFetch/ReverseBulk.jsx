@@ -9,7 +9,7 @@ import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import Loading from "../Loading"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 
-const ReverseBulk = () => {
+export default function ReverseBulk  ()  {
 	const [file, setFile] = useState(null)
 	const [outputRows, setOutputRows] = useState([])
 	const [metadata, setMetadata] = useState({})
@@ -26,16 +26,53 @@ const ReverseBulk = () => {
 	const [rowsPerPage, setRowsPerPage] = useState(10)
 	const resultsTableRef = useRef(null)
 	const [totalPages, setTotalPages] = useState(0)
+	const boundsRef = useRef(L.latLngBounds())
 
 	// Initial coordinates
 	const initialLatLng = [45.4215, -75.6919]
+	const Legend = () => {
+		const getColor = d => {
+			return d >= 100 ? "green" : d > 80 ? "lightgreen" : d > 50 ? "yellow" : d > 30 ? "orange" : "red"
+		}
+
+		const grades = [0, 20, 50, 80, 100]
+		const labels = grades
+			.map((grade, i) => {
+				const nextGrade = grades[i + 1]
+				return `<i style="background:${getColor(grade + 1)}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${grade}${
+					nextGrade ? `&ndash;${nextGrade}` : "+"
+				}`
+			})
+			.join("<br>")
+
+		return (
+			<div
+				className="legend"
+				style={{
+					position: "absolute",
+					bottom: "10px",
+					right: "10px",
+					backgroundColor: "rgba(255, 255, 255, 0.8)",
+					padding: "10px",
+					borderRadius: "5px",
+					zIndex: "1000",
+				}}
+			>
+				<strong>Confidence</strong>
+				<br />
+				<i style={{ background: "blue", width: "18px", height: "18px", display: "inline-block", marginRight: "8px" }}></i> Original
+				<br />
+				<div dangerouslySetInnerHTML={{ __html: labels }} />
+			</div>
+		)
+	}
 
 	// Initialize map
 	useEffect(() => {
 		const initializeMap = () => {
 			if (mapRef.current && !mapInstanceRef.current) {
 				try {
-					mapInstanceRef.current = L.map(mapRef.current).setView(initialLatLng, 13)
+					mapInstanceRef.current = L.map("map").setView([56.1304, -106.3468], 4)
 					L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 						attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 					}).addTo(mapInstanceRef.current)
@@ -99,8 +136,8 @@ const ReverseBulk = () => {
 
 			reader.readAsText(file)
 		}
-		
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [file])
 
 	useEffect(() => {
@@ -151,6 +188,7 @@ const ReverseBulk = () => {
 			return
 		}
 
+		// Remove previous markers and bounds
 		if (markersLayerRef.current) {
 			mapInstanceRef.current.removeLayer(markersLayerRef.current)
 		}
@@ -171,7 +209,7 @@ const ReverseBulk = () => {
 		setMetadata(newMetadata)
 
 		const newOutputRows = []
-		const latLngBounds = []
+		const latLngBounds = L.latLngBounds() // Initialize bounds
 
 		for (let i = 1; i < rows.length; i++) {
 			const row = rows[i]
@@ -251,7 +289,7 @@ const ReverseBulk = () => {
 						.bindPopup(`<strong>${feature.properties.name || "Unknown"}</strong><br>Confidence: ${feature.properties.confidence}<br>Distance: ${feature.properties.distance}`)
 						.addTo(markersLayerRef.current)
 
-					latLngBounds.push([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])
+					latLngBounds.extend([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])
 				})
 
 				newMetadata.totalRowsProcessed++
@@ -263,7 +301,7 @@ const ReverseBulk = () => {
 		setOutputRows(newOutputRows)
 		setMetadata(newMetadata)
 
-		if (latLngBounds.length > 0) {
+		if (latLngBounds.isValid()) {
 			mapInstanceRef.current.fitBounds(latLngBounds)
 		}
 
@@ -274,6 +312,7 @@ const ReverseBulk = () => {
 		setLoading(false)
 		setProgress(100)
 		setMapReady(true)
+		boundsRef.current = L.latLngBounds() // Reset bounds
 	}
 
 	// Calculate marker color based on confidence
@@ -581,7 +620,7 @@ const ReverseBulk = () => {
 			{mapReady && !loading && progress <= 100 && (
 				<>
 					<div style={{ height: "600px", width: "100%", paddingTop: "40px" }}>
-						<MapContainer center={initialLatLng} zoom={3} style={{ height: "100%" }}>
+						<MapContainer center={initialLatLng} zoom={4} style={{ height: "100%" }}>
 							<TileLayer
 								url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 								attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -651,6 +690,7 @@ const ReverseBulk = () => {
 									</Popup>
 								</CircleMarker>
 							))}
+							<Legend />
 						</MapContainer>
 					</div>
 
@@ -804,5 +844,3 @@ const ReverseBulk = () => {
 		</div>
 	)
 }
-
-export default ReverseBulk

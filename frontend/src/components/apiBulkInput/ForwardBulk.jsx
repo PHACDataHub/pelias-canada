@@ -36,12 +36,56 @@ export default function ForwardBulk() {
 	const count_30_to_50 = results.filter(result => result.confidenceLevel >= 30 && result.confidenceLevel < 50).length
 	const count_0_to_30 = results.filter(result => result.confidenceLevel >= 0 && result.confidenceLevel < 30).length
 
+	const addLegend = () => {
+		const legend = L.control({ position: "bottomright" })
+
+		const getColor = d => {
+			return d >= 100 ? "green" : d > 80 ? "lightgreen" : d > 50 ? "yellow" : d > 30 ? "orange" : "red"
+		}
+
+		legend.onAdd = () => {
+			const div = L.DomUtil.create("div", "info legend")
+
+			// Set background color and opacity
+			div.style.backgroundColor = "rgba(255, 255, 255, 0.5)" // white background with 50% opacity
+			div.style.padding = "8px" // Add some padding
+			div.style.borderRadius = "4px" // Optional: make the corners rounded
+
+			// Add the legend title
+			div.innerHTML = "<strong>Confidence</strong><br>"
+
+			// Adjust the grades to avoid overlapping ranges
+			const grades = [0, 20, 50, 80, 99]
+			let labels = []
+			let from, to
+
+			for (let i = 0; i < grades.length - 1; i++) {
+				from = grades[i]
+				to = grades[i + 1]
+
+				labels.push(
+					'<i style="background:' + getColor(from + 1) + '; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ' + from + (to ? "&ndash;" + to : "+")
+				)
+			}
+
+			// Add the final label for 100%
+			labels.push('<i style="background:' + getColor(100) + '; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> 100%')
+
+			// Add the labels to the legend
+			div.innerHTML += labels.join("<br>")
+			return div
+		}
+
+		legend.addTo(mapRef.current)
+	}
+
 	useEffect(() => {
 		if (mapReady) {
 			mapRef.current = L.map("map").setView([56.1304, -106.3468], 4) // Center map on Canada
 			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			}).addTo(mapRef.current)
+			addLegend() // Add the legend to the map
 		}
 
 		return () => {
@@ -403,7 +447,6 @@ export default function ForwardBulk() {
 					<br />
 					<div id="map" style={{ height: "400px" }}></div>
 					<GcdsContainer size="xl" centered padding="400" margin="400">
-						
 						<h3> Results </h3>
 						<div>
 							<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", width: "350px", paddingTop: "20px" }}>

@@ -1,5 +1,4 @@
-
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from "prop-types"; // Import PropTypes
 
 export default function PercentageCircle({ confidencePercentage }) {
   // Calculate the radius and circumference of the circle
@@ -11,12 +10,16 @@ export default function PercentageCircle({ confidencePercentage }) {
 
   // Determine the color based on the confidencePercentage
   let color;
-  if (confidencePercentage  <= 0.5) {
-    color = '#ff0000'; // Red for percentages below 50%
-  } else if (confidencePercentage <= 0.85) {
-    color = '#ffff00'; // Yellow for percentages between 51% and 80%
+  if (confidencePercentage >= 0.99) {
+    color = "green";
+  } else if (confidencePercentage >= 0.80) {
+    color = "lightgreen";
+  } else if (confidencePercentage >= 0.50) {
+    color = "yellow";
+  } else if (confidencePercentage >= 0.30) {
+    color = "orange";
   } else {
-    color = '#00ff00'; // Green for percentages above 80%
+    color = "red";
   }
 
   // Format the center text
@@ -24,41 +27,35 @@ export default function PercentageCircle({ confidencePercentage }) {
 
   return (
     <div>
-    <svg className="percentage-circle" width="200" height="200">
-      <circle
-        className="percentage-circle-background"
-        cx="100"
-        cy="75"
-        r={radius}
-        stroke="#e6e6e6" // Background color
-        strokeWidth="10"
-        fill="transparent"
-      />
-      <circle
-        className="percentage-circle-progress"
-        cx="100"
-        cy="75"
-        r={radius}
-        style={{
-          stroke: color, // Progress color based on confidencePercentage
-          strokeWidth: '10',
-          strokeLinecap: 'round',
-          fill: 'transparent',
-          strokeDasharray: circumference,
-          strokeDashoffset: strokeDashoffset,
-        }}
-      />
-      <text
-        x="100"
-        y="75"
-        textAnchor="middle"
-        dy=".3em"
-        fontSize="20px"
-        fill="#000"
-      >
-        {centerText}
-      </text>
-    </svg></div>
+      <svg className="percentage-circle" width="200" height="200">
+        <circle
+          className="percentage-circle-background"
+          cx="100"
+          cy="100" // Adjusted to center the circle vertically
+          r={radius}
+          stroke="#e6e6e6" // Background color
+          strokeWidth="10"
+          fill="transparent"
+        />
+        <circle
+          className="percentage-circle-progress"
+          cx="100"
+          cy="100" // Adjusted to center the circle vertically
+          r={radius}
+          style={{
+            stroke: color, // Progress color based on confidencePercentage
+            strokeWidth: "10",
+            strokeLinecap: "round",
+            fill: "transparent",
+            strokeDasharray: circumference,
+            strokeDashoffset: strokeDashoffset,
+          }}
+        />
+        <text x="100" y="100" textAnchor="middle" dy=".3em" fontSize="20px" fill="#000">
+          {centerText}
+        </text>
+      </svg>
+    </div>
   );
 }
 
