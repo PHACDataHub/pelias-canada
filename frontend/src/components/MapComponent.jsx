@@ -1,87 +1,124 @@
-import PropTypes from 'prop-types'; // Import PropTypes for prop validation
-import { useEffect } from 'react';
-import 'ol/ol.css'; // Import OpenLayers CSS for styling
-import Map from 'ol/Map'; // Import Map class from OpenLayers
-import View from 'ol/View'; // Import View class from OpenLayers
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'; // Import TileLayer and VectorLayer classes from OpenLayers
-import { OSM, Vector as VectorSource } from 'ol/source'; // Import OSM and VectorSource classes from OpenLayers
-import Feature from 'ol/Feature'; // Import Feature class from OpenLayers
-import Point from 'ol/geom/Point'; // Import Point geometry class from OpenLayers
-import { fromLonLat } from 'ol/proj'; // Import fromLonLat function from OpenLayers for coordinate conversion
-import { Style, Circle, Fill, Stroke } from 'ol/style'; // Import Style, Circle, Fill, and Stroke classes from OpenLayers for styling
+import PropTypes from "prop-types"; // Import PropTypes for prop validation
+import { useEffect } from "react";
+import "ol/ol.css"; // Import OpenLayers CSS for styling
+import Map from "ol/Map"; // Import Map class from OpenLayers
+import View from "ol/View"; // Import View class from OpenLayers
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer"; // Import TileLayer and VectorLayer classes from OpenLayers
+import { OSM, Vector as VectorSource } from "ol/source"; // Import OSM and VectorSource classes from OpenLayers
+import Feature from "ol/Feature"; // Import Feature class from OpenLayers
+import Point from "ol/geom/Point"; // Import Point geometry class from OpenLayers
+import { fromLonLat } from "ol/proj"; // Import fromLonLat function from OpenLayers for coordinate conversion
+import { Style, Circle, Fill, Stroke } from "ol/style"; // Import Style, Circle, Fill, and Stroke classes from OpenLayers for styling
 
 // Function to determine marker color based on confidence level
 const getColorForConfidence = (confidence) => {
   if (confidence >= 85) {
-    return 'green';
+    return "green";
   } else if (confidence >= 51) {
-    return 'yellow';
+    return "yellow";
   } else {
-    return 'red';
+    return "red";
   }
+};
+
+// Function to add a legend inside the map div
+const addLegend = () => {
+  const legendContainer = document.createElement("div");
+  legendContainer.className = "ol-legend";
+  legendContainer.style.position = "absolute";
+  legendContainer.style.bottom = "30px";
+  legendContainer.style.right = "10px";
+  legendContainer.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+  legendContainer.style.padding = "10px";
+  legendContainer.style.borderRadius = "5px";
+  legendContainer.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.3)";
+  legendContainer.style.fontSize = "14px";
+  legendContainer.style.lineHeight = "1.5em";
+
+  // Add legend title
+  legendContainer.innerHTML = "<strong>Confidence</strong><br>";
+
+  // Define the grades and corresponding colors
+  const grades = [0, 30, 50, 80, 99]
+  const colors = ["red", "orange","yellow", "lightgreen","green"];
+  let labels = [];
+
+  // Create legend items
+  for (let i = 0; i < grades.length; i++) {
+    labels.push(
+      `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
+        grades[i]
+      }% ${i < grades.length - 1 ? "&ndash;" + grades[i + 1] + "%" : "+"}`
+    );
+  }
+
+  // Add labels to the legend
+  legendContainer.innerHTML += labels.join("<br>");
+
+  return legendContainer;
 };
 
 const MapComponentOL = ({ mapContentJSON }) => {
   useEffect(() => {
-    // Create a vector source and layer for markers
-    const vectorSource = new VectorSource(); // Instantiate VectorSource for storing marker features
-    const vectorLayer = new VectorLayer({ // Instantiate VectorLayer to render vector data
-      source: vectorSource // Assign the vector source to the vector layer
+    const vectorSource = new VectorSource();
+    const vectorLayer = new VectorLayer({
+      source: vectorSource,
     });
 
-    // Initialize the map with an empty view
     const map = new Map({
-      target: 'map', // Specify the HTML element ID where the map will be rendered
+      target: "map",
       layers: [
-        new TileLayer({ // Add a TileLayer with OpenStreetMap (OSM) as the tile source
-          source: new OSM()
+        new TileLayer({
+          source: new OSM(),
         }),
-        vectorLayer // Add the vector layer for displaying markers on top of the base map
+        vectorLayer,
       ],
       view: new View({
-        center: fromLonLat([-95, 60]), // Set initial center coordinates for Canada in EPSG:3857 projection (Web Mercator)
-        zoom: 3 // Set initial zoom level of the map
-      })
+        center: fromLonLat([-95, 60]), // Initial center for Canada
+        zoom: 6, // Initial zoom level
+      }),
     });
 
-    // Add markers to the map based on mapContentJSON
+    // Add the markers to the map
     mapContentJSON.forEach((pointString) => {
-      const [longitude, latitude, confidence] = pointString.split(','); // Split pointString into longitude, latitude, and confidence
-      const coordinates = fromLonLat([parseFloat(longitude), parseFloat(latitude)]); // Convert longitude and latitude to EPSG:3857 coordinates
-      const conf = parseFloat(confidence); // Parse confidence value as float
+      const [longitude, latitude, confidence] = pointString.split(",");
+      const coordinates = fromLonLat([parseFloat(longitude), parseFloat(latitude)]);
+      const conf = parseFloat(confidence);
 
-      const marker = new Feature({ // Create a new feature (marker) at the specified coordinates
-        geometry: new Point(coordinates) // Set the geometry of the feature as a Point at the converted coordinates
+      const marker = new Feature({
+        geometry: new Point(coordinates),
       });
 
-      marker.setStyle(new Style({ // Apply a style to the marker
-        image: new Circle({ // Use a Circle as the marker symbol
-          radius: 5, // Set the radius of the circle
-          fill: new Fill({ color: getColorForConfidence(conf) }), // Set fill color based on confidence level
-          stroke: new Stroke({ color: '#000', width: 1 }) // Set stroke style for the circle
+      marker.setStyle(
+        new Style({
+          image: new Circle({
+            radius: 5,
+            fill: new Fill({ color: getColorForConfidence(conf) }),
+            stroke: new Stroke({ color: "#000", width: 1 }),
+          }),
         })
-      }));
+      );
 
-      vectorSource.addFeature(marker); // Add the marker feature to the vector source
+      vectorSource.addFeature(marker);
     });
 
-    // Wait for the vector source to be ready before fitting the view
-    vectorSource.once('change', function() {
-      if (vectorSource.getState() === 'ready') { // Check if vector source is in 'ready' state
-        // Get the extent (bounding box) of the vector layer
-        var extent = vectorSource.getExtent();
-        // Fit the view to the extent of the vector source with maxZoom for a closer view
-        map.getView().fit(extent, { size: map.getSize(), padding: [50, 50, 50, 50], maxZoom: 14 });
-      }
-    });
+    // Fit the map view to the extent of all the markers
+    const extent = vectorSource.getExtent();
+    map.getView().fit(extent, { maxZoom: 14, padding: [50, 50, 50, 50] });
+
+    // Add the legend to the map div
+    const mapElement = document.getElementById("map");
+    const legend = addLegend();
+    mapElement.appendChild(legend);
 
     return () => {
-      map.setTarget(null); // Cleanup function to remove map target when component unmounts
+      map.setTarget(null);
+      mapElement.removeChild(legend); // Clean up the legend on unmount
     };
-  }, [mapContentJSON]); // Dependency array ensures useEffect runs when mapContentJSON changes
+  }, [mapContentJSON]);
 
   return (
-    <div id="map" style={{ width: '100%', height: '500px' }}>
+    <div id="map" style={{ position: "relative", width: "100%", height: "500px" }}>
       {/* This div is where the OpenLayers map will be rendered */}
     </div>
   );

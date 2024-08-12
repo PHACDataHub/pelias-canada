@@ -83,34 +83,13 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
       <p>reverseResponse Response: {JSON.stringify(reverseResponse)}</p>
       */}
 
+
+
 			{result && result.features && result.features[0] && (
 				<div>
 					<h2>{t("components.apiFetch.resultSingleFetch.infoReturn")}</h2>
 					<div style={{ border: "1px solid black", padding: "4px" }}>
-						<div>
-							{/* 
-              Conditional rendering logic can be added here if needed.
-              Example:
-              {returnAddress.toLowerCase() === result.geocoding.query.text.toLowerCase() ? (
-                <h3>Accuracy information</h3>
-              ) : (
-                <>
-                  <div style={{ padding: "20px", backgroundColor: "#f44336", color: "white", marginBottom: "15px" }}>
-                    <strong>The input address and return address do not match exactly. This may result in inaccurate results.</strong>
-                    For more accurate results, please check the following:
-                    <ul>
-                      <li>Is the <strong><i>Address</i></strong> correct?</li>
-                      <li>Is the <strong><i>Street Type</i></strong> in short form?</li>
-                      <li>Is the <strong><i>Street Direction</i></strong> in short form?</li>
-                      <li>Is the <strong><i>City</i></strong> correct?</li>
-                      <li>Is the <strong><i>Province</i></strong> correct?</li>
-                    </ul>
-                  </div>
-                  <h3>Accuracy information</h3>
-                </>
-              )}
-              */}
-						</div>
+						<div></div>
 						<div>
 							<p>
 								<strong>{t("components.apiFetch.resultSingleFetch.addressReturn")} : </strong>
@@ -141,8 +120,9 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							</div>
 						</div>
 						<div style={{ display: "flex", justifyContent: "flex-end", fontSize: "10px" }}>
-							<i>{t("components.apiFetch.resultSingleFetch.infoVersion")} v{result.geocoding.version}</i>
-              
+							<i>
+								{t("components.apiFetch.resultSingleFetch.infoVersion")} v{result.geocoding.version}
+							</i>
 						</div>
 					</div>
 					<h4> </h4>
@@ -152,28 +132,28 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						</p>
 					</div>
 					<p>
-          {t("components.apiFetch.resultSingleFetch.address")} : {result.features[0].properties.label}
+						{t("components.apiFetch.resultSingleFetch.address")} : {result.features[0].properties.label}
 						<GcdsButton buttonRole="secondary" buttonId="Copy Longitude" size="small" name="Copy Longitude" style={{ marginLeft: "10px" }} onClick={handleCopyAddress}>
-            {t("copy")}
+							{t("copy")}
 						</GcdsButton>
 					</p>
 					<p>
-          {t("components.apiFetch.resultSingleFetch.longitude")} : {result.features[0].geometry.coordinates[0]}
+						{t("components.apiFetch.resultSingleFetch.longitude")} : {result.features[0].geometry.coordinates[0]}
 						<GcdsButton buttonRole="secondary" buttonId="Copy Longitude" size="small" name="Copy Longitude" style={{ marginLeft: "10px" }} onClick={handleCopyLongitude}>
-            {t("copy")}
+							{t("copy")}
 						</GcdsButton>
 					</p>
 
 					<p>
-          {t("components.apiFetch.resultSingleFetch.latitude")} : {result.features[0].geometry.coordinates[1]}
+						{t("components.apiFetch.resultSingleFetch.latitude")} : {result.features[0].geometry.coordinates[1]}
 						<GcdsButton buttonRole="secondary" buttonId="Copy Latitude" size="small" name="Copy Latitude" style={{ marginLeft: "10px" }} onClick={handleCopyLatitude}>
-            {t("copy")}
+							{t("copy")}
 						</GcdsButton>
 					</p>
 
 					<GcdsDetails detailsTitle={`${t("components.apiFetch.resultSingleFetch.seeMoreOpts")}`}>
 						<p style={{ fontSize: "16px" }}>
-            {t("components.apiFetch.resultSingleFetch.longlat")} : {result.features[0].geometry.coordinates[0]}, {result.features[0].geometry.coordinates[1]}
+							{t("components.apiFetch.resultSingleFetch.longlat")} : {result.features[0].geometry.coordinates[0]}, {result.features[0].geometry.coordinates[1]}
 							<GcdsButton
 								buttonRole="secondary"
 								buttonId="Copy Longitude Latitude"
@@ -187,7 +167,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						</p>
 
 						<p style={{ fontSize: "16px" }}>
-            {t("components.apiFetch.resultSingleFetch.latlong")} : {result.features[0].geometry.coordinates[1]}, {result.features[0].geometry.coordinates[0]}
+							{t("components.apiFetch.resultSingleFetch.latlong")} : {result.features[0].geometry.coordinates[1]}, {result.features[0].geometry.coordinates[0]}
 							<GcdsButton
 								buttonRole="secondary"
 								buttonId="Copy Latitude Longitude"
@@ -202,11 +182,15 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 					</GcdsDetails>
 
 					<div style={{ paddingTop: "40px", paddingBottom: "40px" }}>
-						<GcdsDetails detailsTitle={`${t("components.apiFetch.resultSingleFetch.viewMap")}`}>
-							<MapComponentOL
-								mapContentJSON={[`${result.features[0].geometry.coordinates[0]},${result.features[0].geometry.coordinates[1]},${result.features[0].properties.confidence * 100}`]}
-							/>
-						</GcdsDetails>
+						<>
+							{result?.features?.length > 0 ? (
+								<MapComponentOL
+									mapContentJSON={[`${result.features[0].geometry.coordinates[0]},${result.features[0].geometry.coordinates[1]},${result.features[0].properties.confidence * 100}`]}
+								/>
+							) : (
+								<p>No Results</p>
+							)}
+						</>
 					</div>
 					<ToastContainer />
 				</div>
