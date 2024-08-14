@@ -8,8 +8,22 @@
 				"province": "Province"
 			},
 			"resultSingleFetch": {
-				"addressReturn": "Adresse renvoyée pour"
-				}
+				"infoReturn": "Informations renvoyées",
+				"addressReturn": "Adresse renvoyée pour",
+				"geoReturn": "Géolocalisation renvoyée pour (longitude, latitude)",
+				"confidence": "Confiance dans le résultat de la recherche",
+				"matchType": "Type de match",
+				"accuracy": "Précision",
+				"source": "Source",
+				"infoVersion": "Informations fournies par Pelias Geocoder",
+				"dateTime": "Date et heure (AAAA-MM-JJ HH:MM:SS AM/PM",
+				"address": "Adresse",
+				"longitude": "Longitude",
+				"latitude": "Latitude",
+				"seeMoreOpts": "Voir d'autres options",
+				"longlat": "Longitude, Latitude:",
+				"latlong": "Latitude, Longitude:",
+				"viewMap": "Visualiser la carte"
 			},
 			"reverseSingleFetch": {
 				"inputHeader": "Saisir une latitude et une longitude",
@@ -20,8 +34,8 @@
 				"header": "Cliquez pour utiliser votre position actuelle",
 				"warning": "Veuillez noter que l'accès à un site web l'accès doit être autorisé",
 				"getLocation": "Obtenir l'emplacement"
-			},
-		
+			}
+		},
 		"CodeZips": {
 			"pythonDownload": "Télécharger les fichiers Python",
 			"rDownload": "Télécharger les fichiers R"
@@ -177,8 +191,8 @@
 	},
 	"copyCode": "Copiez le code",
 	"copy": "Copiez",
-	"legend" : {
-		"confidence" : "Confiance"
+	"legend": {
+		"confidence": "Confiance"
 	},
 	"search": "Rechercher",
 	"reset": "Réinitialiser",
