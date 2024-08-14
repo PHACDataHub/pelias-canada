@@ -39,7 +39,7 @@
 		"CodeZips": {
 			"pythonDownload": "Download Python files",
 			"rDownload": "Download R files"
-		}		
+		}
 	},
 	"footer": {
 		"additionalNav": "Additional navigation",
@@ -191,8 +191,8 @@
 	},
 	"copyCode": "Copy code",
 	"copy": "Copy",
-	"legend" : {
-		"confidence" : "Confidence"
+	"legend": {
+		"confidence": "Confidence"
 	},
 	"search": "Search",
 	"reset": "Reset",
