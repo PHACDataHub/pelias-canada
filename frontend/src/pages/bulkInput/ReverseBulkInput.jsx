@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next"
 import ReverseBulk from "../../components/reverseBulkFetch/ReverseBulk"
+import { GcdsHeading } from "@cdssnc/gcds-components-react"
 
 export default function ReverseBulkInput() {
 	const { t } = useTranslation()
 	return (
 		<>
-			<h1>{t("pages.reverseBulk.title")}</h1>
+			<GcdsHeading tag="h1">{t("pages.reverseBulk.title")}</GcdsHeading>
 
 			<div style={{ textAlign: "justify" }}>
 				<section aria-labelledby="what-is-the-bulk-upload">

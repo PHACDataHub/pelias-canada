@@ -4,6 +4,7 @@ import { parse } from "papaparse";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import "./FAQ.css";
 import { Link } from "react-router-dom";
+import { GcdsHeading } from "@cdssnc/gcds-components-react";
 
 // AccordionItem component for displaying each FAQ item
 const AccordionItem = ({ question, answer, isOpen, onClick }) => {
@@ -85,7 +86,7 @@ export default function FAQ() {
 
 	return (
 		<div className="container">
-			<h1>Frequently Asked Questions</h1>
+			<GcdsHeading tag="h1">Frequently Asked Questions</GcdsHeading>
 			<div className="tableOfContents">
 				<ul className="tableOfContentsList">
 					{jsonData &&

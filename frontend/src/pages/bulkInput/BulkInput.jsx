@@ -1,10 +1,10 @@
+import { GcdsHeading } from "@cdssnc/gcds-components-react"
 import BulkInputFetch from "../../components/apiBulkInput/BulkInputFetch"
 
 export default function BulkInput() {
 	return (
 		<>
-			<h1>Bulk Input</h1>
-
+			<GcdsHeading tag="h1"> Bulk Input</GcdsHeading>
 			<div style={{ textAlign: "justify" }}>
 				<section aria-labelledby="what-is-the-bulk-upload">
 					<h2 id="what-is-the-bulk-upload">What is the Bulk Upload?</h2>
