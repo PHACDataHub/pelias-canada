@@ -80,8 +80,8 @@ export default function GeocodingExplanation() {
   <table id="features">
     <thead>
       <tr>
-        <th>Property</th>
-        <th>Description</th>
+        <th>Property / Propriété</th>
+        <th>Property Description / Description de la propriété</th>
       </tr>
     </thead>
     <tbody>

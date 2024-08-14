@@ -182,6 +182,22 @@
 			"forwardPythoncode": "Exemple de géocodage d'adresses avec Python",
 			"reversePythonCode": "Exemple de géocodage inversé avec Python"
 		},
+		"reverseBulk": {
+			"title": "Géocodage inversé en vrac",
+			"subTitle": "Qu'est-ce que le géocodage inversé en vrac",
+			"subtTitlePara": "Cet outil permet aux utilisateurs de saisir plusieurs lieux de longitude et de latitude à la fois afin d'obtenir des résultats de géocodage en masse. Les utilisateurs peuvent télécharger un fichier CSV contenant les géolocalisations. L'outil traite ensuite ces données et fournit les résultats géocodés, qui peuvent être téléchargés ou visualisés sur la page.",
+			"howToUse": {
+				"title": "Comment utiliser le service de géocodage inversé en vrac ?",
+				"fileType": "Le type de fichier doit être un CSV",
+				"one": "Pour toutes les données que vous souhaitez transformer, assurez-vous que les trois (3) colonnes suivantes figurent dans les en-têtes de votre CSV",
+				"two": "L'outil nettoie et formate les lieux, les préparant ainsi au géocodage.",
+				"three": "Une fois les données préparées et prêtes, elles sont envoyées à l'interface de programmation d'applications (API) de Pelias.",
+				"four": "Une fois que l'API a reçu les données, elle renvoie les résultats, y compris les niveaux de confiance et les données supplémentaires.",
+				"five": "Les utilisateurs téléchargeront automatiquement une copie des résultats dans un fichier CSV et un fichier GeoJSON.",
+				"six": "Les utilisateurs ont la possibilité d'exporter les résultats sélectionnés dans le tableau en bas de page une fois qu'il y a des résultats renvoyés. Les résultats sélectionnés seront disponibles dans un fichier CSV et un fichier GeoJSON."
+			},
+			"inputUpload": "Chargement d'entrée pour les données en vrac"
+		},
 		"rshiny": {
 			"title": "R API",
 			"rshinyParagraph": "Développer des services de géolocalisation internes à l'ASPC afin d'améliorer l'exactitude, la précision, la rentabilité, la sécurité et la transparence. Les phases comprennent l'exploration technologique, le prototypage, l'affinement en fonction de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la protection de la vie privée, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux requêtes externes.",
