@@ -2,7 +2,7 @@ import { useState } from "react"
 import ForwardSinglefetch from "../../components/apiFetch/ForwardSingleFetch"
 import SingleFetchResults from "../../components/apiFetch/ResultsSingleFetch"
 import UseLocationButton from "../../components/apiFetch/UseLocationButton"
-import { GcdsButton, GcdsContainer, GcdsGrid, GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsContainer, GcdsGrid } from "@cdssnc/gcds-components-react"
 import ReverseSingleFetch from "../../components/apiFetch/ReverseSingleFetch"
 import { useTranslation } from "react-i18next"
 
@@ -122,7 +122,8 @@ export default function LandingPage() {
 						zIndex: 1,
 					}}
 				>
-					<GcdsHeading tag="h1">{t("pages.landingPage.title")} </GcdsHeading>{/* Main title */}
+					<h1>{t("pages.landingPage.title")} </h1>
+					{/* Main title */}
 				</div>
 			</div>
 			{/* End of map and welcome section */}
@@ -186,7 +187,6 @@ export default function LandingPage() {
 								>
 									{t("pages.landingPage.clearResults")}
 								</GcdsButton>
-
 							</div>
 						</>
 					)}

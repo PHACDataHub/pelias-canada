@@ -20,13 +20,13 @@ const Breadcrumb = () => {
   return (
     <nav aria-label="breadcrumb">
       <ol className="breadcrumb">
-        <li className="breadcrumb-item">
+        <li className="breadcrumb-item" >
           <Link to="/">Home</Link>
         </li>
         {pathnames.map((value, index) => {
           const to = `/${pathnames.slice(0, index + 1).join('/')}`;
           return (
-            <li key={to} className="breadcrumb-item" >
+            <li key={to} className="breadcrumb-item" style={{paddingBottom:"20px"}} >
               <Link to={to} aria-disabled="true" >{formatBreadcrumb(value)}</Link>
             </li>
           );
