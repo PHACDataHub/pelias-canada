@@ -11,6 +11,18 @@ const MIME_TYPES: Record<string, string> = {
     ".svg": "image/svg+xml"
 };
 
+// Array of routes to redirect to index.html
+const ROUTES_TO_REDIRECT = [
+    '/reverse-bulk-files',
+    '/forward-bulk-files',
+    '/r-api',
+    '/python-api',
+    '/frequently-asked-questions',
+    '/geocoding-results-explanation',
+    '/home',
+    '/'
+];
+
 function getContentType(filePath: string): string {
     const ext = filePath.substring(filePath.lastIndexOf('.'));
     return MIME_TYPES[ext] || "application/octet-stream";
@@ -18,16 +30,37 @@ function getContentType(filePath: string): string {
 
 async function handleRequest(request: Request): Promise<Response> {
     const url = new URL(request.url);
-    const filePath = url.pathname === "/" ? "/index.html" : url.pathname;
+    let filePath = url.pathname === "/" ? "/index.html" : url.pathname;
+
+    // Redirect specific paths to index.html
+    if (ROUTES_TO_REDIRECT.includes(filePath)) {
+        filePath = "/index.html";
+    }
+
+    // Ensure the path does not contain `..` or go outside the `dist` directory
+    if (filePath.includes("..")) {
+        return new Response("Forbidden", { status: 403 });
+    }
+
     try {
-        const data = await Deno.readFile(`./dist${filePath}`);
+        const fullPath = `/app/dist${filePath}`;
+        console.log(`Attempting to read file: ${fullPath}`);  // Log the full path for debugging
+        const data = await Deno.readFile(fullPath);
         const contentType = getContentType(filePath);
         return new Response(data, {
             headers: { "content-type": contentType }
         });
     } catch (error) {
         console.error(`Failed to serve ${filePath}: ${error}`);
-        return new Response("File not found", { status: 404 });
+
+        // Handle 404 error
+        if (error instanceof Deno.errors.NotFound) {
+            console.log(`404 Error for file: ${filePath}`);
+            return new Response("Not Found", { status: 404 });
+        } else {
+            // Handle other errors
+            return new Response("Internal Server Error", { status: 500 });
+        }
     }
 }
 
