@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next"
 import "./GeocodingExplanation.css"
+import { GcdsHeading } from "@cdssnc/gcds-components-react"
 
 export default function GeocodingExplanation() {
 	const { t } = useTranslation()
 	return (
 		<div className="geocoding-explanation">
-			<h1>{t("pages.geocodingExplanation.title")}</h1>
+      <GcdsHeading tag="h1">{t("pages.geocodingExplanation.title")}</GcdsHeading>
 			<section aria-labelledby="match-types">
 				<h2 id="match-types">{t("pages.geocodingExplanation.underTitleHeader")}</h2>
 				<p>{t("pages.geocodingExplanation.underTitlePara")}</p>

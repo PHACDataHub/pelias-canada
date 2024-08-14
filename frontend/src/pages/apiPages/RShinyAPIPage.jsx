@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { GcdsButton } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
 import { copyToClipboard } from "../../assets/copyToClipboard.jsx" // Adjust the path as necessary
 import { ToastContainer, toast } from "react-toastify"
@@ -98,7 +98,7 @@ export default function RShinyAPIPage() {
 
 	return (
 		<>
-			<h1>{t("pages.rshiny.title")}</h1>
+			<GcdsHeading tag="h1">{t("pages.rshiny.title")}</GcdsHeading>
 			<div style={{ textAlign: "justify", overflow: "auto" }}>
 				<p>{t("pages.rshiny.rshinyParagraph")}</p>
 			</div>

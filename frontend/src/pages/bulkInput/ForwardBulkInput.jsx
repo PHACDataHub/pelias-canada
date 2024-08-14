@@ -1,10 +1,10 @@
+import { GcdsHeading } from "@cdssnc/gcds-components-react"
 import ForwardBulk from "../../components/apiBulkInput/ForwardBulk"
 
 export default function ForwardBulkInput() {
 	return (
 		<>
-			<h1>Bulk Geocoding Input</h1>
-
+			<GcdsHeading tag="h1"> Bulk Geocoding Input</GcdsHeading>
 			<div style={{ textAlign: "justify" }}>
 				<section aria-labelledby="what-is-the-bulk-upload">
 					<h2 id="what-is-the-bulk-upload">What is the Bulk Geocoding Input?</h2>
