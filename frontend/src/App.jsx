@@ -5,7 +5,7 @@ import LandingPage from "./pages/landingPage/Landingpage"
 import RShinyAPIPage from "./pages/apiPages/RShinyAPIPage"
 import PythonAPIPage from "./pages/apiPages/PythonApiPage"
 import FAQ from "./pages/FAQ/FAQ"
-import GeocodingExplanation from "./pages/GeocodingExplanation"
+import GeocodingExplanation from "./pages/geocodingExplanation/GeocodingExplanation"
 import NoPage from "./pages/NoPage"
 import ForwardBulkInput from "./pages/bulkInput/ForwardBulkInput"
 
