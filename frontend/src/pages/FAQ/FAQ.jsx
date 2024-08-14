@@ -85,9 +85,10 @@ export default function FAQ() {
 	};
 
 	return (
-		<div className="container">
+		<div >
 			<GcdsHeading tag="h1">Frequently Asked Questions</GcdsHeading>
 			<div className="tableOfContents">
+			<GcdsHeading tag="h2">Navigation</GcdsHeading>
 				<ul className="tableOfContentsList">
 					{jsonData &&
 						Object.keys(jsonData).map((category, categoryIndex) => (
@@ -105,7 +106,7 @@ export default function FAQ() {
 			{jsonData &&
 				Object.keys(jsonData).map((category, categoryIndex) => (
 					<section key={categoryIndex} id={category} className="category-container">
-						<h2 >{category}</h2>
+						<GcdsHeading tag="h3"> {category} </GcdsHeading>
 						<ul style={{ listStyleType: "none" }}>
 							{jsonData[category].map((item, itemIndex) => (
 								<li key={itemIndex}>
