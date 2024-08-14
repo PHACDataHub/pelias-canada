@@ -1,28 +1,26 @@
+import { useTranslation } from "react-i18next"
 import ReverseBulk from "../../components/reverseBulkFetch/ReverseBulk"
 
-// https://codepen.io/Niko-sy/pen/abgdjqP
 export default function ReverseBulkInput() {
+	const { t } = useTranslation()
 	return (
 		<>
-			<h1>Reverse Bulk Input</h1>
+			<h1>{t("pages.reverseBulk.title")}</h1>
 
 			<div style={{ textAlign: "justify" }}>
 				<section aria-labelledby="what-is-the-bulk-upload">
-					<h2 id="what-is-the-bulk-upload">What is the Bulk Reverse Geocoding Input?</h2>
-					<p>
-						This tool allows users to input multiple Longitude and Latitude locations at once to get geocoding results in bulk. Users can upload a CSV file containing the
-						geolocations, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page.
-					</p>
+					<h2 id="what-is-the-bulk-upload">{t("pages.reverseBulk.subTitle")}?</h2>
+					<p>{t("pages.reverseBulk.subtTitlePara")}</p>
 				</section>
 
 				<section aria-labelledby="how-to-use-bulk-input">
-					<h2 id="how-to-use-bulk-input">How to use the Bulk Reverse Geocoding Input</h2>
+					<h2 id="how-to-use-bulk-input">{t("pages.reverseBulk.howToUse.title")}</h2>
 					<p>
-						<i>File type must be a CSV</i>
+						<i>{t("pages.reverseBulk.howToUse.fileType")}</i>
 					</p>
 					<ol>
 						<li>
-							For any data you wish to transform, ensure the three (3) following column are in your CSV Headers :
+							{t("pages.reverseBulk.howToUse.one")}:
 							<ul>
 								<li>
 									<strong>inputID</strong>
@@ -35,20 +33,19 @@ export default function ReverseBulkInput() {
 								</li>
 							</ul>
 						</li>
-						<li>The tool cleans and formats the locations, preparing them for geocoding.</li>
-						<li>Once the data is prepared and ready, the data will be sent to the Pelias Application Programming Interface (API).</li>
-						<li>After the API receives the data, it will return the results, including confidence levels and additional data.</li>
-						<li>Users will have a copy of the results in a CSV file and a GeoJSON file. </li>
+						<li>{t("pages.reverseBulk.howToUse.two")}</li>
+						<li>{t("pages.reverseBulk.howToUse.three")}</li>
+						<li>{t("pages.reverseBulk.howToUse.four")}</li>
+						<li>{t("pages.reverseBulk.howToUse.five")}</li>
 						<li>
-							Users have the option to export selected resuilts in the table at the bottom once there are returned results. The selected returns will be avaiable in a CSV file and
-							a GeoJSON file
+							{t("pages.reverseBulk.howToUse.six")}						
 						</li>
 					</ol>
 				</section>
 			</div>
 
 			<section aria-labelledby="input">
-				<h2 id="input">Input Upload</h2>
+				<h2 id="input">{t("pages.reverseBulk.inputUpload")} </h2>
 				<div id="BulkInput">
 					<ReverseBulk />
 				</div>

@@ -182,6 +182,22 @@
 			"forwardPythoncode": "Address Geocoding example using Python",
 			"reversePythonCode": "Reverse Geocoding example using Python"
 		},
+		"reverseBulk": {
+			"title": "Reverse Geocoding Bulk Input",
+			"subTitle": "What is Reverse Geocoding Bulk Input",
+			"subtTitlePara": "This tool allows users to input multiple Longitude and Latitude locations at once to get geocoding results in bulk. Users can upload a CSV file containing the geolocations, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page.",
+			"howToUse": {
+				"title": "How to use the Reverse Geocoding Bulk Input service",
+				"fileType": "File type must be a CSV",
+				"one": "For any data you wish to transform, ensure the three (3) following column are in your CSV Headers",
+				"two": "The tool cleans and formats the locations, preparing them for geocoding.",
+				"three": "Once the data is prepared and ready, the data will be sent to the Pelias Application Programming Interface (API).",
+				"four": "After the API receives the data, it will return the results, including confidence levels and additional data.",
+				"five": "Users will automatically download a copy of the results in a CSV file and a GeoJSON file.",
+				"six": "Users can export selected results in the table at the bottom of the page once results have been returned. Selected results will be available in a CSV file and a GeoJSON file."
+			},
+			"inputUpload": "Input Upload for bulk data"
+		},
 		"rshiny": {
 			"title": "R API",
 			"rshinyParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
