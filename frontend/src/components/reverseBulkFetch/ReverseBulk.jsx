@@ -8,10 +8,8 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet"
 import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import Loading from "../Loading"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
-import { useTranslation } from "react-i18next"
 
 export default function ReverseBulk() {
-	const { t } = useTranslation
 	const [file, setFile] = useState(null)
 	const [outputRows, setOutputRows] = useState([])
 	const [metadata, setMetadata] = useState({})
