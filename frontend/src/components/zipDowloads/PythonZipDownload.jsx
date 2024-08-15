@@ -17,9 +17,13 @@ export default function PythonZipDownload() {
 		const file2 = await response2.text()
 		zip.file("batch_forwardGeocoder_Pelias_v4.py", file2)
 
-		const response3 = await fetch("/codeZips/DemoData.csv")
+		const response3 = await fetch("/codeZips/DemoDataFowardBulk.csv")
 		const file3 = await response3.text()
-		zip.file("DemoData.csv", file3)
+		zip.file("DemoDataFowardBulk.csv", file3)
+
+		const response4 = await fetch("/codeZips/DemoDataReverseBulk.csv")
+		const file4 = await response4.text()
+		zip.file("DemoDataReverseBulk.csv", file4)
 
 		// Generate the zip file
 		const content = await zip.generateAsync({ type: "blob" })
