@@ -148,7 +148,7 @@ export default function LandingPage() {
 					<h3 style={{ textAlign: "justify", fontWeight: "normal", paddingTop: "15px", paddingBottom: "15px" }}>
 						{t("pages.landingPage.cardFlipCaption")}
 					</h3> */}
-					<p>{t("landingPagePara")}</p> {/* Main paragraph text */}
+					<p>{t("pages.landingPage.landingPagePara")}</p> {/* Main paragraph text */}
 				</section>
 
 				<section aria-labelledby="section2-title">

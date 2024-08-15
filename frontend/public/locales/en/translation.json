@@ -39,6 +39,37 @@
 		"CodeZips": {
 			"pythonDownload": "Download Python files",
 			"rDownload": "Download R files"
+		},
+		"reverseBulk": {
+			"fileUpload": "",
+			"upload": "",
+			"returnAmountHeader": "",
+			"returnAmount": "",
+			"value": "",
+			"reverseButton": "",
+			"resulthHeader": "",
+			"allResultsButton": "",
+			"rowsInOut": "",
+			"oneResultHeader": "",
+			"oneResultPara": "",
+			"tableRange": "",
+			"tableCount": "",
+			"jumpToPage": "",
+			"rowsPerPage": "",
+			"outputTable": {
+				"select": "",
+				"inputID": "",
+				"ranking": "",
+				"address": "",
+				"lat": "",
+				"lon": "",
+				"confidenceLevel": "",
+				"accuracy": ""
+			},
+			"exportSelect": "",
+			"clearSelect": "",
+			"firstButton": "",
+			"lastButton": ""
 		}
 	},
 	"footer": {
@@ -72,6 +103,7 @@
 				"flexibilityTitle": "Flexibility and modularity",
 				"flexibilityPara": "Adapt our services to fit your specific needs."
 			},
+			"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. ",
 			"apiSectionTitle": "Try Our Service",
 			"clearResults": "Clear the Results"
 		},
@@ -138,6 +170,8 @@
 			},
 			"understandingGeocodingResults": "Understanding Geocoding Results",
 			"understandingGeocodingResultsPara": "Geocoding is the process of converting addresses into geographic coordinates (like latitude and longitude). When you use a geocoding service like Pelias, you get structured output.",
+			"property" : "Property",
+			"description" : "Property Description",
 			"apiFeature": {
 				"title": "API Features",
 				"features": "Represents the list of results you get from the geocoding service.",
@@ -211,6 +245,5 @@
 		"confidence": "Confidence"
 	},
 	"search": "Search",
-	"reset": "Reset",
-	"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. "
+	"reset": "Reset"
 }
