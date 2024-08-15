@@ -27,6 +27,11 @@ export default function ReverseBulk() {
 	const resultsTableRef = useRef(null)
 	const [totalPages, setTotalPages] = useState(0)
 	const boundsRef = useRef(L.latLngBounds())
+	const [csvData, setCsvData] = useState("")
+	const [metadataJson, setMetadataJson] = useState("")
+	const [geoJsonData, setGeoJsonData] = useState({})
+	const [epochCreation, setEpochCreation] = useState(Date.now())
+	const [md5Checksum, setMd5Checksum] = useState("")
 
 	// Initial coordinates
 	const initialLatLng = [45.4215, -75.6919]
@@ -170,6 +175,7 @@ export default function ReverseBulk() {
 	// Process CSV file
 	const processCSV = async (rows, headers) => {
 		const epochInitiated = Date.now()
+		setEpochCreation(epochInitiated)
 		setProgress(0)
 		setLoading(true)
 
@@ -206,7 +212,40 @@ export default function ReverseBulk() {
 				"1.0": 0,
 			},
 			totalRowsProcessed: 0,
+			metadata: {
+				"ISO 19115:2014 Metadata begins": {
+					language: "en",
+					characterSet: "latin-1",
+					hierarchyLevel: "service, dataset",
+					contact: "Zachary Nick (zachary.nick@hc-sc.gc.ca)",
+					dateStamp: epochInitiated,
+					metadataStandardName: "ISO 19115-1:2014",
+					metadataStandardVersion: "2014",
+					identificationInfo: {
+						citation: {
+							title: "Reverse geocoding results from v1 geocoder at https://geocoder.alpha.phac.gc.ca/api/v1",
+							date: epochInitiated,
+						},
+						abstract: "Results from the HC reverse bulk geocoding service v1",
+						pointOfContact: "Zachary Nick (zachary.nick@hc-sc.gc.ca)",
+						descriptiveKeywords: "geocoding, bulk, resolving, decimal degrees latitude and longitude",
+						spatialResolution: "up to point level rooftop depending on data source and match. ***USE AT OWN RISK***",
+						language: "en",
+						characterSet: "latin-1",
+						topicCategory: ["GIS", "geomatics", "geocoding"],
+					},
+					dataQualityInfo: {
+						scope: `Use of .osm data from geofabrik.de download on ${epochInitiated} populated in Pelias geocoding service on ${epochInitiated}`,
+						lineage: {
+							statement: "populated with .osm data from Geofabrik.de (date)",
+						},
+					},
+					boundingBox: `*********** boundingBox: 43.62756426554726,-79.57165718078613, 43.66482931854453,-79.18353080749513 ******************** `,
+					endOfReport: "END OF REPORT",
+				},
+			},
 		}
+
 		setMetadata(newMetadata)
 
 		const newOutputRows = []
@@ -306,10 +345,19 @@ export default function ReverseBulk() {
 			mapInstanceRef.current.fitBounds(latLngBounds)
 		}
 
-		const csvData = convertArrayToCSV(newOutputRows)
-		const geoJsonData = convertArrayToGeoJSON(newOutputRows) // Generate GeoJSON data
-		const md5Checksum = CryptoJS.MD5(csvData).toString()
-		createAndDownloadZip(csvData, JSON.stringify(newMetadata, null, 2), geoJsonData, epochInitiated, md5Checksum) // Pass GeoJSON data to the ZIP function
+		// Prepare data for zip download
+		const preparedCsvData = convertArrayToCSV(newOutputRows)
+		const preparedGeoJsonData = convertArrayToGeoJSON(newOutputRows) // Generate GeoJSON data
+		const preparedMd5Checksum = CryptoJS.MD5(preparedCsvData).toString()
+
+		// Store prepared data in state
+		setCsvData(preparedCsvData)
+		setMetadataJson(JSON.stringify(newMetadata, null, 2))
+		setGeoJsonData(preparedGeoJsonData)
+		setMd5Checksum(preparedMd5Checksum)
+
+		createAndDownloadZip(preparedCsvData, JSON.stringify(newMetadata, null, 2), preparedGeoJsonData, epochInitiated, preparedMd5Checksum)
+
 		setLoading(false)
 		setProgress(100)
 		setMapReady(true)
@@ -416,11 +464,14 @@ export default function ReverseBulk() {
 		zip.generateAsync({ type: "blob" }).then(content => {
 			const a = document.createElement("a")
 			a.href = URL.createObjectURL(content)
-			a.download = `reverse-geocoding-results-${epoch}.zip`
+			a.download = `reverse-geocoding-results-${epoch}.zip` // Filename with epoch
 			a.click()
 		})
 	}
 
+	const handleGenerateDownload = () => {
+		createAndDownloadZip(csvData, metadataJson, geoJsonData, epochCreation, md5Checksum)
+	}
 	const handleSliderChange = event => {
 		setuserCandidatesSelection(Number(event.target.value))
 	}
@@ -502,7 +553,9 @@ export default function ReverseBulk() {
 		const csvData = convertArrayToCSV(selectedData)
 		const geoJsonData = convertArrayToGeoJSON(selectedData)
 		const md5Checksum = CryptoJS.MD5(csvData).toString()
-		createAndDownloadZip(csvData, JSON.stringify(metadata, null, 2), geoJsonData, Date.now(), md5Checksum)
+		const epochInitiated = epochInitiated // Ensure to use the current epoch time for filename
+
+		createAndDownloadZip(csvData, JSON.stringify(metadata, null, 2), geoJsonData, epochInitiated, md5Checksum)
 	}
 
 	// Function to find inputIDs with only one return
@@ -696,11 +749,9 @@ export default function ReverseBulk() {
 
 					<div>
 						<h3>Results</h3>
-						<div>
-							<GcdsButton size="small" onClick={createAndDownloadZip}>
-								Download all results
-							</GcdsButton>
-						</div>
+						<GcdsButton size="small" onClick={handleGenerateDownload}>
+							Download all results
+						</GcdsButton>
 						<div>
 							<p>
 								Total Rows Submitted / Returned: {originalRows.length} / {outputRows.length}
