@@ -8,8 +8,10 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet"
 import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import Loading from "../Loading"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { useTranslation } from "react-i18next"
 
 export default function ReverseBulk() {
+	const { t } = useTranslation()
 	const [file, setFile] = useState(null)
 	const [outputRows, setOutputRows] = useState([])
 	const [metadata, setMetadata] = useState({})
@@ -30,7 +32,8 @@ export default function ReverseBulk() {
 	const [csvData, setCsvData] = useState("")
 	const [metadataJson, setMetadataJson] = useState("")
 	const [geoJsonData, setGeoJsonData] = useState({})
-	const [epochCreation, setEpochCreation] = useState(Date.now())
+	const [epochCreation, setEpochCreation] = useState(Date.now()) // this is for the creation of the results
+	const [epochCreationSelection, setEpochCreationSelection] = useState(Date.now()) // this is for the user selected epoch of the results from the seletion table
 	const [md5Checksum, setMd5Checksum] = useState("")
 
 	// Initial coordinates
@@ -362,6 +365,9 @@ export default function ReverseBulk() {
 		setProgress(100)
 		setMapReady(true)
 		boundsRef.current = L.latLngBounds() // Reset bounds
+
+		const epochInitiatedSelection = Date.now()
+		setEpochCreationSelection(epochInitiatedSelection)
 	}
 
 	// Calculate marker color based on confidence
@@ -553,7 +559,7 @@ export default function ReverseBulk() {
 		const csvData = convertArrayToCSV(selectedData)
 		const geoJsonData = convertArrayToGeoJSON(selectedData)
 		const md5Checksum = CryptoJS.MD5(csvData).toString()
-		const epochInitiated = epochInitiated // Ensure to use the current epoch time for filename
+		const epochInitiated = epochCreationSelection // Ensure to use the current epoch time for filename
 
 		createAndDownloadZip(csvData, JSON.stringify(metadata, null, 2), geoJsonData, epochInitiated, md5Checksum)
 	}
@@ -608,9 +614,9 @@ export default function ReverseBulk() {
 			<div>
 				<form>
 					<fieldset>
-						<legend>File Upload and Settings</legend>
+						<legend>{t("components.reverseBulk.fileUpload")}</legend>
 						<div>
-							<label htmlFor="file-upload">Upload a CSV file:</label>
+							<label htmlFor="file-upload">{t("components.reverseBulk.upload")}</label>
 							<input
 								id="file-upload"
 								type="file"
@@ -619,11 +625,10 @@ export default function ReverseBulk() {
 								aria-required="true" // Indicates that file upload is required if applicable
 							/>
 						</div>
-
 						<div>
 							<fieldset>
-								<legend>Select Number of Return Candidates per input:</legend>
-								<label htmlFor="candidate-slider">Number of candidates:</label>
+								<legend>{t("components.reverseBulk.returnAmountHeader")}</legend>
+								<label htmlFor="candidate-slider">{t("components.reverseBulk.returnAmount")}</label>
 								<input
 									id="candidate-slider"
 									type="range"
@@ -636,13 +641,15 @@ export default function ReverseBulk() {
 									aria-describedby="candidate-slider-description"
 									style={{ width: "100px" }}
 								/>
-								<span id="candidate-slider-description">Value: {userCandidatesSelection}</span>
+								<span id="candidate-slider-description">
+									{t("components.reverseBulk.value")}: {userCandidatesSelection}
+								</span>
 							</fieldset>
 						</div>
 					</fieldset>
 				</form>
 				<GcdsButton size="small" disabled={!file} ref={processButtonRef}>
-					REVERSE GEOCODE
+					{t("components.reverseBulk.reverseButton")}
 				</GcdsButton>
 			</div>
 			{progress < 100 && (
@@ -748,17 +755,17 @@ export default function ReverseBulk() {
 					</div>
 
 					<div>
-						<h3>Results</h3>
+						<h3> {t("components.reverseBulk.resulthHeader")}</h3>
 						<GcdsButton size="small" onClick={handleGenerateDownload}>
-							Download all results
+							{t("components.reverseBulk.allResultsButton")}
 						</GcdsButton>
 						<div>
 							<p>
-								Total Rows Submitted / Returned: {originalRows.length} / {outputRows.length}
+								{t("components.reverseBulk.rowsInOut")}: {originalRows.length} / {outputRows.length}
 							</p>
 							<fieldset>
-								<h4>The following inputs returned only 1 result:</h4>
-								<p>This means the latitude and/or longitude are not accurate enough to create a match. Please check these and try again.</p>
+								<h4>{t("components.reverseBulk.oneResultHeader")}:</h4>
+								<p>{t("components.reverseBulk.oneResultPara")}.</p>
 								<ul>
 									{findSingleReturnInputIDs().map(inputID => (
 										<li key={inputID}>Input ID #{inputID}</li>
@@ -768,8 +775,8 @@ export default function ReverseBulk() {
 							<table border="1">
 								<thead>
 									<tr>
-										<th scope="col">Range</th>
-										<th scope="col">Count</th>
+										<th scope="col"> {t("components.reverseBulk.tableRange")}</th>
+										<th scope="col"> {t("components.reverseBulk.tableCount")}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -800,7 +807,7 @@ export default function ReverseBulk() {
 						<GcdsGrid columns="repeat(auto-fit, minmax(100px, 225px))" container="full">
 							<div>
 								<label htmlFor="page-select" className="label-style">
-									Jump to page:
+									{t("components.reverseBulk.jumpToPage")}:
 								</label>
 								<select id="page-select" value={currentPage} onChange={handlePageChange} className="select-style">
 									{[...Array(totalPages).keys()].map(page => (
@@ -812,7 +819,7 @@ export default function ReverseBulk() {
 							</div>
 							<div>
 								<label htmlFor="rows-select" className="label-style">
-									Rows per page:
+									{t("components.reverseBulk.rowsPerPage")}:
 								</label>
 								<select id="rows-select" value={rowsPerPage} onChange={handleRowsPerPageChange} className="select-style">
 									<option value={10}>10</option>
@@ -825,14 +832,14 @@ export default function ReverseBulk() {
 						<table ref={resultsTableRef}>
 							<thead>
 								<tr>
-									<th scope="col">Select</th>
-									<th scope="col">Input ID</th>
-									<th scope="col">Input ID Ranking</th>
-									<th scope="col">Physical Address</th>
-									<th scope="col">Latitude</th>
-									<th scope="col">Longitude</th>
-									<th scope="col">Confidence Level</th>
-									<th scope="col">Accuracy</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.select")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.inputID")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.ranking")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.address")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.lat")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.lon")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.confidenceLevel")}</th>
+									<th scope="col">{t("components.reverseBulk.outputTable.accuracy")}</th>
 								</tr>
 							</thead>
 							<tbody>{updateTable()}</tbody>
@@ -840,17 +847,17 @@ export default function ReverseBulk() {
 						<div>
 							<br />
 							<GcdsButton size="small" onClick={exportSelectedRows} disabled={selectedRows.size === 0}>
-								Export Selected
+								{t("components.reverseBulk.exportSelect")}
 							</GcdsButton>
 							<GcdsButton style={{ padding: "2px" }} onClick={clearSelectedRows} size="small" disabled={selectedRows.size === 0}>
-								Clear Selected
+								{t("components.reverseBulk.clearSelect")}
 							</GcdsButton>
 						</div>
 
 						<div style={{ width: "full", display: "flex", justifyContent: "center" }}>
 							<div id="paginationContainer">
 								<GcdsButton size="small" onClick={() => setCurrentPage(1)} aria-label="First Page" disabled={currentPage === 1} style={{ padding: "2px" }}>
-									First
+									{t("components.reverseBulk.firstButton")}
 								</GcdsButton>
 								<GcdsButton
 									size="small"
@@ -885,7 +892,7 @@ export default function ReverseBulk() {
 									<FaAngleRight />
 								</GcdsButton>
 								<GcdsButton style={{ padding: "2px" }} size="small" onClick={() => setCurrentPage(totalPages)} aria-label="Last Page" disabled={currentPage === totalPages}>
-									Last
+									{t("components.reverseBulk.lastButton")}
 								</GcdsButton>
 							</div>
 						</div>
