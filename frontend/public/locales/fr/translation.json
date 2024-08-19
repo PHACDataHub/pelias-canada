@@ -89,24 +89,11 @@
 		"addressBulkFile": {
 			"title": "Fichiers d'adresses en masse"
 		},
-		"landingPage": {
-			"title": "Bievenue à Pelias Geocoder",
-			"underHeader": "Nous sommes ravis de proposer nos services de géolocalisation internes, y compris le géocodage par lots, afin de garantir la précision des données, la rentabilité, la sécurité et la transparence. Ce service est le point de départ essentiel pour une variété de projets analytiques et spatiaux. Notre processus comprend l'exploration technologique, le prototypage, l'affinage basé sur les commentaires des utilisateurs et l'extension de la couverture pour répondre à vos besoins.",
-			"cardFlipCaption": "En utilisant notre solution interne, vous pouvez compter sur des résultats fiables sans les risques et les coûts associés aux fournisseurs externes. Rejoignez-nous pour améliorer votre efficacité et protéger vos données.",
-			"cardFlip": {
-				"enhancedPrivacyTitle": "Amélioration de la protection de la vie privée",
-				"enhancedPrivacyPara": "Les données restent sécurisées au sein du réseau de l'ASPC",
-				"costSavingTitle": "Économies de coûts",
-				"costSavingPara": "Réduire les dépenses en évitant les services de tiers.",
-				"traceabilityTitle": "Traçabilité",
-				"traceabilityPara": "Suivez et gérez facilement vos données.",
-				"flexibilityTitle": "Flexibilité et modularité",
-				"flexibilityPara": "Adapter nos services à vos besoins spécifiques."
-			},
-			"landingPagePara": "Le développement de services de géolocalisation internes (c'est-à-dire le géocodage par lots) au sein de l'ASPC garantissant des résultats précis, rentables, sécurisés, fiables et transparents est le point de départ commun mais important de multiples parcours analytiques et spatiaux. Les phases comprennent l'exploration technologique, le prototypage, l'affinage sur la base de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la confidentialité, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux ressources externes.  ",
-			"apiSectionTitle": "Essayez notre service",
-			"clearResults": "Effacer les résultats"
+		"faq": {
+			"title": "Questions fréquemment posées",
+			"nav": "Navigation"
 		},
+
 		"geocodingExplanation": {
 			"title": "Explication des résultats du géocodage",
 			"underTitleHeader": "Comprendre les types de match dans Pelias",
@@ -170,8 +157,8 @@
 			},
 			"understandingGeocodingResults": "Comprendre les résultats du géocodage",
 			"understandingGeocodingResultsPara": "Le géocodage est le processus de conversion des adresses en coordonnées géographiques (comme la latitude et la longitude). Lorsque vous utilisez un service de géocodage comme Pelias, vous obtenez un résultat structuré.",
-			"property" : "Propriété",
-			"description" : "Description de la propriété",
+			"property": "Propriété",
+			"description": "Description de la propriété",
 			"apiFeature": {
 				"title": "Caractéristiques de l'API",
 				"features": "Représente la liste des résultats obtenus par le service de géocodage.",
@@ -209,6 +196,24 @@
 					"county_gid": "L'identifiant unique du comté."
 				}
 			}
+		},
+		"landingPage": {
+			"title": "Bievenue à Pelias Geocoder",
+			"underHeader": "Nous sommes ravis de proposer nos services de géolocalisation internes, y compris le géocodage par lots, afin de garantir la précision des données, la rentabilité, la sécurité et la transparence. Ce service est le point de départ essentiel pour une variété de projets analytiques et spatiaux. Notre processus comprend l'exploration technologique, le prototypage, l'affinage basé sur les commentaires des utilisateurs et l'extension de la couverture pour répondre à vos besoins.",
+			"cardFlipCaption": "En utilisant notre solution interne, vous pouvez compter sur des résultats fiables sans les risques et les coûts associés aux fournisseurs externes. Rejoignez-nous pour améliorer votre efficacité et protéger vos données.",
+			"cardFlip": {
+				"enhancedPrivacyTitle": "Amélioration de la protection de la vie privée",
+				"enhancedPrivacyPara": "Les données restent sécurisées au sein du réseau de l'ASPC",
+				"costSavingTitle": "Économies de coûts",
+				"costSavingPara": "Réduire les dépenses en évitant les services de tiers.",
+				"traceabilityTitle": "Traçabilité",
+				"traceabilityPara": "Suivez et gérez facilement vos données.",
+				"flexibilityTitle": "Flexibilité et modularité",
+				"flexibilityPara": "Adapter nos services à vos besoins spécifiques."
+			},
+			"landingPagePara": "Le développement de services de géolocalisation internes (c'est-à-dire le géocodage par lots) au sein de l'ASPC garantissant des résultats précis, rentables, sécurisés, fiables et transparents est le point de départ commun mais important de multiples parcours analytiques et spatiaux. Les phases comprennent l'exploration technologique, le prototypage, l'affinage sur la base de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la confidentialité, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux ressources externes.  ",
+			"apiSectionTitle": "Essayez notre service",
+			"clearResults": "Effacer les résultats"
 		},
 		"python": {
 			"title": "Python API",
