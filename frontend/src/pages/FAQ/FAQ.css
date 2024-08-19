@@ -4,6 +4,10 @@
 	
 }
 
+.listItem {
+    list-style-type: none;
+}
+
 .tableOfContents {
 	color: #333333;
 	display: flex;
