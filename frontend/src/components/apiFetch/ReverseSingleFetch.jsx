@@ -24,7 +24,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 			return
 		}
 
-		console.log(`point.lat": ${latitude},"point.lon": ${longitude}`)
+		// console.log(`point.lat": ${latitude},"point.lon": ${longitude}`)
 		sendRequest(latitude, longitude)
 	}
 
@@ -33,7 +33,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 
 		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`
 
-		console.log("Sending request to:", url)
+		// console.log("Sending request to:", url)
 
 		fetch(url)
 			.then(response => {
@@ -43,7 +43,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 				return response.json()
 			})
 			.then(data => {
-				console.log("Received data:", data)
+				// console.log("Received data:", data)
 				setLoading(false)
 
 				if (data.features && data.features.length > 0) {

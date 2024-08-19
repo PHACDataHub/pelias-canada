@@ -25,7 +25,7 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 		setLoading(true)
 		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`
 
-		console.log("Sending request to:", url)
+		// console.log("Sending request to:", url)
 
 		fetch(url)
 			.then(response => {
@@ -35,7 +35,7 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 				return response.json()
 			})
 			.then(data => {
-				console.log("Received data:", data)
+				// console.log("Received data:", data)
 				setLoading(false)
 
 				const result = data.features && data.features.length > 0 ? { ...data, coordinates: data.features[0].geometry.coordinates } : { ...data }

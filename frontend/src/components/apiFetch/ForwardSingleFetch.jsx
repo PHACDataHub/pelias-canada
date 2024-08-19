@@ -80,7 +80,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 				return response.json()
 			})
 			.then(data => {
-				console.log("Received data:", data)
+				// console.log("Received data:", data)
 				setLoading(false)
 
 				if (data.features && data.features.length > 0) {
