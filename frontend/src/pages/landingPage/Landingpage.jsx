@@ -33,46 +33,18 @@ export default function LandingPage() {
 		setUseLocationButtonResults("")
 	}
 
-	// function LandingPageCardFLipSection() {
-	// 	return (
-	// 		<>
-	// 			<GcdsGrid container="xl" columns="repeat(auto-fit, minmax(100px, 200px))" justifyContent="space-evenly" equalRowHeight>
-	// 				<FlipCard
-	// 					frontText={t("pages.landingPage.cardFlip.enhancedPrivacyTitle")}
-	// 					backText={t("pages.landingPage.cardFlip.enhancedPrivacyPara")}
-	// 					backColor="#90909020"
-	// 					textColor="#26374a"
-	// 					flipCardHeight={"225px"}
-	// 					flipCardWidth={"200px"}
-	// 				/>
-	// 				<FlipCard
-	// 					frontText={t("pages.landingPage.cardFlip.costSavingTitle")}
-	// 					backText={t("pages.landingPage.cardFlip.costSavingPara")}
-	// 					backColor="#90909020"
-	// 					textColor="#26374a"
-	// 					flipCardHeight={"225px"}
-	// 					flipCardWidth={"200px"}
-	// 				/>
-
-	// 				<FlipCard
-	// 					frontText={t("pages.landingPage.cardFlip.traceabilityTitle")}
-	// 					backText={t("pages.landingPage.cardFlip.traceabilityPara")}
-	// 					backColor="#90909020"
-	// 					textColor="#26374a"
-	// 					flipCardHeight={"225px"}
-	// 					flipCardWidth={"200px"}
-	// 				/>
-	// 				<FlipCard
-	// 					frontText={t("pages.landingPage.cardFlip.flexibilityTitle")}
-	// 					backText={t("pages.landingPage.cardFlip.flexibilityPara")}
-	// 					backColor="#90909020"
-	// 					textColor="#26374a"
-	// 					flipCardHeight={"225px"}
-	// 					flipCardWidth={"200px"}
-	// 				/>
-	// 			</GcdsGrid>
-	// 		</>
-	// 	)
+	// if (forwardResponsedata !== "") {
+	// 	console.log(forwardResponsedata);
+	// }
+	
+	// // Check and log reverseResponsedata if it's not an empty string
+	// if (reverseResponsedata !== "") {
+	// 	console.log(reverseResponsedata);
+	// }
+	
+	// // Check and log useLocationButtonResults if it's not an empty string
+	// if (useLocationButtonResults !== "") {
+	// 	console.log(useLocationButtonResults);
 	// }
 
 	return (
