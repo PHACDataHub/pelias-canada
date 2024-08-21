@@ -225,8 +225,8 @@ export default function ForwardBulk() {
 
 	const removeUnitPrefix = address => {
 		const unitRegex1 =
-			/^(?:Unit|Apt|Apartment|Flat|Suite|#|No\.|Rm|Floor|Deck|Building|Tower|Block|Level|Space|Office|Loft|Appartement|Unité|Étage|Chambre|Bureau|Logement|Numéro|Bloc|Tour)\s*\d*\s*(.+)$/i
-		const unitRegex2 = /^\d+-\d+\s+(.+)$/i
+			/^(?:Unit|Apt|Apartment|Flat|Suite|#|No\.|Rm|Floor|Deck|Building|Tower|Block|Level|Space|Office|Loft|Appartement|Unité|Étage|Chambre|Bureau|Logement|Numéro|Bloc|Tour|(?:P(?:ost(?:al)?)?\s*O(?:ffice)?)?\s*(?:Box|Bureau|C\.P\.|Case)\b)\s*\d*\s*(.+)$/i
+		const unitRegex2 = /^(?:(?:\d+-\d+)|(?:P(?:ost(?:al)?)?\s*O(?:ffice)?)?\s*(?:Box|Bureau|C\.P\.|Case)\s*\d+)\s+(.+)$/i
 		let modifiedAddress = address.trim()
 
 		let match1 = modifiedAddress.match(unitRegex1)
@@ -431,7 +431,7 @@ export default function ForwardBulk() {
 		<div>
 			<fieldset>
 				<legend>File Upload </legend>
-				<input type="file" accept=".csv" ref={fileInputRef} onChange={handleFileChange}/>
+				<input type="file" accept=".csv" ref={fileInputRef} onChange={handleFileChange} />
 				<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", width: "150px", paddingTop: "20px" }}>
 					<GcdsButton
 						size="small"
