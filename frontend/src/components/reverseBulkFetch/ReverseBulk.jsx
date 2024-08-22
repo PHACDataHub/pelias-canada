@@ -704,9 +704,9 @@ export default function ReverseBulk() {
 									>
 										<Popup>
 											<div style={{ lineHeight: 0.1 }}>
-												<p>Row ID: {item1}</p>
-												<p>Latitude: {item2}</p>
-												<p>Longitude: {item3}</p>
+												<p><strong>{t("components.reverseBulk.outputTable.inputID")}</strong>: {item1}</p>
+												<p><strong>Latitude</strong>: {item2}</p>
+												<p><strong>Longitude</strong>: {item3}</p>
 											</div>
 										</Popup>
 									</CircleMarker>
@@ -729,23 +729,23 @@ export default function ReverseBulk() {
 									<Popup>
 										<div style={{ lineHeight: 0.1, width: "auto" }}>
 											<p>
-												<strong>
+												<strong><i> 
 													{row.name && (
 														<>
 															{row.name}, {row.locality}, {row.region}
 														</>
-													)}
+													)}</i>
 												</strong>
 											</p>
-											<p>
-												Row ID & Ranking: {row.inputID} - #{row.rankingByInputId}
+											<p><strong> 
+											{t("components.reverseBulk.outputTable.inputID")} & {t("components.reverseBulk.outputTable.ranking")}</strong>: {row.inputID} - #{row.rankingByInputId}
 											</p>
-											<p>Confidence: {row.matchConfidencePercentageDecimal * 100}%</p>
-											<p>Distance from original: {row.distanceKm} km</p>
-											{row.name && <p>Street name: {row.name}</p>}
-											{row.locality && <p>Locality: {row.locality}</p>}
-											{row.region && <p>Province: {row.region}</p>}
-											{row.accuracy && <p>Accuracy: {row.accuracy}</p>}
+											<p><strong> {t("components.reverseBulk.outputTable.confidenceLevel")}</strong>: {row.matchConfidencePercentageDecimal * 100}%</p>
+											<p><strong> {t("components.reverseBulk.map.distance")}</strong>: {row.distanceKm} km</p>
+											{row.name && <p><strong> {t("components.reverseBulk.map.streetName")}</strong>: {row.name}</p>}
+											{row.locality && <p><strong> {t("components.reverseBulk.map.locality")}</strong>: {row.locality}</p>}
+											{row.region && <p><strong> {t("components.reverseBulk.map.province")}</strong>: {row.region}</p>}
+											{row.accuracy && <p><strong> {t("components.reverseBulk.outputTable.accuracy")}</strong>: {row.accuracy}</p>}
 										</div>
 									</Popup>
 								</CircleMarker>

@@ -67,6 +67,12 @@
 				"confidenceLevel": "Confidence Level",
 				"accuracy": "Accuracy"
 			},
+			"map": {
+				"distance": "Distance from original" ,
+				"streetName": "Street name" ,
+				"locality": "Locality" ,
+				"province": "Province" 
+			},
 			"exportSelect": "Export Selected",
 			"clearSelect": "Clear Selected",
 			"firstButton": "First",
