@@ -1,39 +1,39 @@
 import { GcdsHeading } from "@cdssnc/gcds-components-react"
 import ForwardBulk from "../../components/apiBulkInput/ForwardBulk"
+import { useTranslation } from "react-i18next"
 
 export default function ForwardBulkInput() {
+	const { t } = useTranslation()
 	return (
 		<>
-			<GcdsHeading tag="h1"> Bulk Geocoding Input</GcdsHeading>
+			<GcdsHeading tag="h1"> {t("pages.forwardBulk.BulkGeocodingInput.title")}</GcdsHeading>
 			<div style={{ textAlign: "justify" }}>
 				<section aria-labelledby="what-is-the-bulk-upload">
-					<h2 id="what-is-the-bulk-upload">What is the Bulk Geocoding Input?</h2>
-					<p>
-						This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool
-						then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page.
-					</p>
+					<h2 id="what-is-the-bulk-upload">{t("pages.forwardBulk.BulkGeocodingInput.subTitle")}</h2>
+					<p>{t("pages.forwardBulk.BulkGeocodingInput.description")}</p>
 				</section>
 
 				<section aria-labelledby="how-to-use-bulk-input">
-					<h2 id="how-to-use-bulk-input">How to use Bulk Input</h2>
+					<h2 id="how-to-use-bulk-input">{t("pages.forwardBulk.HowToUseBulkInput.title")}</h2>
 					<p>
-						<i>File type must be a CSV</i>
+						<i>{t("pages.forwardBulk.HowToUseBulkInput.steps.fileRequirement")}</i>
 					</p>
 					<ol>
 						<li>
-							For any data you wish to transform, ensure the column you wish to transform is called <strong>physicalAddress</strong> & there is a column called{" "}
+							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong>physicalAddress</strong>{" "}
+							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement2")}
 							<strong>IndexID</strong>.
 						</li>
-						<li>The tool cleans and formats the addresses, preparing them for geocoding.</li>
-						<li>Once the data is prepared and ready, the data will be sent to the Pelias Application Programming Interface (API).</li>
-						<li>After the API receives the data, it will return the results, including confidence levels and additional data.</li>
-						<li>Users have the option to export the results as a CSV file or as a GeoJSON.</li>
+						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation")} </li>
+						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission")}</li>
+						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.apiResponse")}</li>
+						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.exportOption")}</li>
 					</ol>
 				</section>
 			</div>
 
 			<section aria-labelledby="input">
-				<h2 id="input">Input Upload</h2>
+				<h2 id="input">{t("pages.forwardBulk.InputUploadTitle")}</h2>
 				<div id="BulkInput">
 					<ForwardBulk />
 				</div>
