@@ -19,7 +19,6 @@ export default function ForwardBulk() {
 	const [loading, setLoading] = useState(false)
 	const [currentPage, setCurrentPage] = useState(1)
 	const [rowsPerPage, setRowsPerPage] = useState(10)
-	const [status, setStatus] = useState("")
 	const [epochExecution, setEpochExecution] = useState(Date.now())
 	const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0)
 	const [totalRowsGeocoded, setTotalRowsGeocoded] = useState(0)
@@ -128,7 +127,6 @@ export default function ForwardBulk() {
 				setEpochExecution(Date.now()) // Update epochExecution at the start of each new run
 				setTotalRowsSubmitted(csvData.split("\n").length - 1) // Exclude header row
 				setTotalRowsGeocoded(0) // Reset geocoded count
-				setStatus("Processing...")
 				processCSV(csvData)
 			}
 			setLoading(false)
@@ -172,7 +170,6 @@ export default function ForwardBulk() {
 		}
 		setResults([])
 		setCurrentPage(1)
-		setStatus("")
 		setMapReady(false)
 		boundsRef.current = L.latLngBounds() // Reset bounds
 	}
@@ -192,20 +189,17 @@ export default function ForwardBulk() {
 				const data = await response.json()
 				if (data.features.length === 0) {
 					console.error("No geocoding results for address:", addressAfterUnitRemoval)
-					setStatus(`No results for address: ${addressAfterUnitRemoval}`)
 					continue
 				}
 				processGeocodeResult(result, data)
 				setTotalRowsGeocoded(prev => prev + 1)
 			} catch (error) {
 				console.error("Geocoding error for address:", addressAfterUnitRemoval, error)
-				setStatus(`Error geocoding address: ${addressAfterUnitRemoval}`)
 			}
 		}
 		setLoading(false)
 		const endTime = Date.now()
 		const elapsedTime = ((endTime - startTime) / 1000).toFixed(2)
-		setStatus(`Processing complete. Time taken: ${elapsedTime} seconds.`)
 		// Zoom and center map to fit all markers
 		if (markers.current.length > 0) {
 			// Fit the bounds to include all markers
@@ -267,15 +261,19 @@ export default function ForwardBulk() {
 			fillOpacity: 0.8,
 		}).addTo(mapRef.current)
 
-		marker.bindPopup(`
-            <b>ID:</b> ${result.inputID}<br>
-            <b>Address/Adresse:</b><br> ${result.physicalAddress}<br>
-            <b>Latitude/Latitude:</b> ${lat}<br>
-            <b>Longitude/Longitude:</b> ${lng}<br>
-            <b>Confidence/Confiance:</b> ${confidence}%<br>
-            <b>Match Type/Type de match:</b> ${matchType}<br>
-            <b>Accuracy/Précision :</b> ${accuracy}
-        `)
+		// Bind popup with dynamic content based on current language
+		marker.bindPopup(() => {
+			return `
+<b>ID:</b> ${result.inputID}<br>
+<b>Address/Adresse:</b><br> ${result.physicalAddress}<br>
+<b>Latitude/Latitude:</b> ${lat}<br>
+<b>Longitude/Longitude:</b> ${lng}<br>
+<b>Confidence/Confiance:</b> ${confidence}%<br>
+<b>Match Type/Type de match:</b> ${matchType}<br>
+<b>Accuracy/Précision :</b> ${accuracy}
+`
+		})
+
 		markers.current.push(marker)
 
 		// Extend bounds to include this marker
@@ -430,9 +428,9 @@ export default function ForwardBulk() {
 	return (
 		<div>
 			<fieldset>
-				<legend>File Upload </legend>
+				<legend>{t("components.forwardBulk.InputUpload.title")}</legend>
 				<input type="file" accept=".csv" ref={fileInputRef} onChange={handleFileChange} />
-				<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", width: "150px", paddingTop: "20px" }}>
+				<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "185px", paddingTop: "20px" }}>
 					<GcdsButton
 						size="small"
 						onClick={() => {
@@ -441,7 +439,7 @@ export default function ForwardBulk() {
 						}}
 						disabled={!isFileUploaded}
 					>
-						Submit
+						{t("components.forwardBulk.InputUpload.submit")}
 					</GcdsButton>
 					<GcdsButton
 						size="small"
@@ -453,7 +451,7 @@ export default function ForwardBulk() {
 						}}
 						disabled={!isFileUploaded}
 					>
-						Reset
+						{t("components.forwardBulk.InputUpload.reset")}
 					</GcdsButton>
 				</div>
 			</fieldset>
@@ -463,7 +461,7 @@ export default function ForwardBulk() {
 			{loading === true ? (
 				<div>
 					<Loading />
-					Loading, please wait
+					{t("components.forwardBulk.loading")}
 				</div>
 			) : null}
 			{mapReady && progress === 100 && (
@@ -471,26 +469,26 @@ export default function ForwardBulk() {
 					<br />
 					<div id="map" style={{ height: "400px" }}></div>
 					<GcdsContainer size="xl" centered padding="400" margin="400">
-						<h3> Results </h3>
+						<h3> {t("components.forwardBulk.mapReady.resultsHeader")}</h3>
 						<div>
 							<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", width: "350px", paddingTop: "20px" }}>
 								<GcdsButton size="small" onClick={() => handleDownload("csv")} disabled={totalRowsSubmitted - 1 !== totalRowsGeocoded}>
-									Download CSV
+									{t("components.forwardBulk.mapReady.downloadCSV")}
 								</GcdsButton>
 								<GcdsButton size="small" onClick={() => handleDownload("geojson")} disabled={totalRowsSubmitted - 1 !== totalRowsGeocoded}>
-									Download GeoJSON
+									{t("components.forwardBulk.mapReady.downloadGEO")}
 								</GcdsButton>
 							</div>
 							<p>
-								Total Rows Submitted / Returned: {totalRowsSubmitted - 1} / {totalRowsGeocoded}
+								{t("components.forwardBulk.mapReady.rowsInOut")}: {totalRowsSubmitted - 1} / {totalRowsGeocoded}
 							</p>
 						</div>
 						<div>
 							<table border="1">
 								<thead>
 									<tr>
-										<th>Range</th>
-										<th>Count</th>
+										<th> {t("components.forwardBulk.mapReady.tableRange")}</th>
+										<th> {t("components.forwardBulk.mapReady.tableCount")}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -521,7 +519,7 @@ export default function ForwardBulk() {
 						<GcdsGrid columns="repeat(auto-fit, minmax(100px, 225px))" container="full">
 							<div>
 								<label htmlFor="page-select" className="label-style">
-									Jump to page:
+									{t("components.forwardBulk.mapReady.jumpToPage")}
 								</label>
 								<select id="page-select" value={currentPage} onChange={handlePageChange} className="select-style">
 									{[...Array(totalPages).keys()].map(page => (
@@ -533,7 +531,7 @@ export default function ForwardBulk() {
 							</div>
 							<div>
 								<label htmlFor="rows-select" className="label-style">
-									Rows per page:
+									{t("components.forwardBulk.mapReady.rowsPerPage")}:
 								</label>
 								<select id="rows-select" value={rowsPerPage} onChange={handleRowsPerPageChange} className="select-style">
 									<option value={10}>10</option>
@@ -545,13 +543,13 @@ export default function ForwardBulk() {
 						<table ref={resultsTableRef}>
 							<thead>
 								<tr>
-									<th>Input ID</th>
-									<th>Physical Address</th>
-									<th>Latitude</th>
-									<th>Longitude</th>
-									<th>Confidence Level</th>
-									<th>Match Type</th>
-									<th>Accuracy</th>
+									<th> {t("components.forwardBulk.mapReady.outputTable.inputID")}</th>
+									<th>{t("components.forwardBulk.mapReady.outputTable.address")}</th>
+									<th>{t("components.forwardBulk.mapReady.outputTable.lat")}</th>
+									<th>{t("components.forwardBulk.mapReady.outputTable.lon")}</th>
+									<th>{t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}</th>
+									<th>{t("components.forwardBulk.mapReady.outputTable.matchType")}</th>
+									<th>{t("components.forwardBulk.mapReady.outputTable.accuracy")}</th>
 								</tr>
 							</thead>
 							<tbody>{updateTable()}</tbody>

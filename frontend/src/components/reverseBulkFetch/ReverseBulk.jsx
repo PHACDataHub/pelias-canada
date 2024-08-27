@@ -755,7 +755,7 @@ export default function ReverseBulk() {
 					</div>
 
 					<div>
-						<h3> {t("components.reverseBulk.resulthHeader")}</h3>
+						<h3> {t("components.reverseBulk.resultsHeader")}</h3>
 						<GcdsButton size="small" onClick={handleGenerateDownload}>
 							{t("components.reverseBulk.allResultsButton")}
 						</GcdsButton>

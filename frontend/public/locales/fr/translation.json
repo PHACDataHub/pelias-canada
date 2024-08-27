@@ -40,6 +40,44 @@
 			"pythonDownload": "Télécharger les fichiers Python",
 			"rDownload": "Télécharger les fichiers R"
 		},
+		"forwardBulk": {
+			"InputUpload": {
+				"title": "Téléchargement des données",
+				"submit": "Soumettre",
+				"reset": "Réinitialiser"
+			},
+			"loading": "Chargement, veuillez patienter",
+			"mapReady": {
+				"resultsHeader": "Résultats",
+				"allResultsButton": "Télécharger tous les résultats",
+				"rowsInOut": "Total des lignes soumises / renvoyées",
+				"downloadCSV": "Download CSV",
+				"downloadGEO": "Download GeoJSON",
+				"tableRange": "Fourchette des résultats de confiance",
+				"tableCount": "Nombre de résultats",
+				"jumpToPage": "Aller à la page",
+				"rowsPerPage": "Lignes par page",
+				"outputTable": {
+					"inputID": "ID d'entrée",
+					"matchType": "Type de match",
+					"address": "Adresse physique",
+					"lat": "Latitude",
+					"lon": "Longitude",
+					"confidenceLevel": "Niveau de confiance",
+					"accuracy": "Précision"
+				},
+				"map": {
+					"distance": "Distance par rapport à l'original",
+					"streetName": "Nom de la rue",
+					"locality": "Localité",
+					"province": "Province"
+				},
+				"exportSelect": "Exporter sélectionné",
+				"clearSelect": "Effacer la sélection",
+				"firstButton": "Premier",
+				"lastButton": "Dernier"
+			}
+		},
 		"reverseBulk": {
 			"fileUpload": "Chargement de fichiers et paramètres",
 			"upload": "Télécharger un fichier CSV ",
@@ -48,7 +86,7 @@
 			"value": "Valeur",
 			"chooseFile": "choose File",
 			"reverseButton": "Géocode inversé",
-			"resulthHeader": "Résultats",
+			"resultsHeader": "Résultats",
 			"allResultsButton": "Télécharger tous les résultats",
 			"rowsInOut": "Total des lignes soumises / renvoyées",
 			"oneResultHeader": "Les entrées suivantes n'ont donné qu'un seul résultat",
@@ -100,7 +138,26 @@
 			"title": "Questions fréquemment posées",
 			"nav": "Navigation"
 		},
-
+		"forwardBulk": {
+			"BulkGeocodingInput": {
+				"title": "Géocodage en masse",
+				"subTitle": "Qu'est-ce que le Géocodage en masse",
+				"description": "Cet outil permet aux utilisateurs de saisir plusieurs adresses ou lieux à la fois pour obtenir des résultats de géocodage en masse. Les utilisateurs peuvent télécharger un fichier CSV contenant les adresses. L'outil traite ensuite ces entrées et fournit les résultats géocodés, qui peuvent être téléchargés ou visualisés sur la page."
+			},
+			"HowToUseBulkInput": {
+				"title": "Comment utiliser la saisie en masse",
+				"steps": {
+					"fileRequirement": "Le fichier doit être au format CSV.",
+					"columnRequirement1": "Assurez-vous que la colonne à transformer s'appelle ",
+					"columnRequirement2": " et qu'il y a une colonne ",
+					"dataPreparation": "L'outil nettoie et formate les adresses pour le géocodage.",
+					"dataSubmission": "Une fois les données prêtes, elles sont envoyées à l'API Pelias.",
+					"apiResponse": "L'API renvoie les résultats avec les niveaux de confiance et d'autres données.",
+					"exportOption": "Vous pouvez exporter les résultats en CSV ou en GeoJSON."
+				}
+			},
+			"InputUploadTitle": "Téléchargement des données"
+		},
 		"geocodingExplanation": {
 			"title": "Explication des résultats du géocodage",
 			"underTitleHeader": "Comprendre les types de match dans Pelias",

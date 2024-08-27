@@ -40,6 +40,44 @@
 			"pythonDownload": "Download Python files",
 			"rDownload": "Download R files"
 		},
+		"forwardBulk": {
+			"InputUpload": {
+				"title": "Input Upload",
+				"submit": "Submit",
+				"reset": "Reset"
+			},
+			"loading": "Loading, please wait",
+			"mapReady": {
+				"resultsHeader": "Results",
+				"allResultsButton": "Download all results",
+				"rowsInOut": "Total Rows Submitted / Returned",
+				"downloadCSV": "Download CSV",
+				"downloadGEO": "Download GeoJSON",
+				"tableRange": "Range of confidence results",
+				"tableCount": "Count of result",
+				"jumpToPage": "Jump to page",
+				"rowsPerPage": "Rows per page",
+				"outputTable": {
+					"inputID": "Input ID",
+					"matchType": "Match Type",
+					"address": "Physical Address",
+					"lat": "Latitude",
+					"lon": "Longitude",
+					"confidenceLevel": "Confidence Level",
+					"accuracy": "Accuracy"
+				},
+				"map": {
+					"distance": "Distance from original",
+					"streetName": "Street name",
+					"locality": "Locality",
+					"province": "Province"
+				},
+				"exportSelect": "Export Selected",
+				"clearSelect": "Clear Selected",
+				"firstButton": "First",
+				"lastButton": "Last"
+			}
+		},
 		"reverseBulk": {
 			"fileUpload": "File Upload and Setting",
 			"upload": "Upload a CSV file:",
@@ -48,7 +86,7 @@
 			"value": "Value",
 			"chooseFile": "choose File",
 			"reverseButton": "Reverse Geocode",
-			"resulthHeader": "Results",
+			"resultsHeader": "Results",
 			"allResultsButton": "Download all results",
 			"rowsInOut": "Total Rows Submitted / Returned",
 			"oneResultHeader": "The following inputs returned only 1 result",
@@ -68,10 +106,10 @@
 				"accuracy": "Accuracy"
 			},
 			"map": {
-				"distance": "Distance from original" ,
-				"streetName": "Street name" ,
-				"locality": "Locality" ,
-				"province": "Province" 
+				"distance": "Distance from original",
+				"streetName": "Street name",
+				"locality": "Locality",
+				"province": "Province"
 			},
 			"exportSelect": "Export Selected",
 			"clearSelect": "Clear Selected",
@@ -99,6 +137,26 @@
 		"faq": {
 			"title": "Frequently Asked Questions",
 			"nav": "Navigation"
+		},
+		"forwardBulk": {
+			"BulkGeocodingInput": {
+				"title": "Bulk Geocoding Input",
+				"subTitle": "What is the Bulk Geocoding Input",
+				"description": "This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page."
+			},
+			"HowToUseBulkInput": {
+				"title": "How to use Bulk Input",
+				"steps": {
+					"fileRequirement": "The file must be a CSV.",
+					"columnRequirement1": "Make sure the column to transform is called",
+					"columnRequirement2": " , and there is a column named ",
+					"dataPreparation": "The tool cleans and formats the addresses for geocoding.",
+					"dataSubmission": "Once the data is ready, it is sent to the Pelias API.",
+					"apiResponse": "The API returns the results with confidence levels and additional data.",
+					"exportOption": "You can export the results as a CSV or GeoJSON."
+				}
+			},
+			"InputUploadTitle": "Input Upload"
 		},
 		"geocodingExplanation": {
 			"title": "Geocoding Results Explanation",
