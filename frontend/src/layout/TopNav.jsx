@@ -200,6 +200,11 @@ export default function TopNav() {
 							</li>
 						</ul>
 					</li>
+					<li>
+						<NavLink to="/contact-us" tabIndex="0" onClick={handleCloseMenu}>
+							{t("menu.contactUs")}
+						</NavLink>
+					</li>
 				</ul>
 			</div>
 		</nav>

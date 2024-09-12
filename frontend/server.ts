@@ -20,6 +20,7 @@ const ROUTES_TO_REDIRECT = [
     '/frequently-asked-questions',
     '/geocoding-results-explanation',
     '/home',
+    '/contact-us',
     '/'
 ];
 
