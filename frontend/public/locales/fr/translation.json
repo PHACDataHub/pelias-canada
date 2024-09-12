@@ -128,11 +128,34 @@
 		"bulkFile": "Fichiers en masse",
 		"addressBulkFile": "Fichiers d'adresses en masse",
 		"reverseBulkFile": "Fichier de masse de géolocalisation inversée ",
-		"developers": "Développeurs"
+		"developers": "Développeurs",
+		"contactUs": "Contactez-nous"
 	},
 	"pages": {
 		"addressBulkFile": {
 			"title": "Fichiers d'adresses en masse"
+		},
+		"contactUs": {
+			"title": "Contactez-nous",
+			"subject": {
+				"title": "Raisons de nous contacter",
+				"select": "Raisons de nous contacter",
+
+				"feedback": "Commentaires ou suggestions",
+				"bug": "Signaler un bogue ou un problème",
+				"helpOption": "Demande de soutien ou d'aide",
+				"inquire": "Demande de renseignements sur les produits ou les services",
+				"followingUp": "Suivi d'une demande antérieure"
+			},
+			"name": "Nom",
+			"email": "Courrier électronique",
+			"message": "Message",
+			"required": "requis",
+			"submitButton": "Soumettre",
+			"thankYou": {
+				"title": "Merci pour votre message",
+				"message": "Nous avons bien reçu votre message et nous vous remercions de nous avoir contactés. Nous vous répondrons dans les plus brefs délais."
+			}
 		},
 		"faq": {
 			"title": "Questions fréquemment posées",

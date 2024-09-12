@@ -8,6 +8,11 @@ import FAQ from "./pages/FAQ/FAQ"
 import GeocodingExplanation from "./pages/geocodingExplanation/GeocodingExplanation"
 import NoPage from "./pages/NoPage"
 import ForwardBulkInput from "./pages/bulkInput/ForwardBulkInput"
+import ContactUs from "./pages/contactUs/ContactUs"
+
+// 
+// TO add a page, go to server.ts and add to list located in << const ROUTES_TO_REDIRECT >>
+// 
 
 function App() {
 	return (
@@ -23,6 +28,7 @@ function App() {
 				<Route path="python-api" element={<PythonAPIPage />} />
 				<Route path="frequently-asked-questions" element={<FAQ />} />
 				<Route path="geocoding-results-explanation" element={<GeocodingExplanation />} />
+				<Route path="contact-us" element={<ContactUs />} />
 				<Route path="*" element={<NoPage />} />
 			</Route>
 		</Routes>
