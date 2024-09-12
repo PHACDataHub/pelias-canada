@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { GcdsHeading , GcdsButton} from "@cdssnc/gcds-components-react"
 import { useTranslation } from "react-i18next"
-import "./ContactUs.css" // Import the CSS file
+import "./contactUs.css" // Import the CSS file
 
 export default function ContactUs() {
 	const { t } = useTranslation()
