@@ -22,7 +22,7 @@ export default function ForwardBulkInput() {
 						<li>
 							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong>physicalAddress</strong>{" "}
 							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement2")}
-							<strong>IndexID</strong>.
+							<strong>inputID</strong>.
 						</li>
 						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation")} </li>
 						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission")}</li>
