@@ -20,9 +20,9 @@ export default function ForwardBulkInput() {
 					</p>
 					<ol>
 						<li>
-							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong>physicalAddress</strong>{" "}
+							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong> inputID</strong>
 							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement2")}
-							<strong>inputID</strong>.
+							<strong>physicalAddress</strong>.
 						</li>
 						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation")} </li>
 						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission")}</li>
