@@ -1,20 +1,24 @@
 import { Outlet, useLocation } from "react-router-dom"
-import { GcdsHeader, GcdsContainer } from "@cdssnc/gcds-components-react"
+import { GcdsHeader, GcdsContainer, GcdsFooter } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css"
 import Breadcrumb from "../components/Breadcrumb"
 import "./Layout.css"
 import TopNav from "./TopNav"
-import Footer from "./Footer"
 import { useTranslation } from "react-i18next"
 
 export default function Layout() {
-	const { i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const changeLanguage = lng => {
 		i18n.changeLanguage(lng)
 	}
 
 	const location = useLocation()
+
+	const contextualLinks = {
+		[t("footer.resultsExplained")]: "/geocoding-results-explanation",
+		[t("footer.faq")]: "/frequently-asked-questions",
+	}
 
 	return (
 		<>
@@ -54,7 +58,11 @@ export default function Layout() {
 				<Breadcrumb />
 				<Outlet />
 			</GcdsContainer>
-			<Footer />
+			<GcdsFooter
+				lang={i18n.language}				
+				contextualHeading={t("footer.additionalNav")}
+				contextualLinks={contextualLinks} // Pass the object here
+			/>
 		</>
 	)
 }
