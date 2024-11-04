@@ -59,7 +59,8 @@ export default function Layout() {
 				<Outlet />
 			</GcdsContainer>
 			<GcdsFooter
-				lang={i18n.language}				
+				lang={i18n.language}
+				display="full"				
 				contextualHeading={t("footer.additionalNav")}
 				contextualLinks={contextualLinks} // Pass the object here
 			/>
