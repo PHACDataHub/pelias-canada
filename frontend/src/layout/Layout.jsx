@@ -22,10 +22,10 @@ export default function Layout() {
 
 	return (
 		<>
-			<GcdsHeader langHref={i18n.language} signatureHasLink="false" lang={i18n.language}>
+			<GcdsHeader langHref={i18n.language} signatureHasLink="false" lang={i18n.language} style={{ fontSize: "20px" }}>
 				<div slot="menu">
 					<GcdsTopNav label="Top navigation" alignment="right">
-						<GcdsNavLink href="/" slot="home">
+						<GcdsNavLink href="/" slot="home" >
 							Pelias
 						</GcdsNavLink>
 						<GcdsNavGroup openTrigger={t("menu.bulkFile")} menuLabel={t("menu.bulkFile")}>
@@ -82,22 +82,6 @@ export default function Layout() {
 				id="main-content"
 			>
 				<Outlet />
-				<GcdsTopNav
-  label="Top navigation"
-  alignment="right"
->
-  <GcdsNavLink href="#home" slot="home">GC Notify</GcdsNavLink> 
-  <GcdsNavLink href="#">Why GC Notify</GcdsNavLink>
-
-  <GcdsNavGroup  openTrigger="Features" menuLabel="Features">
-    <GcdsNavLink href="#" current>Create reusable templates</GcdsNavLink>
-    <GcdsNavLink href="#">Personalize messages</GcdsNavLink>
-    <GcdsNavLink href="#">Schedule messages</GcdsNavLink>
-    <GcdsNavLink href="#">Send messages automatically</GcdsNavLink>
-  </GcdsNavGroup>
-
-  <GcdsNavLink href="#">Contact us</GcdsNavLink>
-</GcdsTopNav>
 			</GcdsContainer>
 
 			{/* Announce the language change */}
@@ -105,7 +89,7 @@ export default function Layout() {
 				{announcement}
 			</span>
 
-			<GcdsFooter lang={i18n.language} display="full" contextualHeading={t("footer.additionalNav")} contextualLinks={contextualLinks} style={{paddingTop:"50px"}}/>
+			<GcdsFooter lang={i18n.language} display="full" contextualHeading={t("footer.additionalNav")} contextualLinks={contextualLinks} style={{ paddingTop: "50px" }} />
 		</>
 	)
 }
