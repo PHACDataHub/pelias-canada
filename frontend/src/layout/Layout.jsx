@@ -25,7 +25,7 @@ export default function Layout() {
 			<GcdsHeader langHref={i18n.language} signatureHasLink="false" lang={i18n.language} style={{ fontSize: "20px" }}>
 				<div slot="menu">
 					<GcdsTopNav label="Top navigation" alignment="right">
-						<GcdsNavLink href="/" slot="home" >
+						<GcdsNavLink href="/" slot="home">
 							Pelias
 						</GcdsNavLink>
 						<GcdsNavGroup openTrigger={t("menu.bulkFile")} menuLabel={t("menu.bulkFile")}>
@@ -57,8 +57,8 @@ export default function Layout() {
 					)}
 				</div>
 				<div slot="skip-to-nav" style={{ textAlign: "center", top: "10px", left: 0, width: "100%", zIndex: 3 }}>
-					<a className="skip-to-content-link" href="#main-content">
-						Skip to main content / Passer au contenu principal
+					<a className="skip-to-content-link" href="#main-content" aria-label={t("menu.skipNav")}>
+						{t("menu.skipNav")}
 					</a>
 				</div>
 				<div slot="toggle">
