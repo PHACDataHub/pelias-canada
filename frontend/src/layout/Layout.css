@@ -1,54 +1,19 @@
 .skip-to-content-link {
-  height: 30px;
-  left: 50%;
-  padding: 8px;
   position: absolute;
-  transform: translateY(-100%);
+  transform: translate(-50%, -1000%);  
   transition: transform 0.3s;
+  background-color: rgb(38, 55, 74);
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 5px;
+  text-align: center;
+  z-index: -1; /* Keeps it out of focus when not focused */
 }
 
 .skip-to-content-link:focus {
-  transform: translateY(0%);
+  top: 10px; 
+  transform: translate(-50%, 0%); /* Moves it on-screen  */
+  z-index: 501; /* Brings it to the front */
 }
 
-
-.breadcrumb {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  content: '>';
-  padding: 0 0.5rem;
-}
-
-.breadcrumb-item a {
-  color: black;
-  text-decoration: none;
-}
-
-.breadcrumb-item a:hover {
-  color: blue;
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-.astext {
-  background:none;
-  border:none;
-  margin:0;
-  padding:0;
-  cursor: pointer;
-  color: rgb(0, 0, 255);
-}
-.astext:hover{
-background:none;
-border:none;
-margin:0;
-padding:0;
-cursor: pointer;
-color: rgb(0,0,200);
-text-decoration: underline;
-}

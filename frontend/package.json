@@ -11,7 +11,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@cdssnc/gcds-components-react": "^0.22.1",
+		"@cdssnc/gcds-components": "^0.26.3",
+		"@cdssnc/gcds-components-react": "^0.22.4",
 		"crypto-js": "^4.2.0",
 		"exceljs": "^4.4.0",
 		"file-saver": "^2.0.5",
