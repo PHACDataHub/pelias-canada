@@ -129,7 +129,8 @@
 		"addressBulkFile": "Fichiers d'adresses en masse",
 		"reverseBulkFile": "Fichier de masse de géolocalisation inversée ",
 		"developers": "Développeurs",
-		"contactUs": "Contactez-nous"
+		"contactUs": "Contactez-nous",
+		"skipNav": "Passer au contenu principal"
 	},
 	"pages": {
 		"addressBulkFile": {

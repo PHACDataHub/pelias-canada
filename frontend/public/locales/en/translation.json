@@ -129,7 +129,8 @@
 		"addressBulkFile": "Address Bulk Files ",
 		"reverseBulkFile": "Reverse Geolocation Bulk Files",
 		"developers": "Developers",
-		"contactUs": "Contact Us"
+		"contactUs": "Contact Us",
+		"skipNav": "Skip to main content"
 	},
 	"pages": {
 		"addressBulkFile": {
