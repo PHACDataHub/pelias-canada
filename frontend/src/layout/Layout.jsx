@@ -27,6 +27,14 @@ export default function Layout() {
 		// Set the title based on the current path
 		const currentTitle = routeTitles[location.pathname] + " - Pelias.ca" || "Pelias.ca"
 		document.title = currentTitle
+
+		// Delay added to allow i18N to translate first before announcing
+		const timer = setTimeout(() => {
+			setAnnouncement(currentTitle)
+		}, 100) // Adjust delay here
+
+		// Clear timeout if component unmounts or announcement changes
+		return () => clearTimeout(timer)
 	}, [location.pathname, t])
 
 	const contextualLinks = {
@@ -76,8 +84,8 @@ export default function Layout() {
 					)}
 				</div>
 				<div slot="skip-to-nav" style={{ textAlign: "center", top: "10px", left: 0, width: "100%", zIndex: 3 }}>
-					<a className="skip-to-content-link" href="#main-content">
-						Skip to main content / Passer au contenu principal
+					<a className="skip-to-content-link" href="#main-content" aria-label={t("menu.skipNav")}>
+						{t("menu.skipNav")}
 					</a>
 				</div>
 				<div slot="toggle">
