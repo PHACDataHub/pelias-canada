@@ -31,7 +31,7 @@ export default function Layout() {
 		// Delay added to allow i18N to translate first before announcing
 		const timer = setTimeout(() => {
 			setAnnouncement(currentTitle)
-		}, 100) // Adjust delay here
+		}, 200) // Adjust delay here
 
 		// Clear timeout if component unmounts or announcement changes
 		return () => clearTimeout(timer)
