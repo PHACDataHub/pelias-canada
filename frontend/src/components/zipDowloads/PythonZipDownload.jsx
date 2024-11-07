@@ -33,8 +33,10 @@ export default function PythonZipDownload() {
 	}
 
 	return (
-		<GcdsButton size="small" onClick={handleDownload}>
-			{t("components.CodeZips.pythonDownload")}
-		</GcdsButton>
+		<div>
+			<GcdsButton size="small" onClick={handleDownload}>
+				{t("components.CodeZips.pythonDownload")}
+			</GcdsButton>
+		</div>
 	)
 }
