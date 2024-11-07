@@ -3,12 +3,31 @@ import { GcdsHeader, GcdsContainer, GcdsFooter, GcdsTopNav, GcdsNavLink, GcdsNav
 import "@cdssnc/gcds-components-react/gcds.css"
 import "./Layout.css"
 import { useTranslation } from "react-i18next"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Layout() {
 	const { t, i18n } = useTranslation()
 	const [announcement, setAnnouncement] = useState("") // State for announcements
 	const location = useLocation()
+
+	// Set the document title dynamically
+	useEffect(() => {
+		// You can define the titles for different routes here
+		const routeTitles = {
+			"/": t("menu.home"),
+			"/reverse-bulk-files": t("pages.reverseBulk.title"),
+			"/forward-bulk-files": t("pages.forwardBulk.BulkGeocodingInput.title"),
+			"/r-api": t("pages.rshiny.title"),
+			"/python-api": t("pages.python.title"),
+			"/frequently-asked-questions": t("pages.faq.title"),
+			"/geocoding-results-explanation": t("pages.geocodingExplanation.title"),
+			"/contact-us": t("pages.contactUs.title"),
+		}
+
+		// Set the title based on the current path
+		const currentTitle = routeTitles[location.pathname] + " - Pelias.ca" || "Pelias.ca"
+		document.title = currentTitle
+	}, [location.pathname, t])
 
 	const contextualLinks = {
 		[t("footer.resultsExplained")]: "/geocoding-results-explanation",
@@ -57,8 +76,8 @@ export default function Layout() {
 					)}
 				</div>
 				<div slot="skip-to-nav" style={{ textAlign: "center", top: "10px", left: 0, width: "100%", zIndex: 3 }}>
-					<a className="skip-to-content-link" href="#main-content" aria-label={t("menu.skipNav")}>
-						{t("menu.skipNav")}
+					<a className="skip-to-content-link" href="#main-content">
+						Skip to main content / Passer au contenu principal
 					</a>
 				</div>
 				<div slot="toggle">
@@ -73,19 +92,23 @@ export default function Layout() {
 				</div>
 			</GcdsHeader>
 
-			<GcdsContainer
-				size={location.pathname === "/home" || location.pathname === "/" ? "full" : "xl"}
-				centered
-				color="black"
-				style={{ flexGrow: "1" }}
-				main-container
-				id="main-content"
-			>
+			<GcdsContainer size={location.pathname === "/" ? "full" : "xl"} centered color="black" style={{ flexGrow: "1" }} main-container id="main-content">
 				<Outlet />
 			</GcdsContainer>
 
 			{/* Announce the language change */}
-			<span aria-live="polite" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+			<span
+				role="status"
+				aria-live="polite"
+				tabIndex="-1"
+				style={{
+					position: "absolute",
+					left: "-9999px",
+					width: "1px",
+					height: "1px",
+					overflow: "hidden",
+				}}
+			>
 				{announcement}
 			</span>
 
