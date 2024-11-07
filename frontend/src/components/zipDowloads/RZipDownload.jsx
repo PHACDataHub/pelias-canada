@@ -33,8 +33,10 @@ export default function RZipDownload() {
 	}
 
 	return (
-		<GcdsButton size="small" onClick={handleDownload}>
-			{t("components.CodeZips.rDownload")}
-		</GcdsButton>
+		<div>
+			<GcdsButton size="small" onClick={handleDownload}>
+				{t("components.CodeZips.rDownload")}
+			</GcdsButton>
+		</div>
 	)
 }
