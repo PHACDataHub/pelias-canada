@@ -8,7 +8,7 @@ export default function ReverseBulkInput() {
 		<>
 			<GcdsHeading tag="h1">{t("pages.reverseBulk.title")}</GcdsHeading>
 
-			<div style={{ textAlign: "justify" }}>
+			<div >
 				<section aria-labelledby="what-is-the-bulk-upload">
 					<h2 id="what-is-the-bulk-upload">{t("pages.reverseBulk.subTitle")}?</h2>
 					<p>{t("pages.reverseBulk.subtTitlePara")}</p>

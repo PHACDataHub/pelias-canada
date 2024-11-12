@@ -7,7 +7,7 @@ export default function ForwardBulkInput() {
 	return (
 		<>
 			<GcdsHeading tag="h1"> {t("pages.forwardBulk.BulkGeocodingInput.title")}</GcdsHeading>
-			<div style={{ textAlign: "justify" }}>
+			<div >
 				<section aria-labelledby="what-is-the-bulk-upload">
 					<h2 id="what-is-the-bulk-upload">{t("pages.forwardBulk.BulkGeocodingInput.subTitle")}</h2>
 					<p>{t("pages.forwardBulk.BulkGeocodingInput.description")}</p>

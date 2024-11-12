@@ -72,7 +72,7 @@ export default function PythonAPIPage() {
 	return (
 		<>
 			<GcdsHeading tag="h1">{t("pages.python.title")}</GcdsHeading>
-			<div style={{ textAlign: "justify", overflow: "auto" }}>
+			<div style={{ overflow: "auto" }}>
 				<p>{t("pages.python.pythonParagraph")}</p>
 			</div>
 			<PythonZipDownload />

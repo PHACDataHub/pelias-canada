@@ -5,7 +5,7 @@ export default function BulkInput() {
 	return (
 		<>
 			<GcdsHeading tag="h1"> Bulk Input</GcdsHeading>
-			<div style={{ textAlign: "justify" }}>
+			<div >
 				<section aria-labelledby="what-is-the-bulk-upload">
 					<h2 id="what-is-the-bulk-upload">What is the Bulk Upload?</h2>
 					<p>
