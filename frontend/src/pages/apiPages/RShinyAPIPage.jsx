@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsDetails, GcdsHeading } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
 import { copyToClipboard } from "../../assets/copyToClipboard.jsx" // Adjust the path as necessary
 import { ToastContainer, toast } from "react-toastify"
@@ -10,8 +10,8 @@ import RZipDownload from "../../components/zipDowloads/RZipDownload.jsx"
 export default function RShinyAPIPage() {
 	const [rForwardCode, setRForwardCode] = useState("")
 	const [rReverseCode, setRReverseCode] = useState("")
-	const [isForwardOpen, setIsForwardOpen] = useState(false)
-	const [isReverseOpen, setIsReverseOpen] = useState(false)
+
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const fetchRScript = async () => {
@@ -47,53 +47,26 @@ export default function RShinyAPIPage() {
 		fetchRScript()
 	}, [])
 
-	// copied must stay for toast to work
-	// eslint-disable-next-line no-unused-vars
-	const [copied, setCopied] = useState(false)
-
 	const handleCopyRForward = () => {
 		copyToClipboard(rForwardCode, () => {
-			setCopied(true)
-			toast.success("Code copied to clipboard!")
-			setTimeout(() => setCopied(false), 2000)
-		})
-	}
-	const handleCopyRReverse = () => {
-		copyToClipboard(rReverseCode, () => {
-			setCopied(true)
-			toast.success("Code copied to clipboard!")
-			setTimeout(() => setCopied(false), 2000)
+			toast.success(t("codeCopied"), {
+				"aria-live": "assertive", // Ensure it's announced by screen readers
+			})
 		})
 	}
 
-	const commonStyles = {
-		flex: 1,
-		backgroundColor: "#eeeeee",
-		position: "relative",
-		padding: "20px",
-		borderLeft: "5px solid black",
-		marginBottom: "10px",
+	const handleCopyRReverse = () => {
+		copyToClipboard(rReverseCode, () => {
+			toast.success(t("codeCopied"), {
+				"aria-live": "assertive", // Ensure it's announced by screen readers
+			})
+		})
 	}
 
 	const codeBlockStyles = {
 		marginTop: "20px",
 		overflowWrap: "break-word",
 		overflowX: "auto",
-	}
-
-	const { t } = useTranslation()
-
-	// Toggle function to manage open/close state
-	const toggleAccordion = setter => {
-		setter(prev => !prev)
-	}
-
-	// Keyboard event handler for accessibility
-	const handleKeyDown = (event, setter) => {
-		if (event.key === "Enter" || event.key === " ") {
-			event.preventDefault() // Prevent scrolling when space is pressed
-			toggleAccordion(setter)
-		}
 	}
 
 	return (
@@ -105,33 +78,39 @@ export default function RShinyAPIPage() {
 			<div style={{ display: "flex", width: "100%", flexDirection: "column" }}>
 				<RZipDownload />
 				<br />
-				<div style={commonStyles}>
-					<h2
-						id="forwardRCodeHeader"
-						onClick={() => setIsForwardOpen(!isForwardOpen)}
-						onKeyDown={event => handleKeyDown(event, setIsForwardOpen)}
-						style={{ cursor: "pointer" }}
-						aria-expanded={isForwardOpen}
-						aria-controls="forwardRCodeContent"
-						tabIndex="0"
-					>
-						{t("pages.rshiny.forwardRcode")}
-					</h2>
-					{isForwardOpen && (
-						<div id="forwardRCodeContent" tabIndex="0">
-							<div style={{ position: "absolute", top: "10px", right: "10px" }}>
-								<GcdsButton size="small" onClick={handleCopyRForward} aria-label="Copy Forward Geocoding R code to clipboard">
-									{t("copyCode")}
-								</GcdsButton>
-							</div>
-							<pre style={codeBlockStyles}>
-								<code style={codeBlockStyles} aria-label="Forward Geocoding R Code">
-									{rForwardCode}
-								</code>
-							</pre>
-						</div>
-					)}
+
+				<GcdsDetails detailsTitle={t("pages.rshiny.forwardRDetails")}>
+				<div>
+					<GcdsButton size="small" onClick={handleCopyRForward} 
+					aria-label={t("pages.rshiny.CopyForwardRCode")}>
+						{t("copyCode")}
+					</GcdsButton>
 				</div>
+				<div>
+					<pre style={codeBlockStyles}>
+						<code style={codeBlockStyles} aria-label={t("pages.rshiny.forwardRCode")}>
+							{rForwardCode}
+						</code>
+					</pre>
+				</div>
+			</GcdsDetails>
+			<br />
+			<GcdsDetails detailsTitle={t("pages.rshiny.reverseRDetails")}>
+				<div>
+					<GcdsButton size="small" onClick={handleCopyRReverse}
+					aria-label={t("pages.rshiny.CopyReverseRCode")}>
+						{t("copyCode")}
+					</GcdsButton>
+				</div>
+				<pre style={codeBlockStyles}>
+					<code style={codeBlockStyles} aria-label={t("pages.rshiny.reverseRCode")}>
+						{rReverseCode}
+					</code>
+				</pre>
+			</GcdsDetails>
+
+{/* 
+
 				<div style={commonStyles}>
 					<h2
 						id="reverseRCodeHeader"
@@ -158,7 +137,7 @@ export default function RShinyAPIPage() {
 							</pre>
 						</div>
 					)}
-				</div>
+				</div> */}
 			</div>
 			<ToastContainer />
 		</>
