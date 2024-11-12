@@ -3,7 +3,7 @@ import { GcdsButton, GcdsDetails } from "@cdssnc/gcds-components-react"
 import MapComponentOL from "../MapComponent"
 import PercentageCircle from "../PercentageCircle"
 import { copyToClipboard } from "../../assets/copyToClipboard"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from "react-i18next"
 
@@ -82,8 +82,6 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
       <p>buttonResponse Response: {JSON.stringify(buttonResponse)}</p>
       <p>reverseResponse Response: {JSON.stringify(reverseResponse)}</p>
       */}
-
-
 
 			{result && result.features && result.features[0] && (
 				<div>
@@ -192,7 +190,6 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							)}
 						</>
 					</div>
-					<ToastContainer />
 				</div>
 			)}
 		</div>
