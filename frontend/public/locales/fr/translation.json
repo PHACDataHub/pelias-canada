@@ -306,8 +306,13 @@
 		"python": {
 			"title": "Python API",
 			"pythonParagraph": "Développer des services de géolocalisation internes à l'ASPC afin d'améliorer l'exactitude, la précision, la rentabilité, la sécurité et la transparence. Les phases comprennent l'exploration technologique, le prototypage, l'affinement en fonction de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la protection de la vie privée, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux requêtes externes.",
-			"forwardPythoncode": "Exemple de géocodage d'adresses avec Python",
-			"reversePythonCode": "Exemple de géocodage inversé avec Python"
+			"forwardPythonDetails": "Exemple de géocodage d'adresses avec Python",
+			"CopyForwardPythonCode": "Copier le code Python de géocodage dans le presse-papiers",
+			"forwardPythonCode": "Code pour le géocodage d'adresses en python",
+
+			"reversePythonDetails": "Exemple de géocodage inversé avec Python",
+			"CopyReversePythonCode": "Copier le code Python de géocodage inversé dans le presse-papiers",
+			"reversePythonCode": "Code pour le géocodage inversé en python"
 		},
 		"reverseBulk": {
 			"title": "Géocodage inversé en vrac",
@@ -328,11 +333,16 @@
 		"rshiny": {
 			"title": "R API",
 			"rshinyParagraph": "Développer des services de géolocalisation internes à l'ASPC afin d'améliorer l'exactitude, la précision, la rentabilité, la sécurité et la transparence. Les phases comprennent l'exploration technologique, le prototypage, l'affinement en fonction de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la protection de la vie privée, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux requêtes externes.",
-			"forwardRcode": "Exemple de géocodage d'adresses avec R",
-			"reverseRCode": "Exemple de géocodage inversé avec R"
+			"forwardRDetails": "Exemple de géocodage d'adresses avec R",
+			"CopyForwardRCode": "Copier le code R de géocodage dans le presse-papiers",
+			"forwardRCode": "Code pour le géocodage d'adresses en R",
+			"reverseRDetails": "Exemple de géocodage inversé avec R",
+			"CopyReverseRCode": "Copier le code R de géocodage inversé dans le presse-papiers",
+			"reverseRCode": "Code pour le géocodage inversé en R"
 		}
 	},
 	"copyCode": "Copiez le code",
+	"codeCopied": "Le code a été copié",
 	"copy": "Copiez",
 	"legend": {
 		"confidence": "Confiance"

@@ -305,8 +305,14 @@
 		"python": {
 			"title": "Python API",
 			"pythonParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
-			"forwardPythoncode": "Address Geocoding example using Python",
-			"reversePythonCode": "Reverse Geocoding example using Python"
+
+			"forwardPythonDetails": "Example of address geocoding with Python",
+			"CopyForwardPythonCode": "Copy geocoding Python code forward to clipboard",
+			"forwardPythonCode": "Code for Address Geocoding using python",
+
+			"reversePythonDetails": "Example of reverse geocoding with Python",
+			"CopyReversePythonCode": "Copy the reverse geocoding Python code to the clipboard",
+			"reversePythonCode": "Code for reverse geocodingusing python"
 		},
 		"reverseBulk": {
 			"title": "Reverse Geocoding Bulk Input",
@@ -327,11 +333,16 @@
 		"rshiny": {
 			"title": "R API",
 			"rshinyParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
-			"forwardRcode": "Address Geocoding example using R",
-			"reverseRCode": "Reverse Geocoding example using R"
+			"forwardRDetails": "Example of address geocoding with R",
+			"CopyForwardRCode": "Copy geocoding R code forward to clipboard",
+			"forwardRCode": "Code for Address Geocoding using R",
+			"reverseRDetails": "Example of reverse geocoding with R",
+			"CopyReverseRCode": "Copy the reverse geocoding R code to the clipboard",
+			"reverseRCode": "Code for reverse geocodingusing R"
 		}
 	},
 	"copyCode": "Copy code",
+	"codeCopied": "The code has been copied",
 	"copy": "Copy",
 	"legend": {
 		"confidence": "Confidence"

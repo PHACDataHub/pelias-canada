@@ -4,6 +4,7 @@ import "@cdssnc/gcds-components-react/gcds.css"
 import "./Layout.css"
 import { useTranslation } from "react-i18next"
 import { useState, useEffect } from "react"
+import { ToastContainer } from "react-toastify"
 
 export default function Layout() {
 	const { t, i18n } = useTranslation()
@@ -121,6 +122,11 @@ export default function Layout() {
 			</span>
 
 			<GcdsFooter lang={i18n.language} display="full" contextualHeading={t("footer.additionalNav")} contextualLinks={contextualLinks} style={{ paddingTop: "50px" }} />
+			<ToastContainer 
+			position="top-right"
+			autoClose={false}
+			theme="dark"
+			/>
 		</>
 	)
 }
