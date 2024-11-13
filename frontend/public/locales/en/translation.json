@@ -16,7 +16,7 @@
 				"accuracy": "Accuracy",
 				"source": "Source",
 				"infoVersion": "Information provided by Pelias Geocoder",
-				"dateTime": "Date and Time (YYYY-MM-DD HH:MM:SS AM/PM",
+				"dateTime": "Date and Time (YYYY-MM-DD HH:MM:SS AM/PM)",
 				"address": "Address",
 				"longitude": "Longitude",
 				"latitude": "Latitude",
