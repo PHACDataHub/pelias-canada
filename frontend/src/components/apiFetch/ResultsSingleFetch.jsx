@@ -90,13 +90,13 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						<div></div>
 						<div>
 							<p>
-								<strong>{t("components.apiFetch.resultSingleFetch.addressReturn")} : </strong>
-								{result.features[0].properties.housenumber !== undefined ? ` ${result.features[0].properties.housenumber + " "}` : null}
-								{result.features[0].properties.street !== undefined ? `${result.features[0].properties.street + ", "}` : null}
+								<strong>{t("components.apiFetch.resultSingleFetch.addressReturn")}: </strong>
+								{result.features[0].properties.housenumber !== undefined ? ` ${result.features[0].properties.housenumber + " "}`: null}
+								{result.features[0].properties.street !== undefined ? `${result.features[0].properties.street + ", "}`: null}
 								{`${result.features[0].properties.locality}, ${result.features[0].properties.region}`}
 							</p>
 							<p>
-								<strong>{t("components.apiFetch.resultSingleFetch.geoReturn")} : </strong>
+								<strong>{t("components.apiFetch.resultSingleFetch.geoReturn")}: </strong>
 								{`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
 							</p>
 						</div>
@@ -107,13 +107,13 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							</div>
 							<div style={{ display: "flex", flexDirection: "column" }}>
 								<p>
-									<strong>{t("components.apiFetch.resultSingleFetch.matchType")} : </strong> {result.features[0].properties.match_type}
+									<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong> {result.features[0].properties.match_type}
 								</p>
 								<p>
-									<strong>{t("components.apiFetch.resultSingleFetch.accuracy")} : </strong> {result.features[0].properties.accuracy}
+									<strong>{t("components.apiFetch.resultSingleFetch.accuracy")}: </strong> {result.features[0].properties.accuracy}
 								</p>
 								<p>
-									<strong>{t("components.apiFetch.resultSingleFetch.source")} : </strong> {result.features[0].properties.source}
+									<strong>{t("components.apiFetch.resultSingleFetch.source")}: </strong> {result.features[0].properties.source}
 								</p>
 							</div>
 						</div>
@@ -126,24 +126,24 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 					<h4> </h4>
 					<div>
 						<p>
-							<strong>{t("components.apiFetch.resultSingleFetch.dateTime")} : </strong> {convertTimestamp(result.geocoding.timestamp)}
+							<strong>{t("components.apiFetch.resultSingleFetch.dateTime")}: </strong> {convertTimestamp(result.geocoding.timestamp)}
 						</p>
 					</div>
 					<p>
-						{t("components.apiFetch.resultSingleFetch.address")} : {result.features[0].properties.label}
+						{t("components.apiFetch.resultSingleFetch.address")}: {result.features[0].properties.label}
 						<GcdsButton buttonRole="secondary" buttonId="Copy Longitude" size="small" name="Copy Longitude" style={{ marginLeft: "10px" }} onClick={handleCopyAddress}>
 							{t("copy")}
 						</GcdsButton>
 					</p>
 					<p>
-						{t("components.apiFetch.resultSingleFetch.longitude")} : {result.features[0].geometry.coordinates[0]}
+						{t("components.apiFetch.resultSingleFetch.longitude")}: {result.features[0].geometry.coordinates[0]}
 						<GcdsButton buttonRole="secondary" buttonId="Copy Longitude" size="small" name="Copy Longitude" style={{ marginLeft: "10px" }} onClick={handleCopyLongitude}>
 							{t("copy")}
 						</GcdsButton>
 					</p>
 
 					<p>
-						{t("components.apiFetch.resultSingleFetch.latitude")} : {result.features[0].geometry.coordinates[1]}
+						{t("components.apiFetch.resultSingleFetch.latitude")}: {result.features[0].geometry.coordinates[1]}
 						<GcdsButton buttonRole="secondary" buttonId="Copy Latitude" size="small" name="Copy Latitude" style={{ marginLeft: "10px" }} onClick={handleCopyLatitude}>
 							{t("copy")}
 						</GcdsButton>
@@ -151,7 +151,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 
 					<GcdsDetails detailsTitle={`${t("components.apiFetch.resultSingleFetch.seeMoreOpts")}`}>
 						<p style={{ fontSize: "16px" }}>
-							{t("components.apiFetch.resultSingleFetch.longlat")} : {result.features[0].geometry.coordinates[0]}, {result.features[0].geometry.coordinates[1]}
+							{t("components.apiFetch.resultSingleFetch.longlat")}: {result.features[0].geometry.coordinates[0]}, {result.features[0].geometry.coordinates[1]}
 							<GcdsButton
 								buttonRole="secondary"
 								buttonId="Copy Longitude Latitude"
@@ -165,7 +165,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						</p>
 
 						<p style={{ fontSize: "16px" }}>
-							{t("components.apiFetch.resultSingleFetch.latlong")} : {result.features[0].geometry.coordinates[1]}, {result.features[0].geometry.coordinates[0]}
+							{t("components.apiFetch.resultSingleFetch.latlong")}: {result.features[0].geometry.coordinates[1]}, {result.features[0].geometry.coordinates[0]}
 							<GcdsButton
 								buttonRole="secondary"
 								buttonId="Copy Latitude Longitude"
@@ -185,7 +185,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 								<MapComponentOL
 									mapContentJSON={[`${result.features[0].geometry.coordinates[0]},${result.features[0].geometry.coordinates[1]},${result.features[0].properties.confidence * 100}`]}
 								/>
-							) : (
+							): (
 								<p>No Results</p>
 							)}
 						</>
