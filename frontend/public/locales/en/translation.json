@@ -138,8 +138,10 @@
 		},
 		"contactUs": {
 			"title": "Contact Us",
+			"subTitle": "Please enter your contact details below. Once completed, send the form using the “submit” button below the form. Once the form has been sent, your e-mail application will open. You can also contact us directly by e-mail:",
 			"subject": {
 				"title": "Reasons for Contacting Us",
+				"hintMessage": "Choose 1 option",
 				"select": "Reasons for Contacting Us",
 				"feedback": "Feedback or Suggestions",
 				"bug": "Reporting a Bug or Issue",
@@ -147,6 +149,7 @@
 				"inquire": "Inquiring About Products or Services",
 				"followingUp": "Following Up on a Previous Request"
 			},
+			"formTitle":"Give feedback, ask for help or contact us to find out more. ",
 			"name": "Name",
 			"email": "Email",
 			"message": "Message",
