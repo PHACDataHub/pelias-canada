@@ -126,8 +126,8 @@
 		"title": "Pelias Geocoder",
 		"home": "Accueil",
 		"bulkFile": "Fichiers en masse",
-		"addressBulkFile": "Fichiers d'adresses en masse",
-		"reverseBulkFile": "Fichier de masse de géolocalisation inversée ",
+		"addressBulkFile": "Entrée de géocodage d'adresses en masse",
+		"reverseBulkFile": "Géocodage inversé entrée en masse",
 		"developers": "Développeurs",
 		"contactUs": "Contactez-nous",
 		"skipNav": "Passer au contenu principal"
@@ -166,8 +166,8 @@
 		},
 		"forwardBulk": {
 			"BulkGeocodingInput": {
-				"title": "Géocodage en masse",
-				"subTitle": "Qu'est-ce que le Géocodage en masse",
+				"title": "Entrée de géocodage d'adresses en masse",
+				"subTitle": "Qu'est-ce que le Entrée de géocodage d'adresses en masse",
 				"description": "Cet outil permet aux utilisateurs de saisir plusieurs adresses ou lieux à la fois pour obtenir des résultats de géocodage en masse. Les utilisateurs peuvent télécharger un fichier CSV contenant les adresses. L'outil traite ensuite ces entrées et fournit les résultats géocodés, qui peuvent être téléchargés ou visualisés sur la page."
 			},
 			"HowToUseBulkInput": {
@@ -317,11 +317,11 @@
 			"reversePythonCode": "Code pour le géocodage inversé en python"
 		},
 		"reverseBulk": {
-			"title": "Géocodage inversé en vrac",
-			"subTitle": "Qu'est-ce que le géocodage inversé en vrac",
+			"title": "Géocodage inversé entrée en masse",
+			"subTitle": "Qu'est-ce que le Géocodage inversé entrée en masse",
 			"subtTitlePara": "Cet outil permet aux utilisateurs de saisir plusieurs lieux de longitude et de latitude à la fois afin d'obtenir des résultats de géocodage en masse. Les utilisateurs peuvent télécharger un fichier CSV contenant les géolocalisations. L'outil traite ensuite ces données et fournit les résultats géocodés, qui peuvent être téléchargés ou visualisés sur la page.",
 			"howToUse": {
-				"title": "Comment utiliser le service de géocodage inversé en vrac ?",
+				"title": "Comment utiliser le service de Géocodage inversé entrée en masse ?",
 				"fileType": "Le type de fichier doit être un CSV",
 				"one": "Pour toutes les données que vous souhaitez transformer, assurez-vous que les trois (3) colonnes suivantes figurent dans les en-têtes de votre CSV",
 				"two": "L'outil nettoie et formate les lieux, les préparant ainsi au géocodage.",

@@ -22,8 +22,8 @@ function App() {
 				<Route index element={<LandingPage />} />
 				<Route path="home" element={<LandingPage />} />
 				{/* Render BulkInput component for the "/bulkinput" route */}
-				<Route path="forward-bulk-files" element={<ForwardBulkInput />} />
-				<Route path="reverse-bulk-files" element={<ReverseBulkInput />} />
+				<Route path="bulk-address-geocoding" element={<ForwardBulkInput />} />
+				<Route path="reverse-geocoding-bulk" element={<ReverseBulkInput />} />
 				<Route path="r-api" element={<RShinyAPIPage />} />
 				<Route path="python-api" element={<PythonAPIPage />} />
 				<Route path="frequently-asked-questions" element={<FAQ />} />

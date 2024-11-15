@@ -16,8 +16,8 @@ export default function Layout() {
 		// You can define the titles for different routes here
 		const routeTitles = {
 			"/": t("menu.home"),
-			"/reverse-bulk-files": t("pages.reverseBulk.title"),
-			"/forward-bulk-files": t("pages.forwardBulk.BulkGeocodingInput.title"),
+			"/reverse-geocoding-bulk": t("pages.reverseBulk.title"),
+			"/bulk-address-geocoding": t("pages.forwardBulk.BulkGeocodingInput.title"),
 			"/r-api": t("pages.rshiny.title"),
 			"/python-api": t("pages.python.title"),
 			"/frequently-asked-questions": t("pages.faq.title"),
@@ -58,10 +58,10 @@ export default function Layout() {
 							Pelias
 						</GcdsNavLink>
 						<GcdsNavGroup openTrigger={t("menu.bulkFile")} menuLabel={t("menu.bulkFile")}>
-							<GcdsNavLink href="/reverse-bulk-files" current={location.pathname === "/reverse-bulk-files" ? true : undefined}>
+							<GcdsNavLink href="/reverse-geocoding-bulk" current={location.pathname === "/reverse-geocoding-bulk" ? true : undefined}>
 								{t("menu.reverseBulkFile")}
 							</GcdsNavLink>
-							<GcdsNavLink href="/forward-bulk-files" current={location.pathname === "/forward-bulk-files" ? true : undefined}>
+							<GcdsNavLink href="/bulk-address-geocoding" current={location.pathname === "/bulk-address-geocoding" ? true : undefined}>
 								{t("menu.addressBulkFile")}
 							</GcdsNavLink>
 						</GcdsNavGroup>

@@ -126,8 +126,8 @@
 		"title": "Pelias Geocoder",
 		"home": "Home",
 		"bulkFile": "Bulk Files",
-		"addressBulkFile": "Address Bulk Files ",
-		"reverseBulkFile": "Reverse Geolocation Bulk Files",
+		"addressBulkFile": "Bulk Address Geocoding Input",
+		"reverseBulkFile": "Reverse Geolocation Bulk Input",
 		"developers": "Developers",
 		"contactUs": "Contact Us",
 		"skipNav": "Skip to main content"
@@ -166,8 +166,8 @@
 		},
 		"forwardBulk": {
 			"BulkGeocodingInput": {
-				"title": "Bulk Geocoding Input",
-				"subTitle": "What is the Bulk Geocoding Input",
+				"title": "Bulk Address Geocoding Input",
+				"subTitle": "What is the Bulk Address Geocoding Input",
 				"description": "This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page."
 			},
 			"HowToUseBulkInput": {
