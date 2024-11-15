@@ -138,16 +138,18 @@
 		},
 		"contactUs": {
 			"title": "Contactez-nous",
+			"subTitle": "Veuillez saisir vos coordonnées ci-dessous. Une fois complété, envoyez le formulaire en utilisant le bouton “soumettre” situé sous le formulaire. Une fois le formulaire envoyé, votre application e-mail s'ouvrira. Vous pouvez également nous contacter directement par e-mail:",
 			"subject": {
 				"title": "Raisons de nous contacter",
+				"hintMessage": "Sélectionnez 1 option.",
 				"select": "Raisons de nous contacter",
-
 				"feedback": "Commentaires ou suggestions",
 				"bug": "Signaler un bogue ou un problème",
 				"helpOption": "Demande de soutien ou d'aide",
 				"inquire": "Demande de renseignements sur les produits ou les services",
 				"followingUp": "Suivi d'une demande antérieure"
 			},
+			"formTitle":"Donner votre avis, demander de l'aide ou nous contacter pour en savoir plus. ",
 			"name": "Nom",
 			"email": "Courrier électronique",
 			"message": "Message",
