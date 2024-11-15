@@ -13,8 +13,8 @@ const MIME_TYPES: Record<string, string> = {
 
 // Array of routes to redirect to index.html
 const ROUTES_TO_REDIRECT = [
-    '/reverse-bulk-files',
-    '/forward-bulk-files',
+    '/reverse-geocoding-bulk',
+    '/bulk-address-geocoding',
     '/r-api',
     '/python-api',
     '/frequently-asked-questions',
