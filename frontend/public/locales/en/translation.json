@@ -350,6 +350,8 @@
 	"legend": {
 		"confidence": "Confidence"
 	},
+	"navigateToSection": "Navigate to section" ,
 	"search": "Search",
+	"tableOfContents": "Table of contents",
 	"reset": "Reset"
 }
