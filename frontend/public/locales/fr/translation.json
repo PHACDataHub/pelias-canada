@@ -349,6 +349,8 @@
 	"legend": {
 		"confidence": "Confiance"
 	},
+	"navigateToSection": "Naviguer vers la section" ,
 	"search": "Rechercher",
+	"tableOfContents": "Table des matières",
 	"reset": "Réinitialiser"
 }
