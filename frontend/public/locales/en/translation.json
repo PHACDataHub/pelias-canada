@@ -162,7 +162,8 @@
 		},
 		"faq": {
 			"title": "Frequently Asked Questions",
-			"nav": "Navigation"
+			"nav": "Navigation",
+			"category" : "Category"
 		},
 		"forwardBulk": {
 			"BulkGeocodingInput": {
