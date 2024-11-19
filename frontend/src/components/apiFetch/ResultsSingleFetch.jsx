@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import { GcdsButton, GcdsDetails } from "@cdssnc/gcds-components-react"
-import MapComponentOL from "../MapComponent"
+import MapComponentOL from "../map/MapComponent"
 import PercentageCircle from "../PercentageCircle"
 import { copyToClipboard } from "../../assets/copyToClipboard"
 import { toast } from "react-toastify"
