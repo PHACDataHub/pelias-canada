@@ -31,7 +31,7 @@
 				"long": "Longitude"
 			},
 			"useLocationButton": {
-				"header": "Cliquez pour utiliser votre position actuelle",
+				"header": "Utilisez le bouton pour détecter votre position",
 				"warning": "Veuillez noter que l'accès à un site web l'accès doit être autorisé",
 				"getLocation": "Obtenir l'emplacement"
 			}
