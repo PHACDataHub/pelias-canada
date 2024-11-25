@@ -42,7 +42,7 @@ export default function ForwardBulk() {
 		const legend = L.control({ position: "bottomright" })
 
 		const getColor = d => {
-			return d >= 100 ? "green" : d > 80 ? "lightgreen" : d > 50 ? "yellow" : d > 30 ? "orange" : "red"
+			return d >= 100 ? "#006400" : d > 80 ? "#389638" : d > 50 ? "#FFBF00" : d > 30 ? "#FF8C00" : "#B22222"
 		}
 
 		legend.onAdd = () => {
@@ -58,26 +58,25 @@ export default function ForwardBulk() {
 			div.innerHTML = `<strong>Confidence / Confiance</strong><br>`
 
 			// Adjust the grades to avoid overlapping ranges
-			const grades = [0, 30, 50, 80, 99]
+			const grades = [99, 80, 50, 30, 0, 0]
 			let labels = []
 			let from, to
 
 			for (let i = 0; i < grades.length - 1; i++) {
 				from = grades[i]
-				to = grades[i + 1]
+				to = grades[i - 1]
 
 				labels.push(
 					'<i style="background:' +
 						getColor(from + 1) +
 						'; width: 14px; height: 14px; display: inline-block; margin-right: 8px;"></i> ' +
-						from +
+						(i === 0 ? from + 1 : from) +
 						`%` +
-						(to ? "&ndash;" + to + `%` : "+")
+						(to ? " &ndash;" + " " + to + `% ` : "+")
 				)
 			}
 
 			// Add the final label for 100%
-			labels.push('<i style="background:' + getColor(100) + '; width: 14px; height: 14px; display: inline-block; margin-right: 8px;"></i> 100%')
 
 			// Add the labels to the legend
 			div.innerHTML += labels.join("<br>")
@@ -256,9 +255,9 @@ export default function ForwardBulk() {
 			radius: 8,
 			fillColor: getColor(confidence),
 			color: "#000",
-			weight: 1,
+			weight: 2,
 			opacity: 1,
-			fillOpacity: 0.8,
+			fillOpacity: 1,
 		}).addTo(mapRef.current)
 
 		// Bind popup with dynamic content based on current language
@@ -281,7 +280,7 @@ export default function ForwardBulk() {
 	}
 
 	const getColor = confidence => {
-		return confidence <= 20 ? "red" : confidence <= 40 ? "orange" : confidence <= 60 ? "yellow" : confidence <= 80 ? "lightgreen" : "green"
+		return confidence <= 20 ? "#B22222" : confidence <= 40 ? "#FF8C00" : confidence <= 60 ? "#FFBF00" : confidence <= 80 ? "#389638" : "#006400"
 	}
 
 	const updateTable = () => {

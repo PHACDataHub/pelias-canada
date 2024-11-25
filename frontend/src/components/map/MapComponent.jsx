@@ -1,139 +1,159 @@
-import PropTypes from "prop-types"
-import { useEffect } from "react"
-import "ol/ol.css"
-import Map from "ol/Map"
-import View from "ol/View"
-import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer"
-import { OSM, Vector as VectorSource } from "ol/source"
-import Feature from "ol/Feature"
-import Point from "ol/geom/Point"
-import { fromLonLat } from "ol/proj"
-import { Style, Circle, Fill, Stroke } from "ol/style"
-import "./MapComponentOL.css" // Import the custom CSS
-import { defaults as defaultControls } from "ol/control"
-import ScaleLine from "ol/control/ScaleLine"
-import FullScreen from "ol/control/FullScreen"
+import PropTypes from "prop-types";
+import { useEffect, useRef, useState } from "react";
+import "ol/ol.css";
+import Map from "ol/Map";
+import View from "ol/View";
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
+import { OSM, Vector as VectorSource } from "ol/source";
+import Feature from "ol/Feature";
+import Point from "ol/geom/Point";
+import { fromLonLat } from "ol/proj";
+import { Style, Circle, Fill, Stroke } from "ol/style";
+import { defaults as defaultControls } from "ol/control";
+import ScaleLine from "ol/control/ScaleLine";
+import FullScreen from "ol/control/FullScreen";
+import { useTranslation } from "react-i18next";
 
 // Function to determine marker color based on confidence level
-const getColorForConfidence = confidence => {
-	if (confidence >= 100) {
-		return "green"
-	} else if (confidence >= 80) {
-		return "lightgreen"
-	} else if (confidence >= 50) {
-		return "yellow"
-	} else if (confidence >= 30) {
-		return "orange"
-	} else {
-		return "red"
-	}
-}
+const getColorForConfidence = (confidence) => {
+  if (confidence >= 100) {
+    return "#006400";
+  } else if (confidence >= 80) {
+    return "#389638";
+  } else if (confidence >= 50) {
+    return "#FFBF00";
+  } else if (confidence >= 30) {
+    return "#FF8C00";
+  } else {
+    return "#B22222";
+  }
+};
 
 // Function to add a legend inside the map div
-const addLegend = () => {
-	const legendContainer = document.createElement("div")
-	legendContainer.className = "ol-legend"
-	legendContainer.style.position = "absolute"
-	legendContainer.style.bottom = "30px"
-	legendContainer.style.right = "10px"
-	legendContainer.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
-	legendContainer.style.padding = "10px"
-	legendContainer.style.borderRadius = "5px"
-	legendContainer.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.3)"
-	legendContainer.style.fontSize = "14px"
-	legendContainer.style.lineHeight = "1.5em"
+const addLegend = (t, isWideScreen) => {
+  const legendContainer = document.createElement("div");
+  legendContainer.style.position = "absolute";
+  legendContainer.style.bottom = "30px";
+  legendContainer.style.right = "10px";
+  legendContainer.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+  legendContainer.style.padding = "5px";
+  legendContainer.style.borderRadius = "5px";
+  legendContainer.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.3)";
+  legendContainer.style.fontSize = isWideScreen ? "16px" : "12px";
+  legendContainer.style.lineHeight = "1.0em";
 
-	// Add legend title
-	legendContainer.innerHTML = `<strong>Confidence / Confiance</strong><br>`
+  // Add legend title
+  legendContainer.innerHTML = `<h4>${t("Confidence")}</h4>`;
 
-	// Define the grades and corresponding colors
-	const grades = [0, 30, 50, 80, 100]
-	const colors = ["#B22222", "#FF8C00", "#FFBF00", "#228B22", "#006400"]
-	const labels = grades.map((grade, i) => {
-		return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${grade}% ${
-			i < grades.length - 1 ? `&ndash; ${grades[i + 1]}% ` : "+"
-		}`
-	})
+  const grades = [100, 80, 50, 30, 0];
+  const colors = ["#006400", "#389638", "#FFBF00", "#FF8C00", "#B22222"];
 
-	// Add labels to the legend
-	legendContainer.innerHTML += labels.join("<br>")
+  const labels = grades.map((grade, i) => {
+    return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
+      grade}% ${i < grades.length - 4 ? "+" : `&ndash; ${grades[i - 1]}%`}`;
+  });
 
-	return legendContainer
-}
+  legendContainer.innerHTML += labels.join("<br>");
+  return legendContainer;
+};
 
 function MapComponentOL({ mapContentJSON }) {
-	useEffect(() => {
-		const vectorSource = new VectorSource()
-		const vectorLayer = new VectorLayer({
-			source: vectorSource,
-		})
+  const mapRef = useRef(null);
+  const mapInstance = useRef(null);
+  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1080);
+  const { t } = useTranslation();
 
-		const map = new Map({
-			target: "map",
-			layers: [
-				new TileLayer({
-					source: new OSM(),
-				}),
-				vectorLayer,
-			],
-			view: new View({
-				center: fromLonLat([-95, 60]), // Initial center for Canada
-				zoom: 6, // Initial zoom level
-			}),
-			controls: defaultControls().extend([
-				new ScaleLine(), // Add a scale line control
-				new FullScreen(), // Add a full-screen control
-			]),
-		})
+  useEffect(() => {
+    const vectorSource = new VectorSource();
+    const vectorLayer = new VectorLayer({
+      source: vectorSource,
+    });
 
-		// Add the markers to the map
-		mapContentJSON.forEach(pointString => {
-			const [longitude, latitude, confidence] = pointString.split(",")
-			const coordinates = fromLonLat([parseFloat(longitude), parseFloat(latitude)])
-			const conf = parseFloat(confidence)
+    const map = new Map({
+      target: mapRef.current,
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+        vectorLayer,
+      ],
+      view: new View({
+        center: fromLonLat([-95, 60]), // Initial center for Canada
+        zoom: 6, // Initial zoom level
+      }),
+      controls: defaultControls().extend([
+        new ScaleLine(), // Add a scale line control
+        new FullScreen(), // Add a full-screen control
+      ]),
+    });
 
-			const marker = new Feature({
-				geometry: new Point(coordinates),
-			})
+    mapInstance.current = map;
 
-			marker.setStyle(
-				new Style({
-					image: new Circle({
-						radius: 5,
-						fill: new Fill({ color: getColorForConfidence(conf) }),
-						stroke: new Stroke({ color: "#000", width: 1 }),
-					}),
-				})
-			)
+    mapContentJSON.forEach((pointString) => {
+      const [longitude, latitude, confidence] = pointString.split(",");
+      const coordinates = fromLonLat([parseFloat(longitude), parseFloat(latitude)]);
+      const conf = parseFloat(confidence);
 
-			vectorSource.addFeature(marker)
-		})
+      const marker = new Feature({
+        geometry: new Point(coordinates),
+      });
 
-		// Fit the map view to the extent of all the markers
-		const extent = vectorSource.getExtent()
-		map.getView().fit(extent, { maxZoom: 14, padding: [50, 50, 50, 50] })
+      marker.setStyle(
+        new Style({
+          image: new Circle({
+            radius: 5,
+            fill: new Fill({ color: getColorForConfidence(conf) }),
+            stroke: new Stroke({ color: "#000", width: 3 }),
+          }),
+        })
+      );
 
-		// Add the legend to the map div
-		const mapElement = document.getElementById("map")
-		const legend = addLegend() // Pass `t` for translations
-		mapElement.appendChild(legend)
+      vectorSource.addFeature(marker);
+    });
 
-		return () => {
-			map.setTarget(null)
-			mapElement.removeChild(legend) // Clean up the legend on unmount
-		}
-	}, [mapContentJSON])
+    const extent = vectorSource.getExtent();
+    map.getView().fit(extent, { maxZoom: 14, padding: [50, 50, 50, 50] });
 
-	return (
-		<div id="map" style={{ position: "relative", width: "100%", height: "500px" }}>
-			{/* This div is where the OpenLayers map will be rendered */}
-		</div>
-	)
+    const legend = addLegend(t, isWideScreen);
+    mapRef.current.appendChild(legend);
+
+    const observer = new ResizeObserver(() => {
+      map.updateSize();
+    });
+    observer.observe(mapRef.current);
+
+    return () => {
+      observer.disconnect();
+      map.setTarget(null);
+      if (legend.parentNode) legend.parentNode.removeChild(legend);
+    };
+  }, [mapContentJSON, t, isWideScreen]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1080px)");
+    const handleMediaChange = () => setIsWideScreen(mediaQuery.matches);
+
+    mediaQuery.addEventListener("change", handleMediaChange);
+    return () => mediaQuery.removeEventListener("change", handleMediaChange);
+  }, []);
+
+  return (
+    <div
+      ref={mapRef}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: isWideScreen ? "500px" : "250px", // Adjust height dynamically
+      }}
+    >
+      {/* This div is where the OpenLayers map will be rendered */}
+    </div>
+  );
 }
 
 // PropTypes validation for mapContentJSON
 MapComponentOL.propTypes = {
-	mapContentJSON: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure it's an array of strings
-}
+  mapContentJSON: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure it's an array of strings
+};
 
-export default MapComponentOL
+export default MapComponentOL;

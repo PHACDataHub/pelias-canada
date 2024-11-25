@@ -6,6 +6,9 @@ import { copyToClipboard } from "../../assets/copyToClipboard"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from "react-i18next"
+import "./ResultsMap.css"
+
+
 
 export default function SingleFetchResults({ forwardResponse, buttonResponse, reverseResponse }) {
 	const result = forwardResponse || buttonResponse || reverseResponse
@@ -107,7 +110,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							</div>
 							<div style={{ display: "flex", flexDirection: "column" }}>
 								<p>
-									<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong> {result.features[0].properties.match_type}
+									<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong> {result.features[0].properties.match_type || "n/a"}
 								</p>
 								<p>
 									<strong>{t("components.apiFetch.resultSingleFetch.accuracy")}: </strong> {result.features[0].properties.accuracy}
@@ -117,7 +120,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 								</p>
 							</div>
 						</div>
-						<div style={{ display: "flex", justifyContent: "flex-end", fontSize: "10px" }}>
+						<div style={{ display: "flex", justifyContent: "flex-end", fontSize: "11px" }}>
 							<i>
 								{t("components.apiFetch.resultSingleFetch.infoVersion")} v{result.geocoding.version}
 							</i>
@@ -179,10 +182,10 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						</p>
 					</GcdsDetails>
 
-					<div style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+					<div style={{ paddingTop: "40px", paddingBottom: "40px",  }}>
 						<>
 							{result?.features?.length > 0 ? (
-								<MapComponentOL
+								<MapComponentOL								
 									mapContentJSON={[`${result.features[0].geometry.coordinates[0]},${result.features[0].geometry.coordinates[1]},${result.features[0].properties.confidence * 100}`]}
 								/>
 							): (

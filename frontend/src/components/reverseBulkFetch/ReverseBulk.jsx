@@ -9,6 +9,7 @@ import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react"
 import Loading from "../Loading"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import { useTranslation } from "react-i18next"
+import "../map/MapComponentOL.css"
 
 export default function ReverseBulk() {
 	const { t } = useTranslation()
@@ -40,16 +41,18 @@ export default function ReverseBulk() {
 	const initialLatLng = [45.4215, -75.6919]
 	const Legend = () => {
 		const getColor = d => {
-			return d >= 100 ? "green" : d > 80 ? "lightgreen" : d > 50 ? "yellow" : d > 30 ? "orange" : "red"
+			return d >= 100 ? "#006400" : d > 80 ? "#389638" : d > 50 ? "#FFBF00" : d > 30 ? "#FF8C00" : "#B22222"
 		}
 
-		const grades = [0, 30, 50, 80, 99]
+		// const grades = [0, 30, 50, 80, 99]
+		const grades = [99, 80, 50, 30, 0]
+
+		// If it's the first grade, display it as the upper bound with a "+" (e.g., "100% +")
+		// 	for other grades, show the current grade and, if not the last range, include the range in "to - from" format.
 		const labels = grades
 			.map((grade, i) => {
-				const nextGrade = grades[i + 1]
-				return `<i style="background:${getColor(grade + 1)}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${grade}%${
-					nextGrade ? `&ndash;${nextGrade}%` : "+"
-				}`
+				return `<i style="background:${getColor(grade + 1)}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> 
+				${i === 0 ? `${grades[i] + 1}%` : `${grades[i]}%`} ${i < grades.length - 4 ? "+" : `&ndash; ${grades[i - 1]}% `}`
 			})
 			.join("<br>")
 
@@ -91,7 +94,7 @@ export default function ReverseBulk() {
 						radius: 10,
 						fillColor: "#0000ff", // Blue color
 						color: "#fff",
-						weight: 1,
+						weight: 2,
 						opacity: 1,
 						fillOpacity: 0.8,
 					})
@@ -270,7 +273,7 @@ export default function ReverseBulk() {
 				radius: 10,
 				fillColor: "#007bff",
 				color: "#fff",
-				weight: 1,
+				weight: 2,
 				opacity: 1,
 				fillOpacity: 0.8,
 			})
@@ -323,7 +326,7 @@ export default function ReverseBulk() {
 						radius: 8,
 						fillColor: calculateMarkerColor(feature.properties.confidence),
 						color: "#000",
-						weight: 1,
+						weight: 2,
 						opacity: 1,
 						fillOpacity: 0.8,
 					})
@@ -372,11 +375,11 @@ export default function ReverseBulk() {
 
 	// Calculate marker color based on confidence
 	const calculateMarkerColor = confidence => {
-		if (confidence < 0.3) return "#ff0000"
-		if (confidence < 0.5) return "#ff8000"
-		if (confidence < 0.8) return "#ffff00"
-		if (confidence < 1.0) return "#80ff00"
-		return "#00ff00"
+		if (confidence < 0.3) return "#B22222"
+		if (confidence < 0.5) return "#FF8C00"
+		if (confidence < 0.8) return "#FFBF00"
+		if (confidence < 1.0) return "#389638"
+		return "#006400"
 	}
 
 	// Convert array of objects to CSV
@@ -666,7 +669,6 @@ export default function ReverseBulk() {
 						clipPath: "inset(50%)", // Alternative method to clip content
 					}}
 					aria-hidden="true" // Hide from screen readers
-					tabIndex="-1" // Hide from tab navigation
 				/>
 			)}
 			{loading && progress === 0 && (
@@ -696,17 +698,23 @@ export default function ReverseBulk() {
 										radius={5}
 										pathOptions={{
 											fillColor: "blue",
-											color: "black",
-											weight: 1,
+											color: "blue",
+											weight: 2,
 											opacity: 1,
-											fillOpacity: 0.8,
+											fillOpacity: 1,
 										}}
 									>
 										<Popup>
 											<div style={{ lineHeight: 0.1 }}>
-												<p><strong>{t("components.reverseBulk.outputTable.inputID")}</strong>: {item1}</p>
-												<p><strong>Latitude</strong>: {item2}</p>
-												<p><strong>Longitude</strong>: {item3}</p>
+												<p>
+													<strong>{t("components.reverseBulk.outputTable.inputID")}</strong>: {item1}
+												</p>
+												<p>
+													<strong>Latitude</strong>: {item2}
+												</p>
+												<p>
+													<strong>Longitude</strong>: {item3}
+												</p>
 											</div>
 										</Popup>
 									</CircleMarker>
@@ -721,31 +729,56 @@ export default function ReverseBulk() {
 									pathOptions={{
 										fillColor: calculateMarkerColor(row.matchConfidencePercentageDecimal),
 										color: "black",
-										weight: 1,
+										weight: 2,
 										opacity: 1,
-										fillOpacity: 0.8,
+										fillOpacity: 1,
 									}}
 								>
 									<Popup>
 										<div style={{ lineHeight: 0.1, width: "auto" }}>
 											<p>
-												<strong><i> 
-													{row.name && (
-														<>
-															{row.name}, {row.locality}, {row.region}
-														</>
-													)}</i>
+												<strong>
+													<i>
+														{row.name && (
+															<>
+																{row.name}, {row.locality}, {row.region}
+															</>
+														)}
+													</i>
 												</strong>
 											</p>
-											<p><strong> 
-											{t("components.reverseBulk.outputTable.inputID")} & {t("components.reverseBulk.outputTable.ranking")}</strong>: {row.inputID} - #{row.rankingByInputId}
+											<p>
+												<strong>
+													{t("components.reverseBulk.outputTable.inputID")} & {t("components.reverseBulk.outputTable.ranking")}
+												</strong>
+												: {row.inputID} - #{row.rankingByInputId}
 											</p>
-											<p><strong> {t("components.reverseBulk.outputTable.confidenceLevel")}</strong>: {row.matchConfidencePercentageDecimal * 100}%</p>
-											<p><strong> {t("components.reverseBulk.map.distance")}</strong>: {row.distanceKm} km</p>
-											{row.name && <p><strong> {t("components.reverseBulk.map.streetName")}</strong>: {row.name}</p>}
-											{row.locality && <p><strong> {t("components.reverseBulk.map.locality")}</strong>: {row.locality}</p>}
-											{row.region && <p><strong> {t("components.reverseBulk.map.province")}</strong>: {row.region}</p>}
-											{row.accuracy && <p><strong> {t("components.reverseBulk.outputTable.accuracy")}</strong>: {row.accuracy}</p>}
+											<p>
+												<strong> {t("components.reverseBulk.outputTable.confidenceLevel")}</strong>: {row.matchConfidencePercentageDecimal * 100}%
+											</p>
+											<p>
+												<strong> {t("components.reverseBulk.map.distance")}</strong>: {row.distanceKm} km
+											</p>
+											{row.name && (
+												<p>
+													<strong> {t("components.reverseBulk.map.streetName")}</strong>: {row.name}
+												</p>
+											)}
+											{row.locality && (
+												<p>
+													<strong> {t("components.reverseBulk.map.locality")}</strong>: {row.locality}
+												</p>
+											)}
+											{row.region && (
+												<p>
+													<strong> {t("components.reverseBulk.map.province")}</strong>: {row.region}
+												</p>
+											)}
+											{row.accuracy && (
+												<p>
+													<strong> {t("components.reverseBulk.outputTable.accuracy")}</strong>: {row.accuracy}
+												</p>
+											)}
 										</div>
 									</Popup>
 								</CircleMarker>
