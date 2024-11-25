@@ -10,7 +10,7 @@ export default function PercentageCircle({ confidencePercentage }) {
 	if (confidencePercentage >= 0.99) {
 		color = "#006400" // Dark Green
 	} else if (confidencePercentage >= 0.8) {
-		color = "#228B22" // Forest Green
+		color = "#389638" // Forest Green
 	} else if (confidencePercentage >= 0.5) {
 		color = "#FFBF00" // Dark Yellow (Amber)
 	} else if (confidencePercentage >= 0.3) {
