@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import { GcdsButton, GcdsDetails } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsDetails, GcdsHeading } from "@cdssnc/gcds-components-react"
 import MapComponentOL from "../map/MapComponent"
 import PercentageCircle from "../PercentageCircle"
 import { copyToClipboard } from "../../assets/copyToClipboard"
@@ -7,8 +7,6 @@ import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from "react-i18next"
 import "./ResultsMap.css"
-
-
 
 export default function SingleFetchResults({ forwardResponse, buttonResponse, reverseResponse }) {
 	const result = forwardResponse || buttonResponse || reverseResponse
@@ -88,14 +86,16 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 
 			{result && result.features && result.features[0] && (
 				<div>
-					<h2>{t("components.apiFetch.resultSingleFetch.infoReturn")}</h2>
+					<GcdsHeading tag="h2" characterLimit="false">
+						{t("components.apiFetch.resultSingleFetch.infoReturn")}{" "}
+					</GcdsHeading>
 					<div style={{ border: "1px solid black", padding: "4px" }}>
 						<div></div>
 						<div>
 							<p>
 								<strong>{t("components.apiFetch.resultSingleFetch.addressReturn")}: </strong>
-								{result.features[0].properties.housenumber !== undefined ? ` ${result.features[0].properties.housenumber + " "}`: null}
-								{result.features[0].properties.street !== undefined ? `${result.features[0].properties.street + ", "}`: null}
+								{result.features[0].properties.housenumber !== undefined ? ` ${result.features[0].properties.housenumber + " "}` : null}
+								{result.features[0].properties.street !== undefined ? `${result.features[0].properties.street + ", "}` : null}
 								{`${result.features[0].properties.locality}, ${result.features[0].properties.region}`}
 							</p>
 							<p>
@@ -126,7 +126,6 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							</i>
 						</div>
 					</div>
-					<h4> </h4>
 					<div>
 						<p>
 							<strong>{t("components.apiFetch.resultSingleFetch.dateTime")}: </strong> {convertTimestamp(result.geocoding.timestamp)}
@@ -182,13 +181,13 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						</p>
 					</GcdsDetails>
 
-					<div style={{ paddingTop: "40px", paddingBottom: "40px",  }}>
+					<div style={{ paddingTop: "40px", paddingBottom: "40px" }}>
 						<>
 							{result?.features?.length > 0 ? (
-								<MapComponentOL								
+								<MapComponentOL
 									mapContentJSON={[`${result.features[0].geometry.coordinates[0]},${result.features[0].geometry.coordinates[1]},${result.features[0].properties.confidence * 100}`]}
 								/>
-							): (
+							) : (
 								<p>No Results</p>
 							)}
 						</>

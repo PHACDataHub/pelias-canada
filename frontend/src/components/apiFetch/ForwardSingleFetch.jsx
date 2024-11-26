@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { GcdsButton } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
 import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -106,7 +106,9 @@ export default function ForwardSinglefetch({ onResponseData }) {
 	return (
 		<>
 			<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-around", gap: "10px" }}>
-				<h4>{t("components.apiFetch.forwardSingleFetch.inputHeader")}</h4>
+				<GcdsHeading tag="h3" characterLimit="false">
+					{t("components.apiFetch.forwardSingleFetch.inputHeader")}
+				</GcdsHeading>
 				<form
 					onSubmit={handleSubmit}
 					style={{
