@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import { GcdsButton, GcdsDetails, GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsDetails, GcdsGrid, GcdsHeading } from "@cdssnc/gcds-components-react"
 import MapComponentOL from "../map/MapComponent"
 import PercentageCircle from "../PercentageCircle"
 import { copyToClipboard } from "../../assets/copyToClipboard"
@@ -86,26 +86,26 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 
 			{result && result.features && result.features[0] && (
 				<div>
+					<hr style={{ marginTop: "50px" }} />
 					<GcdsHeading tag="h2" characterLimit="false">
-						{t("components.apiFetch.resultSingleFetch.infoReturn")}{" "}
+						{t("components.forwardBulk.mapReady.resultsHeader")}
 					</GcdsHeading>
+
 					<div style={{ border: "1px solid black", padding: "4px" }}>
-						<div></div>
-						<div>
-							<p>
-								<strong>{t("components.apiFetch.resultSingleFetch.addressReturn")}: </strong>
-								{result.features[0].properties.housenumber !== undefined ? ` ${result.features[0].properties.housenumber + " "}` : null}
-								{result.features[0].properties.street !== undefined ? `${result.features[0].properties.street + ", "}` : null}
-								{`${result.features[0].properties.locality}, ${result.features[0].properties.region}`}
-							</p>
-							<p>
-								<strong>{t("components.apiFetch.resultSingleFetch.geoReturn")}: </strong>
-								{`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
-							</p>
-						</div>
-						<div style={{ display: "flex", justifyContent: "space-evenly" }}>
+						<GcdsHeading tag="h3"> {t("components.apiFetch.resultSingleFetch.infoReturn")}:</GcdsHeading>
+						<p>
+							<strong>{t("components.apiFetch.resultSingleFetch.addressReturn")}: </strong>
+							{result.features[0].properties.housenumber !== undefined ? ` ${result.features[0].properties.housenumber + " "}` : null}
+							{result.features[0].properties.street !== undefined ? `${result.features[0].properties.street + ", "}` : null}
+							{`${result.features[0].properties.locality}, ${result.features[0].properties.region}`}
+						</p>
+						<p>
+							<strong>{t("components.apiFetch.resultSingleFetch.geoReturn")}: </strong>
+							{`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
+						</p>
+						<GcdsGrid columns="repeat(auto-fit, minmax(50px, 250px))" justifyContent="space-evenly" >
 							<div>
-								<p>{t("components.apiFetch.resultSingleFetch.confidence")} </p>
+								<p>{t("components.apiFetch.resultSingleFetch.confidence")}: </p>
 								<PercentageCircle confidencePercentage={result.features[0].properties.confidence} />
 							</div>
 							<div style={{ display: "flex", flexDirection: "column" }}>
@@ -119,7 +119,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 									<strong>{t("components.apiFetch.resultSingleFetch.source")}: </strong> {result.features[0].properties.source}
 								</p>
 							</div>
-						</div>
+						</GcdsGrid>
 						<div style={{ display: "flex", justifyContent: "flex-end", fontSize: "11px" }}>
 							<i>
 								{t("components.apiFetch.resultSingleFetch.infoVersion")} v{result.geocoding.version}

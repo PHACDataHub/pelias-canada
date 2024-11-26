@@ -23,12 +23,11 @@ export default function PercentageCircle({ confidencePercentage }) {
 
 	return (
 		<div>
-			<svg className="percentage-circle" width="200" height="200">
-				<circle className="percentage-circle-background" cx="100" cy="100" r={radius} stroke="#e6e6e6" strokeWidth="10" fill="transparent" />
+			<svg className="percentage-circle" width="200" height="150">
+				<circle className="percentage-circle-background" cx="100" cy="60" r={radius} stroke="#e6e6e6" strokeWidth="10" fill="transparent" />
 				<circle
 					className="percentage-circle-progress"
-					cx="100"
-					cy="100"
+					cx="100" cy="60"
 					r={radius}
 					style={{
 						stroke: color,
@@ -41,7 +40,7 @@ export default function PercentageCircle({ confidencePercentage }) {
 				/>
 				<text
 					x="100"
-					y="100"
+					y="60"
 					textAnchor="middle"
 					dy=".3em"
 					fontSize="20px"
