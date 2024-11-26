@@ -9,7 +9,7 @@
 			},
 			"resultSingleFetch": {
 				"infoReturn": "Information returned",
-				"addressReturn": "Address returned for ",
+				"addressReturn": "Address returned for",
 				"geoReturn": "Geolocation returned for (longitude, latitude)",
 				"confidence": "Confidence in search results",
 				"matchType": "Match Type",
