@@ -2,7 +2,7 @@ import { useState } from "react"
 import ForwardSinglefetch from "../../components/apiFetch/ForwardSingleFetch"
 import SingleFetchResults from "../../components/apiFetch/ResultsSingleFetch"
 import UseLocationButton from "../../components/apiFetch/UseLocationButton"
-import { GcdsButton, GcdsContainer, GcdsGrid } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsContainer, GcdsGrid, GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
 import ReverseSingleFetch from "../../components/apiFetch/ReverseSingleFetch"
 import { useTranslation } from "react-i18next"
 
@@ -36,12 +36,12 @@ export default function LandingPage() {
 	// if (forwardResponsedata !== "") {
 	// 	console.log(forwardResponsedata);
 	// }
-	
+
 	// // Check and log reverseResponsedata if it's not an empty string
 	// if (reverseResponsedata !== "") {
 	// 	console.log(reverseResponsedata);
 	// }
-	
+
 	// // Check and log useLocationButtonResults if it's not an empty string
 	// if (useLocationButtonResults !== "") {
 	// 	console.log(useLocationButtonResults);
@@ -111,20 +111,12 @@ export default function LandingPage() {
 				role="main" // Landmark role for main content
 				aria-labelledby="main-title" // Associate container with a heading
 			>
-				<section aria-labelledby="section1-title">
-					{/* Heading and description for the main content */}
-					{/* <h2 id="section1-title" style={{ textAlign: "justify", fontWeight: "normal", paddingTop: "15px", paddingBottom: "15px" }}>
-						{t("pages.landingPage.underHeader")}
-					</h2>
-					<LandingPageCardFLipSection />
-					<h3 style={{ textAlign: "justify", fontWeight: "normal", paddingTop: "15px", paddingBottom: "15px" }}>
-						{t("pages.landingPage.cardFlipCaption")}
-					</h3> */}
-					<p>{t("pages.landingPage.landingPagePara")}</p> {/* Main paragraph text */}
+				<section>
+					<GcdsText characterLimit="false">{t("pages.landingPage.landingPagePara")}</GcdsText> {/* Main paragraph text */}
 				</section>
 
 				<section aria-labelledby="section2-title">
-					<h2 id="section2-title">{t("pages.landingPage.apiSectionTitle")}</h2> {/* Section heading for API-related content */}
+					<GcdsHeading tag="h2">{t("pages.landingPage.apiSectionTitle")}</GcdsHeading> {/* Section heading for API-related content */}
 					<GcdsGrid container="xl" columns="repeat(auto-fit, minmax(100px, 300px))" justifyContent="space-evenly" equalRowHeight>
 						{/* Container for ForwardSinglefetch component */}
 						<div style={{ display: "flex", justifyContent: "center" }}>
