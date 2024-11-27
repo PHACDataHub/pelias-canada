@@ -2,10 +2,20 @@
 	"components": {
 		"apiFetch": {
 			"forwardSingleFetch": {
-				"inputHeader": "Enter an address, a city, and a province",
+				"inputHeader": "Enter a Canadian address, city, and province",
 				"address": "Address",
 				"city": "City",
-				"province": "Province"
+				"province": "Province",
+				"complete": "Address search completed successfully.",
+				"search": "Search the address",
+				"reset": "Reset the address",
+				"alerts": {
+					"formReset": "The form has been reset.",
+					"error": "An error occurred",
+					"address": "Address is required",
+					"city": "City is required",
+					"province": "Province is required"
+				}
 			},
 			"resultSingleFetch": {
 				"infoReturn": "Information returned",
@@ -149,7 +159,7 @@
 				"inquire": "Inquiring About Products or Services",
 				"followingUp": "Following Up on a Previous Request"
 			},
-			"formTitle":"Give feedback, ask for help or contact us to find out more. ",
+			"formTitle": "Give feedback, ask for help or contact us to find out more. ",
 			"name": "Name",
 			"email": "Email",
 			"message": "Message",
@@ -163,7 +173,7 @@
 		"faq": {
 			"title": "Frequently Asked Questions",
 			"nav": "Navigation",
-			"category" : "Category"
+			"category": "Category"
 		},
 		"forwardBulk": {
 			"BulkGeocodingInput": {
@@ -304,6 +314,7 @@
 			},
 			"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. ",
 			"apiSectionTitle": "Try Our Service",
+			"apiSectionPara": "This is a Canadian-only service, with all offers limited to locations within Canada. We can only provide geolocation data for addresses within the provinces and territories of Canada, which means that we cannot support international addresses or geolocations outside of Canada.",
 			"clearResults": "Clear the Results"
 		},
 		"python": {
@@ -351,7 +362,8 @@
 	"legend": {
 		"confidence": "Confidence"
 	},
-	"navigateToSection": "Navigate to section" ,
+	"loading": "Loading",
+	"navigateToSection": "Navigate to section",
 	"search": "Search",
 	"tableOfContents": "Table of contents",
 	"reset": "Reset"

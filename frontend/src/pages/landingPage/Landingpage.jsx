@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ForwardSinglefetch from "../../components/apiFetch/ForwardSingleFetch"
 import SingleFetchResults from "../../components/apiFetch/ResultsSingleFetch"
 import UseLocationButton from "../../components/apiFetch/UseLocationButton"
@@ -46,6 +46,14 @@ export default function LandingPage() {
 	// if (useLocationButtonResults !== "") {
 	// 	console.log(useLocationButtonResults);
 	// }
+	const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1080)
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(min-width: 1080px)")
+		const handleMediaChange = () => setIsWideScreen(mediaQuery.matches)
+
+		mediaQuery.addEventListener("change", handleMediaChange)
+		return () => mediaQuery.removeEventListener("change", handleMediaChange)
+	}, [])
 
 	return (
 		<>
@@ -114,27 +122,26 @@ export default function LandingPage() {
 				<section>
 					<GcdsText characterLimit="false">{t("pages.landingPage.landingPagePara")}</GcdsText> {/* Main paragraph text */}
 				</section>
-
-				<section aria-labelledby="section2-title">
+				<div>
 					<GcdsHeading tag="h2">{t("pages.landingPage.apiSectionTitle")}</GcdsHeading> {/* Section heading for API-related content */}
-					<GcdsGrid container="xl" columns="repeat(auto-fit, minmax(100px, 300px))" justifyContent="space-evenly" equalRowHeight>
+					<GcdsText  characterLimit="false"><em> {t("pages.landingPage.apiSectionPara")} </em></GcdsText> {/* Section heading for API-related content */}
+
+					<GcdsGrid
+						container="xl"
+						columns="repeat(auto-fit, minmax(100px, 300px))"
+						justifyContent="space-evenly"
+						{...(isWideScreen ? { equalRowHeight: true } : {})} // Apply equalRowHeight only if isWideScreen is true}
+					>
 						{/* Container for ForwardSinglefetch component */}
-						<div style={{ display: "flex", justifyContent: "center" }}>
+						<div>
 							<ForwardSinglefetch onResponseData={handleForwardResponseData} />
 						</div>
 						{/* Container for UseLocationButton component */}
-						<div
-							style={{
-								display: "flex",
-								alignContent: "center",
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-						>
+						<div>
 							<UseLocationButton ButtonResponseData={handleUseButtonLocationResponseData} />
 						</div>
 						{/* Container for ReverseSingleFetch component */}
-						<div style={{ display: "flex", justifyContent: "center" }}>
+						<div>
 							<ReverseSingleFetch onResponseData={handleReverseResponseData} />
 						</div>
 					</GcdsGrid>
@@ -142,6 +149,8 @@ export default function LandingPage() {
 					{(useLocationButtonResults !== "" || forwardResponsedata !== "" || reverseResponsedata !== "") && (
 						<>
 							<div>
+								<br />
+								<hr />
 								<br />
 								<GcdsButton
 									buttonId="clear-results"
@@ -155,7 +164,7 @@ export default function LandingPage() {
 						</>
 					)}
 					<SingleFetchResults forwardResponse={forwardResponsedata} buttonResponse={useLocationButtonResults} reverseResponse={reverseResponsedata} />
-				</section>
+				</div>
 			</GcdsContainer>
 		</>
 	)

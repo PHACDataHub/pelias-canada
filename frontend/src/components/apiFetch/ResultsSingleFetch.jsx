@@ -83,14 +83,11 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
       <p>buttonResponse Response: {JSON.stringify(buttonResponse)}</p>
       <p>reverseResponse Response: {JSON.stringify(reverseResponse)}</p>
       */}
-
 			{result && result.features && result.features[0] && (
 				<div>
-					<hr style={{ marginTop: "50px" }} />
 					<GcdsHeading tag="h2" characterLimit="false">
 						{t("components.forwardBulk.mapReady.resultsHeader")}
 					</GcdsHeading>
-
 					<div style={{ border: "1px solid black", padding: "4px" }}>
 						<GcdsHeading tag="h3"> {t("components.apiFetch.resultSingleFetch.infoReturn")}:</GcdsHeading>
 						<p>
@@ -103,7 +100,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							<strong>{t("components.apiFetch.resultSingleFetch.geoReturn")}: </strong>
 							{`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
 						</p>
-						<GcdsGrid columns="repeat(auto-fit, minmax(50px, 250px))" justifyContent="space-evenly" >
+						<GcdsGrid columns="repeat(auto-fit, minmax(50px, 250px))" justifyContent="space-evenly">
 							<div>
 								<p>{t("components.apiFetch.resultSingleFetch.confidence")}: </p>
 								<PercentageCircle confidencePercentage={result.features[0].properties.confidence} />
