@@ -192,60 +192,66 @@ export default function ForwardSinglefetch({ onResponseData }) {
 	}, [i18n.language])
 
 	return (
-		<>
-			<div>
-				<GcdsHeading tag="h3" characterLimit="false">
-					{t("components.apiFetch.forwardSingleFetch.inputHeader")}
-				</GcdsHeading>
-				<form onSubmit={handleSubmit} key={i18n.language}>
-					<br />
-					<GcdsInput
-						label={t("components.apiFetch.forwardSingleFetch.address")}
-						required
-						type="text"
-						id="address"
-						name="address"
-						value={formData.address}
-						onGcdsChange={handleInputChange}
-						lang={i18n.language}
-						errorMessage={errors.address}
-					/>
-					<GcdsInput
-						label={t("components.apiFetch.forwardSingleFetch.city")}
-						required
-						type="text"
-						id="city"
-						name="city"
-						value={formData.city}
-						onGcdsChange={handleInputChange}
-						lang={i18n.language}
-						errorMessage={errors.city}
-					/>
-					<GcdsInput
-						label={t("components.apiFetch.forwardSingleFetch.province")}
-						required
-						type="text"
-						id="province"
-						name="province"
-						value={formData.province}
-						onGcdsChange={handleInputChange}
-						lang={i18n.language}
-						errorMessage={errors.province}
-					/>
-					<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
-						<GcdsButton type="submit">{t("components.apiFetch.forwardSingleFetch.search")}</GcdsButton>
-						<GcdsButton type="button" onClick={handleReset} variant="secondary">
-							{t("components.apiFetch.forwardSingleFetch.reset")}
-						</GcdsButton>
-					</div>
-				</form>
-				<div aria-live="polite" aria-atomic="true" style={{ position: "absolute", left: "-9999px" }}>
-					{loading && t("loading")}
-					{!loading && responseData && t("components.apiFetch.forwardSingleFetch.complete")}
+		<div>
+			<GcdsHeading tag="h3" characterLimit="false">
+				{t("components.apiFetch.forwardSingleFetch.inputHeader")}
+			</GcdsHeading>
+			<form onSubmit={handleSubmit} key={i18n.language}>
+				<br />
+				<GcdsInput
+					label={t("components.apiFetch.forwardSingleFetch.address")}
+					required
+					type="text"
+					id="address"
+					name="address"
+					value={formData.address}
+					onGcdsChange={handleInputChange}
+					lang={i18n.language}
+					errorMessage={errors.address}
+				/>
+				<GcdsInput
+					label={t("components.apiFetch.forwardSingleFetch.city")}
+					required
+					type="text"
+					id="city"
+					name="city"
+					value={formData.city}
+					onGcdsChange={handleInputChange}
+					lang={i18n.language}
+					errorMessage={errors.city}
+				/>
+				<GcdsInput
+					label={t("components.apiFetch.forwardSingleFetch.province")}
+					required
+					type="text"
+					id="province"
+					name="province"
+					value={formData.province}
+					onGcdsChange={handleInputChange}
+					lang={i18n.language}
+					errorMessage={errors.province}
+				/>
+				<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
+					<GcdsButton type="submit" buttonId={t("components.apiFetch.forwardSingleFetch.search")} name={t("components.apiFetch.forwardSingleFetch.search")}>
+						{t("components.apiFetch.forwardSingleFetch.search")}
+					</GcdsButton>
+					<GcdsButton
+						type="button"
+						onClick={handleReset}
+						variant="secondary"
+						buttonId={t("components.apiFetch.forwardSingleFetch.reset")}
+						name={t("components.apiFetch.forwardSingleFetch.reset")}
+					>
+						{t("components.apiFetch.forwardSingleFetch.reset")}
+					</GcdsButton>
 				</div>
-				{loading === true ? <Loading /> : null}
-				{responseData === true ? "responseData" : null}
+			</form>
+			<div aria-live="polite" aria-atomic="true" style={{ position: "absolute", left: "-9999px" }}>
+				{loading && t("loading")}
+				{!loading && responseData && t("components.apiFetch.forwardSingleFetch.complete")}
 			</div>
-		</>
+			{loading === true ? <Loading /> : null}
+			{responseData === true ? "responseData" : null}
+		</div>
 	)
 }

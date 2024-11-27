@@ -22,12 +22,12 @@ export default function PercentageCircle({ confidencePercentage }) {
 	const centerText = `${(confidencePercentage * 100).toFixed(1)}%`
 
 	return (
-		<div>
-			<svg className="percentage-circle" width="200" height="150">
-				<circle className="percentage-circle-background" cx="100" cy="60" r={radius} stroke="#e6e6e6" strokeWidth="10" fill="transparent" />
+		<div >
+			<svg className="percentage-circle" width="120" height="120" >
+				<circle className="percentage-circle-background" cx="60" cy="60" r={radius} stroke="#e6e6e6" strokeWidth="10" fill="transparent" />
 				<circle
 					className="percentage-circle-progress"
-					cx="100" cy="60"
+					cx="60" cy="60"
 					r={radius}
 					style={{
 						stroke: color,
@@ -38,8 +38,9 @@ export default function PercentageCircle({ confidencePercentage }) {
 						strokeDashoffset: strokeDashoffset,
 					}}
 				/>
+			
 				<text
-					x="100"
+					x="60"
 					y="60"
 					textAnchor="middle"
 					dy=".3em"

@@ -10,7 +10,7 @@
 				"search": "Rechercher l'adresse",
 				"reset": "Réinitialiser l'adresse",
 				"alerts": {
-					"formReset": "Le formulaire a été réinitialisé.",
+					"formReset": "Le formulaire de l'adresse a été réinitialisé.",
 					"error": "Une erreur s'est produite",
 					"address": "L'Adresse est requise",
 					"city": "La ville est requise",
@@ -23,6 +23,7 @@
 				"geoReturn": "Géolocalisation renvoyée pour (longitude, latitude)",
 				"confidence": "Confiance dans le résultat de la recherche",
 				"matchType": "Type de match",
+				"na": "Aucun type de correspondance n'a été trouvé",
 				"accuracy": "Précision",
 				"source": "Source",
 				"infoVersion": "Informations fournies par Pelias Geocoder",
@@ -43,7 +44,7 @@
 			"useLocationButton": {
 				"header": "Utilisez le bouton pour détecter votre position",
 				"warning": "Veuillez noter que l'accès à un site web l'accès doit être autorisé",
-				"getLocation": "Obtenir l'emplacement"
+				"getLocation": "Obtenir votre position"
 			}
 		},
 		"CodeZips": {
@@ -314,7 +315,7 @@
 			},
 			"landingPagePara": "Le développement de services de géolocalisation internes (c'est-à-dire le géocodage par lots) au sein de l'ASPC garantissant des résultats précis, rentables, sécurisés, fiables et transparents est le point de départ commun mais important de multiples parcours analytiques et spatiaux. Les phases comprennent l'exploration technologique, le prototypage, l'affinage sur la base de l'interaction avec l'utilisateur et l'extension de la couverture. Parmi les avantages, citons l'amélioration de la confidentialité, les économies, la traçabilité, l'indépendance par rapport aux ressources externes, la flexibilité et la modularité. Évite de dépendre de services tiers, garantissant que les données restent dans le réseau de l'ASPC et réduisant les coûts associés aux ressources externes.  ",
 			"apiSectionTitle": "Essayez notre service",
-			"apiSectionPara": "Il s'agit d'un service exclusivement canadien, toutes les offres étant limitées à des lieux situés au Canada. Nous ne pouvons fournir des données de géolocalisation que pour les adresses situées dans les provinces et territoires du Canada, ce qui signifie que nous ne pouvons pas prendre en charge les adresses internationales ou les géolocalisations en dehors du Canada.",
+			"apiSectionPara": "Il s'agit d'un service exclusivement canadien, toutes les offres étant limitées aux lieux situés à l'intérieur des frontières nationales. Nous ne pouvons fournir des données de géolocalisation que pour les adresses situées dans les provinces et territoires du Canada, ce qui signifie que nous ne pouvons pas prendre en charge les adresses ou les géolocalisations internationales en tant qu'entrées.",
 			"clearResults": "Effacer les résultats"
 		},
 		"python": {

@@ -68,71 +68,69 @@ export default function ReverseSinglefetch({ onResponseData }) {
 	}
 
 	return (
-		<>
-			<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "10px" }}>
-				<GcdsHeading tag="h3" characterLimit="false">
-					{t("components.apiFetch.reverseSingleFetch.inputHeader")}{" "}
-				</GcdsHeading>
+		<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "10px" }}>
+			<GcdsHeading tag="h3" characterLimit="false">
+				{t("components.apiFetch.reverseSingleFetch.inputHeader")}{" "}
+			</GcdsHeading>
 
-				<form
-					onSubmit={handleSubmit}
+			<form
+				onSubmit={handleSubmit}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: "10px",
+					alignItems: "center",
+				}}
+			>
+				<div
 					style={{
 						display: "flex",
-						flexDirection: "column",
-						gap: "10px",
-						alignItems: "center",
+						width: "300px",
+						justifyContent: "space-between",
 					}}
 				>
-					<div
-						style={{
-							display: "flex",
-							width: "300px",
-							justifyContent: "space-between",
+					<label>{t("components.apiFetch.reverseSingleFetch.long")}:</label>
+					<input required type="text" value={longitude} onChange={e => setLongitude(e.target.value)} placeholder="-79.387054" />
+				</div>
+				<div
+					style={{
+						display: "flex",
+						width: "300px",
+						justifyContent: "space-between",
+					}}
+				>
+					<label>{t("components.apiFetch.reverseSingleFetch.lat")}:</label>
+					<input required type="text" value={latitude} onChange={e => setLatitude(e.target.value)} placeholder="43.642567" />
+				</div>
+				<br />
+				<div
+					style={{
+						display: "flex",
+						alignItems: "flex-end",
+						width: "300px",
+						justifyContent: "space-around",
+						marginBottom: "2",
+					}}
+				>
+					<GcdsButton type="submit" buttonId="submit reverse geolocation" size="small" name="submit reverse geolocation">
+						{t("search")}
+					</GcdsButton>
+					<GcdsButton
+						type="reset"
+						buttonRole="secondary"
+						buttonId="reset reverse geolocation"
+						size="small"
+						name="submit reverse geolocation"
+						onClick={() => {
+							setLatitude("")
+							setLongitude("")
 						}}
 					>
-						<label>{t("components.apiFetch.reverseSingleFetch.long")}:</label>
-						<input required type="text" value={longitude} onChange={e => setLongitude(e.target.value)} placeholder="-79.387054" />
-					</div>
-					<div
-						style={{
-							display: "flex",
-							width: "300px",
-							justifyContent: "space-between",
-						}}
-					>
-						<label>{t("components.apiFetch.reverseSingleFetch.lat")}:</label>
-						<input required type="text" value={latitude} onChange={e => setLatitude(e.target.value)} placeholder="43.642567" />
-					</div>
-					<br />
-					<div
-						style={{
-							display: "flex",
-							alignItems: "flex-end",
-							width: "300px",
-							justifyContent: "space-around",
-							marginBottom: "2",
-						}}
-					>
-						<GcdsButton type="submit" buttonId="submit reverse geolocation" size="small" name="submit reverse geolocation">
-							{t("search")}
-						</GcdsButton>
-						<GcdsButton
-							type="reset"
-							buttonRole="secondary"
-							buttonId="reset reverse geolocation"
-							size="small"
-							name="submit reverse geolocation"
-							onClick={() => {
-								setLatitude("")
-								setLongitude("")
-							}}
-						>
-							{t("reset")}
-						</GcdsButton>
-					</div>
-				</form>
-				{loading === false ? null : "Loading"}
-			</div>
-		</>
+						{t("reset")}
+					</GcdsButton>
+				</div>
+			</form>
+			{loading === false ? null : "Loading"}
+		</div>
 	)
 }

@@ -101,13 +101,19 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 							{`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
 						</p>
 						<GcdsGrid columns="repeat(auto-fit, minmax(50px, 250px))" justifyContent="space-evenly">
-							<div>
-								<p>{t("components.apiFetch.resultSingleFetch.confidence")}: </p>
-								<PercentageCircle confidencePercentage={result.features[0].properties.confidence} />
+							<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+								<p>{t("components.apiFetch.resultSingleFetch.confidence")}:</p>
+								{result.features[0]?.properties?.confidence !== undefined ? (
+									<PercentageCircle confidencePercentage={result.features[0].properties.confidence} />
+								) : (
+									<p>{t("components.apiFetch.resultSingleFetch.noConfidenceData")}</p>
+								)}
 							</div>
+
 							<div style={{ display: "flex", flexDirection: "column" }}>
 								<p>
-									<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong> {result.features[0].properties.match_type || "n/a"}
+									<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong>{" "}
+									{result.features[0].properties.match_type || t("components.apiFetch.resultSingleFetch.na")}
 								</p>
 								<p>
 									<strong>{t("components.apiFetch.resultSingleFetch.accuracy")}: </strong> {result.features[0].properties.accuracy}
