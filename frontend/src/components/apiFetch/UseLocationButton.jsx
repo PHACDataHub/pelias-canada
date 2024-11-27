@@ -1,4 +1,4 @@
-import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import PropTypes from "prop-types"
@@ -80,11 +80,9 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 			<GcdsHeading tag="h3" characterLimit="false">
 				{t("components.apiFetch.useLocationButton.header")}
 			</GcdsHeading>
-			<p style={{ textAlign: "center", paddingLeft: "15px", paddingRight: "15px" }}>
-				<i>{t("components.apiFetch.useLocationButton.warning")}</i>
-			</p>
-			<br />
-
+			<GcdsText style={{ textAlign: "center", paddingLeft: "15px", paddingRight: "15px" }}>
+				<em>{t("components.apiFetch.useLocationButton.warning")}</em>
+			</GcdsText>
 			<div
 				style={{
 					paddingX: "40px",
@@ -95,7 +93,7 @@ const UseLocationButton = ({ ButtonResponseData }) => {
 					gap: "10px",
 				}}
 			>
-				<GcdsButton onClick={getLocation} center buttonId="Get Location" size="small" name="Get Location">
+				<GcdsButton onClick={getLocation} center buttonId={t("components.apiFetch.useLocationButton.getLocation")}  name={t("components.apiFetch.useLocationButton.getLocation")}>
 					{t("components.apiFetch.useLocationButton.getLocation")}
 				</GcdsButton>
 			</div>

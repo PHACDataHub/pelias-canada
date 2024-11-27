@@ -117,15 +117,15 @@ export default function LandingPage() {
 				padding="400"
 				id="main-content"
 				role="main" // Landmark role for main content
-				aria-labelledby="main-title" // Associate container with a heading
+				aria-label={t("pages.landingPage.title")} // Associate container with a heading
 			>
-				<section>
-					<GcdsText characterLimit="false">{t("pages.landingPage.landingPagePara")}</GcdsText> {/* Main paragraph text */}
-				</section>
+				<GcdsText characterLimit="false">{t("pages.landingPage.landingPagePara")}</GcdsText> {/* Main paragraph text */}
 				<div>
 					<GcdsHeading tag="h2">{t("pages.landingPage.apiSectionTitle")}</GcdsHeading> {/* Section heading for API-related content */}
-					<GcdsText  characterLimit="false"><em> {t("pages.landingPage.apiSectionPara")} </em></GcdsText> {/* Section heading for API-related content */}
-
+					<GcdsText characterLimit="false">
+						<em> {t("pages.landingPage.apiSectionPara")} </em>
+					</GcdsText>{" "}
+					{/* Section heading for API-related content */}
 					<GcdsGrid
 						container="xl"
 						columns="repeat(auto-fit, minmax(100px, 300px))"
@@ -154,8 +154,8 @@ export default function LandingPage() {
 								<br />
 								<GcdsButton
 									buttonId="clear-results"
-									size="small"
-									name="Clear Results"
+									name={t("pages.landingPage.clearResults")}
+									aria-label={t("pages.landingPage.clearResults")}
 									onClick={resetData} // Clear all results
 								>
 									{t("pages.landingPage.clearResults")}
