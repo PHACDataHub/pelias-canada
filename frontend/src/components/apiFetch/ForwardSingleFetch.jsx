@@ -1,33 +1,65 @@
-import { useState } from "react"
-import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
-import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
+import { useEffect, useState } from "react"
+import { GcdsButton, GcdsHeading, GcdsInput } from "@cdssnc/gcds-components-react"
+import "@cdssnc/gcds-components-react/gcds.css"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PropTypes from "prop-types"
 import { useTranslation } from "react-i18next"
+import Loading from "../Loading"
 
 ForwardSinglefetch.propTypes = {
 	onResponseData: PropTypes.func.isRequired,
 }
 
 export default function ForwardSinglefetch({ onResponseData }) {
-	const [address, setAddress] = useState("")
-	const [city, setCity] = useState("")
-	const [province, setProvince] = useState("")
+	const { t, i18n } = useTranslation()
+	const [formData, setFormData] = useState({
+		address: "",
+		city: "",
+		province: "",
+	})
+
+	const [errors, setErrors] = useState({
+		address: "",
+		city: "",
+		province: "",
+	})
+
 	const [loading, setLoading] = useState(false)
-	const { t } = useTranslation()
+	const [responseData, setResponseData] = useState(null) // State to store the API response
 
-	const handleSubmit = e => {
-		e.preventDefault()
-		const fullAddress = `${address.trim()}, ${city.trim()}, ${province.trim()}`
+	// Handle input changes
+	const handleInputChange = event => {
+		const { name, value } = event.target
 
-		if (!address || !city || !province) {
-			toast.error("Please enter address, city, and province.")
-			return
-		}
-		sendRequest(fullAddress)
+		// Update form data
+		setFormData({ ...formData, [name]: value })
+
+		// Validate the current field only
+		setErrors(prevErrors => ({
+			...prevErrors,
+			[name]: value.trim() ? "" : `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
+		}))
 	}
 
+	// Validate form data
+	// eslint-disable-next-line no-unused-vars
+	const validateForm = () => {
+		const newErrors = {}
+		if (!formData.address) {
+			newErrors.address = t("components.apiFetch.forwardSingleFetch.alerts.address")
+		}
+		if (!formData.city) {
+			newErrors.city = t("components.apiFetch.forwardSingleFetch.alerts.city")
+		}
+		if (!formData.province) {
+			newErrors.province = t("components.apiFetch.forwardSingleFetch.alerts.province")
+		}
+		setErrors(newErrors)
+		return Object.keys(newErrors).length === 0
+	}
+
+	// Address parsing function
 	const extractApartmentNumber = address => {
 		const aptPattern1 = /\b\d+\s*-\s*\d+\b/ // Matches patterns like 711 - 3100
 		const aptPattern2 = /\b\d+\b/ // Matches standalone numbers like 120
@@ -65,6 +97,34 @@ export default function ForwardSinglefetch({ onResponseData }) {
 		return { streetAddress, apartmentNumber, unitNumber }
 	}
 
+	// Submit form with address validation and API request
+	const handleSubmit = e => {
+		e.preventDefault()
+
+		// Validate all fields at once
+		const newErrors = {
+			address: formData.address.trim() ? "" : t("components.apiFetch.forwardSingleFetch.alerts.address"),
+			city: formData.city.trim() ? "" : t("components.apiFetch.forwardSingleFetch.alerts.city"),
+			province: formData.province.trim() ? "" : t("components.apiFetch.forwardSingleFetch.alerts.province"),
+		}
+
+		setErrors(newErrors)
+
+		// Display toasts only for newly detected errors
+		Object.keys(newErrors).forEach(key => {
+			if (newErrors[key] && !errors[key]) {
+				return
+			}
+		})
+
+		// Prevent submission if any errors exist
+		if (Object.values(newErrors).some(error => error)) return
+
+		const fullAddress = `${formData.address.trim()}, ${formData.city.trim()}, ${formData.province.trim()}`
+		sendRequest(fullAddress)
+	}
+
+	// Send request to geocoder API
 	const sendRequest = fullAddress => {
 		setLoading(true)
 
@@ -80,8 +140,8 @@ export default function ForwardSinglefetch({ onResponseData }) {
 				return response.json()
 			})
 			.then(data => {
-				// console.log("Received data:", data)
 				setLoading(false)
+				setResponseData(data) // Store the API response in state
 
 				if (data.features && data.features.length > 0) {
 					const result = {
@@ -89,92 +149,102 @@ export default function ForwardSinglefetch({ onResponseData }) {
 						apartmentNumber,
 						unitNumber,
 					}
-
 					onResponseData(result)
 				} else {
 					const result = { ...data, apartmentNumber, unitNumber }
-					onResponseData(result) // <-- Call the callback here
+					onResponseData(result)
 				}
 			})
 			.catch(error => {
 				console.error("Error:", error)
-				toast.error("An error occurred. Please try again later.")
+				toast.error(`${t("components.apiFetch.forwardSingleFetch.alerts.error")} ${error}`)
 				setLoading(false)
 			})
 	}
 
+	// Handle form reset
+	const handleReset = () => {
+		setFormData({
+			address: "",
+			city: "",
+			province: "",
+		})
+		setErrors({
+			address: "",
+			city: "",
+			province: "",
+		})
+		toast.info(t("components.apiFetch.forwardSingleFetch.alerts.formReset"))
+	}
+
+	// Reset form when the language changes
+	useEffect(() => {
+		setFormData({
+			address: "",
+			city: "",
+			province: "",
+		})
+		setErrors({
+			address: "",
+			city: "",
+			province: "",
+		})
+	}, [i18n.language])
+
 	return (
 		<>
-			<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-around", gap: "10px" }}>
+			<div>
 				<GcdsHeading tag="h3" characterLimit="false">
 					{t("components.apiFetch.forwardSingleFetch.inputHeader")}
 				</GcdsHeading>
-				<form
-					onSubmit={handleSubmit}
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: "10px",
-						alignItems: "center",
-					}}
-				>
-					<div
-						style={{
-							display: "flex",
-							width: "300px",
-							justifyContent: "space-between",
-						}}
-					>
-						<label>{t("components.apiFetch.forwardSingleFetch.address")}:</label>
-						<input required type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder="110 Laurier Ave W" />
-					</div>
-					<div
-						style={{
-							display: "flex",
-							width: "300px",
-							justifyContent: "space-between",
-						}}
-					>
-						<label>{t("components.apiFetch.forwardSingleFetch.city")}:</label>
-						<input required type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Ottawa" />
-					</div>
-					<div
-						style={{
-							display: "flex",
-							width: "300px",
-							justifyContent: "space-between",
-						}}
-					>
-						<label>{t("components.apiFetch.forwardSingleFetch.province")}:</label>
-						<input required type="text" value={province} onChange={e => setProvince(e.target.value)} placeholder="ON" />
-					</div>
-					<div
-						style={{
-							display: "flex",
-							width: "300px",
-							justifyContent: "space-around",
-						}}
-					>
-						<GcdsButton type="submit" buttonId="submit forward geolocation" size="small" name="submit forward geolocation">
-							{t("search")}
-						</GcdsButton>
-						<GcdsButton
-							type="reset"
-							buttonRole="secondary"
-							buttonId="reset forward geolocation"
-							size="small"
-							name="reset forward geolocation"
-							onClick={() => {
-								setAddress("")
-								setCity("")
-								setProvince("")
-							}}
-						>
-							{t("reset")}
+				<form onSubmit={handleSubmit} key={i18n.language}>
+					<br />
+					<GcdsInput
+						label={t("components.apiFetch.forwardSingleFetch.address")}
+						required
+						type="text"
+						id="address"
+						name="address"
+						value={formData.address}
+						onGcdsChange={handleInputChange}
+						lang={i18n.language}
+						errorMessage={errors.address}
+					/>
+					<GcdsInput
+						label={t("components.apiFetch.forwardSingleFetch.city")}
+						required
+						type="text"
+						id="city"
+						name="city"
+						value={formData.city}
+						onGcdsChange={handleInputChange}
+						lang={i18n.language}
+						errorMessage={errors.city}
+					/>
+					<GcdsInput
+						label={t("components.apiFetch.forwardSingleFetch.province")}
+						required
+						type="text"
+						id="province"
+						name="province"
+						value={formData.province}
+						onGcdsChange={handleInputChange}
+						lang={i18n.language}
+						errorMessage={errors.province}
+					/>
+					<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
+						<GcdsButton type="submit">{t("components.apiFetch.forwardSingleFetch.search")}</GcdsButton>
+						<GcdsButton type="button" onClick={handleReset} variant="secondary">
+							{t("components.apiFetch.forwardSingleFetch.reset")}
 						</GcdsButton>
 					</div>
 				</form>
-				{loading === false ? null : "Loading"}
+				<div aria-live="polite" aria-atomic="true" style={{ position: "absolute", left: "-9999px" }}>
+					{loading && t("loading")}
+					{!loading && responseData && t("components.apiFetch.forwardSingleFetch.complete")}
+				</div>
+				{loading === true ? <Loading /> : null}
+				{responseData === true ? "responseData" : null}
 			</div>
 		</>
 	)
