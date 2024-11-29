@@ -59,7 +59,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 		return Object.keys(newErrors).length === 0
 	}
 
-	// Address parsing function
+	// Address parsing function with fallback
 	const extractApartmentNumber = address => {
 		const aptPattern1 = /\b\d+\s*-\s*\d+\b/ // Matches patterns like 711 - 3100
 		const aptPattern2 = /\b\d+\b/ // Matches standalone numbers like 120
@@ -94,6 +94,8 @@ export default function ForwardSinglefetch({ onResponseData }) {
 			}
 		}
 
+		// Ensure there is a streetAddress even if there's no apartment number
+		streetAddress = streetAddress || mainAddress
 		return { streetAddress, apartmentNumber, unitNumber }
 	}
 
@@ -125,12 +127,20 @@ export default function ForwardSinglefetch({ onResponseData }) {
 	}
 
 	// Send request to geocoder API
+	// Send request to geocoder API
+	// Send request to geocoder API
 	const sendRequest = fullAddress => {
 		setLoading(true)
 
 		const { streetAddress, apartmentNumber, unitNumber } = extractApartmentNumber(fullAddress)
 
-		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(streetAddress)}`
+		// If no street address is found, use the full address as fallback
+		if (!streetAddress) {
+			console.warn("No street address found. Using full address:", fullAddress)
+		}
+
+		// Fallback URL if no specific street address found
+		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(streetAddress || fullAddress)}`
 
 		fetch(url)
 			.then(response => {
@@ -141,20 +151,28 @@ export default function ForwardSinglefetch({ onResponseData }) {
 			})
 			.then(data => {
 				setLoading(false)
-				setResponseData(data) // Store the API response in state
+				setResponseData(data)
 
+				// Ensure there are features and check if place_type exists
 				if (data.features && data.features.length > 0) {
-					const result = {
-						...data,
-						apartmentNumber,
-						unitNumber,
+					const firstFeature = data.features[0]
+
+					// Ensure place_type is an array before calling includes()
+					if (Array.isArray(firstFeature.place_type) && (firstFeature.place_type.includes("region") || firstFeature.place_type.includes("locality"))) {
+						toast.warn(t("components.apiFetch.forwardSingleFetch.alerts.moreSpecific"))
+					} else {
+						const result = {
+							...data,
+							apartmentNumber,
+							unitNumber,
+						}
+						onResponseData(result)
 					}
-					onResponseData(result)
 				} else {
-					const result = { ...data, apartmentNumber, unitNumber }
-					onResponseData(result)
+					toast.error(t("components.apiFetch.forwardSingleFetch.alerts.noResults"))
 				}
 			})
+
 			.catch(error => {
 				console.error("Error:", error)
 				toast.error(`${t("components.apiFetch.forwardSingleFetch.alerts.error")} ${error}`)
@@ -252,6 +270,11 @@ export default function ForwardSinglefetch({ onResponseData }) {
 			</div>
 			{loading === true ? <Loading /> : null}
 			{responseData === true ? "responseData" : null}
+			{/* <pre> 
+				{JSON.stringify(responseData, null, 2
+					
+				)}
+			</pre> */}
 		</div>
 	)
 }

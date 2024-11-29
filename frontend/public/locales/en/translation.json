@@ -14,7 +14,8 @@
 					"error": "An error occurred",
 					"address": "Address is required",
 					"city": "City is required",
-					"province": "Province is required"
+					"province": "Province is required",
+					"moreSpecific": ""
 				}
 			},
 			"resultSingleFetch": {
@@ -38,8 +39,21 @@
 			},
 			"reverseSingleFetch": {
 				"inputHeader": "Enter a Latitude and a Longitude",
-				"lat": "Latitude",
-				"long": "Longitude"
+				"latitude": "Latitude",
+				"longitude": "Longitude",
+				"complete": "The geolocation search completed successfully.",
+				"search": "Search the address",
+				"reset": "Reset the address",
+				"alerts": {
+					"formReset": "The geolocation form has been reset.",
+					"error": "An error occurred",
+					"latitude": "Latitude is required",
+					"longitude": "Longitude is required",
+					"mustBetween" : "must be between",
+					"required": "is required",
+					"moreSpecificCoords": "The coordinates not specific enough"
+
+				}
 			},
 			"useLocationButton": {
 				"header": "Use the button to detect your location",

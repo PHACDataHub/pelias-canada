@@ -15,6 +15,8 @@
 					"address": "L'Adresse est requise",
 					"city": "La ville est requise",
 					"province": "La province est requise "
+					,"moreSpecific": ""
+					
 				}
 			},
 			"resultSingleFetch": {
@@ -38,8 +40,20 @@
 			},
 			"reverseSingleFetch": {
 				"inputHeader": "Saisir une latitude et une longitude",
-				"lat": "Latitude",
-				"long": "Longitude"
+				"latitude": "Latitude",
+				"longitude": "Longitude",
+				"complete": "La recherche de géolocalisation s'est terminée avec succès",
+				"search": "Rechercher l'adresse",
+				"reset": "Réinitialiser l'adresse",
+				"alerts": {
+					"formReset": "Le formulaire de geocodage a été réinitialisé.",
+					"error": "Une erreur s'est produite",
+					"latitude": "Latitude est requise",
+					"longitude": "Longitude est requise",
+					"mustBetween" : "doit être comprise entre",
+					"required": "est requise",
+					"moreSpecificCoords": "Les coordonnées ne sont pas assez précises"
+				}
 			},
 			"useLocationButton": {
 				"header": "Utilisez le bouton pour détecter votre position",
