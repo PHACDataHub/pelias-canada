@@ -1,136 +1,153 @@
-import { useState } from "react"
-import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
-import "@cdssnc/gcds-components-react/gcds.css" // Import the CSS file if necessary
+import { useEffect, useState } from "react"
+import { GcdsButton, GcdsHeading, GcdsInput } from "@cdssnc/gcds-components-react"
+import "@cdssnc/gcds-components-react/gcds.css"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PropTypes from "prop-types"
 import { useTranslation } from "react-i18next"
+import Loading from "../Loading"
 
 ReverseSinglefetch.propTypes = {
 	onResponseData: PropTypes.func.isRequired,
 }
 
 export default function ReverseSinglefetch({ onResponseData }) {
-	const [latitude, setLatitude] = useState("")
-	const [longitude, setLongitude] = useState("")
+	const { t, i18n } = useTranslation()
+	const [formData, setFormData] = useState({ latitude: "", longitude: "" })
+	const [errors, setErrors] = useState({ latitude: "", longitude: "" })
 	const [loading, setLoading] = useState(false)
-	const { t } = useTranslation()
+	const [responseData, setResponseData] = useState(null)
 
-	const handleSubmit = e => {
-		e.preventDefault()
+	const LAT_MIN = 41.679999
+	const LAT_MAX = 83.113336
+	const LONG_MIN = -141.001087
+	const LONG_MAX = -52.622111
 
-		if (!latitude || !longitude) {
-			toast.error("Please enter a Latitude and a Longitude.")
-			return
+	const handleInputChange = e => {
+		const { name, value } = e.target
+		setFormData({ ...formData, [name]: value })
+		setErrors({ ...errors, [name]: validateField(name, parseFloat(value)) })
+	}
+
+	const handleBlur = e => {
+		const { name, value } = e.target
+		setErrors({ ...errors, [name]: validateField(name, parseFloat(value)) })
+	}
+
+	const validateField = (name, value) => {
+		if (isNaN(value)) {
+			return `${t(`components.apiFetch.reverseSingleFetch.alerts.required`)}`
 		}
-
-		// console.log(`point.lat": ${latitude},"point.lon": ${longitude}`)
-		sendRequest(latitude, longitude)
+		if (name === "latitude" && (value < LAT_MIN || value > LAT_MAX)) {
+			return `${t("components.apiFetch.reverseSingleFetch.latitude")} must be between ${LAT_MIN} and ${LAT_MAX}.`
+		}
+		if (name === "longitude" && (value < LONG_MIN || value > LONG_MAX)) {
+			return `${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.`
+		}
+		return ""
 	}
 
-	const sendRequest = (latitude, longitude) => {
-		setLoading(true)
+	const handleSubmit = async e => {
+		e.preventDefault()
+		const latitude = parseFloat(formData.latitude)
+		const longitude = parseFloat(formData.longitude)
 
-		const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`
+		console.log(latitude)
+		const newErrors = {
+			latitude: validateField("latitude", latitude),
+			longitude: validateField("longitude", longitude),
+		}
+		setErrors(newErrors)
 
-		// console.log("Sending request to:", url)
+		if (Object.values(newErrors).some(error => error)) return
 
-		fetch(url)
-			.then(response => {
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`)
-				}
-				return response.json()
-			})
-			.then(data => {
-				// console.log("Received data:", data)
-				setLoading(false)
+		try {
+			setLoading(true)
+			const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${encodeURIComponent(latitude)}&point.lon=${encodeURIComponent(longitude)}`
+			const response = await fetch(url)
+			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+			const data = await response.json()
 
-				if (data.features && data.features.length > 0) {
-					const coords = data.features[0].geometry.coordinates
-					setLatitude(coords[1])
-					setLongitude(coords[0])
-
-					const result = {
-						...data,
-					}
-					onResponseData(result) // <-- Call the callback here
-				} else {
-					const result = { ...data }
-					onResponseData(result) // <-- Call the callback here
-				}
-			})
-			.catch(error => {
-				console.error("Error:", error)
-				toast.error("An error occurred. Please try again later.")
-				setLoading(false)
-			})
+			if (data.features && data.features.length > 0) {
+				const coords = data.features[0].geometry.coordinates
+				setFormData({ latitude: coords[1], longitude: coords[0] })
+			} else {
+				toast.error(t("components.apiFetch.reverseSingleFetch.alerts.moreSpecificCoords"))
+			}
+			setResponseData(data)
+			onResponseData(data)
+		} catch (error) {
+			toast.error(error)
+		} finally {
+			setLoading(false)
+		}
 	}
+
+	const handleReset = () => {
+		setFormData({ latitude: "", longitude: "" })
+		setErrors({ latitude: "", longitude: "" })
+		toast.info(t("components.apiFetch.reverseSingleFetch.alerts.formReset"))
+	}
+
+	useEffect(() => {
+		setFormData({ latitude: "", longitude: "" })
+		setErrors({ latitude: "", longitude: "" })
+	}, [i18n.language])
 
 	return (
-		<div style={{ paddingX: "40px", height: "full", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "10px" }}>
+		<div
+		style={{
+			display: "flex",
+			placeItems: "center",
+			height: "100%",
+			flexDirection: "column",
+			justifyContent: "space-between",
+		}}>
 			<GcdsHeading tag="h3" characterLimit="false">
-				{t("components.apiFetch.reverseSingleFetch.inputHeader")}{" "}
+				{t("components.apiFetch.reverseSingleFetch.inputHeader")}
 			</GcdsHeading>
-
-			<form
-				onSubmit={handleSubmit}
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "10px",
-					alignItems: "center",
-				}}
-			>
-				<div
-					style={{
-						display: "flex",
-						width: "300px",
-						justifyContent: "space-between",
-					}}
-				>
-					<label>{t("components.apiFetch.reverseSingleFetch.long")}:</label>
-					<input required type="text" value={longitude} onChange={e => setLongitude(e.target.value)} placeholder="-79.387054" />
-				</div>
-				<div
-					style={{
-						display: "flex",
-						width: "300px",
-						justifyContent: "space-between",
-					}}
-				>
-					<label>{t("components.apiFetch.reverseSingleFetch.lat")}:</label>
-					<input required type="text" value={latitude} onChange={e => setLatitude(e.target.value)} placeholder="43.642567" />
-				</div>
-				<br />
-				<div
-					style={{
-						display: "flex",
-						alignItems: "flex-end",
-						width: "300px",
-						justifyContent: "space-around",
-						marginBottom: "2",
-					}}
-				>
-					<GcdsButton type="submit" buttonId="submit reverse geolocation" size="small" name="submit reverse geolocation">
-						{t("search")}
-					</GcdsButton>
-					<GcdsButton
-						type="reset"
-						buttonRole="secondary"
-						buttonId="reset reverse geolocation"
-						size="small"
-						name="submit reverse geolocation"
-						onClick={() => {
-							setLatitude("")
-							setLongitude("")
-						}}
-					>
-						{t("reset")}
+			<form onSubmit={handleSubmit}>
+				<GcdsInput
+					label={t("components.apiFetch.reverseSingleFetch.latitude")}
+					required
+					type="number"
+					inputId="latitude"
+					name="latitude"
+					value={formData.latitude}
+					onGcdsChange={handleInputChange}
+					onBlur={handleBlur}
+					lang={i18n.language}
+					errorMessage={errors.latitude}
+					hint={`${LAT_MIN} to ${LAT_MAX}`}
+					min={LAT_MIN}
+					max={LAT_MAX}
+					step="0.01"
+				/>
+				<GcdsInput
+					label={t("components.apiFetch.reverseSingleFetch.longitude")}
+					required
+					type="number"
+					inputId="longitude"
+					name="longitude"
+					value={formData.longitude}
+					onGcdsChange={handleInputChange}
+					onBlur={handleBlur}
+					lang={i18n.language}
+					errorMessage={errors.longitude}
+					hint={`${LONG_MIN} to ${LONG_MAX}`}
+					min={LONG_MIN}
+					max={LONG_MAX}
+					step="0.01"
+				/>
+				<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
+					<GcdsButton type="submit">{t("components.apiFetch.reverseSingleFetch.search")}</GcdsButton>
+					<GcdsButton type="button" onClick={handleReset} variant="secondary">
+						{t("components.apiFetch.reverseSingleFetch.reset")}
 					</GcdsButton>
 				</div>
 			</form>
-			{loading === false ? null : "Loading"}
+			{loading && <Loading />}
+			{responseData === true ? "responseData" : null}
 		</div>
 	)
 }
