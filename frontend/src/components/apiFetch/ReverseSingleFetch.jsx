@@ -96,22 +96,16 @@ export default function ReverseSinglefetch({ onResponseData }) {
 
 	return (
 		<div
-		style={{
-			display: "flex",
-			placeItems: "center",
-			height: "100%",
-			flexDirection: "column",
-			justifyContent: "space-between",
-		}}>
+		>
 			<GcdsHeading tag="h3" characterLimit="false">
 				{t("components.apiFetch.reverseSingleFetch.inputHeader")}
 			</GcdsHeading>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} key={i18n.language}>
 				<GcdsInput
 					label={t("components.apiFetch.reverseSingleFetch.latitude")}
 					required
 					type="number"
-					inputId="latitude"
+					id="latitude"
 					name="latitude"
 					value={formData.latitude}
 					onGcdsChange={handleInputChange}
@@ -119,15 +113,13 @@ export default function ReverseSinglefetch({ onResponseData }) {
 					lang={i18n.language}
 					errorMessage={errors.latitude}
 					hint={`${LAT_MIN} to ${LAT_MAX}`}
-					min={LAT_MIN}
-					max={LAT_MAX}
 					step="0.01"
 				/>
 				<GcdsInput
 					label={t("components.apiFetch.reverseSingleFetch.longitude")}
 					required
 					type="number"
-					inputId="longitude"
+					id="longitude"
 					name="longitude"
 					value={formData.longitude}
 					onGcdsChange={handleInputChange}
@@ -135,8 +127,6 @@ export default function ReverseSinglefetch({ onResponseData }) {
 					lang={i18n.language}
 					errorMessage={errors.longitude}
 					hint={`${LONG_MIN} to ${LONG_MAX}`}
-					min={LONG_MIN}
-					max={LONG_MAX}
 					step="0.01"
 				/>
 				<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
