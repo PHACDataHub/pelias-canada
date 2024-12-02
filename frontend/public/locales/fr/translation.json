@@ -15,11 +15,10 @@
 					"address": "L'Adresse est requise",
 					"city": "La ville est requise",
 					"province": "La province est requise "
-					,"moreSpecific": ""
-					
 				}
 			},
 			"resultSingleFetch": {
+				"returnHeader": "",
 				"infoReturn": "Informations renvoyées",
 				"addressReturn": "Adresse renvoyée pour",
 				"geoReturn": "Géolocalisation renvoyée pour (longitude, latitude)",
@@ -34,9 +33,24 @@
 				"longitude": "Longitude",
 				"latitude": "Latitude",
 				"seeMoreOpts": "Voir d'autres options",
-				"longlat": "Longitude, Latitude:",
-				"latlong": "Latitude, Longitude:",
-				"viewMap": "Visualiser la carte"
+				"longlat": "Longitude, Latitude",
+				"latlong": "Latitude, Longitude",
+				"viewMap": "Visualiser la carte",
+				"success": {
+					"addressCopied": "Adresse copiée avec succès.",
+					"latitudeCopied": "Latitude copiée avec succès.",
+					"longitudeCopied": "Longitude copiée avec succès.",
+					"latLongCopied": "La latitude et la longitude ont été copiées avec succès.",
+					"longLatCopied": "La longitude et la latitude ont été copiées avec succès."
+				},
+				"error": {
+					"addressUnavailable": "L'adresse n'est pas disponible.",
+					"latitudeUnavailable": "La latitude n'est pas disponible.",
+					"longitudeUnavailable": "La longitude n'est pas disponible.",
+					"latLongUnavailable": "La latitude et la longitude ne sont pas disponibles.",
+					"noResults": "Pas de résultats",
+					"checkInput": "Veuillez vérifier vos entrées et réessayer."
+				}
 			},
 			"reverseSingleFetch": {
 				"inputHeader": "Saisir une latitude et une longitude",
@@ -50,7 +64,7 @@
 					"error": "Une erreur s'est produite",
 					"latitude": "Latitude est requise",
 					"longitude": "Longitude est requise",
-					"mustBetween" : "doit être comprise entre",
+					"mustBetween": "doit être comprise entre",
 					"required": "est requise",
 					"moreSpecificCoords": "Les coordonnées ne sont pas assez précises"
 				}
@@ -58,7 +72,16 @@
 			"useLocationButton": {
 				"header": "Utilisez le bouton pour détecter votre position",
 				"warning": "Veuillez noter que l'accès à un site web l'accès doit être autorisé",
-				"getLocation": "Obtenir votre position"
+				"getLocation": "Obtenir votre position",
+				"complete": "Obtenir une localisation réussie",
+				"error": {
+					"geoGet": "La géolocalisation n'est pas prise en charge par ce navigateur",
+					"permissionDenied": "L'autorisation de localisation est refusée. Veuillez l'activer dans les paramètres de votre navigateur.",
+					"permissionDeniedToast": "L'accès à l'emplacement est refusé. Vérifiez les paramètres de votre navigateur.",
+					"positionUnavailable": "Impossible de retrouver votre position.",
+					"timeout": "La demande de localisation a expiré. Veuillez réessayer.",
+					"unknownError": "Une erreur inconnue s'est produite lors de la recherche de l'emplacement."
+				}
 			}
 		},
 		"CodeZips": {
@@ -338,7 +361,6 @@
 			"forwardPythonDetails": "Exemple de géocodage d'adresses avec Python",
 			"CopyForwardPythonCode": "Copier le code Python de géocodage dans le presse-papiers",
 			"forwardPythonCode": "Code pour le géocodage d'adresses en python",
-
 			"reversePythonDetails": "Exemple de géocodage inversé avec Python",
 			"CopyReversePythonCode": "Copier le code Python de géocodage inversé dans le presse-papiers",
 			"reversePythonCode": "Code pour le géocodage inversé en python"

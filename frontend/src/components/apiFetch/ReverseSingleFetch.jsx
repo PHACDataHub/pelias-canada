@@ -147,6 +147,10 @@ export default function ReverseSinglefetch({ onResponseData }) {
 					</GcdsButton>
 				</div>
 			</form>
+			<div aria-live="polite" aria-atomic="true" style={{ position: "absolute", left: "-9999px" }}>
+				{loading && t("loading")}
+				{!loading && responseData && t("components.apiFetch.forwardSingleFetch.complete")}
+			</div>
 			{loading && <Loading />}
 			{responseData === true ? "responseData" : null}
 		</div>

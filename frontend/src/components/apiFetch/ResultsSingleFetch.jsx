@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from "react-i18next"
 import "./ResultsMap.css"
 
+
 export default function SingleFetchResults({ forwardResponse, buttonResponse, reverseResponse }) {
 	const result = forwardResponse || buttonResponse || reverseResponse
 	const { t } = useTranslation()
@@ -21,57 +22,57 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 
 	const handleCopyAddress = () => {
 		if (!result || !result.features || !result.features[0]) {
-			toast.error("Address information is not available.")
+			toast.error(t("components.apiFetch.resultSingleFetch.error.addressUnavailable"))
 			return
 		}
 		copyToClipboard(result.features[0].properties.label.toString(), () => {
-			toast.success("Address copied to clipboard!")
+			toast.success(t("components.apiFetch.resultSingleFetch.success.addressCopied"))
 		})
 	}
 
 	const handleCopyLatitude = () => {
 		if (!result || !result.features || !result.features[0]) {
-			toast.error("Latitude information is not available.")
+			toast.error(t("components.apiFetch.resultSingleFetch.error.latitudeUnavailable"))
 			return
 		}
 		copyToClipboard(result.features[0].geometry.coordinates[1].toString(), () => {
-			toast.success("Latitude copied to clipboard!")
+			toast.success(t("components.apiFetch.resultSingleFetch.success.latitudeCopied"))
 		})
 	}
 
 	const handleCopyLongitude = () => {
 		if (!result || !result.features || !result.features[0]) {
-			toast.error("Longitude information is not available.")
+			toast.error(t("components.apiFetch.resultSingleFetch.error.longitudeUnavailable"))
 			return
 		}
 		copyToClipboard(result.features[0].geometry.coordinates[0].toString(), () => {
-			toast.success("Longitude copied to clipboard!")
+			toast.success(t("components.apiFetch.resultSingleFetch.success.longitudeCopied"))
 		})
 	}
 
 	const handleCopyLatitudeLongitude = () => {
 		if (!result || !result.features || !result.features[0]) {
-			toast.error("Latitude and Longitude information is not available.")
+			toast.error(t("components.apiFetch.resultSingleFetch.error.latLongUnavailable"))
 			return
 		}
 		const latitude = result.features[0].geometry.coordinates[1]
 		const longitude = result.features[0].geometry.coordinates[0]
 		const latLong = `${latitude}, ${longitude}`
 		copyToClipboard(latLong, () => {
-			toast.success("Latitude and Longitude copied to clipboard!")
+			toast.success(t("components.apiFetch.resultSingleFetch.success.latLongCopied"))
 		})
 	}
 
 	const handleCopyLongitudeLatitude = () => {
 		if (!result || !result.features || !result.features[0]) {
-			toast.error("Latitude and Longitude information is not available.")
+			toast.error(t("components.apiFetch.resultSingleFetch.error.latLongUnavailable"))
 			return
 		}
 		const latitude = result.features[0].geometry.coordinates[1]
 		const longitude = result.features[0].geometry.coordinates[0]
 		const longLat = `${longitude}, ${latitude}`
 		copyToClipboard(longLat, () => {
-			toast.success("Longitude and Latitude copied to clipboard!")
+			toast.success(t("components.apiFetch.resultSingleFetch.success.longLatCopied"))
 		})
 	}
 
@@ -133,20 +134,41 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 						</div>
 						<p>
 							{t("components.apiFetch.resultSingleFetch.address")}: {result.features[0].properties.label}
-							<GcdsButton buttonRole="secondary" buttonId="Copy Longitude" size="small" name="Copy Longitude" style={{ marginLeft: "10px" }} onClick={handleCopyAddress}>
+							<GcdsButton
+								buttonRole="secondary"
+								buttonId={`${t("copy")} ${t("components.apiFetch.resultSingleFetch.address")}`}
+								size="small"
+								name={`${t("copy")} ${t("components.apiFetch.resultSingleFetch.address")}`}
+								style={{ marginLeft: "10px" }}
+								onClick={handleCopyAddress}
+							>
 								{t("copy")}
 							</GcdsButton>
 						</p>
 						<p>
 							{t("components.apiFetch.resultSingleFetch.longitude")}: {result.features[0].geometry.coordinates[0]}
-							<GcdsButton buttonRole="secondary" buttonId="Copy Longitude" size="small" name="Copy Longitude" style={{ marginLeft: "10px" }} onClick={handleCopyLongitude}>
+							<GcdsButton
+								buttonRole="secondary"
+								buttonId={`${t("copy")} Longitude`}
+								size="small"
+								name={`${t("copy")} Longitude`}
+								style={{ marginLeft: "10px" }}
+								onClick={handleCopyLongitude}
+							>
 								{t("copy")}
 							</GcdsButton>
 						</p>
 
 						<p>
 							{t("components.apiFetch.resultSingleFetch.latitude")}: {result.features[0].geometry.coordinates[1]}
-							<GcdsButton buttonRole="secondary" buttonId="Copy Latitude" size="small" name="Copy Latitude" style={{ marginLeft: "10px" }} onClick={handleCopyLatitude}>
+							<GcdsButton
+								buttonRole="secondary"
+								buttonId={`${t("copy")} Latitude`}
+								size="small"
+								name={`${t("copy")} Latitude`}
+								style={{ marginLeft: "10px" }}
+								onClick={handleCopyLatitude}
+							>
 								{t("copy")}
 							</GcdsButton>
 						</p>
@@ -156,9 +178,9 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 								{t("components.apiFetch.resultSingleFetch.longlat")}: {result.features[0].geometry.coordinates[0]}, {result.features[0].geometry.coordinates[1]}
 								<GcdsButton
 									buttonRole="secondary"
-									buttonId="Copy Longitude Latitude"
+									buttonId={`${t("copy")} Longitude Latitude`}
 									size="small"
-									name="Copy Longitude Latitude"
+									name={`${t("copy")} Longitude Latitude`}
 									style={{ marginLeft: "10px" }}
 									onClick={handleCopyLongitudeLatitude}
 								>
@@ -170,9 +192,9 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 								{t("components.apiFetch.resultSingleFetch.latlong")}: {result.features[0].geometry.coordinates[1]}, {result.features[0].geometry.coordinates[0]}
 								<GcdsButton
 									buttonRole="secondary"
-									buttonId="Copy Latitude Longitude"
+									buttonId={`${t("copy")} Latitude Longitude`}
 									size="small"
-									name="Copy Latitude Longitude"
+									name={`${t("copy")} Latitude Longitude`}
 									style={{ marginLeft: "10px" }}
 									onClick={handleCopyLatitudeLongitude}
 								>
@@ -190,7 +212,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 										]}
 									/>
 								) : (
-									<p>No Results</p>
+									<p>{t("components.apiFetch.resultSingleFetch.error.noResults")}</p>
 								)}
 							</>
 						</div>
@@ -200,7 +222,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 			{result && (!result.features || result.features.length === 0) && (
 				<>
 					<br />
-					<GcdsText>Please check your inputs and try again.</GcdsText>
+					<GcdsText>{t("components.apiFetch.resultSingleFetch.error.checkInput")}</GcdsText>
 				</>
 			)}
 		</div>
