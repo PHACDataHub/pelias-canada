@@ -43,8 +43,8 @@
 				"latitude": "Latitude",
 				"longitude": "Longitude",
 				"complete": "La recherche de géolocalisation s'est terminée avec succès",
-				"search": "Rechercher l'adresse",
-				"reset": "Réinitialiser l'adresse",
+				"search": "Rechercher les coordonnées",
+				"reset": "Réinitialiser les coordonnées",
 				"alerts": {
 					"formReset": "Le formulaire de geocodage a été réinitialisé.",
 					"error": "Une erreur s'est produite",

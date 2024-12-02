@@ -42,8 +42,8 @@
 				"latitude": "Latitude",
 				"longitude": "Longitude",
 				"complete": "The geolocation search completed successfully.",
-				"search": "Search the address",
-				"reset": "Reset the address",
+				"search": "Search the coordinates",
+				"reset": "Reset the coordinates",
 				"alerts": {
 					"formReset": "The geolocation form has been reset.",
 					"error": "An error occurred",
@@ -51,7 +51,7 @@
 					"longitude": "Longitude is required",
 					"mustBetween" : "must be between",
 					"required": "is required",
-					"moreSpecificCoords": "The coordinates not specific enough"
+					"moreSpecificCoords": "The coordinates are not specific enough"
 
 				}
 			},

@@ -36,14 +36,19 @@ export default function ReverseSinglefetch({ onResponseData }) {
 
 	const validateField = (name, value) => {
 		if (isNaN(value)) {
-			return `${t(`components.apiFetch.reverseSingleFetch.alerts.required`)}`
+			return ` ${name} ${t(`components.apiFetch.reverseSingleFetch.alerts.required`)}`
 		}
 		if (name === "latitude" && (value < LAT_MIN || value > LAT_MAX)) {
-			return `${t("components.apiFetch.reverseSingleFetch.latitude")} must be between ${LAT_MIN} and ${LAT_MAX}.`
+			// return `${t("components.apiFetch.reverseSingleFetch.latitude")} must be between ${LAT_MIN} and ${LAT_MAX}.`
+			return (i18n.language === "en" ? 
+			`${t("components.apiFetch.reverseSingleFetch.latitude")} must be between ${LAT_MIN} and ${LAT_MAX}.` : `${t("components.apiFetch.reverseSingleFetch.latitude")} doit être compris entre ${LAT_MIN} et ${LAT_MAX}.`)
+
 		}
 		if (name === "longitude" && (value < LONG_MIN || value > LONG_MAX)) {
-			return `${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.`
-		}
+			// return `${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.`
+			return (i18n.languag === "en" ?  
+			`${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.` 
+		: `${t("components.apiFetch.reverseSingleFetch.longitude")} doit être compris entre ${LONG_MIN} et ${LONG_MAX}.` )} 
 		return ""
 	}
 
@@ -96,6 +101,12 @@ export default function ReverseSinglefetch({ onResponseData }) {
 
 	return (
 		<div
+			style={{
+				display: "flex",
+				justifyContent: "space-between",
+				flexDirection: "column",
+				height: "100%",
+			}}
 		>
 			<GcdsHeading tag="h3" characterLimit="false">
 				{t("components.apiFetch.reverseSingleFetch.inputHeader")}
@@ -129,7 +140,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 					hint={`${LONG_MIN} to ${LONG_MAX}`}
 					step="0.01"
 				/>
-				<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
+				<div style={{ marginTop: "3rem", display: "flex", flexDirection: "column", gap: "1em" }}>
 					<GcdsButton type="submit">{t("components.apiFetch.reverseSingleFetch.search")}</GcdsButton>
 					<GcdsButton type="button" onClick={handleReset} variant="secondary">
 						{t("components.apiFetch.reverseSingleFetch.reset")}
