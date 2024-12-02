@@ -14,11 +14,11 @@
 					"error": "An error occurred",
 					"address": "Address is required",
 					"city": "City is required",
-					"province": "Province is required",
-					"moreSpecific": ""
+					"province": "Province is required"
 				}
 			},
 			"resultSingleFetch": {
+				"returnHeader": "Results",
 				"infoReturn": "Information returned",
 				"addressReturn": "Address returned for",
 				"geoReturn": "Geolocation returned for (longitude, latitude)",
@@ -33,9 +33,24 @@
 				"longitude": "Longitude",
 				"latitude": "Latitude",
 				"seeMoreOpts": "See more options",
-				"longlat": "Longitude, Latitude:",
-				"latlong": "Latitude, Longitude:",
-				"viewMap": "View the Map"
+				"longlat": "Longitude, Latitude",
+				"latlong": "Latitude, Longitude",
+				"viewMap": "View the Map",
+				"success": {
+					"addressCopied": "Address copied successfully.",
+					"latitudeCopied": "Latitude copied successfully.",
+					"longitudeCopied": "Longitude copied successfully.",
+					"latLongCopied": "Latitude and Longitude copied successfully.",
+					"longLatCopied": "Longitude and Latitude copied successfully."
+				},
+				"error": {
+					"addressUnavailable": "Address is unavailable.",
+					"latitudeUnavailable": "Latitude is unavailable.",
+					"longitudeUnavailable": "Longitude is unavailable.",
+					"latLongUnavailable": "Latitude and Longitude are unavailable.",
+					"noResults": "No Results",
+					"checkInput": "Please check your inputs and try again."
+				}
 			},
 			"reverseSingleFetch": {
 				"inputHeader": "Enter a Latitude and a Longitude",
@@ -49,18 +64,26 @@
 					"error": "An error occurred",
 					"latitude": "Latitude is required",
 					"longitude": "Longitude is required",
-					"mustBetween" : "must be between",
+					"mustBetween": "must be between",
 					"required": "is required",
 					"moreSpecificCoords": "The coordinates are not specific enough"
-
 				}
 			},
 			"useLocationButton": {
 				"header": "Use the button to detect your location",
 				"warning": "Please note web location access must be authorized",
-				"getLocation": "Get your location"
+				"getLocation": "Get your location",
+				"complete": "Get your location completed successfully",
+				"error": {
+					"geoGet": "Geolocation is not supported by your browser.",
+					"permissionDenied": "Location permission is denied. Please enable it in your browser settings.",
+					"permissionDeniedToast": "Location access is denied. Check your browser settings.",
+					"positionUnavailable": "Unable to retrieve your location.",
+					"timeout": "Location request timed out. Please try again.",
+					"unknownError": "An unknown error occurred while fetching location."
+				}
 			}
-		},
+		}, 
 		"CodeZips": {
 			"pythonDownload": "Download Python files",
 			"rDownload": "Download R files"
@@ -335,11 +358,9 @@
 		"python": {
 			"title": "Python API",
 			"pythonParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
-
 			"forwardPythonDetails": "Example of address geocoding with Python",
 			"CopyForwardPythonCode": "Copy geocoding Python code forward to clipboard",
 			"forwardPythonCode": "Code for Address Geocoding using python",
-
 			"reversePythonDetails": "Example of reverse geocoding with Python",
 			"CopyReversePythonCode": "Copy the reverse geocoding Python code to the clipboard",
 			"reversePythonCode": "Code for reverse geocodingusing python"

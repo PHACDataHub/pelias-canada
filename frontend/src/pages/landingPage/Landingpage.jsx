@@ -10,7 +10,7 @@ export default function LandingPage() {
 	const [forwardResponsedata, setForwardResponsedata] = useState("")
 	const [reverseResponsedata, setReverseResponsedata] = useState("")
 	const [useLocationButtonResults, setUseLocationButtonResults] = useState("")
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const handleForwardResponseData = data => {
 		resetData()
@@ -19,7 +19,7 @@ export default function LandingPage() {
 
 	const handleUseButtonLocationResponseData = data => {
 		resetData()
-		setUseLocationButtonResults(data) // Corrected spelling here
+		setUseLocationButtonResults(data)
 	}
 
 	const handleReverseResponseData = data => {
@@ -32,6 +32,12 @@ export default function LandingPage() {
 		setReverseResponsedata("")
 		setUseLocationButtonResults("")
 	}
+
+	useEffect(() => {
+		setForwardResponsedata("")
+		setReverseResponsedata("")
+		setUseLocationButtonResults("")
+	}, [i18n.language])
 
 	// if (forwardResponsedata !== "") {
 	// 	console.log(forwardResponsedata);
