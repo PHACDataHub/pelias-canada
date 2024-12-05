@@ -303,6 +303,7 @@
 			"description": "Property Description",
 			"apiFeature": {
 				"title": "API Features",
+				"tableTitle": "API Features table",
 				"features": "Represents the list of results you get from the geocoding service.",
 				"bbox": "The bounding box of the feature, defining the area that includes the location.",
 				"geometry": {
