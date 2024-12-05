@@ -126,6 +126,9 @@
 				"lastButton": "Last"
 			}
 		},
+		"map": {
+			"aria": "Map displaying geographic data"
+		},
 		"reverseBulk": {
 			"fileUpload": "File Upload and Setting",
 			"upload": "Upload a CSV file:",
