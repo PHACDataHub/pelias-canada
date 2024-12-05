@@ -74,7 +74,9 @@ function MapComponentOL({ mapContentJSON }) {
 			target: mapRef.current,
 			layers: [
 				new TileLayer({
-					source: new OSM(),
+					source: new OSM({
+						attributions: false, // Disable attribution
+					}),
 				}),
 				vectorLayer,
 			],
@@ -147,7 +149,7 @@ function MapComponentOL({ mapContentJSON }) {
 				height: isWideScreen ? "500px" : "250px", // Adjust height dynamically
 			}}
 			role="region" // Defines it as a landmark region
-			aria-label="Map displaying geographic data" // Descriptive label for screen readers
+			aria-label={t("components.map.aria")} // Descriptive label for screen readers
 			tabIndex="0" // Allows keyboard focus
 		>
 			{/* This div is where the OpenLayers map will be rendered */}

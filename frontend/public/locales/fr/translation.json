@@ -126,6 +126,9 @@
 				"lastButton": "Dernier"
 			}
 		},
+		"map": {
+			"aria": "Carte affichant des données géographiques"
+		},
 		"reverseBulk": {
 			"fileUpload": "Chargement de fichiers et paramètres",
 			"upload": "Télécharger un fichier CSV ",
