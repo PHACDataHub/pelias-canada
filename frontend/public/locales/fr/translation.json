@@ -303,6 +303,7 @@
 			"description": "Description de la propriété",
 			"apiFeature": {
 				"title": "Caractéristiques de l'API",
+				"tableTitle": "Tableau des caractéristiques de l'API",
 				"features": "Représente la liste des résultats obtenus par le service de géocodage.",
 				"bbox": " La boîte de délimitation de l'élément, définissant la zone qui inclut l'emplacement.",
 				"geometry": {
