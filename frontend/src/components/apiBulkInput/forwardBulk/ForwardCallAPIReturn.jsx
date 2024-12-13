@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css"
 import PropTypes from "prop-types"
 import { GcdsButton, GcdsDetails, GcdsErrorMessage, GcdsText } from "@cdssnc/gcds-components-react"
 
-export default function ForwardCallAPIReturn({ results }) {
+export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 	const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0)
 	const [parsedResults, setParsedResults] = useState([])
 	const [inputtedResults, setInputtedResults] = useState([])
@@ -19,7 +19,12 @@ export default function ForwardCallAPIReturn({ results }) {
 		})
 
 		setParsedResults(breakdownResults)
-	}, [results])
+		
+		const filteredResults = breakdownResults.filter(parsedResult => parsedResult.streetName !== null)
+
+		// Pass filtered results up to the parent
+		sendFilteredResults(filteredResults)
+	}, [results, sendFilteredResults])
 
 	// Function to parse a physical address
 	const parseAddress = address => {
@@ -189,20 +194,21 @@ export default function ForwardCallAPIReturn({ results }) {
 			{/* Display results where streetName is null */}
 			{parsedResults.some(parsedResult => parsedResult.streetName === null) && (
 				<>
-				<hr/>
+					<hr />
 					<p>Addresses with errors that will not be included:</p>
-					<GcdsErrorMessage>Explain error - likely due to unit number or inaccurate address</GcdsErrorMessage>
+					<GcdsErrorMessage>data cleaning error - likely due to unit number or inaccurate address</GcdsErrorMessage>
+					<p> Before continuing, please review the addresses below as they will NOT be included in the next part of the process.</p>
 					<GcdsDetails detailsTitle="click to preview errors">
-					{parsedResults
-						.filter(parsedResult => parsedResult.streetName === null)
-						.map(parsedResult => (
-							<GcdsText key={parsedResult.inputID}>{`Input ID: ${parsedResult.inputID}, Physical Address: ${parsedResult.physicalAddress}`}</GcdsText>
-						))}</GcdsDetails>
+						{parsedResults
+							.filter(parsedResult => parsedResult.streetName === null)
+							.map(parsedResult => (
+								<GcdsText key={parsedResult.inputID}>{`Input ID: ${parsedResult.inputID}, Physical Address: ${parsedResult.physicalAddress}`}</GcdsText>
+							))}
+					</GcdsDetails>
 				</>
 			)}
 			<br />
 			<hr />
-			<GcdsButton> continue Button</GcdsButton>
 		</>
 	)
 }
@@ -210,4 +216,5 @@ export default function ForwardCallAPIReturn({ results }) {
 // Prop validation
 ForwardCallAPIReturn.propTypes = {
 	results: PropTypes.array.isRequired,
+	sendFilteredResults: PropTypes.func.isRequired,
 }

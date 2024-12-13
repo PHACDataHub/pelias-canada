@@ -109,7 +109,7 @@ export default function IntakeForwardFile({ setResults }) {
 		}
 	}
 	return (
-		<div>
+		<div >
 			{results.length > 0 ? (
 				<>
 					<GcdsHeading tag="h2" characterLimit="false">
