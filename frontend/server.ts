@@ -21,6 +21,7 @@ const ROUTES_TO_REDIRECT = [
     '/geocoding-results-explanation',
     '/home',
     '/contact-us',
+    '/test',
     '/'
 ];
 

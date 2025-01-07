@@ -1,72 +1,77 @@
-import { useRef, useState } from "react"
+import { useRef, useState, useCallback } from "react"
 import "leaflet/dist/leaflet.css"
-import { GcdsButton } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
 import GovTestForwardUploading from "./GcdsTestForward"
 import ForwardCallAPIReturn from "./ForwardCallAPIReturn"
-import FilteredResultsDisplay from "./FilteredResultsDisplay" // Import the new component
+import FilteredResultsDisplay from "./FilteredResultsDisplay"
+import PaginatedTable from "../../tables/dataTable"
 
 export default function ForwardBulk() {
-  const [inputtedData, setInputtedData] = useState([])
-  const [filteredResults, setFilteredResults] = useState([])
-  const [continueStatus, setContinueStatus] = useState(false)
-  const childRef = useRef(null) // Create a ref for child component
+	const [inputtedData, setInputtedData] = useState([])
+	const [filteredResults, setFilteredResults] = useState([])
+	const [continueStatus, setContinueStatus] = useState(false)
+	const childRef = useRef(null)
 
-  const handleReset = () => {
-    setInputtedData([]) // Clear the data
-    setFilteredResults([])
-    setContinueStatus(false) // Reset continue status
-    if (childRef.current) {
-      childRef.current.reset() // Call the reset function in the child
-    }
-  }
+	const handleReset = () => {
+		setInputtedData([])
+		setFilteredResults([])
+		setContinueStatus(false)
+		if (childRef.current) {
+			childRef.current.reset()
+		}
+	}
 
-  const handleButtonClick = () => {
-    setContinueStatus(true)
-  }
-  const handleFilteredResults = filteredData => {
-    setFilteredResults(filteredData)
-  }
+	const handleButtonClick = () => {
+		setContinueStatus(true)
+	}
 
-  return (
-    <>
-      <h2>IntakeForwardFile</h2>
+	const handleFilteredResults = useCallback(filteredData => {
+		setFilteredResults(filteredData)
+	}, [])
+
+	return (
+		<>
+      <GcdsHeading tag="h1">IntakeForwardFile </GcdsHeading>
+			<p>
+				Make sure the column to transform is called <strong>inputID</strong>, and there is a column named <strong>physicalAddress</strong>.
+			</p>
+
       <p>
-        Make sure the column to transform is called <strong>inputID</strong>, and there is a column named <strong>physicalAddress</strong>.
-      </p>
+				More Instructions .
+			</p>
 
-      {!continueStatus && (
-        <>
-          <GovTestForwardUploading
-            ref={childRef}
-            setResults={setInputtedData}
-          />
-          {inputtedData.length > 0 && (
-            <>
-              <GcdsButton onClick={handleReset}>Reset</GcdsButton>
-              <hr />
-              <ForwardCallAPIReturn results={inputtedData} 
-                sendFilteredResults={handleFilteredResults} // Pass the function here
-              />
-              <GcdsButton onClick={handleButtonClick}>Continue</GcdsButton>
-            </>
-          )}
-          <br />
-        </>
-      )}
-      <br />
-      {/* Displaying Continue Status */}
-      {continueStatus && (
-        <>
-          <GcdsButton onClick={handleReset}>Reset</GcdsButton>
-          <p>
-            <strong>Status:</strong> Continue action triggered successfully.
-          </p>
-        </>
-      )}
-      {/* Display filtered results using the new component */}
-      {filteredResults.length > 0 && continueStatus && (
-        <FilteredResultsDisplay filteredResults={filteredResults} />
-      )}
-    </>
-  )
+			{!continueStatus && (
+				<>
+					<GovTestForwardUploading ref={childRef} setResults={setInputtedData} />
+					{inputtedData.length > 0 && (
+						<>
+							<GcdsButton onClick={handleReset}>Reset</GcdsButton>
+							<hr />
+							<ForwardCallAPIReturn results={inputtedData} sendFilteredResults={handleFilteredResults} />
+							<GcdsButton onClick={handleButtonClick}>Continue</GcdsButton>
+						</>
+					)}
+					<br />
+				</>
+			)}
+			<br />
+			{continueStatus && (
+				<>
+					<GcdsButton onClick={handleReset}>Reset</GcdsButton>
+					<p>
+						<strong>Status:</strong> Continue action triggered successfully.
+					</p>
+				</>
+			)}
+      
+			{filteredResults.length > 0 && continueStatus && (
+				<FilteredResultsDisplay
+					filteredResults={filteredResults}
+					triggerApiCall={continueStatus} // Pass trigger flag
+				/>
+			)}
+
+			{/* <PaginatedTable /> */}
+		</>
+	)
 }
