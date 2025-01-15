@@ -141,10 +141,12 @@ export default function ReverseSinglefetch({ onResponseData }) {
 					step="0.01"
 				/>
 				<div style={{ marginTop: "3rem", display: "flex", flexDirection: "column", gap: "1em" }}>
+					<div>
 					<GcdsButton type="submit">{t("components.apiFetch.reverseSingleFetch.search")}</GcdsButton>
+					</div><div>
 					<GcdsButton type="button" onClick={handleReset} variant="secondary">
 						{t("components.apiFetch.reverseSingleFetch.reset")}
-					</GcdsButton>
+					</GcdsButton></div>
 				</div>
 			</form>
 			<div aria-live="polite" aria-atomic="true" style={{ position: "absolute", left: "-9999px" }}>
