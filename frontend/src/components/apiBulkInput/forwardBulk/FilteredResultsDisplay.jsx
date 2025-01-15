@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react";
+import { GcdsHeading } from "@cdssnc/gcds-components-react";
 import Loading from "../../Loading";
 import { useTranslation } from "react-i18next";
 import ConfidenceTable from "../../tables/ConfidenceTable";
@@ -13,9 +13,7 @@ function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
   const { t } = useTranslation();
 
   const fetchWithRetry = async (item, maxRetries = 3) => {
-    let attempts = 0;
-
-    while (attempts < maxRetries) {
+    for (let attempts = 0; attempts < maxRetries; attempts++) {
       try {
         const response = await fetch(
           `https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(item.query)}`
@@ -28,50 +26,54 @@ function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
         const data = await response.json();
         return { ...item, apiData: data }; // Return successfully fetched item
       } catch (err) {
-        attempts++;
-        if (attempts >= maxRetries) {
+        if (attempts === maxRetries - 1) {
           return { error: true, query: item.query, errorMessage: err.message };
         }
       }
     }
   };
 
-  const fetchWithRateLimit = async (items, limit = 20) => {
+  const fetchAllConcurrently = async (items, limit = 20) => {
     const results = [];
     const errorsList = [];
-    let i = 0;
+    const executing = new Set(); // Track active promises
 
-    while (i < items.length) {
-      const batch = items.slice(i, i + limit).map(async (item) => {
-        const result = await fetchWithRetry(item); // Fetch with retry
+    for (const item of items) {
+      const promise = fetchWithRetry(item).then((result) => {
         if (result.error) {
           errorsList.push({ query: result.query, error: result.errorMessage });
-          return null; // Return null for failed items
+        } else {
+          results.push(result);
         }
-        return result;
       });
 
-      const batchResults = await Promise.all(batch);
-      results.push(...batchResults.filter((result) => result !== null)); // Exclude failed items
-      i += limit; // Move to the next batch
+      executing.add(promise);
+
+      // If we hit the concurrency limit, wait for one promise to complete
+      if (executing.size >= limit) {
+        await Promise.race(executing);
+        executing.delete(promise);
+      }
     }
+
+    // Wait for remaining promises
+    await Promise.all(executing);
 
     return { results, errors: errorsList };
   };
 
   useEffect(() => {
-    if (!triggerApiCall) return; // Wait for the trigger
+    if (!triggerApiCall) return;
 
     const fetchApiResults = async () => {
       setLoading(true);
-      setErrors([]); // Reset errors on new API call
+      setErrors([]);
 
       try {
-        const { results, errors } = await fetchWithRateLimit(filteredResults, 10); // Adjust limit as needed
+        const { results, errors } = await fetchAllConcurrently(filteredResults, 20); // Adjust concurrency limit
         setApiResults(results);
-        setErrors(errors); // Save the list of errors
+        setErrors(errors);
       } catch (err) {
-        // In case of unexpected errors
         setErrors([{ query: "General error", error: err.message }]);
       } finally {
         setLoading(false);
@@ -79,7 +81,7 @@ function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
     };
 
     fetchApiResults();
-  }, [filteredResults, triggerApiCall]); // Only run when `triggerApiCall` changes to true
+  }, [filteredResults, triggerApiCall]);
 
   if (loading) {
     return (
@@ -103,7 +105,7 @@ function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
           <ul>
             {errors.map((err, index) => (
               <li key={index}>
-                Query: {err.query}, Error: {err.error}
+                Query: {err.query}, Error: {err.errorMessage}
               </li>
             ))}
           </ul>
@@ -111,18 +113,17 @@ function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
       )}
 
       <GcdsHeading tag="h3">results confidence</GcdsHeading>
-      {/* Only render ConfidenceTable if apiResults have been successfully fetched */}
       {apiResults.length > 0 ? (
         <ConfidenceTable data={apiResults} />
       ) : (
-        <p>noApiResults</p> // Provide fallback message
+        <p>noApiResults</p>
       )}
 
       <GcdsHeading tag="h3">results preview</GcdsHeading>
       {apiResults.length > 0 ? (
         <PaginatedTable apiResults={apiResults} />
       ) : (
-        <p>noApiResults</p> // Provide fallback message
+        <p>noApiResults</p>
       )}
     </div>
   );

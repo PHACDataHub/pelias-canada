@@ -5,6 +5,7 @@ import GovTestForwardUploading from "./GcdsTestForward"
 import ForwardCallAPIReturn from "./ForwardCallAPIReturn"
 import FilteredResultsDisplay from "./FilteredResultsDisplay"
 import PaginatedTable from "../../tables/dataTable"
+import Mapping from "./forwardmap"
 
 export default function ForwardBulk() {
 	const [inputtedData, setInputtedData] = useState([])
@@ -71,7 +72,7 @@ export default function ForwardBulk() {
 				/>
 			)}
 
-			{/* <PaginatedTable /> */}
+			<Mapping />
 		</>
 	)
 }

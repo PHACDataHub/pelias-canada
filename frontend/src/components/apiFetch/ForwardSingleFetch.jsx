@@ -127,8 +127,6 @@ export default function ForwardSinglefetch({ onResponseData }) {
 	}
 
 	// Send request to geocoder API
-	// Send request to geocoder API
-	// Send request to geocoder API
 	const sendRequest = fullAddress => {
 		setLoading(true)
 
@@ -250,18 +248,22 @@ export default function ForwardSinglefetch({ onResponseData }) {
 					errorMessage={errors.province}
 				/>
 				<div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1em" }}>
-					<GcdsButton type="submit" buttonId={t("components.apiFetch.forwardSingleFetch.search")} name={t("components.apiFetch.forwardSingleFetch.search")}>
-						{t("components.apiFetch.forwardSingleFetch.search")}
-					</GcdsButton>
-					<GcdsButton
-						type="button"
-						onClick={handleReset}
-						variant="secondary"
-						buttonId={t("components.apiFetch.forwardSingleFetch.reset")}
-						name={t("components.apiFetch.forwardSingleFetch.reset")}
-					>
-						{t("components.apiFetch.forwardSingleFetch.reset")}
-					</GcdsButton>
+					<div>
+						<GcdsButton type="submit" buttonId={t("components.apiFetch.forwardSingleFetch.search")} name={t("components.apiFetch.forwardSingleFetch.search")}>
+							{t("components.apiFetch.forwardSingleFetch.search")}
+						</GcdsButton>
+					</div>
+					<div>
+						<GcdsButton
+							type="button"
+							onClick={handleReset}
+							variant="secondary"
+							buttonId={t("components.apiFetch.forwardSingleFetch.reset")}
+							name={t("components.apiFetch.forwardSingleFetch.reset")}
+						>
+							{t("components.apiFetch.forwardSingleFetch.reset")}
+						</GcdsButton>
+					</div>
 				</div>
 			</form>
 			<div aria-live="polite" aria-atomic="true" style={{ position: "absolute", left: "-9999px" }}>
