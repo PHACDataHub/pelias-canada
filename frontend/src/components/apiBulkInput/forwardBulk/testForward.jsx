@@ -71,7 +71,7 @@ export default function ForwardBulk() {
 					triggerApiCall={continueStatus} // Pass trigger flag
 				/>
 			)}
-
+<br></br>
 			<Mapping />
 		</>
 	)
