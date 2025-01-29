@@ -36,9 +36,6 @@ export default function PaginatedTable({ apiResults }) {
 		return pages
 	}
 
-	const style1 = { background: "#fff", borderRight: "1px solid #fff" }
-	const style2 = { background: "#f1f2f3", borderRight: "1px solid #f1f2f3" }
-
 	const totalItems = apiResults.length
 	const totalPages = Math.ceil(totalItems / itemsPerPage)
 
@@ -63,63 +60,56 @@ export default function PaginatedTable({ apiResults }) {
 			<GcdsSelect
 				selectId="itemsPerPage"
 				label="Items per Page"
-				name="select"
+				name="itemsPerPage"
 				hint="Select the number of items per page"
 				onGcdsChange={e => {
 					const newItemsPerPage = Number(e.target.value)
 					setItemsPerPage(newItemsPerPage)
-					setCurrentPage(1) // Reset to page 1 when items per page change
+					setCurrentPage(1)
 				}}
 				lang={i18n.language}
 			>
 				<option value="10">10</option>
 				<option value="25">25</option>
 				<option value="50">50</option>
-				<option value="3">Testing</option>
-				<option value="1">Testing 2</option>
+				<option value="3">3</option>
 			</GcdsSelect>
 
 			<table>
 				<caption>
-					Displaying Items {startIndex + 1} - {endIndex} of {totalItems}
+					{i18n.language === "en"
+						? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
+						: `
+					Affichage des articles ${startIndex + 1} - ${endIndex} sur ${totalItems} `}
 				</caption>
 				<thead>
 					<tr>
-						<th>{t("components.forwardBulk.mapReady.outputTable.inputID")}</th>
-						<th>{t("components.forwardBulk.mapReady.outputTable.address")}</th>
-						<th>{t("components.forwardBulk.mapReady.outputTable.lat")}</th>
-						<th>{t("components.forwardBulk.mapReady.outputTable.lon")}</th>
-						<th>{t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}</th>
-						<th>{t("components.forwardBulk.mapReady.outputTable.matchType")}</th>
-						<th>{t("components.forwardBulk.mapReady.outputTable.accuracy")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.inputID")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.address")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.lat")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.lon")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.matchType")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.outputTable.accuracy")}</th>
 					</tr>
 				</thead>
 				<tbody>
 					{paginatedData.map((result, index) => (
-						<tr key={index} style={{ background: "grey", border: "1px solid grey" }}>
-							<td style={index % 2 === 0 ? style1 : style2}>{startIndex + index + 1 || "N/A"}</td>
-							<td style={index % 2 === 0 ? style1 : style2} id="address">
-								{result.apiData.geocoding.query.text || "N/A"}
-							</td>
-							<td style={index % 2 === 0 ? style1 : style2}>
-								{result.apiData.features && result.apiData.features[0]?.geometry?.coordinates ? result.apiData.features[0].geometry.coordinates[1] : "N/A"}
-							</td>
-							<td style={index % 2 === 0 ? style1 : style2}>
-								{result.apiData.features && result.apiData.features[0]?.geometry?.coordinates ? result.apiData.features[0].geometry.coordinates[0] : "N/A"}
-							</td>
-							<td style={index % 2 === 0 ? style1 : style2}>
-								{result.apiData.features && result.apiData.features[0]?.properties?.confidence !== undefined ? `${result.apiData.features[0].properties.confidence * 100}%` : "N/A"}
-							</td>
-							<td style={index % 2 === 0 ? style1 : style2}>{(result.apiData.features && result.apiData.features[0]?.properties?.match_type) || "N/A"}</td>
-							<td style={index % 2 === 0 ? style1 : style2}>{(result.apiData.features && result.apiData.features[0]?.properties?.accuracy) || "N/A"}</td>
+						<tr key={index} style={{ background: index % 2 === 0 ? "#ffffff" : "#e0e0e0" }}>
+							<td>{startIndex + index + 1 || "N/A"}</td>
+							<td>{result?.result?.geocoding?.query?.text || "N/A"}</td>
+							<td>{result?.result?.features?.[0]?.geometry?.coordinates?.[1] ?? "N/A"}</td>
+							<td>{result?.result?.features?.[0]?.geometry?.coordinates?.[0] ?? "N/A"}</td>
+							<td>{result?.result?.features?.[0]?.properties?.confidence !== undefined ? `${result.result.features[0].properties.confidence * 100}%` : "N/A"}</td>
+							<td>{result?.result?.features?.[0]?.properties?.match_type || "N/A"}</td>
+							<td>{result?.result?.features?.[0]?.properties?.accuracy || "N/A"}</td>
 						</tr>
 					))}
 				</tbody>
 			</table>
 
-			{/* Pagination Controls */}
 			{totalPages > 1 && (
-				<div>
+				<nav aria-label="Pagination">
 					<div
 						style={{
 							display: "flex",
@@ -134,13 +124,13 @@ export default function PaginatedTable({ apiResults }) {
 						{getPageNumbersToDisplay(totalPages, currentPage).map((page, index) => (
 							<React.Fragment key={index}>
 								{page === "..." ? (
-									<span style={{ margin: "0 8px" }}>...</span>
+									<span aria-hidden="true">...</span>
 								) : (
 									<GcdsButton
 										size="small"
 										buttonRole={currentPage === page ? "primary" : "secondary"}
 										onClick={() => handlePageChange(page)}
-										aria-label={currentPage === page ? currentPage : page}
+										aria-label={`Go to page ${page}`}
 										disabled={currentPage === page}
 									>
 										{page}
@@ -173,11 +163,10 @@ export default function PaginatedTable({ apiResults }) {
 							</GcdsButton>
 						)}
 					</div>
-				</div>
+				</nav>
 			)}
 
-			{/* Announce the page number change */}
-			<div aria-live="polite" style={{ position: "absolute", top: "-9999px" }}>
+			<div className="sr-only" aria-live="polite">
 				Page {currentPage} of {totalPages}
 			</div>
 		</>

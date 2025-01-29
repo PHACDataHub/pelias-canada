@@ -124,6 +124,15 @@
 				"clearSelect": "Effacer la sélection",
 				"firstButton": "Premier",
 				"lastButton": "Dernier"
+			},
+			"resultsTable": {
+				"queryFailed": "Échec de l'extraction des données pour la requête",
+				"noResults": "Pas de résultats d'api",
+				"confidence": {
+					"confidenceTableHeader": "Distribution des indices de confiance"
+				},
+				"validRows": "Nombre total de lignes soumises avec succès et sans erreur",
+				"returnedRows": "Nombre total de lignes reçues dans la réponse de l'API"
 			}
 		},
 		"map": {
