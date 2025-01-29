@@ -4,14 +4,15 @@ import { GcdsButton, GcdsHeading } from "@cdssnc/gcds-components-react"
 import GovTestForwardUploading from "./GcdsTestForward"
 import ForwardCallAPIReturn from "./ForwardCallAPIReturn"
 import FilteredResultsDisplay from "./FilteredResultsDisplay"
-import PaginatedTable from "../../tables/dataTable"
 import Mapping from "./forwardmap"
+import { useTranslation } from "react-i18next"
 
 export default function ForwardBulk() {
 	const [inputtedData, setInputtedData] = useState([])
 	const [filteredResults, setFilteredResults] = useState([])
 	const [continueStatus, setContinueStatus] = useState(false)
 	const childRef = useRef(null)
+	const { t } = useTranslation()
 
 	const handleReset = () => {
 		setInputtedData([])
@@ -32,14 +33,16 @@ export default function ForwardBulk() {
 
 	return (
 		<>
-      <GcdsHeading tag="h1">IntakeForwardFile </GcdsHeading>
+			<GcdsHeading tag="h1">IntakeForwardFile </GcdsHeading>
 			<p>
 				Make sure the column to transform is called <strong>inputID</strong>, and there is a column named <strong>physicalAddress</strong>.
 			</p>
 
-      <p>
-				More Instructions .
-			</p>
+			<p>More Instructions .</p>
+
+			{/* delete this */}
+			{t("components.forwardBulk.resultsTable.queryFailed")}
+			{/* delete this */}
 
 			{!continueStatus && (
 				<>
@@ -59,20 +62,17 @@ export default function ForwardBulk() {
 			{continueStatus && (
 				<>
 					<GcdsButton onClick={handleReset}>Reset</GcdsButton>
-					<p>
-						<strong>Status:</strong> Continue action triggered successfully.
-					</p>
 				</>
 			)}
-      
+
 			{filteredResults.length > 0 && continueStatus && (
 				<FilteredResultsDisplay
 					filteredResults={filteredResults}
 					triggerApiCall={continueStatus} // Pass trigger flag
 				/>
 			)}
-<br></br>
-			<Mapping />
+			<br></br>
+			{/* <Mapping /> */}
 		</>
 	)
 }

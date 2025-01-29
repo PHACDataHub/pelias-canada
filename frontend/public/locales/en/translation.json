@@ -83,7 +83,7 @@
 					"unknownError": "An unknown error occurred while fetching location."
 				}
 			}
-		}, 
+		},
 		"CodeZips": {
 			"pythonDownload": "Download Python files",
 			"rDownload": "Download R files"
@@ -124,6 +124,15 @@
 				"clearSelect": "Clear Selected",
 				"firstButton": "First",
 				"lastButton": "Last"
+			},
+			"resultsTable": {
+				"queryFailed": "Failed to fetch data for query",
+				"noResults": "no Api Results",
+				"confidence": {
+					"confidenceTableHeader": "Confidence Score Distribution"
+				},
+				"validRows": "Total rows successfully submitted without errors",
+				"returnedRows": "Total rows received in the API response"
 			}
 		},
 		"map": {
