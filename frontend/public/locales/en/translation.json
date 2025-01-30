@@ -89,10 +89,39 @@
 			"rDownload": "Download R files"
 		},
 		"forwardBulk": {
-			"InputUpload": {
+			"inputUpload": {
 				"title": "Input Upload",
+				"hint": "Upload a CSV to use our service",
 				"submit": "Submit",
-				"reset": "Reset"
+				"reset": "Reset",
+				"continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
+				"continue": "Continue",
+				"displayFileName": "Displaying information for uploaded file",
+				"errors": {
+					"uploadFileMissing": "Please select a file to upload.",
+					"fileReadError": "An error occurred while reading the file.",
+					"fileReadFailure": "Error occurred while reading the file. Please try again.",
+					"missingColumns" : "CSV must contain inputID and physicalAddress columns.",
+					"missingFields": "Missing required fields (inputID or physicalAddress)" ,
+					"processingError": "Error processing line."
+				}
+			},
+			"fowardCallAPIReturn": {
+				"summaryData": "",
+				"summaryDataPara": "",
+				"inputLength": "",
+				"cleanedLength": "",
+				"errorLength": "",
+				"dataRecievedDetails": "",
+				"previewData": {
+					"inputID": "Input ID",
+					"matchType": "Match Type",
+					"address": "Physical Address",
+					"lat": "Latitude",
+					"lon": "Longitude",
+					"confidenceLevel": "Confidence Level",
+					"accuracy": "Accuracy"
+				}
 			},
 			"loading": "Loading, please wait",
 			"mapReady": {
@@ -103,6 +132,7 @@
 				"downloadGEO": "Download GeoJSON",
 				"tableRange": "Range of confidence results",
 				"tableCount": "Count of result",
+				"tableHeaderConfidence": "Confidence levels for the valid items",
 				"jumpToPage": "Jump to page",
 				"rowsPerPage": "Rows per page",
 				"outputTable": {
@@ -131,6 +161,7 @@
 				"confidence": {
 					"confidenceTableHeader": "Confidence Score Distribution"
 				},
+				"previewResultsHeader": "Results Preview",
 				"validRows": "Total rows successfully submitted without errors",
 				"returnedRows": "Total rows received in the API response"
 			}

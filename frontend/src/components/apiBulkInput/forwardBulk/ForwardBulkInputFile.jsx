@@ -2,12 +2,12 @@
 import { useRef, useState, forwardRef, useImperativeHandle } from "react"
 
 import "leaflet/dist/leaflet.css"
-import { GcdsButton, GcdsHeading, GcdsFileUploader } from "@cdssnc/gcds-components-react"
+import { GcdsButton, GcdsHeading, GcdsFileUploader, GcdsText } from "@cdssnc/gcds-components-react"
 import { useTranslation } from "react-i18next"
 import PropTypes from "prop-types"
 
 const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 	const [results, setInputtedResults] = useState([]) // State for internal results
 	const [error, setError] = useState(null) // To store error messages
 	const [fileName, setFileName] = useState("")
@@ -26,33 +26,31 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 	}
 
 	const handleFileUpload = () => {
-		const file = fileInputRef.current && fileInputRef.current.files ? fileInputRef.current.files[0] : null;
-	  
+		const file = fileInputRef.current && fileInputRef.current.files ? fileInputRef.current.files[0] : null
+
 		if (!file) {
-		  setError("Please select a file to upload.");
-		  return;
+			setError("components.forwardBulk.inputUpload.errors.uploadFileMissing")
+			return
 		}
-	  
-		const reader = new FileReader();
-		reader.onload = (e) => {
-		  try {
-			let csvData = e.target.result;
-			csvData = csvData.replace(/("\s*\n\s*")/g, " "); // Replace newline within quotes with a space
-			processCSV(csvData);
-		  } catch (err) {
-			console.error("File reading error:", err);
-			setError("An error occurred while reading the file.");
-		  }
-		};
-	  
+
+		const reader = new FileReader()
+		reader.onload = e => {
+			try {
+				let csvData = e.target.result
+				csvData = csvData.replace(/("\s*\n\s*")/g, " ") // Replace newline within quotes with a space
+				processCSV(csvData)
+			} catch (err) {
+				console.error("File reading error:", err)
+				setError("components.forwardBulk.inputUpload.errors.fileReadError")
+			}
+		}
+
 		reader.onerror = () => {
-		  setError("Error occurred while reading the file. Please try again.");
-		};
-	  
-		reader.readAsText(file);
-	  };
-	  
-	  
+			setError("components.forwardBulk.inputUpload.errors.fileReadFailure")
+		}
+
+		reader.readAsText(file)
+	}
 
 	const processCSV = data => {
 		try {
@@ -61,7 +59,8 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 
 			// Check if CSV contains the necessary columns
 			if (!headers.includes("inputid") || !headers.includes("physicaladdress")) {
-				throw new Error("CSV must contain inputID and physicalAddress columns.")
+				throw new Error("components.forwardBulk.inputUpload.errors.missingColumns")
+
 			}
 
 			const processedResults = []
@@ -76,7 +75,8 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 
 					// Check for missing inputID or physicalAddress
 					if (!inputID || !addressParts) {
-						errors.push(`Line ${index + 2}: Missing required fields (inputID or physicalAddress)`)
+						errors.push(`Line ${index + 2}: ${t("components.forwardBulk.inputUpload.errors.missingFields")}`)
+
 					} else {
 						processedResults.push({
 							inputID,
@@ -84,7 +84,8 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 						})
 					}
 				} catch (err) {
-					errors.push(`Line ${index + 2}: Error processing line. ${err.message}`)
+					errors.push(`Line ${index + 2}: ${t("components.forwardBulk.inputUpload.errors.processingError", { errorMessage: err.message })}`)
+
 					console.error(`Error processing line ${index + 2}:`, err)
 				}
 			})
@@ -96,7 +97,7 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 				setInputtedResults(processedResults) // Only set results if no errors occurred
 			}
 		} catch (err) {
-			setError("CSV must contain inputID and physicalAddress columns.", err)
+			setError("components.forwardBulk.inputUpload.errors.missingColumns")
 			console.error("CSV processing error:", err)
 		}
 	}
@@ -116,8 +117,10 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 		reset: handleReset,
 	}))
 
+	
 	return (
 		<div>
+			{/* Will be replaced by the intake page */}
 			<ul>
 				<li>Upload CSV</li>
 				<li>Review cleaned data</li>
@@ -126,18 +129,21 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 					<i>Any items that did not return an error on initial processing will not be included in the API call and visualization.</i>
 				</li>
 			</ul>
+			{/* Will be replaced by the intake page */}
+
 			<div style={{ overflow: "auto" }}>
 				<fieldset>
+					<legend>{t("components.forwardBulk.inputUpload.title")}</legend>
 					<GcdsFileUploader
 						accept=".csv"
-						hint="Upload a CSV to use our service"
-						uploaderId="uploader"
-						label={t("components.forwardBulk.InputUpload.title")}
-						name="file-uploader"
+						hint={t("components.forwardBulk.inputUpload.hint")}
+						uploaderId={t("components.forwardBulk.inputUpload.title")}
+						name={t("components.forwardBulk.inputUpload.title")}
 						ref={fileInputRef}
 						onGcdsChange={handleFileChange}
-						errorMessage={error || ""} // Display error message here
+						errorMessage={error ? t(error) : ""} // Display error message here
 						onGcdsRemoveFile={handleReset}
+						lang={i18n.language}
 					/>
 
 					<div
@@ -150,7 +156,7 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 						}}
 					>
 						<GcdsButton size="small" onClick={handleFileUpload}>
-							Submit
+							{t("components.forwardBulk.inputUpload.submit")}
 						</GcdsButton>
 					</div>
 				</fieldset>
@@ -158,7 +164,7 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 			{results.length > 0 && (
 				<>
 					<GcdsHeading tag="h3" characterLimit="false">
-						Displaying information for uploaded file: {fileName}
+						{t("components.forwardBulk.inputUpload.displayFileName")}: {fileName}
 					</GcdsHeading>
 				</>
 			)}

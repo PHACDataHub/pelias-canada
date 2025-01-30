@@ -9,7 +9,7 @@ import GeocodingExplanation from "./pages/geocodingExplanation/GeocodingExplanat
 import NoPage from "./pages/NoPage"
 import ForwardBulkInput from "./pages/bulkInput/ForwardBulkInput"
 import ContactUs from "./pages/contactUs/ContactUs"
-import ForwardBulk from "./components/apiBulkInput/forwardBulk/testForward"
+import ForwardBulk from "./components/apiBulkInput/forwardBulk/IntakeForwardBulk"
 
 // 
 // TO add a page, go to server.ts and add to list located in << const ROUTES_TO_REDIRECT >>

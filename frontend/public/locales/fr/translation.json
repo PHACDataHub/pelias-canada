@@ -89,10 +89,39 @@
 			"rDownload": "Télécharger les fichiers R"
 		},
 		"forwardBulk": {
-			"InputUpload": {
+			"inputUpload": {
 				"title": "Téléchargement des données",
+				"hint": "Télécharger un fichier CSV pour utiliser notre service",
 				"submit": "Soumettre",
-				"reset": "Réinitialiser"
+				"reset": "Réinitialiser",
+				"continuePara": "Avant de poursuivre, veuillez vérifier les données que vous avez saisies. Toute erreur ne sera pas prise en compte dans l'appel API pour la suite de la procédure.",
+				"continue": "Continuer",
+				"displayFileName": "file Affichage des informations sur le fichier téléchargé",
+				"errors": {
+					"uploadFileMissing": "Veuillez sélectionner un fichier à télécharger.",
+					"fileReadError": "Une erreur s'est produite lors de la lecture du fichier.",
+					"fileReadFailure": "Une erreur s'est produite lors de la lecture du fichier. Veuillez réessayer.",
+					"missingColumns": "Le fichier CSV doit contenir les colonnes inputID et physicalAddress.",
+					"missingFields": "Champs obligatoires manquants (inputID ou physicalAddress)",
+					"processingError": "Erreur de traitement de la ligne."
+				}
+			},
+			"fowardCallAPIReturn": {
+				"summaryData": "",
+				"summaryDataPara": "",
+				"inputLength": "",
+				"cleanedLength": "",
+				"errorLength": "",
+				"dataRecievedDetails": "",
+				"previewData": {
+					"inputID": "ID d'entrée",
+					"matchType": "Type de match",
+					"address": "Adresse physique",
+					"lat": "Latitude",
+					"lon": "Longitude",
+					"confidenceLevel": "Niveau de confiance",
+					"accuracy": "Précision"
+				}
 			},
 			"loading": "Chargement, veuillez patienter",
 			"mapReady": {
@@ -103,6 +132,7 @@
 				"downloadGEO": "Download GeoJSON",
 				"tableRange": "Fourchette des résultats de confiance",
 				"tableCount": "Nombre de résultats",
+				"tableHeaderConfidence": "Niveaux de confiance pour les items valides",
 				"jumpToPage": "Aller à la page",
 				"rowsPerPage": "Lignes par page",
 				"outputTable": {
@@ -131,6 +161,7 @@
 				"confidence": {
 					"confidenceTableHeader": "Distribution des indices de confiance"
 				},
+				"previewResultsHeader": "Présentation des résultats",
 				"validRows": "Nombre total de lignes soumises avec succès et sans erreur",
 				"returnedRows": "Nombre total de lignes reçues dans la réponse de l'API"
 			}
