@@ -32,7 +32,7 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 						const data = await response.json()
 						results.push({ inputID: item.inputID, result: data })
 					} catch (error) {
-						console.error("API request failed for:", item.query, error)
+						console.error(item.query, error)
 						results.push({ inputID: item.inputID, error: error.message })
 					}
 				}
@@ -55,17 +55,21 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 					))}
 				</div>
 			)}
-			<p>Input count: {filteredResults.length}</p>
+			<p>
+				{t("components.forwardBulk.resultsTable.validRows")} {filteredResults.length}
+			</p>
 			{apiResults.length > 0 && (
 				<>
-					<p>Results returned: {apiResults.length}</p>
+					<p>
+						{t("components.forwardBulk.resultsTable.returnedRows")}: {apiResults.length}
+					</p>
 
 					{/* Render the API results if there are any */}
 					{/* {apiResults.length > 0 && <pre>{JSON.stringify(apiResults, null, 2)}</pre>} */}
 
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
 					{apiResults.length > 0 ? <ConfidenceTable apiResults={apiResults} /> : <p>{t("components.forwardBulk.resultsTable.noResults")}</p>}
-					<GcdsHeading tag="h3">Results Preview</GcdsHeading>
+					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
 					{apiResults.length > 0 ? <PaginatedTable apiResults={apiResults} /> : <p>{t("components.forwardBulk.resultsTable.noResults")}</p>}
 				</>
 			)}

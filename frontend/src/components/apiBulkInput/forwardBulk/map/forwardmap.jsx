@@ -10,7 +10,7 @@ import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import Overlay from "ol/Overlay";
 import { Style, Circle, Fill, Stroke } from "ol/style";
-import MapData from "./map/MapData.json";
+import MapData from "./MapData.json";
 import { useTranslation } from "react-i18next";
 
 export default function Mapping() {

@@ -50,7 +50,7 @@ export default function ConfidenceTable({ apiResults }) {
 	return (
 		<>
 			<table border="1">
-				<caption>Confidence levels for the {totalItems} valid items</caption>
+				<caption>{t("components.forwardBulk.mapReady.tableHeaderConfidence")}</caption> 
 				<thead>
 					<tr>
 						<th>{t("components.forwardBulk.mapReady.tableRange")}</th>
