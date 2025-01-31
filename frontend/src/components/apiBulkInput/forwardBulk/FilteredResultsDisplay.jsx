@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react"
 import { GcdsHeading } from "@cdssnc/gcds-components-react"
 import Loading from "../../Loading"
 import { useTranslation } from "react-i18next"
 import ConfidenceTable from "../../tables/ConfidenceTable"
 import PaginatedTable from "../../tables/dataTable"
+import Mapping from "./map/forwardmap"
 
 export default function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
 	const [apiResults, setApiResults] = useState([])
@@ -23,6 +23,7 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 
 			// Define the async function to fetch data
 			const fetchData = async () => {
+				const newResults = []
 				for (const item of filteredResults) {
 					try {
 						const response = await fetch(`https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(item.query)}`, {
@@ -30,14 +31,15 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 							headers: { "Content-Type": "application/json" },
 						})
 						const data = await response.json()
-						results.push({ inputID: item.inputID, result: data })
+						newResults.push({ inputID: item.inputID, result: data })
 					} catch (error) {
 						console.error(item.query, error)
-						results.push({ inputID: item.inputID, error: error.message })
+						newResults.push({ inputID: item.inputID, error: error.message })
+						setErrors(prevErrors => [...prevErrors, error.message]) // Add errors to the state
 					}
 				}
-				setApiResults(results) // Set all the results at once
-				setLoading(false) // Stop loading
+				setApiResults(newResults)
+				setLoading(false)
 			}
 
 			// Call the async function to fetch data
@@ -58,21 +60,20 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 			<p>
 				{t("components.forwardBulk.resultsTable.validRows")} {filteredResults.length}
 			</p>
-			{apiResults.length > 0 && (
-				<>
-					<p>
-						{t("components.forwardBulk.resultsTable.returnedRows")}: {apiResults.length}
-					</p>
-
-					{/* Render the API results if there are any */}
-					{/* {apiResults.length > 0 && <pre>{JSON.stringify(apiResults, null, 2)}</pre>} */}
-
-					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
-					{apiResults.length > 0 ? <ConfidenceTable apiResults={apiResults} /> : <p>{t("components.forwardBulk.resultsTable.noResults")}</p>}
-					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
-					{apiResults.length > 0 ? <PaginatedTable apiResults={apiResults} /> : <p>{t("components.forwardBulk.resultsTable.noResults")}</p>}
-				</>
-			)}
+			{apiResults.length >
+				0(
+					<>
+						<p>
+							{t("components.forwardBulk.resultsTable.returnedRows")}: {apiResults.length}
+						</p>
+						<Mapping apiResults={apiResults} />
+						<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
+						<ConfidenceTable apiResults={apiResults} />
+						<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
+						<PaginatedTable apiResults={apiResults} />
+						<br />
+					</>
+				)}
 		</>
 	)
 }

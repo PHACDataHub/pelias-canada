@@ -4,8 +4,8 @@ import { GcdsButton, GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react
 import IntakeForwardFile from "./ForwardBulkInputFile"
 import ForwardCallAPIReturn from "./ForwardCallAPIReturn"
 import FilteredResultsDisplay from "./FilteredResultsDisplay"
-import Mapping from "./map/forwardmap"
 import { useTranslation } from "react-i18next"
+
 
 export default function ForwardBulk() {
 	const [inputtedData, setInputtedData] = useState([])
@@ -49,15 +49,15 @@ export default function ForwardBulk() {
 							<GcdsButton onClick={handleButtonClick}>{t("components.forwardBulk.inputUpload.continue")}</GcdsButton>
 						</>
 					)}
-					<br />
-				</>
-			)}
-			<br />
-			{continueStatus && (
+					<br />	{continueStatus && (
 				<>
 					<GcdsButton onClick={handleReset}>Reset</GcdsButton>
 				</>
 			)}
+				</>
+			)}
+			<br />
+		
 
 			{filteredResults.length > 0 && continueStatus && (
 				<FilteredResultsDisplay
@@ -65,8 +65,7 @@ export default function ForwardBulk() {
 					triggerApiCall={continueStatus} // Pass trigger flag
 				/>
 			)}
-			<br></br>
-			{/* <Mapping /> */}
+
 		</>
 	)
 }
