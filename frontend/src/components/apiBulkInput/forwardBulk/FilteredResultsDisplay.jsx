@@ -60,20 +60,19 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 			<p>
 				{t("components.forwardBulk.resultsTable.validRows")} {filteredResults.length}
 			</p>
-			{apiResults.length >
-				0(
-					<>
-						<p>
-							{t("components.forwardBulk.resultsTable.returnedRows")}: {apiResults.length}
-						</p>
-						<Mapping apiResults={apiResults} />
-						<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
-						<ConfidenceTable apiResults={apiResults} />
-						<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
-						<PaginatedTable apiResults={apiResults} />
-						<br />
-					</>
-				)}
+			{apiResults.length > 0 && (
+				<>
+					<p>
+						{t("components.forwardBulk.resultsTable.returnedRows")}: {apiResults.length}
+					</p>
+					<Mapping apiResults={apiResults} />
+					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
+					<ConfidenceTable apiResults={apiResults} />
+					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
+					<PaginatedTable apiResults={apiResults} />
+					<br />
+				</>
+			)}
 		</>
 	)
 }
