@@ -58,10 +58,10 @@ export default function PaginatedTable({ apiResults }) {
 	return (
 		<>
 			<GcdsSelect
-				selectId="itemsPerPage"
-				label="Items per Page"
-				name="itemsPerPage"
-				hint="Select the number of items per page"
+				selectId={t("components.tablePageation.itemsID")}
+				label={t("components.tablePageation.itemsPerPage")}
+				name={t("components.tablePageation.itemsID")}
+				hint={t("components.tablePageation.hint")}
 				onGcdsChange={e => {
 					const newItemsPerPage = Number(e.target.value)
 					setItemsPerPage(newItemsPerPage)
@@ -80,7 +80,7 @@ export default function PaginatedTable({ apiResults }) {
 					{i18n.language === "en"
 						? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
 						: `
-					Affichage des articles ${startIndex + 1} - ${endIndex} sur ${totalItems} `}
+					Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems} `}
 				</caption>
 				<thead>
 					<tr>
@@ -130,7 +130,7 @@ export default function PaginatedTable({ apiResults }) {
 										size="small"
 										buttonRole={currentPage === page ? "primary" : "secondary"}
 										onClick={() => handlePageChange(page)}
-										aria-label={`Go to page ${page}`}
+										aria-label={`${t("components.tablePageation.goToPage")} ${page}`}
 										disabled={currentPage === page}
 									>
 										{page}
@@ -152,22 +152,23 @@ export default function PaginatedTable({ apiResults }) {
 						}}
 					>
 						{currentPage > 1 && (
-							<GcdsButton size="small" onClick={() => handlePageChange(currentPage - 1)} aria-label="Previous Page">
-								<FaAngleLeft /> Previous
+							<GcdsButton size="small" onClick={() => handlePageChange(currentPage - 1)} aria-label={t("components.tablePageation.ariaPrevious")}>
+								<FaAngleLeft /> {t("components.tablePageation.previous")}
 							</GcdsButton>
 						)}
 
 						{currentPage < totalPages && (
-							<GcdsButton size="small" onClick={() => handlePageChange(currentPage + 1)} aria-label="Next Page">
-								Next <FaAngleRight />
+							<GcdsButton size="small" onClick={() => handlePageChange(currentPage + 1)} aria-label={t("components.tablePageation.ariaNext")}>
+								{t("components.tablePageation.next")} <FaAngleRight />
 							</GcdsButton>
 						)}
 					</div>
 				</nav>
 			)}
-
+			{i18n.language === "en" ? "" : ""}
 			<div className="sr-only" aria-live="polite">
 				Page {currentPage} of {totalPages}
+				{i18n.language === "en" ? `Page ${currentPage} of ${totalPages}` : `Page ${currentPage} de ${totalPages}`}
 			</div>
 		</>
 	)

@@ -101,27 +101,35 @@
 					"uploadFileMissing": "Please select a file to upload.",
 					"fileReadError": "An error occurred while reading the file.",
 					"fileReadFailure": "Error occurred while reading the file. Please try again.",
-					"missingColumns" : "CSV must contain inputID and physicalAddress columns.",
-					"missingFields": "Missing required fields (inputID or physicalAddress)" ,
+					"missingColumns": "CSV must contain inputID and physicalAddress columns.",
+					"missingFields": "Missing required fields (inputID or physicalAddress)",
 					"processingError": "Error processing line."
 				}
 			},
-			"fowardCallAPIReturn": {
-				"summaryData": "",
-				"summaryDataPara": "",
-				"inputLength": "",
-				"cleanedLength": "",
-				"errorLength": "",
-				"dataRecievedDetails": "",
+			"forwardCallAPIReturn": {
+				"dataProcessingSummary": "Data Processing Summary",
+				"dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please double-check the addresses and ensure they are correctly formatted in the CSV file.",
+				"inputLength": "Number of lines received from CSV",
+				"cleanedLength": "Number of valid entries",
+				"errorLength": "Number of errors",
+				"dataRecievedDetails": "Recieved Data Details",
+				"recievedDataJsonPreview": "Recieved Data review", 
+				"cleanDataPreview": "Cleaned Data preview",
 				"previewData": {
-					"inputID": "Input ID",
-					"matchType": "Match Type",
-					"address": "Physical Address",
-					"lat": "Latitude",
-					"lon": "Longitude",
-					"confidenceLevel": "Confidence Level",
-					"accuracy": "Accuracy"
-				}
+					"inputId": "Input ID",
+					"physicalAddress": "Physical Address",
+					"apartment": "Apartment",
+					"streetNumber": "Street Number",
+					"streetName": "Street Name",
+					"region": "Region",
+					"province": "Province",
+					"postalCode": "Postal Code",
+					"query": "Query Text"
+				},
+				"inputDataDetails": "click to view inputted details",
+				"cleanDataDetails": "click to preview cleaned data",
+				"errorDataDetails": "click to preview errors",
+				"errorPara": "Data cleaning error—likely due to a unit number or inaccurate address. Please review the addresses before continuing or make the necessary corrections and recheck the input."
 			},
 			"loading": "Loading, please wait",
 			"mapReady": {
@@ -206,6 +214,16 @@
 			"clearSelect": "Clear Selected",
 			"firstButton": "First",
 			"lastButton": "Last"
+		},
+		"tablePageation": {
+			"itemsID": "itemsPerPage",
+			"itemsPerPage": "Items per page",
+			"hint": "Select the number of items per page",
+			"next": "Next",
+			"ariaNext": "Next page",
+			"previous": "Previous",
+			"ariaPrevious": "Previous page",
+			"goToPage": "Go to page"
 		}
 	},
 	"footer": {
