@@ -19,6 +19,33 @@ export default function Mapping({ apiResults }) {
 
 	// Responsive State for Wide Screen Check
 	const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1080)
+	const addLegend = (t, isWideScreen) => {
+		const legendContainer = document.createElement("div")
+		legendContainer.style.position = "absolute"
+		legendContainer.style.bottom = "30px"
+		legendContainer.style.right = "10px"
+		legendContainer.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
+		legendContainer.style.padding = "5px"
+		legendContainer.style.borderRadius = "5px"
+		legendContainer.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.3)"
+		legendContainer.style.fontSize = isWideScreen ? "16px" : "12px"
+		legendContainer.style.lineHeight = "1.5em"
+	
+		// Add legend title
+		legendContainer.innerHTML = `<strong>${t("legend.confidence")}</strong> <br/>`
+	
+		const grades = [100, 80, 50, 30, 0]
+		const colors = ["#006400", "#389638", "#FFBF00", "#FF8C00", "#B22222"]
+	
+		const labels = grades.map((grade, i) => {
+			return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
+				grade
+			}% ${i < grades.length - 4 ? "+" : `&ndash; ${grades[i - 1]}%`}`
+		})
+	
+		legendContainer.innerHTML += labels.join("<br>")
+		return legendContainer
+	}
 
 	// Handle Media Query Changes for Screen Width
 	useEffect(() => {
@@ -112,29 +139,35 @@ export default function Mapping({ apiResults }) {
 				const data = feature.get("data")
 				overlayRef.current.style.display = "block"
 				overlayRef.current.innerHTML = `
-     
-          <div>
-            <strong>${t("components.forwardBulk.mapReady.outputTable.inputID")}:</strong> ${data.inputID} <br />
-            <strong>${t("components.forwardBulk.mapReady.outputTable.address")}:</strong> ${data?.result?.geocoding?.query?.text || "N/A"} <br />
-            <strong>${t("components.forwardBulk.mapReady.outputTable.lat")}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[1] ?? "N/A"} <br />
-            <strong>${t("components.forwardBulk.mapReady.outputTable.lon")}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[0] ?? "N/A"} <br />
-            <strong>${t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}:</strong> ${data?.result?.features?.[0]?.properties?.confidence !== undefined ? `${data.result.features[0].properties.confidence * 100}%` : "N/A"} <br />
-            <strong>${t("components.forwardBulk.mapReady.outputTable.matchType")}:</strong> ${data?.result?.features?.[0]?.properties?.match_type || "N/A"} <br />
-            <strong>${t("components.forwardBulk.mapReady.outputTable.accuracy")}:</strong> ${data?.result?.features?.[0]?.properties?.accuracy || "N/A"} <br />
-  
-          </div>
-        `
+					<div>
+						<strong>${t("components.forwardBulk.mapReady.outputTable.inputID")}:</strong> ${data.inputID} <br />
+						<strong>${t("components.forwardBulk.mapReady.outputTable.address")}:</strong> ${data?.result?.geocoding?.query?.text || "N/A"} <br />
+						<strong>${t("components.forwardBulk.mapReady.outputTable.lat")}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[1] ?? "N/A"} <br />
+						<strong>${t("components.forwardBulk.mapReady.outputTable.lon")}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[0] ?? "N/A"} <br />
+						<strong>${t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}:</strong> ${data?.result?.features?.[0]?.properties?.confidence !== undefined ? `${data.result.features[0].properties.confidence * 100}%` : "N/A"} <br />
+						<strong>${t("components.forwardBulk.mapReady.outputTable.matchType")}:</strong> ${data?.result?.features?.[0]?.properties?.match_type || "N/A"} <br />
+						<strong>${t("components.forwardBulk.mapReady.outputTable.accuracy")}:</strong> ${data?.result?.features?.[0]?.properties?.accuracy || "N/A"} <br />
+					</div>
+				`
 			} else {
 				overlay.setPosition(undefined)
 				overlayRef.current.style.display = "none"
 			}
 		})
 
+		// ** Add the legend to the map container **
+		const legend = addLegend(t, isWideScreen)
+		mapRef.current.appendChild(legend)
+
 		// Cleanup
 		return () => {
 			map.setTarget(null)
+			if (legend && legend.parentNode) {
+				legend.parentNode.removeChild(legend)
+			}
 		}
 	}, [t, isWideScreen, apiResults])
+
 
 	return (
 		<>

@@ -1,12 +1,13 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { GcdsDetails, GcdsErrorMessage, GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
+import { useTranslation } from "react-i18next"
 
 export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 	const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0)
 	const [parsedResults, setParsedResults] = useState([])
 	const [inputtedResults, setInputtedResults] = useState([])
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		// Only run if results are available and changed
@@ -134,16 +135,25 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 
 	return (
 		<>
-			<GcdsHeading tag="h4"> summaryData</GcdsHeading>
-			<GcdsText>summaryDataPara</GcdsText>
+			<GcdsHeading tag="h4">{t("components.forwardBulk.forwardCallAPIReturn.dataProcessingSummary")}</GcdsHeading>
+			<GcdsText characterLimit="false">{t("components.forwardBulk.forwardCallAPIReturn.dataProcessingPara")}</GcdsText>
 
-			<p>Input length: {totalRowsSubmitted}</p>
-			<p>Cleaned length: {validResults.length}</p>
-			<p>Number of errors: {invalidResults.length}</p>
+			<div className="summary-container" style={{ background: "#26374a", padding: "12px", borderRadius: "6px", marginTop: "10px", color: "#FFFFFF" }}>
+				<GcdsText textRole="light">
+					<strong>{t("components.forwardBulk.forwardCallAPIReturn.inputLength")}:</strong> {totalRowsSubmitted}
+				</GcdsText>
+				<GcdsText textRole="light">
+					<strong>{t("components.forwardBulk.forwardCallAPIReturn.cleanedLength")}:</strong> {validResults.length}
+				</GcdsText>
+				<GcdsText textRole="light">
+					<strong>{t("components.forwardBulk.forwardCallAPIReturn.errorLength")}:</strong> {invalidResults.length}
+				</GcdsText>
+			</div>
 
 			{/* click to view inputted details */}
-			<GcdsHeading tag="h4"> dataRecievedDetails</GcdsHeading>
-			<GcdsDetails detailsTitle="click to view inputted details">
+			<GcdsHeading tag="h4"> {t("components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails")}</GcdsHeading>
+			<GcdsText> {t("components.forwardBulk.forwardCallAPIReturn.recievedDataJsonPreview")} </GcdsText>
+			<GcdsDetails detailsTitle={t("components.forwardBulk.forwardCallAPIReturn.inputDataDetails")}>
 				{inputtedResults.length > 0 && (
 					<div style={{ overflow: "hidden" }}>
 						<div style={{ height: "300px", overflow: "scroll" }}>
@@ -155,7 +165,8 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 				)}
 			</GcdsDetails>
 			<hr></hr>
-			<GcdsDetails detailsTitle="click to preview cleaned data">
+			<GcdsText> {t("components.forwardBulk.forwardCallAPIReturn.cleanDataPreview")} </GcdsText>
+			<GcdsDetails detailsTitle={t("components.forwardBulk.forwardCallAPIReturn.cleanDataDetails")}>
 				{validResults.length > 0 ? (
 					<div style={{ overflow: "hidden" }}>
 						<div style={{ height: "300px", overflow: "scroll" }}>
@@ -163,31 +174,32 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 								<div key={parsedResult.inputID}>
 									<ul>
 										<li>
-											<strong>Input ID:</strong> {parsedResult.inputID}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.inputId")}:</strong> {parsedResult.inputID}
+										</li>
+
+										<li>
+											<strong> {t("components.forwardBulk.forwardCallAPIReturn.previewData.physicalAddress")}:</strong> {parsedResult.physicalAddress}
 										</li>
 										<li>
-											<strong>Physical Address:</strong> {parsedResult.physicalAddress}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.apartment")}:</strong> {parsedResult.apartment}
 										</li>
 										<li>
-											<strong>Apartment:</strong> {parsedResult.apartment}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.streetNumber")}:</strong> {parsedResult.streetNumber}
 										</li>
 										<li>
-											<strong>Street Number:</strong> {parsedResult.streetNumber}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.streetName")}:</strong> {parsedResult.streetName}
 										</li>
 										<li>
-											<strong>Street Name:</strong> {parsedResult.streetName}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.region")}:</strong> {parsedResult.region}
 										</li>
 										<li>
-											<strong>Region:</strong> {parsedResult.region}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.province")}:</strong> {parsedResult.province}
 										</li>
 										<li>
-											<strong>Province:</strong> {parsedResult.province}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.postalCode")}:</strong> {parsedResult.postalCode}
 										</li>
 										<li>
-											<strong>Postal Code:</strong> {parsedResult.postalCode}
-										</li>
-										<li>
-											<strong>Query:</strong> {parsedResult.query}
+											<strong>{t("components.forwardBulk.forwardCallAPIReturn.previewData.query")}:</strong> {parsedResult.query}
 										</li>
 									</ul>
 								</div>
@@ -201,9 +213,8 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 			{invalidResults.length > 0 && (
 				<>
 					<hr />
-					<p>Addresses with errors that will not be included:</p>
-					<GcdsErrorMessage>data cleaning error - likely due to unit number or inaccurate address</GcdsErrorMessage>
-					<GcdsDetails detailsTitle="click to preview errors">
+					<GcdsErrorMessage >{t("components.forwardBulk.forwardCallAPIReturn.errorPara")}</GcdsErrorMessage>
+					<GcdsDetails detailsTitle={t("components.forwardBulk.forwardCallAPIReturn.errorDataDetails")}>
 						{invalidResults.map(parsedResult => (
 							<GcdsText key={parsedResult.inputID}>{`Input ID: ${parsedResult.inputID}, Physical Address: ${parsedResult.physicalAddress}`}</GcdsText>
 						))}

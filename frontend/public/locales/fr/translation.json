@@ -96,7 +96,7 @@
 				"reset": "Réinitialiser",
 				"continuePara": "Avant de poursuivre, veuillez vérifier les données que vous avez saisies. Toute erreur ne sera pas prise en compte dans l'appel API pour la suite de la procédure.",
 				"continue": "Continuer",
-				"displayFileName": "file Affichage des informations sur le fichier téléchargé",
+				"displayFileName": "Affichage des informations sur le fichier téléchargé",
 				"errors": {
 					"uploadFileMissing": "Veuillez sélectionner un fichier à télécharger.",
 					"fileReadError": "Une erreur s'est produite lors de la lecture du fichier.",
@@ -106,22 +106,30 @@
 					"processingError": "Erreur de traitement de la ligne."
 				}
 			},
-			"fowardCallAPIReturn": {
-				"summaryData": "",
-				"summaryDataPara": "",
-				"inputLength": "",
-				"cleanedLength": "",
-				"errorLength": "",
-				"dataRecievedDetails": "",
+			"forwardCallAPIReturn": {
+				"dataProcessingSummary": "Sommaire du traitement des données",
+				"dataProcessingPara": "Les données ont été nettoyées et préparées pour l'appel API. Vous trouverez ci-dessous un résumé des données traitées, y compris les erreurs détectées. Si des erreurs sont présentes, veuillez revérifier les adresses et vous assurer qu'elles sont correctement formatées dans le fichier CSV.",
+				"inputLength": "Nombre de lignes reçues du CSV",
+				"cleanedLength": "Nombre d'entrées valides",
+				"errorLength": "Nombre d'erreurs",
+				"dataRecievedDetails": "Détails des données reçues",
+				"recievedDataJsonPreview": "Réception de l'examen des données", 
+				"cleanDataPreview": "Aperçu des données nettoyées",
 				"previewData": {
-					"inputID": "ID d'entrée",
-					"matchType": "Type de match",
-					"address": "Adresse physique",
-					"lat": "Latitude",
-					"lon": "Longitude",
-					"confidenceLevel": "Niveau de confiance",
-					"accuracy": "Précision"
-				}
+					"inputId": "ID d'entrée",
+					"physicalAddress": "Adresse physique",
+					"apartment": "Appartement",
+					"streetNumber": "Numéro de rue",
+					"streetName": "Nom de la rue",
+					"region": "Région",
+					"province": "Province",
+					"postalCode": "Code Postal",
+					"query": "Texte de la requête"
+				},
+				"inputDataDetails": "cliquez pour voir les détails saisis",
+				"cleanDataDetails": "cliquez pour avoir un aperçu des données nettoyées",
+				"errorDataDetails": "cliquez pour voir les erreurs",
+				"errorPara": "Erreur de nettoyage des données - probablement due à un numéro d'unité ou à une adresse inexacte. Veuillez vérifier les adresses avant de continuer ou apporter les corrections nécessaires et revérifier la saisie."
 			},
 			"loading": "Chargement, veuillez patienter",
 			"mapReady": {
@@ -206,6 +214,16 @@
 			"clearSelect": "Effacer la sélection",
 			"firstButton": "Premier",
 			"lastButton": "Dernier"
+		},
+		"tablePageation": {
+			"itemsID": "élémentsParPage",
+			"itemsPerPage": "Éléments par page",
+			"hint": "Sélectionnez le nombre d'éléments par page",
+			"next": "Suivant",
+			"ariaNext": "Page suivante",
+			"previous": "Précédent",
+			"ariaPrevious": "Page précédente",
+			"goToPage": "Aller à la page "
 		}
 	},
 	"footer": {
