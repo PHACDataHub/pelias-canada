@@ -1,0 +1,997 @@
+[
+	{
+		"inputID": "1",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "1234 Elm St, Montreal, QC",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "1234",
+						"street": "elm st",
+						"city": "montreal",
+						"state": "qc"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695234288
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-73.586295, 45.572744]
+					},
+					"properties": {
+						"id": "101736545",
+						"gid": "whosonfirst:locality:101736545",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "101736545",
+						"country_code": "CA",
+						"name": "Montreal",
+						"confidence": 0.6,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Montreal",
+						"county_gid": "whosonfirst:county:890458661",
+						"locality": "Montreal",
+						"locality_gid": "whosonfirst:locality:101736545",
+						"label": "Montreal, QC, Canada"
+					},
+					"bbox": [-73.947552, 45.414591, -73.476198, 45.703798]
+				}
+			],
+			"bbox": [-73.947552, 45.414591, -73.476198, 45.703798]
+		}
+	},
+	{
+		"inputID": "2",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "P.O. Box 5678, Vancouver, BC",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"city": "vancouver",
+						"state": "bc"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695234504
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-123.11874, 49.2819]
+					},
+					"properties": {
+						"id": "101741075",
+						"gid": "whosonfirst:locality:101741075",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "101741075",
+						"country_code": "CA",
+						"name": "Vancouver",
+						"confidence": 1,
+						"match_type": "exact",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "British Columbia",
+						"region_gid": "whosonfirst:region:85682117",
+						"region_a": "BC",
+						"county": "Greater Vancouver",
+						"county_gid": "whosonfirst:county:890457467",
+						"county_a": "MVRD",
+						"locality": "Vancouver",
+						"locality_gid": "whosonfirst:locality:101741075",
+						"label": "Vancouver, BC, Canada"
+					},
+					"bbox": [-123.224846, 49.199857, -123.023204, 49.314079]
+				}
+			],
+			"bbox": [-123.224846, 49.199857, -123.023204, 49.314079]
+		}
+	},
+	{
+		"inputID": "3",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "RR#7, Box 89, St. John's, NL",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"street": "rr#7 box 89",
+						"city": "st. john's",
+						"state": "nl"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695234790
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-52.70931, 47.56494]
+					},
+					"properties": {
+						"id": "890456615",
+						"gid": "whosonfirst:locality:890456615",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "890456615",
+						"country_code": "CA",
+						"name": "St. John's",
+						"confidence": 0.6,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Newfoundland and Labrador",
+						"region_gid": "whosonfirst:region:85682123",
+						"region_a": "NL",
+						"county": "Division No. 1",
+						"county_gid": "whosonfirst:county:1158869009",
+						"locality": "St. John's",
+						"locality_gid": "whosonfirst:locality:890456615",
+						"label": "St. John's, NL, Canada"
+					},
+					"bbox": [-52.72931, 47.54494, -52.68931, 47.58494]
+				}
+			],
+			"bbox": [-52.72931, 47.54494, -52.68931, 47.58494]
+		}
+	},
+	{
+		"inputID": "4",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "4321 Rue de la Montagne, Montréal, QC",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "4321",
+						"street": "rue de la montagne",
+						"city": "montréal",
+						"state": "qc"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695235387
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-73.568439, 45.494728]
+					},
+					"properties": {
+						"id": "polyline:664729",
+						"gid": "openstreetmap:street:polyline:664729",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:664729",
+						"country_code": "CA",
+						"name": "Rue de la Montagne",
+						"street": "Rue de la Montagne",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Montreal",
+						"county_gid": "whosonfirst:county:890458661",
+						"locality": "Montreal",
+						"locality_gid": "whosonfirst:locality:101736545",
+						"borough": "Ville-Marie",
+						"borough_gid": "whosonfirst:borough:1108955761",
+						"neighbourhood": "Vieux Montréal",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:85866485",
+						"label": "Rue de la Montagne, Montreal, QC, Canada"
+					},
+					"bbox": [-73.569584, 45.494182, -73.567304, 45.495282]
+				},
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-73.571153, 45.496043]
+					},
+					"properties": {
+						"id": "polyline:664726",
+						"gid": "openstreetmap:street:polyline:664726",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:664726",
+						"country_code": "CA",
+						"name": "Rue de la Montagne",
+						"street": "Rue de la Montagne",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Montreal",
+						"county_gid": "whosonfirst:county:890458661",
+						"locality": "Montreal",
+						"locality_gid": "whosonfirst:locality:101736545",
+						"borough": "Ville-Marie",
+						"borough_gid": "whosonfirst:borough:1108955761",
+						"neighbourhood": "Downtown Montreal",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:420784405",
+						"label": "Rue de la Montagne, Montreal, QC, Canada"
+					},
+					"bbox": [-73.572274, 45.495503, -73.570045, 45.496569]
+				},
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-73.582738, 45.5016]
+					},
+					"properties": {
+						"id": "polyline:369670",
+						"gid": "openstreetmap:street:polyline:369670",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:369670",
+						"country_code": "CA",
+						"name": "Rue de la Montagne",
+						"street": "Rue de la Montagne",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Montreal",
+						"county_gid": "whosonfirst:county:890458661",
+						"locality": "Montreal",
+						"locality_gid": "whosonfirst:locality:101736545",
+						"borough": "Ville-Marie",
+						"borough_gid": "whosonfirst:borough:1108955761",
+						"neighbourhood": "Montagne",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:1108959373",
+						"label": "Rue de la Montagne, Montreal, QC, Canada"
+					},
+					"bbox": [-73.583476, 45.501238, -73.582013, 45.501948]
+				},
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-73.558225, 45.491765]
+					},
+					"properties": {
+						"id": "polyline:664642",
+						"gid": "openstreetmap:street:polyline:664642",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:664642",
+						"country_code": "CA",
+						"name": "Rue de la Montagne",
+						"street": "Rue de la Montagne",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Montreal",
+						"county_gid": "whosonfirst:county:890458661",
+						"locality": "Montreal",
+						"locality_gid": "whosonfirst:locality:101736545",
+						"borough": "Le Sud-Ouest",
+						"borough_gid": "whosonfirst:borough:1108955759",
+						"neighbourhood": "Little Burgundy",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:85897609",
+						"label": "Rue de la Montagne, Montreal, QC, Canada"
+					},
+					"bbox": [-73.558327, 45.491762, -73.558122, 45.491767]
+				}
+			],
+			"bbox": [-73.583476, 45.491762, -73.558122, 45.501948]
+		}
+	},
+	{
+		"inputID": "5",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "123 Anywhere St., Ottawa, ON",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "123",
+						"street": "anywhere st.",
+						"city": "ottawa",
+						"state": "on"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695235789
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-75.783876, 45.209415]
+					},
+					"properties": {
+						"id": "101735873",
+						"gid": "whosonfirst:locality:101735873",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "101735873",
+						"country_code": "CA",
+						"name": "Ottawa",
+						"confidence": 0.6,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Ontario",
+						"region_gid": "whosonfirst:region:85682057",
+						"region_a": "ON",
+						"county": "Ottawa",
+						"county_gid": "whosonfirst:county:890458681",
+						"locality": "Ottawa",
+						"locality_gid": "whosonfirst:locality:101735873",
+						"label": "Ottawa, ON, Canada"
+					},
+					"bbox": [-76.355586, 44.961774, -75.246584, 45.537651]
+				},
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-75.837338, 45.36426]
+					},
+					"properties": {
+						"id": "1126109937",
+						"gid": "whosonfirst:neighbourhood:1126109937",
+						"layer": "neighbourhood",
+						"source": "whosonfirst",
+						"source_id": "1126109937",
+						"country_code": "CA",
+						"name": "Ottawa River",
+						"confidence": 0.6,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Ontario",
+						"region_gid": "whosonfirst:region:85682057",
+						"region_a": "ON",
+						"county": "Ottawa",
+						"county_gid": "whosonfirst:county:890458681",
+						"locality": "Ottawa",
+						"locality_gid": "whosonfirst:locality:101735873",
+						"neighbourhood": "Ottawa River",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:1126109937",
+						"label": "Ottawa River, Ottawa, ON, Canada"
+					},
+					"bbox": [-76.3130519997, 45.3497840002, -75.3353836748, 45.5376514]
+				}
+			],
+			"bbox": [-76.355586, 44.961774, -75.246584, 45.5376514]
+		}
+	},
+	{
+		"inputID": "6",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "P.O. Box 123, Trois-Rivières, QC",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"city": "trois-rivières",
+						"state": "qc"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695235903
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-72.609021, 46.363917]
+					},
+					"properties": {
+						"id": "101738021",
+						"gid": "whosonfirst:locality:101738021",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "101738021",
+						"country_code": "CA",
+						"name": "Trois-Rivières",
+						"confidence": 1,
+						"match_type": "exact",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Francheville",
+						"county_gid": "whosonfirst:county:1158884881",
+						"locality": "Trois-Rivières",
+						"locality_gid": "whosonfirst:locality:101738021",
+						"label": "Trois-Rivières, QC, Canada"
+					},
+					"bbox": [-72.779418, 46.252022, -72.408782, 46.469151]
+				}
+			],
+			"bbox": [-72.779418, 46.252022, -72.408782, 46.469151]
+		}
+	},
+	{
+		"inputID": "7",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "345 Maple Ave, Toronto, ON",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "345",
+						"street": "maple ave",
+						"city": "toronto",
+						"state": "on"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695236481
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-79.374631, 43.67507]
+					},
+					"properties": {
+						"id": "polyline:548336",
+						"gid": "openstreetmap:street:polyline:548336",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:548336",
+						"country_code": "CA",
+						"name": "Maple Avenue",
+						"street": "Maple Avenue",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Ontario",
+						"region_gid": "whosonfirst:region:85682057",
+						"region_a": "ON",
+						"county": "Toronto",
+						"county_gid": "whosonfirst:county:890457465",
+						"locality": "Toronto",
+						"locality_gid": "whosonfirst:locality:101735835",
+						"borough": "Old Toronto",
+						"borough_gid": "whosonfirst:borough:1108833321",
+						"neighbourhood": "Rosedale-Moore Park",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:1108906435",
+						"label": "Maple Avenue, Toronto, ON, Canada"
+					},
+					"bbox": [-79.377845, 43.674423, -79.372141, 43.675288]
+				},
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-79.535862, 43.710217]
+					},
+					"properties": {
+						"id": "polyline:558056",
+						"gid": "openstreetmap:street:polyline:558056",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:558056",
+						"country_code": "CA",
+						"name": "Maple Bush Avenue",
+						"street": "Maple Bush Avenue",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Ontario",
+						"region_gid": "whosonfirst:region:85682057",
+						"region_a": "ON",
+						"county": "Toronto",
+						"county_gid": "whosonfirst:county:890457465",
+						"locality": "Toronto",
+						"locality_gid": "whosonfirst:locality:101735835",
+						"borough": "North York",
+						"borough_gid": "whosonfirst:borough:1108833315",
+						"neighbourhood": "Pelmo Park – Humberlea",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:1108906469",
+						"label": "Maple Bush Avenue, Toronto, ON, Canada"
+					},
+					"bbox": [-79.536963, 43.709996, -79.534763, 43.710445]
+				},
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-79.433772, 43.642627]
+					},
+					"properties": {
+						"id": "polyline:546200",
+						"gid": "openstreetmap:street:polyline:546200",
+						"layer": "street",
+						"source": "openstreetmap",
+						"source_id": "polyline:546200",
+						"country_code": "CA",
+						"name": "Maple Grove Avenue",
+						"street": "Maple Grove Avenue",
+						"confidence": 0.8,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Ontario",
+						"region_gid": "whosonfirst:region:85682057",
+						"region_a": "ON",
+						"county": "Toronto",
+						"county_gid": "whosonfirst:county:890457465",
+						"locality": "Toronto",
+						"locality_gid": "whosonfirst:locality:101735835",
+						"borough": "Old Toronto",
+						"borough_gid": "whosonfirst:borough:1108833321",
+						"label": "Maple Grove Avenue, Toronto, ON, Canada"
+					},
+					"bbox": [-79.434675, 43.642439, -79.432869, 43.642815]
+				}
+			],
+			"bbox": [-79.536963, 43.642439, -79.372141, 43.710445]
+		}
+	},
+	{
+		"inputID": "8",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "6789 King St West, Suite 100, Calgary, AB",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "6789",
+						"street": "king st west",
+						"unit": "suite 100",
+						"city": "calgary",
+						"state": "ab"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695236800
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-114.033822, 51.056508]
+					},
+					"properties": {
+						"id": "890458845",
+						"gid": "whosonfirst:locality:890458845",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "890458845",
+						"country_code": "CA",
+						"name": "Calgary",
+						"confidence": 0.6,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Alberta",
+						"region_gid": "whosonfirst:region:85682091",
+						"region_a": "AB",
+						"county": "Calgary",
+						"county_gid": "whosonfirst:county:1511799789",
+						"locality": "Calgary",
+						"locality_gid": "whosonfirst:locality:890458845",
+						"label": "Calgary, AB, Canada"
+					},
+					"bbox": [-114.315796, 50.842822, -113.859905, 51.212425]
+				}
+			],
+			"bbox": [-114.315796, 50.842822, -113.859905, 51.212425]
+		}
+	},
+	{
+		"inputID": "9",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "987 Rue Saint-Denis, Québec, QC",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "987",
+						"street": "rue saint-denis",
+						"city": "québec",
+						"state": "qc"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695237891
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-71.2389753, 46.7923359]
+					},
+					"properties": {
+						"id": "polyline:276444",
+						"gid": "mixed:address:polyline:276444",
+						"layer": "address",
+						"source": "mixed",
+						"source_id": "polyline:276444",
+						"country_code": "CA",
+						"name": "987 Rue du Mont-Saint-Denis",
+						"housenumber": "987",
+						"street": "Rue du Mont-Saint-Denis",
+						"confidence": 0.8,
+						"match_type": "interpolated",
+						"accuracy": "point",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Quebec",
+						"region_gid": "whosonfirst:region:136251273",
+						"region_a": "QC",
+						"county": "Quebec",
+						"county_gid": "whosonfirst:county:890458033",
+						"locality": "Quebec",
+						"locality_gid": "whosonfirst:locality:101737491",
+						"borough": "Sainte-Foy–Sillery–Cap-Rouge",
+						"borough_gid": "whosonfirst:borough:1126115101",
+						"neighbourhood": "Sillery",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:85784941",
+						"label": "987 Rue du Mont-Saint-Denis, Quebec, QC, Canada"
+					}
+				}
+			],
+			"bbox": [-71.2389753, 46.7923359, -71.2389753, 46.7923359]
+		}
+	},
+	{
+		"inputID": "10",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "RR 5, Box 234, Charlottetown, PE",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"street": "rr 5 box 234",
+						"city": "charlottetown",
+						"state": "pe"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695238486
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-63.131325, 46.249282]
+					},
+					"properties": {
+						"id": "1141909391",
+						"gid": "whosonfirst:locality:1141909391",
+						"layer": "locality",
+						"source": "whosonfirst",
+						"source_id": "1141909391",
+						"country_code": "CA",
+						"name": "Charlottetown",
+						"confidence": 0.6,
+						"match_type": "fallback",
+						"accuracy": "centroid",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Prince Edward Island",
+						"region_gid": "whosonfirst:region:85682081",
+						"region_a": "PE",
+						"county": "Queens",
+						"county_gid": "whosonfirst:county:890457737",
+						"locality": "Charlottetown",
+						"locality_gid": "whosonfirst:locality:1141909391",
+						"label": "Charlottetown, PE, Canada"
+					},
+					"bbox": [-63.1513251156, 46.2292816356, -63.1113251156, 46.2692816356]
+				}
+			],
+			"bbox": [-63.1513251156, 46.2292816356, -63.1113251156, 46.2692816356]
+		}
+	},
+	{
+		"inputID": "11",
+		"result": {
+			"geocoding": {
+				"version": "0.2",
+				"attribution": "http://geocoder.alpha.phac.gc.ca/attribution",
+				"query": {
+					"text": "3100 Carling Ave, Ottawa, ON",
+					"size": 10,
+					"private": false,
+					"lang": {
+						"name": "English",
+						"iso6391": "en",
+						"iso6393": "eng",
+						"via": "header",
+						"defaulted": false
+					},
+					"querySize": 20,
+					"parser": "libpostal",
+					"parsed_text": {
+						"housenumber": "3100",
+						"street": "carling ave",
+						"city": "ottawa",
+						"state": "on"
+					}
+				},
+				"engine": {
+					"name": "Pelias",
+					"author": "Mapzen",
+					"version": "1.0"
+				},
+				"timestamp": 1738695239081
+			},
+			"type": "FeatureCollection",
+			"features": [
+				{
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [-75.806883, 45.353519]
+					},
+					"properties": {
+						"id": "ca/on/city_of_ottawa:975c593009911831",
+						"gid": "openaddresses:address:ca/on/city_of_ottawa:975c593009911831",
+						"layer": "address",
+						"source": "openaddresses",
+						"source_id": "ca/on/city_of_ottawa:975c593009911831",
+						"country_code": "CA",
+						"name": "3100 Carling Avenue",
+						"housenumber": "3100",
+						"street": "Carling Avenue",
+						"confidence": 1,
+						"match_type": "exact",
+						"accuracy": "point",
+						"country": "Canada",
+						"country_gid": "whosonfirst:country:85633041",
+						"country_a": "CAN",
+						"region": "Ontario",
+						"region_gid": "whosonfirst:region:85682057",
+						"region_a": "ON",
+						"county": "Ottawa",
+						"county_gid": "whosonfirst:county:890458681",
+						"locality": "Ottawa",
+						"locality_gid": "whosonfirst:locality:101735873",
+						"neighbourhood": "Bayshore",
+						"neighbourhood_gid": "whosonfirst:neighbourhood:1108978003",
+						"label": "3100 Carling Avenue, Ottawa, ON, Canada"
+					}
+				}
+			],
+			"bbox": [-75.806883, 45.353519, -75.806883, 45.353519]
+		}
+	}
+]

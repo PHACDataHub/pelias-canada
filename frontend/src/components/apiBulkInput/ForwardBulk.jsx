@@ -427,7 +427,7 @@ export default function ForwardBulk() {
 	return (
 		<div>
 			<fieldset>
-				<legend>{t("components.forwardBulk.InputUpload.title")}</legend>
+				<legend>{t("components.forwardBulk.inputUpload.title")}</legend>
 				<input type="file" accept=".csv" ref={fileInputRef} onChange={handleFileChange} />
 				<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "185px", paddingTop: "20px" }}>
 					<GcdsButton
@@ -438,7 +438,7 @@ export default function ForwardBulk() {
 						}}
 						disabled={!isFileUploaded}
 					>
-						{t("components.forwardBulk.InputUpload.submit")}
+						{t("components.forwardBulk.inputUpload.submit")}
 					</GcdsButton>
 					<GcdsButton
 						size="small"
@@ -450,7 +450,7 @@ export default function ForwardBulk() {
 						}}
 						disabled={!isFileUploaded}
 					>
-						{t("components.forwardBulk.InputUpload.reset")}
+						{t("components.forwardBulk.inputUpload.reset")}
 					</GcdsButton>
 				</div>
 			</fieldset>

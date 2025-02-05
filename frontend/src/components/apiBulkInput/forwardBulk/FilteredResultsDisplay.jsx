@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import ConfidenceTable from "../../tables/ConfidenceTable"
 import PaginatedTable from "../../tables/dataTable"
 import Mapping from "./map/forwardmap"
+import ForwardExportFiles from "./ForwardExportFiles"
 
 export default function FilteredResultsDisplay({ filteredResults, triggerApiCall }) {
 	const [apiResults, setApiResults] = useState([])
@@ -65,12 +66,14 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 					<p>
 						{t("components.forwardBulk.resultsTable.returnedRows")}: {apiResults.length}
 					</p>
+					<ForwardExportFiles apiResults={apiResults}/>
 					<Mapping apiResults={apiResults} />
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
 					<ConfidenceTable apiResults={apiResults} />
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
 					<PaginatedTable apiResults={apiResults} />
 					<br />
+					
 				</>
 			)}
 		</>

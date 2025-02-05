@@ -11,6 +11,7 @@ import Point from "ol/geom/Point"
 import Overlay from "ol/Overlay"
 import { Style, Circle, Fill, Stroke } from "ol/style"
 import { useTranslation } from "react-i18next"
+import { GcdsHeading } from "@cdssnc/gcds-components-react"
 
 export default function Mapping({ apiResults }) {
 	const { t } = useTranslation()
@@ -30,19 +31,19 @@ export default function Mapping({ apiResults }) {
 		legendContainer.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.3)"
 		legendContainer.style.fontSize = isWideScreen ? "16px" : "12px"
 		legendContainer.style.lineHeight = "1.5em"
-	
+
 		// Add legend title
 		legendContainer.innerHTML = `<strong>${t("legend.confidence")}</strong> <br/>`
-	
+
 		const grades = [100, 80, 50, 30, 0]
 		const colors = ["#006400", "#389638", "#FFBF00", "#FF8C00", "#B22222"]
-	
+
 		const labels = grades.map((grade, i) => {
 			return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
 				grade
 			}% ${i < grades.length - 4 ? "+" : `&ndash; ${grades[i - 1]}%`}`
 		})
-	
+
 		legendContainer.innerHTML += labels.join("<br>")
 		return legendContainer
 	}
@@ -168,9 +169,9 @@ export default function Mapping({ apiResults }) {
 		}
 	}, [t, isWideScreen, apiResults])
 
-
 	return (
 		<>
+			<GcdsHeading tag="h3">API Translation Results on Map</GcdsHeading>
 			{apiResults.length > 0 && (
 				<>
 					{/* Map Container */}
