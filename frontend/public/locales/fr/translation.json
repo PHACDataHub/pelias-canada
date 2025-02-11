@@ -192,7 +192,8 @@
 			}
 		},
 		"map": {
-			"aria": "Carte affichant des données géographiques"
+			"aria": "Carte affichant des données géographiques",
+			"header": "Résultats de la traduction de l'API sur la carte"
 		},
 		"reverseBulk": {
 			"fileUpload": "Chargement de fichiers et paramètres",
