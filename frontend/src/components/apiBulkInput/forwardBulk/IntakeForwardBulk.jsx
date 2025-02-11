@@ -32,8 +32,6 @@ export default function ForwardBulk() {
 
 	return (
 		<>
-			<GcdsHeading tag="h1">IntakeForwardFile </GcdsHeading>
-
 			{/* <p>{t("components.forwardBulk.inputUpload.title")} </p> */}
 
 			{!continueStatus && (

@@ -89,22 +89,13 @@
 			"rDownload": "Download R files"
 		},
 		"forwardBulk": {
-			"inputUpload": {
-				"title": "Input Upload",
-				"hint": "Upload a CSV to use our service",
-				"submit": "Submit",
-				"reset": "Reset",
-				"continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
-				"continue": "Continue",
-				"displayFileName": "Displaying information for uploaded file",
-				"errors": {
-					"uploadFileMissing": "Please select a file to upload.",
-					"fileReadError": "An error occurred while reading the file.",
-					"fileReadFailure": "Error occurred while reading the file. Please try again.",
-					"missingColumns": "CSV must contain inputID and physicalAddress columns.",
-					"missingFields": "Missing required fields (inputID or physicalAddress)",
-					"processingError": "Error processing line."
-				}
+			"callTimes": {
+				"estSingle1": "Estimated time per call is approximately",
+				"estSingle2": "seconds per call",
+				"estCallTime1": "Estimated time for",
+				"estCallTime2": " API calls",
+				"realTime": "Actual Loading Time",
+				"seconds": "seconds"
 			},
 			"forwardCallAPIReturn": {
 				"dataProcessingSummary": "Data Processing Summary",
@@ -113,7 +104,7 @@
 				"cleanedLength": "Number of valid entries",
 				"errorLength": "Number of errors",
 				"dataRecievedDetails": "Recieved Data Details",
-				"recievedDataJsonPreview": "Recieved Data review", 
+				"recievedDataJsonPreview": "Recieved Data review",
 				"cleanDataPreview": "Cleaned Data preview",
 				"previewData": {
 					"inputId": "Input ID",
@@ -130,6 +121,32 @@
 				"cleanDataDetails": "click to preview cleaned data",
 				"errorDataDetails": "click to preview errors",
 				"errorPara": "Data cleaning error—likely due to a unit number or inaccurate address. Please review the addresses before continuing or make the necessary corrections and recheck the input."
+			},
+			"forwardExportFiles": {
+				"exportDataCSVId": "exportCSV",
+				"exportDataCSV": "export to CSV",
+				"exportDataGeoJSONId": "exportGeoJSON",
+				"exportDataGeoJSON": "export to GeoJSON",
+				"metaNotAvail": "Metadata not available",
+				"notDataAvail": "No data to export",
+				"csvHeaders": "Index,Physical Address,Latitude,Longitude,Confidence,Match Type,Accuracy"
+			},
+			"inputUpload": {
+				"title": "Input Upload",
+				"hint": "Upload a CSV to use our service",
+				"submit": "Submit",
+				"reset": "Reset",
+				"continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
+				"continue": "Continue",
+				"displayFileName": "Displaying information for uploaded file",
+				"errors": {
+					"uploadFileMissing": "Please select a file to upload.",
+					"fileReadError": "An error occurred while reading the file.",
+					"fileReadFailure": "Error occurred while reading the file. Please try again.",
+					"missingColumns": "CSV must contain inputID and physicalAddress columns.",
+					"missingFields": "Missing required fields (inputID or physicalAddress)",
+					"processingError": "Error processing line."
+				}
 			},
 			"loading": "Loading, please wait",
 			"mapReady": {

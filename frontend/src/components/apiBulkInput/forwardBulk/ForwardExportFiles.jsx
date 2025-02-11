@@ -70,7 +70,7 @@ export default function ForwardExportFiles({ apiResults }) {
 	const convertToCSV = data => {
 		if (!data || data.length === 0) return ""
 
-		const headers = "Index,PhysicalAddress,Latitude,Longitude,Confidence,Match Type,Accuracy"
+		const headers = t("components.forwardBulk.forwardExportFiles.csvHeaders")
 
 		const rows = data.map((result, index) => {
 			const confidenceValue = result?.result?.features?.[0]?.properties?.confidence
@@ -122,12 +122,13 @@ export default function ForwardExportFiles({ apiResults }) {
 
 	const handleExportCSV = async () => {
 		if (!apiResults || apiResults.length === 0) {
-			alert(t("No data to export"))
+			alert(t("components.forwardBulk.forwardExportFiles.notDataAvail"))
+
 			return
 		}
 
 		if (!metadata) {
-			alert(t("Metadata not available"))
+			alert(t("components.forwardBulk.forwardExportFiles.metaNotAvail"))
 			return
 		}
 
@@ -145,12 +146,12 @@ export default function ForwardExportFiles({ apiResults }) {
 
 	const handleExportGeoJSON = async () => {
 		if (!apiResults || apiResults.length === 0) {
-			alert(t("No data to export"))
+			alert(t("components.forwardBulk.forwardExportFiles.notDataAvail"))
 			return
 		}
 
 		if (!metadata) {
-			alert(t("Metadata not available"))
+			alert(t("components.forwardBulk.forwardExportFiles.metaNotAvail"))
 			return
 		}
 
@@ -168,13 +169,21 @@ export default function ForwardExportFiles({ apiResults }) {
 
 	return (
 		<div>
-			<GcdsButton onGcdsClick={handleExportCSV} buttonId={t("exportDataCSVId")} name={t("exportDataCSV")}>
-				{t("exportDataCSV")}
+			<GcdsButton
+				onGcdsClick={handleExportCSV}
+				buttonId={t("components.forwardBulk.forwardExportFiles.exportDataCSVId")}
+				name={t("components.forwardBulk.forwardExportFiles.exportDataCSV")}
+			>
+				{t("components.forwardBulk.forwardExportFiles.exportDataCSV")}
 			</GcdsButton>
 			<br />
 			<br />
-			<GcdsButton onGcdsClick={handleExportGeoJSON} buttonId={t("exportDataGeoJSONId")} name={t("exportDataGeoJSON")}>
-				{t("exportDataGeoJSON")}
+			<GcdsButton
+				onGcdsClick={handleExportGeoJSON}
+				buttonId={t("components.forwardBulk.forwardExportFiles.exportDataGeoJSONId")}
+				name={t("components.forwardBulk.forwardExportFiles.exportDataGeoJSON")}
+			>
+				{t("components.forwardBulk.forwardExportFiles.exportDataGeoJSON")}
 			</GcdsButton>
 		</div>
 	)
