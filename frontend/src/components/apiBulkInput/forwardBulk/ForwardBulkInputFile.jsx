@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
 import { useRef, useState, forwardRef, useImperativeHandle } from "react"
-
 import "leaflet/dist/leaflet.css"
 import { GcdsButton, GcdsHeading, GcdsFileUploader, GcdsText } from "@cdssnc/gcds-components-react"
 import { useTranslation } from "react-i18next"
@@ -60,7 +58,6 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 			// Check if CSV contains the necessary columns
 			if (!headers.includes("inputid") || !headers.includes("physicaladdress")) {
 				throw new Error("components.forwardBulk.inputUpload.errors.missingColumns")
-
 			}
 
 			const processedResults = []
@@ -76,7 +73,6 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 					// Check for missing inputID or physicalAddress
 					if (!inputID || !addressParts) {
 						errors.push(`Line ${index + 2}: ${t("components.forwardBulk.inputUpload.errors.missingFields")}`)
-
 					} else {
 						processedResults.push({
 							inputID,
@@ -117,20 +113,8 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 		reset: handleReset,
 	}))
 
-	
 	return (
 		<div>
-			{/* Will be replaced by the intake page */}
-			<ul>
-				<li>Upload CSV</li>
-				<li>Review cleaned data</li>
-				<li>
-					Continue to use API and visualize data <br />
-					<i>Any items that did not return an error on initial processing will not be included in the API call and visualization.</i>
-				</li>
-			</ul>
-			{/* Will be replaced by the intake page */}
-
 			<div style={{ overflow: "auto" }}>
 				<fieldset>
 					<legend>{t("components.forwardBulk.inputUpload.title")}</legend>

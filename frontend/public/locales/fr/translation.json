@@ -89,22 +89,13 @@
 			"rDownload": "Télécharger les fichiers R"
 		},
 		"forwardBulk": {
-			"inputUpload": {
-				"title": "Téléchargement des données",
-				"hint": "Télécharger un fichier CSV pour utiliser notre service",
-				"submit": "Soumettre",
-				"reset": "Réinitialiser",
-				"continuePara": "Avant de poursuivre, veuillez vérifier les données que vous avez saisies. Toute erreur ne sera pas prise en compte dans l'appel API pour la suite de la procédure.",
-				"continue": "Continuer",
-				"displayFileName": "Affichage des informations sur le fichier téléchargé",
-				"errors": {
-					"uploadFileMissing": "Veuillez sélectionner un fichier à télécharger.",
-					"fileReadError": "Une erreur s'est produite lors de la lecture du fichier.",
-					"fileReadFailure": "Une erreur s'est produite lors de la lecture du fichier. Veuillez réessayer.",
-					"missingColumns": "Le fichier CSV doit contenir les colonnes inputID et physicalAddress.",
-					"missingFields": "Champs obligatoires manquants (inputID ou physicalAddress)",
-					"processingError": "Erreur de traitement de la ligne."
-				}
+			"callTimes": {
+				"estSingle1": "La durée estimée d'un appel est d'environ",
+				"estSingle2": "secondes par appel.",
+				"estCallTime1": "Temps estimé pour",
+				"estCallTime2": " appels API",
+				"realTime": "Temps de chargement réel",
+				"seconds": "secondes"
 			},
 			"forwardCallAPIReturn": {
 				"dataProcessingSummary": "Sommaire du traitement des données",
@@ -113,7 +104,7 @@
 				"cleanedLength": "Nombre d'entrées valides",
 				"errorLength": "Nombre d'erreurs",
 				"dataRecievedDetails": "Détails des données reçues",
-				"recievedDataJsonPreview": "Réception de l'examen des données", 
+				"recievedDataJsonPreview": "Réception de l'examen des données",
 				"cleanDataPreview": "Aperçu des données nettoyées",
 				"previewData": {
 					"inputId": "ID d'entrée",
@@ -130,6 +121,32 @@
 				"cleanDataDetails": "cliquez pour avoir un aperçu des données nettoyées",
 				"errorDataDetails": "cliquez pour voir les erreurs",
 				"errorPara": "Erreur de nettoyage des données - probablement due à un numéro d'unité ou à une adresse inexacte. Veuillez vérifier les adresses avant de continuer ou apporter les corrections nécessaires et revérifier la saisie."
+			},
+			"forwardExportFiles": {
+				"exportDataCSVId": "exporterCSV",
+				"exportDataCSV": "exporter en CSV",
+				"exportDataGeoJSONId": "exporterGeoJSON",
+				"exportDataGeoJSON": "exporter vers GeoJSON",
+				"metaNotAvail": "Métadonnées non disponibles",
+				"notDataAvail": "Pas de données à exporter",
+				"csvHeaders": "Index,adresse physique,latitude, longitude,confiance,type de correspondance,précision"
+			},
+			"inputUpload": {
+				"title": "Téléchargement des données",
+				"hint": "Télécharger un fichier CSV pour utiliser notre service",
+				"submit": "Soumettre",
+				"reset": "Réinitialiser",
+				"continuePara": "Avant de poursuivre, veuillez vérifier les données que vous avez saisies. Toute erreur ne sera pas prise en compte dans l'appel API pour la suite de la procédure.",
+				"continue": "Continuer",
+				"displayFileName": "Affichage des informations sur le fichier téléchargé",
+				"errors": {
+					"uploadFileMissing": "Veuillez sélectionner un fichier à télécharger.",
+					"fileReadError": "Une erreur s'est produite lors de la lecture du fichier.",
+					"fileReadFailure": "Une erreur s'est produite lors de la lecture du fichier. Veuillez réessayer.",
+					"missingColumns": "Le fichier CSV doit contenir les colonnes inputID et physicalAddress.",
+					"missingFields": "Champs obligatoires manquants (inputID ou physicalAddress)",
+					"processingError": "Erreur de traitement de la ligne."
+				}
 			},
 			"loading": "Chargement, veuillez patienter",
 			"mapReady": {

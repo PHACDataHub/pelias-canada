@@ -213,7 +213,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 			{invalidResults.length > 0 && (
 				<>
 					<hr />
-					<GcdsErrorMessage >{t("components.forwardBulk.forwardCallAPIReturn.errorPara")}</GcdsErrorMessage>
+					<GcdsErrorMessage>{t("components.forwardBulk.forwardCallAPIReturn.errorPara")}</GcdsErrorMessage>
 					<GcdsDetails detailsTitle={t("components.forwardBulk.forwardCallAPIReturn.errorDataDetails")}>
 						{invalidResults.map(parsedResult => (
 							<GcdsText key={parsedResult.inputID}>{`Input ID: ${parsedResult.inputID}, Physical Address: ${parsedResult.physicalAddress}`}</GcdsText>
