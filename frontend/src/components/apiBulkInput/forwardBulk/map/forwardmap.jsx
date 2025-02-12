@@ -171,7 +171,7 @@ export default function Mapping({ apiResults }) {
 
 	return (
 		<>
-			<GcdsHeading tag="h3">API Translation Results on Map</GcdsHeading>
+			<GcdsHeading tag="h3"> {t("components.map.header")}</GcdsHeading>
 			{apiResults.length > 0 && (
 				<>
 					{/* Map Container */}
