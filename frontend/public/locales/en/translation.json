@@ -90,6 +90,8 @@
 		},
 		"forwardBulk": {
 			"callTimes": {
+				"header": "API Processing Summary",
+				"headerPara": "To run another CSV file, you need to refresh the page before uploading a new file. This ensures that all previous data, including captured files, processed results and API responses, have been completely erased. Refreshing the page resets the system, preventing any conflicts or residual data from affecting the new upload.",
 				"estSingle1": "Estimated time per call is approximately",
 				"estSingle2": "seconds per call",
 				"estCallTime1": "Estimated time for",
@@ -193,7 +195,8 @@
 		},
 		"map": {
 			"aria": "Map displaying geographic data",
-			"header": "API Translation Results on Map"
+			"header": "API Translation Results on Map",
+			"warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness."
 		},
 		"reverseBulk": {
 			"fileUpload": "File Upload and Setting",

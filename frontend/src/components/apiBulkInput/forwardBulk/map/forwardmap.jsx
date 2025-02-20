@@ -11,7 +11,7 @@ import Point from "ol/geom/Point"
 import Overlay from "ol/Overlay"
 import { Style, Circle, Fill, Stroke } from "ol/style"
 import { useTranslation } from "react-i18next"
-import { GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
 
 export default function Mapping({ apiResults }) {
 	const { t } = useTranslation()
@@ -203,6 +203,9 @@ export default function Mapping({ apiResults }) {
 							display: "none",
 						}}
 					></div>
+					<GcdsText size="small" characterLimit="false">
+						<i>{t("components.map.warning")}</i>
+					</GcdsText>
 				</>
 			)}
 		</>

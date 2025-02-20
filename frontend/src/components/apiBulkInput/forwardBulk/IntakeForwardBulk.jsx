@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from "react"
 import "leaflet/dist/leaflet.css"
 import { GcdsButton, GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
-import IntakeForwardFile from "./ForwardBulkInputFile"
+import ForwardBulkInputFile from "./ForwardBulkInputFile"
 import ForwardCallAPIReturn from "./ForwardCallAPIReturn"
 import FilteredResultsDisplay from "./FilteredResultsDisplay"
 import { useTranslation } from "react-i18next"
@@ -24,6 +24,16 @@ export default function ForwardBulk() {
 
 	const handleButtonClick = () => {
 		setContinueStatus(true)
+		// Wait for state update and then scroll into view
+		setTimeout(() => {
+			const element = document.getElementById("results");
+			if (element) {
+				const yOffset = -50; // Scroll 20px above the element
+				const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+				window.scrollTo({ top: y, behavior: "smooth" });
+			}
+		}, 0);
+		
 	}
 
 	const handleFilteredResults = useCallback(filteredData => {
@@ -32,13 +42,9 @@ export default function ForwardBulk() {
 
 	return (
 		<>
-			{/* <p>{t("components.forwardBulk.inputUpload.title")} </p> */}
-
 			{!continueStatus && (
 				<>
-					{/* This is the input component for the function. This handles the csv upload */}
-					<IntakeForwardFile ref={childRef} setResults={setInputtedData} />
-					{/* This is the data cleaning function. This handles the uploaded csvand makes sure it is formatted correctly */}
+					<ForwardBulkInputFile ref={childRef} setResults={setInputtedData} />
 					{inputtedData.length > 0 && (
 						<>
 							<GcdsButton onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
@@ -50,20 +56,20 @@ export default function ForwardBulk() {
 					)}
 					<br />
 					{continueStatus && (
-						<>
-							<GcdsButton onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
-						</>
+						<GcdsButton onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
 					)}
 				</>
 			)}
 			<br />
 
-			{/* This is the API call and display results function. This takes the cleaned data and calls the api. Once processed the tables and the map are displayed */}
+			{/* FilteredResultsDisplay with ID for scrolling */}
 			{filteredResults.length > 0 && continueStatus && (
-				<FilteredResultsDisplay
-					filteredResults={filteredResults}
-					triggerApiCall={continueStatus} // Pass trigger flag
-				/>
+				<div id="results">
+					<FilteredResultsDisplay
+						filteredResults={filteredResults}
+						triggerApiCall={continueStatus}
+					/>
+				</div>
 			)}
 		</>
 	)

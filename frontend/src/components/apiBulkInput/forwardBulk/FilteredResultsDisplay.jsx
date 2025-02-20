@@ -68,6 +68,8 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 
 	return (
 		<>
+		<GcdsText characterLimit="false"> <i>{t("components.forwardBulk.callTimes.headerPara")}</i></GcdsText>
+		<GcdsHeading tag="h2">{t("components.forwardBulk.callTimes.header")} </GcdsHeading>
 			<GcdsNotice type="info" noticeTitleTag="h3" noticeTitle="Estimated Time">
 				<GcdsText>
 					<i>

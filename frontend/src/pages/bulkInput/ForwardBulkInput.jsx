@@ -1,43 +1,48 @@
-import { GcdsHeading } from "@cdssnc/gcds-components-react"
+import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
 import ForwardBulk from "../../components/apiBulkInput/ForwardBulk"
 import { useTranslation } from "react-i18next"
+import IntakeForwardBulk from "../../components/apiBulkInput/forwardBulk/IntakeForwardBulk"
 
 export default function ForwardBulkInput() {
 	const { t } = useTranslation()
+
 	return (
 		<>
 			<GcdsHeading tag="h1"> {t("pages.forwardBulk.BulkGeocodingInput.title")}</GcdsHeading>
-			<div >
+			<div>
 				<section aria-labelledby="what-is-the-bulk-upload">
-					<h2 id="what-is-the-bulk-upload">{t("pages.forwardBulk.BulkGeocodingInput.subTitle")}</h2>
-					<p>{t("pages.forwardBulk.BulkGeocodingInput.description")}</p>
+					<GcdsHeading tag="h2" characterLimit="false" id="what-is-the-bulk-upload">
+						{t("pages.forwardBulk.BulkGeocodingInput.subTitle")}
+					</GcdsHeading>
+					<GcdsText characterLimit="false">{t("pages.forwardBulk.BulkGeocodingInput.description")}</GcdsText>
 				</section>
 
 				<section aria-labelledby="how-to-use-bulk-input">
-					<h2 id="how-to-use-bulk-input">{t("pages.forwardBulk.HowToUseBulkInput.title")}</h2>
-					<p>
+					<GcdsHeading tag="h3" characterLimit="false" id="how-to-use-bulk-input">
+						{t("pages.forwardBulk.HowToUseBulkInput.title")}
+					</GcdsHeading>
+					<GcdsText characterLimit="false">
 						<i>{t("pages.forwardBulk.HowToUseBulkInput.steps.fileRequirement")}</i>
-					</p>
-					<ol>
-						<li>
-							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong> inputID</strong>
-							{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement2")}
-							<strong>physicalAddress</strong>.
-						</li>
-						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation")} </li>
-						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission")}</li>
-						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.apiResponse")}</li>
-						<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.exportOption")}</li>
-					</ol>
+					</GcdsText>
+					<GcdsText characterLimit="false">
+						<ol>
+							<li>
+								{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong> inputID</strong>
+								{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement2")}
+								<strong>physicalAddress</strong>.
+							</li>
+							<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation")} </li>
+							<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission")}</li>
+							<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.apiResponse")}</li>
+							<li>{t("pages.forwardBulk.HowToUseBulkInput.steps.exportOption")}</li>
+						</ol>
+					</GcdsText>
 				</section>
 			</div>
 
-			<section aria-labelledby="input">
-				<h2 id="input">{t("pages.forwardBulk.InputUploadTitle")}</h2>
-				<div id="BulkInput">
-					<ForwardBulk />
-				</div>
-			</section>
+			<div id="BulkInput">
+				<IntakeForwardBulk />
+			</div>
 		</>
 	)
 }

@@ -4,7 +4,7 @@ import { GcdsButton, GcdsHeading, GcdsFileUploader, GcdsText } from "@cdssnc/gcd
 import { useTranslation } from "react-i18next"
 import PropTypes from "prop-types"
 
-const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
+const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
 	const { t, i18n } = useTranslation()
 	const [results, setInputtedResults] = useState([]) // State for internal results
 	const [error, setError] = useState(null) // To store error messages
@@ -54,49 +54,51 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 		try {
 			const lines = data.split("\n").filter(line => line.trim() !== "")
 			const headers = lines[0].split(",").map(header => header.trim().toLowerCase())
-
-			// Check if CSV contains the necessary columns
-			if (!headers.includes("inputid") || !headers.includes("physicaladdress")) {
+	
+			// Check if required columns exist
+			const inputIdIndex = headers.indexOf("inputid")
+			const addressIndex = headers.indexOf("physicaladdress")
+	
+			if (inputIdIndex === -1 || addressIndex === -1) {
 				throw new Error("components.forwardBulk.inputUpload.errors.missingColumns")
 			}
-
+	
 			const processedResults = []
 			const errors = []
-
+	
 			// Process each line in the CSV file (skip the header)
 			lines.slice(1).forEach((line, index) => {
 				try {
-					const cols = line.split(",")
-					const inputID = cols[headers.indexOf("inputid")]
-					const addressParts = cols.slice(headers.indexOf("physicaladdress")).join(",").replace(/^"|"$/g, "").trim()
-
-					// Check for missing inputID or physicalAddress
-					if (!inputID || !addressParts) {
+					const cols = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) // Improved CSV parsing
+					if (!cols) return
+	
+					const inputID = cols[inputIdIndex]?.trim().replace(/^"|"$/g, "")
+					const physicalAddress = cols[addressIndex]?.trim().replace(/^"|"$/g, "")
+	
+					// Check for missing fields
+					if (!inputID || !physicalAddress) {
 						errors.push(`Line ${index + 2}: ${t("components.forwardBulk.inputUpload.errors.missingFields")}`)
 					} else {
-						processedResults.push({
-							inputID,
-							physicalAddress: addressParts,
-						})
+						processedResults.push({ inputID, physicalAddress })
 					}
 				} catch (err) {
 					errors.push(`Line ${index + 2}: ${t("components.forwardBulk.inputUpload.errors.processingError", { errorMessage: err.message })}`)
-
 					console.error(`Error processing line ${index + 2}:`, err)
 				}
 			})
-
+	
 			if (errors.length > 0) {
-				setError(errors.join("\n")) // Show all errors found in the CSV
+				setError(errors.join("\n"))
 			} else {
-				setResults(processedResults) // Lift results to parent component
-				setInputtedResults(processedResults) // Only set results if no errors occurred
+				setResults(processedResults)
+				setInputtedResults(processedResults)
 			}
 		} catch (err) {
 			setError("components.forwardBulk.inputUpload.errors.missingColumns")
 			console.error("CSV processing error:", err)
 		}
 	}
+	
 
 	const handleReset = () => {
 		setInputtedResults([]) // Clear results
@@ -155,8 +157,8 @@ const IntakeForwardFile = forwardRef(({ setResults }, ref) => {
 		</div>
 	)
 })
-IntakeForwardFile.propTypes = {
+ForwardBulkInputFile.propTypes = {
 	setResults: PropTypes.func.isRequired, // Validate setResults as a function
 }
 
-export default IntakeForwardFile
+export default ForwardBulkInputFile
