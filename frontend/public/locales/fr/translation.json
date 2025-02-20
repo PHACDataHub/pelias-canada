@@ -90,6 +90,8 @@
 		},
 		"forwardBulk": {
 			"callTimes": {
+				"header": "Résumé du traitement de l'API",
+				"headerPara": "Pour exécuter un autre fichier CSV, vous devez actualiser la page avant de télécharger un nouveau fichier. Cela permet de s'assurer que toutes les données précédentes, y compris les fichiers saisis, les résultats traités et les réponses de l'API, ont été entièrement effacées. L'actualisation de la page réinitialise le système, empêchant ainsi tout conflit ou toute donnée résiduelle d'affecter le nouveau téléchargement.",
 				"estSingle1": "La durée estimée d'un appel est d'environ",
 				"estSingle2": "secondes par appel.",
 				"estCallTime1": "Temps estimé pour",
@@ -193,7 +195,8 @@
 		},
 		"map": {
 			"aria": "Carte affichant des données géographiques",
-			"header": "Résultats de la traduction de l'API sur la carte"
+			"header": "Résultats de la traduction de l'API sur la carte",
+			"warning": "Les performances de la carte peuvent être affectées par le nombre d'entrées. Les fichiers plus volumineux peuvent être plus lents à charger et réduire la réactivité."
 		},
 		"reverseBulk": {
 			"fileUpload": "Chargement de fichiers et paramètres",
