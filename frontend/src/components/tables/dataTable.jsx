@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next"
 import { GcdsButton, GcdsHeading, GcdsSelect } from "@cdssnc/gcds-components-react"
 import React, { useState, useEffect } from "react"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import "./Tables.css"
 
 export default function PaginatedTable({ apiResults }) {
 	const { t, i18n } = useTranslation()

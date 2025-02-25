@@ -1,5 +1,4 @@
 import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
-import ForwardBulk from "../../components/apiBulkInput/ForwardBulk"
 import { useTranslation } from "react-i18next"
 import IntakeForwardBulk from "../../components/apiBulkInput/forwardBulk/IntakeForwardBulk"
 
@@ -27,7 +26,8 @@ export default function ForwardBulkInput() {
 					<GcdsText characterLimit="false">
 						<ol>
 							<li>
-								{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")} <strong> inputID</strong>
+								{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement1")}
+								<strong> inputID</strong>
 								{t("pages.forwardBulk.HowToUseBulkInput.steps.columnRequirement2")}
 								<strong>physicalAddress</strong>.
 							</li>

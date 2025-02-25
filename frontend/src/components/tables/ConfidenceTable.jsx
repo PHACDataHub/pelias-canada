@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import React, { useState, useEffect } from "react"
+import "./Tables.css"
 
 export default function ConfidenceTable({ apiResults }) {
 	const { t } = useTranslation()
