@@ -122,6 +122,7 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
 					<legend>{t("components.forwardBulk.inputUpload.title")}</legend>
 					<GcdsFileUploader
 						accept=".csv"
+						label={t("components.forwardBulk.inputUpload.label")}
 						hint={t("components.forwardBulk.inputUpload.hint")}
 						uploaderId={t("components.forwardBulk.inputUpload.title")}
 						name={t("components.forwardBulk.inputUpload.title")}
@@ -130,6 +131,7 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
 						errorMessage={error ? t(error) : ""} // Display error message here
 						onGcdsRemoveFile={handleReset}
 						lang={i18n.language}
+						required
 					/>
 
 					<div

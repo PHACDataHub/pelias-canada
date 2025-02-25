@@ -47,16 +47,16 @@ export default function ForwardBulk() {
 					<ForwardBulkInputFile ref={childRef} setResults={setInputtedData} />
 					{inputtedData.length > 0 && (
 						<>
-							<GcdsButton onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
+							<GcdsButton onClick={handleReset} buttonId={t("components.forwardBulk.inputUpload.reset")} name={t("components.forwardBulk.inputUpload.reset")}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
 							<hr />
 							<ForwardCallAPIReturn results={inputtedData} sendFilteredResults={handleFilteredResults} />
 							<GcdsText characterLimit="false">{t("components.forwardBulk.inputUpload.continuePara")} </GcdsText>
-							<GcdsButton onClick={handleButtonClick}>{t("components.forwardBulk.inputUpload.continue")}</GcdsButton>
+							<GcdsButton buttonId={t("components.forwardBulk.inputUpload.continue")} name={t("components.forwardBulk.inputUpload.continue")} onClick={handleButtonClick}>{t("components.forwardBulk.inputUpload.continue")}</GcdsButton>
 						</>
 					)}
 					<br />
 					{continueStatus && (
-						<GcdsButton onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
+						<GcdsButton buttonId={t("components.forwardBulk.inputUpload.reset")} name={t("components.forwardBulk.inputUpload.reset")} onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
 					)}
 				</>
 			)}

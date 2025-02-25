@@ -135,7 +135,8 @@
 			},
 			"inputUpload": {
 				"title": "Input Upload",
-				"hint": "Upload a CSV to use our service",
+				"label": "Upload a CSV to use our service",
+				"hint": "Import CSV or excel file to continue",
 				"submit": "Submit",
 				"reset": "Reset",
 				"continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
