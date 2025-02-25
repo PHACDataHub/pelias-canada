@@ -306,7 +306,7 @@
 				"steps": {
 					"fileRequirement": "The file must be a CSV.",
 					"columnRequirement1": "Make sure the column to transform is called",
-					"columnRequirement2": " , and there is a column named ",
+					"columnRequirement2": ", and there is a column named ",
 					"dataPreparation": "The tool cleans and formats the addresses for geocoding.",
 					"dataSubmission": "Once the data is ready, it is sent to the Pelias API.",
 					"apiResponse": "The API returns the results with confidence levels and additional data.",
