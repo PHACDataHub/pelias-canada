@@ -135,7 +135,8 @@
 			},
 			"inputUpload": {
 				"title": "Téléchargement des données",
-				"hint": "Télécharger un fichier CSV pour utiliser notre service",
+				"label": "Télécharger un fichier CSV pour utiliser notre service",
+				"hint": "Importer un fichier CSV ou Excel pour continuer",
 				"submit": "Soumettre",
 				"reset": "Réinitialiser",
 				"continuePara": "Avant de poursuivre, veuillez vérifier les données que vous avez saisies. Toute erreur ne sera pas prise en compte dans l'appel API pour la suite de la procédure.",
