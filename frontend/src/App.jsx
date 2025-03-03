@@ -9,7 +9,9 @@ import GeocodingExplanation from "./pages/geocodingExplanation/GeocodingExplanat
 import NoPage from "./pages/NoPage"
 import ForwardBulkInput from "./pages/bulkInput/ForwardBulkInput"
 import ContactUs from "./pages/contactUs/ContactUs"
-import ForwardBulk from "./components/apiBulkInput/forwardBulk/IntakeForwardBulk"
+// import ForwardBulk from "./components/apiBulkInput/forwardBulk/IntakeForwardBulk"
+import ReverseBulk from "./components/apiBulkInput/reverseBulk/IntakeReverseBulk.jsx"
+
 
 // 
 // TO add a page, go to server.ts and add to list located in << const ROUTES_TO_REDIRECT >>
@@ -22,7 +24,7 @@ function App() {
 				{/* Render LandingPage component for both index and "/home" routes */}
 				<Route index element={<LandingPage />} />
 				<Route path="home" element={<LandingPage />} />
-				<Route path="test" element={<ForwardBulk />} />
+				<Route path="test" element={<ReverseBulk />} />
 				{/* Render BulkInput component for the "/bulkinput" route */}
 				<Route path="bulk-address-geocoding" element={<ForwardBulkInput />} />
 				<Route path="reverse-geocoding-bulk" element={<ReverseBulkInput />} />

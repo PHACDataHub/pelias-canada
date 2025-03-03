@@ -200,6 +200,27 @@
 			"warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness."
 		},
 		"reverseBulk": {
+			"IntakeRevBulk": {},
+			"RevBulkInput": {},
+			"reverseCallAPIReturn": {
+				"dataProcessingSummary": "Data Processing Summary",
+				"dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please verify that the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values fall within Canada's boundaries. Additionally, ensure that the input data is sufficiently detailed to produce accurate results. Incomplete or imprecise inputs may affect the quality of the output.",
+				"inputLength": "Number of lines received from CSV",
+				"cleanedLength": "Number of valid entries",
+				"errorLength": "Number of errors",
+				"dataReceivedDetails": "Recieved Data Details",
+				"recievedDataJsonPreview": "Recieved Data review",
+				"cleanDataPreview": "Cleaned Data preview",
+				"previewData": {
+					"inputId": "Input ID",
+					"ddLat": "Latitude",
+					"ddLong": "Longitude"
+				},
+				"inputDataDetails": "click to view inputted details",
+				"cleanDataDetails": "click to preview cleaned data",
+				"errorDataDetails": "click to preview errors",
+				"errorPara": "Data cleaning error—likely due to coordinates outside of Canada or insufficient location detail. Please review the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values before continuing or make the necessary corrections and recheck the input."
+			},
 			"fileUpload": "File Upload and Setting",
 			"upload": "Upload a CSV file:",
 			"returnAmountHeader": "Select Number of Return Candidates per input:",
