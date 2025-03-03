@@ -200,6 +200,27 @@
 			"warning": "Les performances de la carte peuvent être affectées par le nombre d'entrées. Les fichiers plus volumineux peuvent être plus lents à charger et réduire la réactivité."
 		},
 		"reverseBulk": {
+			"IntakeRevBulk": {},
+			"RevBulkInput": {},
+			"reverseCallAPIReturn": {
+				"dataProcessingSummary": "Sommaire du traitement des données",
+				"dataProcessingPara": "Les données ont été nettoyées et préparées pour l'appel API. Vous trouverez ci-dessous un résumé des données traitées, y compris les erreurs détectées. Si des erreurs sont présentes, veuillez vérifier que les valeurs de latitude (41.679999 à 83.113336) et de longitude (-141.001087 à -52.622111) se situent à l'intérieur des frontières du Canada. En outre, assurez-vous que les données d'entrée sont suffisamment détaillées pour produire des résultats précis. Des données d'entrée incomplètes ou imprécises peuvent affecter la qualité des résultats.",
+				"inputLength": "Nombre de lignes reçues du CSV",
+				"cleanedLength": "Nombre d'entrées valides",
+				"errorLength": "Nombre d'erreurs",
+				"dataRecievedDetails": "Détails des données reçues",
+				"recievedDataJsonPreview": "Réception de l'examen des données",
+				"cleanDataPreview": "Aperçu des données nettoyées",
+				"previewData": {
+					"inputId": "ID d'entrée",
+					"ddLat": "Latitude",
+					"ddLong": "Longitude"
+				},
+				"inputDataDetails": "cliquez pour voir les détails saisis",
+				"cleanDataDetails": "cliquez pour avoir un aperçu des données nettoyées",
+				"errorDataDetails": "cliquez pour voir les erreurs",
+				"errorPara": "Erreur de nettoyage des données - probablement due à des coordonnées hors du Canada ou à une localisation insuffisamment détaillée. Veuillez revoir les valeurs de latitude (41.679999 à 83.113336) et de longitude (-141.001087 à -52.622111) avant de continuer ou effectuez les corrections nécessaires et revérifiez l'entrée."
+			},
 			"fileUpload": "Chargement de fichiers et paramètres",
 			"upload": "Télécharger un fichier CSV ",
 			"returnAmountHeader": "Sélectionnez le nombre de candidats à renvoyer par entrée",
