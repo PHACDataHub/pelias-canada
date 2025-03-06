@@ -5,6 +5,7 @@ import ReversePaginatedTable from "../../tables/ReverseDataTable"
 import ReverseConfidenceTable from "../../tables/ReverseConfidenceTable"
 import Loading from "../../Loading"
 import RevMapping from "./map/revMap"
+import ReverseExportFiles from "./ReverseExportFiles"
 
 export default function ReverseResultsDisplay({ filteredResults, itemsPerCall }) {
 	const [apiResults, setApiResults] = useState([])
@@ -108,6 +109,7 @@ export default function ReverseResultsDisplay({ filteredResults, itemsPerCall })
 							<GcdsErrorMessage> {t("components.reverseBulk.singleResultID.errorMess")}</GcdsErrorMessage>
 						</div>
 					)}
+					<ReverseExportFiles filteredApiResults={filteredApiResults} />
 					<RevMapping filteredApiResults={filteredApiResults} originalPoints={filteredResults} />
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
 					<ReverseConfidenceTable apiResults={filteredApiResults} />

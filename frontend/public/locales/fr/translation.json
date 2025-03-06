@@ -201,7 +201,15 @@
 			"screenReader": "Carte montrant les emplacements cartographiés associés à chaque point. Les points sont codés par couleur pour indiquer le niveau de confiance des résultats."
 		},
 		"reverseBulk": {
-			"IntakeRevBulk": {},
+			"reverseExportFiles": {
+				"exportDataCSVId": "exporterCSV",
+				"exportDataCSV": "exporter en CSV",
+				"exportDataGeoJSONId": "exporterGeoJSON",
+				"exportDataGeoJSON": "exporter vers GeoJSON",
+				"metaNotAvail": "Métadonnées non disponibles",
+				"notDataAvail": "Pas de données à exporter",
+				"csvHeaders": "Index,Classement de l'indice,adresse physique,latitude, longitude,confiance,Distance par rapport à l'original,précision"
+			},
 			"ReturnAmountSelector": {
 				"selectID": "nombreDeCandidats",
 				"label": "Sélectionnez le nombre de candidats à renvoyer par entrée",
