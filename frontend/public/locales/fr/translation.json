@@ -197,11 +197,20 @@
 		"map": {
 			"aria": "Carte affichant des données géographiques",
 			"header": "Résultats de la traduction de l'API sur la carte",
-			"warning": "Les performances de la carte peuvent être affectées par le nombre d'entrées. Les fichiers plus volumineux peuvent être plus lents à charger et réduire la réactivité."
+			"warning": "Les performances de la carte peuvent être affectées par le nombre d'entrées. Les fichiers plus volumineux peuvent être plus lents à charger et réduire la réactivité.",
+			"screenReader": "Carte montrant les emplacements cartographiés associés à chaque point. Les points sont codés par couleur pour indiquer le niveau de confiance des résultats."
 		},
 		"reverseBulk": {
 			"IntakeRevBulk": {},
-			"RevBulkInput": {},
+			"ReturnAmountSelector": {
+				"selectID": "nombreDeCandidats",
+				"label": "Sélectionnez le nombre de candidats à renvoyer par entrée",
+				"hint": "Nombre d'éléments que l'API renverra par appel"
+			},
+			"singleResultID" : {
+				"header": "ID d'entrée avec un seul résultat",
+				"errorMess": "Ces éléments ne seront pas inclus dans les tableaux ci-dessous"
+			},
 			"reverseCallAPIReturn": {
 				"dataProcessingSummary": "Sommaire du traitement des données",
 				"dataProcessingPara": "Les données ont été nettoyées et préparées pour l'appel API. Vous trouverez ci-dessous un résumé des données traitées, y compris les erreurs détectées. Si des erreurs sont présentes, veuillez vérifier que les valeurs de latitude (41.679999 à 83.113336) et de longitude (-141.001087 à -52.622111) se situent à l'intérieur des frontières du Canada. En outre, assurez-vous que les données d'entrée sont suffisamment détaillées pour produire des résultats précis. Des données d'entrée incomplètes ou imprécises peuvent affecter la qualité des résultats.",
@@ -245,13 +254,15 @@
 				"lat": "Latitude",
 				"lon": "Longitude",
 				"confidenceLevel": "Niveau de confiance",
-				"accuracy": "Précision"
+				"accuracy": "Précision",
+				"distance": "Distance par rapport à l'original"
 			},
 			"map": {
 				"distance": "Distance par rapport à l'original",
 				"streetName": "Nom de la rue",
 				"locality": "Localité",
-				"province": "Province"
+				"province": "Province",
+				"screenReader": " Carte montrant les géolocalisations d'entrée originales ainsi que les emplacements cartographiés associés à chaque point. Les points sont codés par couleur pour indiquer le niveau de confiance des résultats."
 			},
 			"exportSelect": "Exporter sélectionné",
 			"clearSelect": "Effacer la sélection",
@@ -500,6 +511,7 @@
 	"copyCode": "Copiez le code",
 	"codeCopied": "Le code a été copié",
 	"copy": "Copiez",
+	"error": "Erreurs",
 	"legend": {
 		"confidence": "Confiance"
 	},

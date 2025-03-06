@@ -11,7 +11,7 @@ import Point from "ol/geom/Point"
 import Overlay from "ol/Overlay"
 import { Style, Circle, Fill, Stroke } from "ol/style"
 import { useTranslation } from "react-i18next"
-import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react"
+import { GcdsHeading, GcdsSrOnly, GcdsText } from "@cdssnc/gcds-components-react"
 
 export default function RevMapping({ filteredApiResults, originalPoints }) {
 	const { t } = useTranslation()
@@ -45,9 +45,6 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 			if (confidenceValue >= 30) return "#FF8C00"
 			return "#B22222"
 		}
-
-		console.log("Filtered API Results:", filteredApiResults)
-		console.log("Original Points:", originalPoints)
 
 		// Add API results as colored points
 		filteredApiResults.forEach(item => {
@@ -113,7 +110,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 			target: mapRef.current,
 		})
 
-		console.log("Added Features:", features)
+		// console.log("Added Features:", features)
 
 		// Fit map to all points
 		const extent = apiVectorSource.getExtent().concat(originalVectorSource.getExtent())
@@ -144,23 +141,23 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 				if (feature.get("type") === "apiPoint") {
 					overlayRef.current.innerHTML = `
                     <div>
-                        <strong>${t("components.forwardBulk.mapReady.outputTable.inputID")}:</strong> ${data.inputID} <br />
+                        <strong>${t("components.reverseBulk.outputTable.inputID")}:</strong> ${data.inputID} <br />
                         <strong>id ranking:</strong> ${data.featureIndex + 1} <br />
-                        <strong>${t("components.forwardBulk.mapReady.outputTable.address")}:</strong> ${data.result?.properties?.label || "N/A"} <br />
-                        <strong>${t("components.forwardBulk.mapReady.outputTable.lat")}:</strong> ${data?.result?.geometry?.coordinates?.[1] ?? "N/A"} <br />
-                        <strong>${t("components.forwardBulk.mapReady.outputTable.lon")}:</strong> ${data?.result?.geometry?.coordinates?.[0] ?? "N/A"} <br />
-                        <strong>${t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}:</strong> 
+                        <strong>${t("components.reverseBulk.outputTable.address")}:</strong> ${data.result?.properties?.label || "N/A"} <br />
+                        <strong>${t("components.reverseBulk.outputTable.lat")}:</strong> ${data?.result?.geometry?.coordinates?.[1] ?? "N/A"} <br />
+                        <strong>${t("components.reverseBulk.outputTable.lon")}:</strong> ${data?.result?.geometry?.coordinates?.[0] ?? "N/A"} <br />
+                        <strong>${t("components.reverseBulk.outputTable.confidenceLevel")}:</strong> 
                         ${data?.result?.properties?.confidence !== undefined ? `${data.result.properties.confidence * 100}%` : "N/A"} <br />
-                        <strong>dist from org:</strong> ${data?.result?.properties?.distance || "N/A"} km <br />
-                        <strong>${t("components.forwardBulk.mapReady.outputTable.accuracy")}:</strong> ${data?.result?.properties?.accuracy || "N/A"} <br />
+                        <strong>${t("components.reverseBulk.outputTable.distance")}:</strong> ${data?.result?.properties?.distance || "N/A"} km <br />
+                        <strong>${t("components.reverseBulk.outputTable.accuracy")}:</strong> ${data?.result?.properties?.accuracy || "N/A"} <br />
                     </div>
                     `
 				} else if (feature.get("type") === "originalPoint") {
 					overlayRef.current.innerHTML = `
                         <div>
-                            <strong>Input ID:</strong> ${data.inputID} <br />
-                            <strong>Latitude:</strong> ${data.ddLat} <br />
-                            <strong>Longitude:</strong> ${data.ddLong} <br />
+                            <strong>${t("components.reverseBulk.outputTable.inputID")}:</strong> ${data.inputID} <br />
+                            <strong>${t("components.reverseBulk.outputTable.lat")}:</strong> ${data.ddLat} <br />
+                            <strong>${t("components.reverseBulk.outputTable.lon")}:</strong> ${data.ddLong} <br />
                         </div>
                     `
 				}
@@ -180,7 +177,6 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 	return (
 		<>
 			<GcdsHeading tag="h3" characterLimit="false">
-				{" "}
 				{t("components.map.header")}
 			</GcdsHeading>
 			{filteredApiResults.length > 0 || originalPoints.length > 0 ? (
@@ -192,6 +188,9 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 							height: isWideScreen ? "500px" : "250px",
 							position: "relative",
 						}}
+						role="region"
+						aria-label={t("components.map.aria")}
+						tabIndex="0"
 					></div>
 
 					<div
@@ -211,6 +210,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 					<GcdsText size="small" characterLimit="false">
 						<i>{t("components.map.warning")}</i>
 					</GcdsText>
+					<GcdsSrOnly>{t("components.reverseBulk.map.screenReader")}</GcdsSrOnly>
 				</>
 			) : null}
 		</>

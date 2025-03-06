@@ -58,7 +58,6 @@ export default function ReverseBulk() {
 							<hr />
 							<ReverseCallAPIReturn results={inputtedData} sendFilteredResults={handleFilteredResults} />
 							<GcdsText characterLimit="false">{t("components.forwardBulk.inputUpload.continuePara")} </GcdsText>
-							<h2>Selected Items Per Call: {itemsPerCall}</h2>
 							<ReturnAmountSelector onChange={setItemsPerCall} />
 							<GcdsButton buttonId={t("components.forwardBulk.inputUpload.continue")} name={t("components.forwardBulk.inputUpload.continue")} onClick={handleButtonClick}>
 								{t("components.forwardBulk.inputUpload.continue")}

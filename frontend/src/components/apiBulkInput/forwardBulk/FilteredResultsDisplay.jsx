@@ -68,8 +68,10 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 
 	return (
 		<>
-		<GcdsText characterLimit="false"> <i>{t("components.forwardBulk.callTimes.headerPara")}</i></GcdsText>
-		<GcdsHeading tag="h2">{t("components.forwardBulk.callTimes.header")} </GcdsHeading>
+			<GcdsText characterLimit="false">
+				<i>{t("components.forwardBulk.callTimes.headerPara")}</i>
+			</GcdsText>
+			<GcdsHeading tag="h2">{t("components.forwardBulk.callTimes.header")} </GcdsHeading>
 			<GcdsNotice type="info" noticeTitleTag="h3" noticeTitle="Estimated Time">
 				<GcdsText>
 					<i>
@@ -94,10 +96,13 @@ export default function FilteredResultsDisplay({ filteredResults, triggerApiCall
 			)}
 
 			{errors.length > 0 && (
-				<div className="error">
-					{errors.map((error, index) => (
-						<p key={index}>{error}</p>
-					))}
+				<div role="alert" aria-live="assertive">
+					<GcdsHeading tag="h3">{t("error")}</GcdsHeading>
+					<ul role="list">
+						{errors.map((error, index) => (
+							<li key={index}>{error}</li>
+						))}
+					</ul>
 				</div>
 			)}
 
