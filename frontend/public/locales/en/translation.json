@@ -201,7 +201,15 @@
 			"screenReader": "Map showing  the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
 		},
 		"reverseBulk": {
-			"IntakeRevBulk": {},
+			"reverseExportFiles": {
+				"exportDataCSVId": "exportCSV",
+				"exportDataCSV": "export to CSV",
+				"exportDataGeoJSONId": "exportGeoJSON",
+				"exportDataGeoJSON": "export to GeoJSON",
+				"metaNotAvail": "Metadata not available",
+				"notDataAvail": "No data to export",
+				"csvHeaders": "Index ID,Index Ranking,physical Address, Latitude,Longitude,Confidence,Distance from original,Accuracy"
+			},
 			"ReturnAmountSelector": {
 				"selectID": "numberOfCandidates",
 				"label": "Select the number of candidates to send per entry",
