@@ -60,7 +60,7 @@ export default function ContactUs() {
 					</GcdsText>
 					<hr style={{ margin: "50px 0" }} />
 					<form onSubmit={handleSubmit} key={i18n.language}>
-						{" "}
+						
 						{/* Adding key to trigger re-render */}
 						<GcdsHeading tag="h2">{t("pages.contactUs.formTitle")}</GcdsHeading>
 						<br />

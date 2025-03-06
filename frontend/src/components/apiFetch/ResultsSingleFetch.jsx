@@ -110,7 +110,7 @@ export default function SingleFetchResults({ forwardResponse, buttonResponse, re
 								</div>
 								<div style={{ display: "flex", flexDirection: "column" }}>
 									<p>
-										<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong>{" "}
+										<strong>{t("components.apiFetch.resultSingleFetch.matchType")}: </strong>
 										{result.features[0].properties.match_type || t("components.apiFetch.resultSingleFetch.na")}
 									</p>
 									<p>
