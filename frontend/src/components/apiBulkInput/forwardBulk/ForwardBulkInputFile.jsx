@@ -54,27 +54,27 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
 		try {
 			const lines = data.split("\n").filter(line => line.trim() !== "")
 			const headers = lines[0].split(",").map(header => header.trim().toLowerCase())
-	
+
 			// Check if required columns exist
 			const inputIdIndex = headers.indexOf("inputid")
 			const addressIndex = headers.indexOf("physicaladdress")
-	
+
 			if (inputIdIndex === -1 || addressIndex === -1) {
 				throw new Error("components.forwardBulk.inputUpload.errors.missingColumns")
 			}
-	
+
 			const processedResults = []
 			const errors = []
-	
+
 			// Process each line in the CSV file (skip the header)
 			lines.slice(1).forEach((line, index) => {
 				try {
 					const cols = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) // Improved CSV parsing
 					if (!cols) return
-	
+
 					const inputID = cols[inputIdIndex]?.trim().replace(/^"|"$/g, "")
 					const physicalAddress = cols[addressIndex]?.trim().replace(/^"|"$/g, "")
-	
+
 					// Check for missing fields
 					if (!inputID || !physicalAddress) {
 						errors.push(`Line ${index + 2}: ${t("components.forwardBulk.inputUpload.errors.missingFields")}`)
@@ -86,7 +86,7 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
 					console.error(`Error processing line ${index + 2}:`, err)
 				}
 			})
-	
+
 			if (errors.length > 0) {
 				setError(errors.join("\n"))
 			} else {
@@ -98,7 +98,6 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
 			console.error("CSV processing error:", err)
 		}
 	}
-	
 
 	const handleReset = () => {
 		setInputtedResults([]) // Clear results

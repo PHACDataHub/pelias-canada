@@ -1,7 +1,6 @@
 /* ForwardBulk.css */
 body {
 	font-family: Arial, sans-serif;
-
 }
 
 input[type="file"] {
@@ -57,16 +56,16 @@ legend {
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: small;
-  }
+	width: 100%;
+	border-collapse: collapse;
+	font-size: small;
+}
 
 .table-container {
-    max-height: 300px; /* Adjust the height as needed */
-    overflow-y: auto;
-    border: 1px solid #ccc; /* Optional: Add border for better visibility */
-  }
+	max-height: 300px; /* Adjust the height as needed */
+	overflow-y: auto;
+	border: 1px solid #ccc; /* Optional: Add border for better visibility */
+}
 th,
 td {
 	border: 1px solid #ddd;
@@ -93,11 +92,11 @@ th {
 .pagination-container {
 	display: flex;
 	flex-direction: column;
-    background-color: #000;
+	background-color: #000;
 	gap: 4px;
 	padding: 8px;
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 }
 
 .pagination-controls {
@@ -113,25 +112,24 @@ th {
 .select-container {
 	display: flex;
 	align-items: center;
-	gap: 8px; 
-
+	gap: 8px;
 }
 
 .select-style {
-    padding: 4px 8px;
-    font-size: small;
+	padding: 4px 8px;
+	font-size: small;
 }
 
 .label-style {
-    font-size: small;
+	font-size: small;
 	margin-right: 8px;
 	font-weight: bold;
 }
 /* Container for pagination buttons */
 #pageationContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* Space between buttons */
-    padding: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px; /* Space between buttons */
+	padding: 16px;
 }

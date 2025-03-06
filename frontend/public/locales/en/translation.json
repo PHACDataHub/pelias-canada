@@ -197,11 +197,20 @@
 		"map": {
 			"aria": "Map displaying geographic data",
 			"header": "API Translation Results on Map",
-			"warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness."
+			"warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness.",
+			"screenReader": "Map showing  the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
 		},
 		"reverseBulk": {
 			"IntakeRevBulk": {},
-			"RevBulkInput": {},
+			"ReturnAmountSelector": {
+				"selectID": "numberOfCandidates",
+				"label": "Select the number of candidates to send per entry",
+				"hint": "Amount of items the API will return per call"
+			},
+			"singleResultID" : {
+				"header": "Input IDs with only one result",
+				"errorMess": "These items will not be included in the tables below"
+			},
 			"reverseCallAPIReturn": {
 				"dataProcessingSummary": "Data Processing Summary",
 				"dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please verify that the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values fall within Canada's boundaries. Additionally, ensure that the input data is sufficiently detailed to produce accurate results. Incomplete or imprecise inputs may affect the quality of the output.",
@@ -245,13 +254,15 @@
 				"lat": "Latitude",
 				"lon": "Longitude",
 				"confidenceLevel": "Confidence Level",
-				"accuracy": "Accuracy"
+				"accuracy": "Accuracy",
+				"distance": "Distance from original"
 			},
 			"map": {
 				"distance": "Distance from original",
 				"streetName": "Street name",
 				"locality": "Locality",
-				"province": "Province"
+				"province": "Province",
+				"screenReader": " Map showing the original input geolocations along with the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
 			},
 			"exportSelect": "Export Selected",
 			"clearSelect": "Clear Selected",
@@ -500,6 +511,7 @@
 	"copyCode": "Copy code",
 	"codeCopied": "The code has been copied",
 	"copy": "Copy",
+	"error": "Errors",
 	"legend": {
 		"confidence": "Confidence"
 	},

@@ -26,14 +26,13 @@ export default function ForwardBulk() {
 		setContinueStatus(true)
 		// Wait for state update and then scroll into view
 		setTimeout(() => {
-			const element = document.getElementById("results");
+			const element = document.getElementById("results")
 			if (element) {
-				const yOffset = -50; // Scroll 20px above the element
-				const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-				window.scrollTo({ top: y, behavior: "smooth" });
+				const yOffset = -50 // Scroll 20px above the element
+				const y = element.getBoundingClientRect().top + window.scrollY + yOffset
+				window.scrollTo({ top: y, behavior: "smooth" })
 			}
-		}, 0);
-		
+		}, 0)
 	}
 
 	const handleFilteredResults = useCallback(filteredData => {
@@ -47,16 +46,22 @@ export default function ForwardBulk() {
 					<ForwardBulkInputFile ref={childRef} setResults={setInputtedData} />
 					{inputtedData.length > 0 && (
 						<>
-							<GcdsButton onClick={handleReset} buttonId={t("components.forwardBulk.inputUpload.reset")} name={t("components.forwardBulk.inputUpload.reset")}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
+							<GcdsButton onClick={handleReset} buttonId={t("components.forwardBulk.inputUpload.reset")} name={t("components.forwardBulk.inputUpload.reset")}>
+								{t("components.forwardBulk.inputUpload.reset")}
+							</GcdsButton>
 							<hr />
 							<ForwardCallAPIReturn results={inputtedData} sendFilteredResults={handleFilteredResults} />
 							<GcdsText characterLimit="false">{t("components.forwardBulk.inputUpload.continuePara")} </GcdsText>
-							<GcdsButton buttonId={t("components.forwardBulk.inputUpload.continue")} name={t("components.forwardBulk.inputUpload.continue")} onClick={handleButtonClick}>{t("components.forwardBulk.inputUpload.continue")}</GcdsButton>
+							<GcdsButton buttonId={t("components.forwardBulk.inputUpload.continue")} name={t("components.forwardBulk.inputUpload.continue")} onClick={handleButtonClick}>
+								{t("components.forwardBulk.inputUpload.continue")}
+							</GcdsButton>
 						</>
 					)}
 					<br />
 					{continueStatus && (
-						<GcdsButton buttonId={t("components.forwardBulk.inputUpload.reset")} name={t("components.forwardBulk.inputUpload.reset")} onClick={handleReset}>{t("components.forwardBulk.inputUpload.reset")}</GcdsButton>
+						<GcdsButton buttonId={t("components.forwardBulk.inputUpload.reset")} name={t("components.forwardBulk.inputUpload.reset")} onClick={handleReset}>
+							{t("components.forwardBulk.inputUpload.reset")}
+						</GcdsButton>
 					)}
 				</>
 			)}
@@ -65,10 +70,7 @@ export default function ForwardBulk() {
 			{/* FilteredResultsDisplay with ID for scrolling */}
 			{filteredResults.length > 0 && continueStatus && (
 				<div id="results">
-					<FilteredResultsDisplay
-						filteredResults={filteredResults}
-						triggerApiCall={continueStatus}
-					/>
+					<FilteredResultsDisplay filteredResults={filteredResults} triggerApiCall={continueStatus} />
 				</div>
 			)}
 		</>

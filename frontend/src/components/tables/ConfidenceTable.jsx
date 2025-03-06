@@ -51,11 +51,11 @@ export default function ConfidenceTable({ apiResults }) {
 	return (
 		<>
 			<table border="1">
-				<caption>{t("components.forwardBulk.mapReady.tableHeaderConfidence")}</caption> 
+				<caption>{t("components.forwardBulk.mapReady.tableHeaderConfidence")}</caption>
 				<thead>
 					<tr>
-						<th>{t("components.forwardBulk.mapReady.tableRange")}</th>
-						<th>{t("components.forwardBulk.mapReady.tableCount")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.tableRange")}</th>
+						<th scope="col">{t("components.forwardBulk.mapReady.tableCount")}</th>
 					</tr>
 				</thead>
 				<tbody>

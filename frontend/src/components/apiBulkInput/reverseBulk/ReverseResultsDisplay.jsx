@@ -78,9 +78,9 @@ export default function ReverseResultsDisplay({ filteredResults, itemsPerCall })
 			)}
 
 			{errors.length > 0 && (
-				<div>
-					<h3>Errors</h3>
-					<ul>
+				<div role="alert" aria-live="assertive">
+					<GcdsHeading tag="h3">{t("error")}</GcdsHeading>
+					<ul role="list">
 						{errors.map((error, index) => (
 							<li key={index}>{error}</li>
 						))}
@@ -88,28 +88,27 @@ export default function ReverseResultsDisplay({ filteredResults, itemsPerCall })
 				</div>
 			)}
 
-			<GcdsText>
+			<GcdsText aria-live="polite">
 				{t("components.forwardBulk.resultsTable.validRows")} {filteredResults.length}
 			</GcdsText>
 
 			{filteredApiResults.length > 0 && (
 				<>
-					
 					<GcdsText>
 						{t("components.forwardBulk.resultsTable.returnedRows")}: {filteredApiResults.length}
 					</GcdsText>
 					{singleResultIDs.length > 0 && (
 						<div>
-							<h3>Input IDs with only one result:</h3>
+							<GcdsHeading tag="h3">{t("components.reverseBulk.singleResultID.header")}:</GcdsHeading>
 							<ul>
 								{singleResultIDs.map((id, index) => (
 									<li key={index}>{id}</li>
 								))}
 							</ul>
-							<GcdsErrorMessage> These items will not be included in the tables below</GcdsErrorMessage>
+							<GcdsErrorMessage> {t("components.reverseBulk.singleResultID.errorMess")}</GcdsErrorMessage>
 						</div>
 					)}
-					<RevMapping filteredApiResults={filteredApiResults} originalPoints={filteredResults}/>
+					<RevMapping filteredApiResults={filteredApiResults} originalPoints={filteredResults} />
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
 					<ReverseConfidenceTable apiResults={filteredApiResults} />
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
