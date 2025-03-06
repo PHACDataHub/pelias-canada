@@ -47,7 +47,6 @@ export default function ReverseBulk() {
 
 	return (
 		<>
-
 			{!continueStatus && (
 				<>
 					<ReverseBulkInputFile ref={childRef} setResults={setInputtedData} />
@@ -61,7 +60,9 @@ export default function ReverseBulk() {
 							<GcdsText characterLimit="false">{t("components.forwardBulk.inputUpload.continuePara")} </GcdsText>
 							<h2>Selected Items Per Call: {itemsPerCall}</h2>
 							<ReturnAmountSelector onChange={setItemsPerCall} />
-							<GcdsButton buttonId={t("components.forwardBulk.inputUpload.continue")} name={t("components.forwardBulk.inputUpload.continue")} onClick={handleButtonClick}>{t("components.forwardBulk.inputUpload.continue")}</GcdsButton>
+							<GcdsButton buttonId={t("components.forwardBulk.inputUpload.continue")} name={t("components.forwardBulk.inputUpload.continue")} onClick={handleButtonClick}>
+								{t("components.forwardBulk.inputUpload.continue")}
+							</GcdsButton>
 						</>
 					)}
 					<br />
@@ -74,18 +75,7 @@ export default function ReverseBulk() {
 			)}
 			<br />
 
-
-			{filteredResults.length > 0 && continueStatus && (<ReverseResultsDisplay filteredResults={filteredResults} itemsPerCall={itemsPerCall}/> ) }
-			
-			{/* FilteredResultsDisplay with ID for scrolling
-            {filteredResults.length > 0 && continueStatus && (
-                <div id="results">
-                    <FilteredResultsDisplay
-                        filteredResults={filteredResults}
-                        triggerApiCall={continueStatus}
-                    />
-                </div>
-            )} */}
+			{filteredResults.length > 0 && continueStatus && <ReverseResultsDisplay filteredResults={filteredResults} itemsPerCall={itemsPerCall} />}
 		</>
 	)
 }

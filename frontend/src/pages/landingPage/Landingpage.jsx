@@ -130,7 +130,7 @@ export default function LandingPage() {
 					<GcdsHeading tag="h2">{t("pages.landingPage.apiSectionTitle")}</GcdsHeading> {/* Section heading for API-related content */}
 					<GcdsText characterLimit="false">
 						<em> {t("pages.landingPage.apiSectionPara")} </em>
-					</GcdsText>{" "}
+					</GcdsText>
 					{/* Section heading for API-related content */}
 					<GcdsGrid
 						container="xl"

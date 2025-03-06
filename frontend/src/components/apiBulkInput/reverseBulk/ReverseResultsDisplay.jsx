@@ -4,6 +4,7 @@ import { GcdsErrorMessage, GcdsText, GcdsHeading } from "@cdssnc/gcds-components
 import ReversePaginatedTable from "../../tables/ReverseDataTable"
 import ReverseConfidenceTable from "../../tables/ReverseConfidenceTable"
 import Loading from "../../Loading"
+import RevMapping from "./map/revMap"
 
 export default function ReverseResultsDisplay({ filteredResults, itemsPerCall }) {
 	const [apiResults, setApiResults] = useState([])
@@ -93,7 +94,7 @@ export default function ReverseResultsDisplay({ filteredResults, itemsPerCall })
 
 			{filteredApiResults.length > 0 && (
 				<>
-					{" "}
+					
 					<GcdsText>
 						{t("components.forwardBulk.resultsTable.returnedRows")}: {filteredApiResults.length}
 					</GcdsText>
@@ -108,6 +109,7 @@ export default function ReverseResultsDisplay({ filteredResults, itemsPerCall })
 							<GcdsErrorMessage> These items will not be included in the tables below</GcdsErrorMessage>
 						</div>
 					)}
+					<RevMapping filteredApiResults={filteredApiResults} originalPoints={filteredResults}/>
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.confidence.confidenceTableHeader")}</GcdsHeading>
 					<ReverseConfidenceTable apiResults={filteredApiResults} />
 					<GcdsHeading tag="h3">{t("components.forwardBulk.resultsTable.previewResultsHeader")}</GcdsHeading>
