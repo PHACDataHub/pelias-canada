@@ -89,12 +89,15 @@ export default function ReverseResultsDisplay({ filteredResults, itemsPerCall })
 				</div>
 			)}
 
-			<GcdsText aria-live="polite">
-				{t("components.forwardBulk.resultsTable.validRows")} {filteredResults.length}
-			</GcdsText>
-
 			{filteredApiResults.length > 0 && (
 				<>
+					<GcdsText characterLimit="false">
+						<i>{t("components.forwardBulk.callTimes.headerPara")}</i>
+					</GcdsText>
+					<GcdsHeading tag="h2">{t("components.forwardBulk.callTimes.header")} </GcdsHeading>
+					<GcdsText>
+						{t("components.forwardBulk.resultsTable.validRows")} {filteredResults.length}
+					</GcdsText>
 					<GcdsText>
 						{t("components.forwardBulk.resultsTable.returnedRows")}: {filteredApiResults.length}
 					</GcdsText>
