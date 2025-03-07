@@ -49,6 +49,7 @@ export default function ReverseBulk() {
 		<>
 			{!continueStatus && (
 				<>
+				<GcdsHeading tag="h2"  characterLimit="false" id="input">{t("pages.reverseBulk.inputUpload")} </GcdsHeading>
 					<ReverseBulkInputFile ref={childRef} setResults={setInputtedData} />
 					{inputtedData.length > 0 && (
 						<>
