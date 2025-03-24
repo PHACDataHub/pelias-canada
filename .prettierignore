@@ -12,3 +12,6 @@ frontend/src/public/assets/locales
 # not to be maintained or edited by us
 dashboard/
 docker/
+
+*.yaml
+*.yml
