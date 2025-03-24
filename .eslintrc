@@ -1,0 +1,98 @@
+// from safe-inputs
+{
+    "root": true,
+    "extends": [
+      "standard",
+      "prettier",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:@microsoft/sdl/common"
+    ],
+    "plugins": ["no-secrets"],
+    "rules": {
+      "camelcase": "off",
+      "comma-dangle": ["error", "always-multiline"],
+      "no-unused-vars": "off", // covered by @typescript-eslint/no-unused-vars
+      "no-use-before-define": "off", // covered by @typescript-eslint/no-use-before-define
+      "no-throw-literal": "error",
+      "no-restricted-imports": ["error", { "patterns": ["../*"] }],
+      "import/order": [
+        "warn",
+        {
+          "newlines-between": "always-and-inside-groups",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          },
+          "groups": [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            ["sibling", "index"]
+          ],
+          // We can group imports further by adding rules here, the order they're defined in breaks ties when group and position are equal
+          "pathGroups": []
+        }
+      ],
+      "import/extensions": ["error", "ignorePackages"],
+      "no-secrets/no-secrets": "error"
+    },
+    "overrides": [
+    //   {
+    //     "files": ["api/**/*.ts", "api/**/*.tsx"],
+    //     "extends": ["plugin:@microsoft/sdl/typescript"], // includes rules that need the parser to be configured with the project-specific tsconfig file
+    //     "parser": "@typescript-eslint/parser",
+    //     "parserOptions": {
+    //       "project": ["./api/tsconfig.json"]
+    //     }
+    //   },
+      {
+        "files": ["frontend/**/*.{js,jsx}"],
+        "extends": [
+          "plugin:react/recommended",
+          "plugin:react-hooks/recommended"
+        ],
+        "plugins": ["react", "react-hooks"],
+        "parserOptions": {
+          "ecmaVersion": 2022,
+          "sourceType": "module",
+          "ecmaFeatures": {
+            "jsx": true
+          }
+        },
+        "settings": {
+          "react": {
+            "version": "detect"
+          }
+        }
+      },
+      {
+        "files": ["**/*test.js", "**/*test.jsx"],
+        "plugins": ["jest"],
+        "rules": {
+          "jest/no-disabled-tests": "warn",
+          "jest/no-focused-tests": "error",
+          "jest/no-identical-title": "error",
+          "jest/prefer-to-have-length": "warn",
+          "jest/valid-expect": "error"
+        },
+        "env": {
+          "jest/globals": true
+        }
+      }
+    //   {
+    //     "files": ["**/*.cjs"],
+    //     "rules": {
+    //       "@typescript-eslint/no-var-requires": 0
+    //     }
+    //   }
+    ],
+    "ignorePatterns": [
+    //   "kubernetes/mongodb-operator/operator", // not to be maintained or edited by us, comes from https://github.com/mongodb/mongodb-kubernetes-operator
+      "**/dist", // generated (build outputs)
+        "k8s",
+        "dashboard",
+        "docker"
+    ]
+  }
