@@ -25,6 +25,7 @@ npm run dev
 ```
 
 ## Running the Local Server
+
 To run the local server using Deno:
 
 ```sh
@@ -32,7 +33,9 @@ cd frontend/
 npm install
 deno run --allow-net server.ts
 ```
+
 ## Building the Docker Image
+
 To build the Docker image for the frontend:
 
 ```sh

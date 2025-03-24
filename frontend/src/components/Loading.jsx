@@ -1,10 +1,8 @@
-
-
 export default function Loading() {
-    return (
-      <div>
-        <style>
-          {`
+  return (
+    <div>
+      <style>
+        {`
             .loader {
               border: 16px solid #f3f3f3;
               border-radius: 50%;
@@ -27,12 +25,8 @@ export default function Loading() {
               100% { transform: rotate(360deg); }
             }
           `}
-        </style>
-        <div className="loader"></div>
-      </div>
-    )
-  }
-  
-
-
-  
+      </style>
+      <div className="loader"></div>
+    </div>
+  );
+}

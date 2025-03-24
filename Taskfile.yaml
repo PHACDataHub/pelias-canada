@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 
 # Define global variables to be used across tasks for consistency and ease of updates.
 vars:
-  PROJECT_ID: phx-01hnn9wb0eg                # Google Cloud Project ID where the resources will be deployed.
-  REGION: northamerica-northeast1            # Deployment region for Google Cloud resources.
-  NAME: pelias-geocoder                               # Naming prefix for created resources, aiding in identification and organization.
+  PROJECT_ID: phx-01hnn9wb0eg # Google Cloud Project ID where the resources will be deployed.
+  REGION: northamerica-northeast1 # Deployment region for Google Cloud resources.
+  NAME: pelias-geocoder # Naming prefix for created resources, aiding in identification and organization.
   FLEET_HOST_PROJECT_ID: php-fleet-monitoring # ID for the project hosting the fleet, used in Anthos Service Mesh (ASM).
 
 tasks:

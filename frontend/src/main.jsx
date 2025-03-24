@@ -8,15 +8,15 @@ import "./index.css";
 import "@cdssnc/gcds-components-react/gcds.css";
 
 i18n.on("languageChanged", (lng) => {
-	document.documentElement.setAttribute("lang", lng);
-  });
-  
+  document.documentElement.setAttribute("lang", lng);
+});
+
 ReactDOM.createRoot(document.getElementById("react-root")).render(
   <React.StrictMode>
-    <I18nextProvider i18n={i18n}> 
+    <I18nextProvider i18n={i18n}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </I18nextProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
