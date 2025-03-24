@@ -1,0 +1,31 @@
+{
+    "name": "pelias-canada",
+    "version": "1.0.0",
+    "private": true,
+    "description": "",
+    "keywords": [],
+    "license": "MIT",
+    "scripts": {
+      "ci:all": "npm ci && (cd ./frontend && npm ci)",
+      "prettier": "prettier --check .",
+      "prettier:write": "prettier --write --log-level warn .",
+      "eslint": "eslint --max-warnings 0 --cache .",
+      "eslint:ci": "eslint .",
+      "eslint:fix": "eslint --fix . || true",
+      "posteslint:fix": "npm run prettier:write"
+    },
+    "devDependencies": {
+      "@microsoft/eslint-plugin-sdl": "0.2.2",
+      "@parcel/watcher": "2.5.0",
+      "eslint": "8.57.1",
+      "eslint-config-prettier": "10.0.1",
+      "eslint-config-standard": "17.1.0",
+      "eslint-import-resolver-typescript": "3.7.0",
+      "eslint-plugin-import": "2.31.0",
+      "eslint-plugin-jest": "28.10.0",
+      "eslint-plugin-no-secrets": "2.1.1",
+      "eslint-plugin-promise": "6.6.0",
+      "prettier": "3.4.2"
+    }
+  }
+  
