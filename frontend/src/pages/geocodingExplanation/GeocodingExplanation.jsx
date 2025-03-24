@@ -1,145 +1,145 @@
-import { useTranslation } from "react-i18next";
-import "./GeocodingExplanation.css";
-import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react";
+import { useTranslation } from 'react-i18next';
+import './GeocodingExplanation.css';
+import { GcdsHeading, GcdsText } from '@cdssnc/gcds-components-react';
 
 export default function GeocodingExplanation() {
   const featuresData = [
     [
       {
-        key: "$.features",
-        description: "pages.geocodingExplanation.apiFeature.features",
+        key: '$.features',
+        description: 'pages.geocodingExplanation.apiFeature.features',
       },
       {
-        key: "$.features[0].bbox",
-        description: "pages.geocodingExplanation.apiFeature.bbox",
+        key: '$.features[0].bbox',
+        description: 'pages.geocodingExplanation.apiFeature.bbox',
       },
       {
-        key: "$.features[0].geometry.coordinates",
+        key: '$.features[0].geometry.coordinates',
         description:
-          "pages.geocodingExplanation.apiFeature.geometry.coordinates",
+          'pages.geocodingExplanation.apiFeature.geometry.coordinates',
       },
       {
-        key: "$.features[0].geometry.type",
-        description: "pages.geocodingExplanation.apiFeature.geometry.type",
+        key: '$.features[0].geometry.type',
+        description: 'pages.geocodingExplanation.apiFeature.geometry.type',
       },
       {
-        key: "$.features[0].type",
-        description: "pages.geocodingExplanation.apiFeature.type",
+        key: '$.features[0].type',
+        description: 'pages.geocodingExplanation.apiFeature.type',
       },
       {
-        key: "$.features[0].properties",
+        key: '$.features[0].properties',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.properties",
+          'pages.geocodingExplanation.apiFeature.properties.properties',
       },
       {
-        key: "$.features[0].properties.country",
-        description: "pages.geocodingExplanation.apiFeature.properties.country",
+        key: '$.features[0].properties.country',
+        description: 'pages.geocodingExplanation.apiFeature.properties.country',
       },
       {
-        key: "$.features[0].properties.gid",
-        description: "pages.geocodingExplanation.apiFeature.properties.gid",
+        key: '$.features[0].properties.gid',
+        description: 'pages.geocodingExplanation.apiFeature.properties.gid',
       },
       {
-        key: "$.features[0].properties.locality_gid",
+        key: '$.features[0].properties.locality_gid',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.locality_gid",
+          'pages.geocodingExplanation.apiFeature.properties.locality_gid',
       },
       {
-        key: "$.features[0].properties.neighbourhood_gid",
+        key: '$.features[0].properties.neighbourhood_gid',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.neighbourhood_gid",
+          'pages.geocodingExplanation.apiFeature.properties.neighbourhood_gid',
       },
       {
-        key: "$.features[0].properties.confidence",
+        key: '$.features[0].properties.confidence',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.confidence",
+          'pages.geocodingExplanation.apiFeature.properties.confidence',
       },
       {
-        key: "$.features[0].properties.country_a",
+        key: '$.features[0].properties.country_a',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.country_a",
+          'pages.geocodingExplanation.apiFeature.properties.country_a',
       },
       {
-        key: "$.features[0].properties.county",
-        description: "pages.geocodingExplanation.apiFeature.properties.county",
+        key: '$.features[0].properties.county',
+        description: 'pages.geocodingExplanation.apiFeature.properties.county',
       },
       {
-        key: "$.features[0].properties.locality",
+        key: '$.features[0].properties.locality',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.locality",
+          'pages.geocodingExplanation.apiFeature.properties.locality',
       },
       {
-        key: "$.features[0].properties.accuracy",
+        key: '$.features[0].properties.accuracy',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.accuracy",
+          'pages.geocodingExplanation.apiFeature.properties.accuracy',
       },
       {
-        key: "$.features[0].properties.source",
-        description: "pages.geocodingExplanation.apiFeature.properties.source",
+        key: '$.features[0].properties.source',
+        description: 'pages.geocodingExplanation.apiFeature.properties.source',
       },
       {
-        key: "$.features[0].properties.label",
-        description: "pages.geocodingExplanation.apiFeature.properties.label",
+        key: '$.features[0].properties.label',
+        description: 'pages.geocodingExplanation.apiFeature.properties.label',
       },
       {
-        key: "$.features[0].properties.region_a",
+        key: '$.features[0].properties.region_a',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.region_a",
+          'pages.geocodingExplanation.apiFeature.properties.region_a',
       },
       {
-        key: "$.features[0].properties.layer",
-        description: "pages.geocodingExplanation.apiFeature.properties.layer",
+        key: '$.features[0].properties.layer',
+        description: 'pages.geocodingExplanation.apiFeature.properties.layer',
       },
       {
-        key: "$.features[0].properties.country_code",
+        key: '$.features[0].properties.country_code',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.country_code",
+          'pages.geocodingExplanation.apiFeature.properties.country_code',
       },
       {
-        key: "$.features[0].properties.street",
-        description: "pages.geocodingExplanation.apiFeature.properties.street",
+        key: '$.features[0].properties.street',
+        description: 'pages.geocodingExplanation.apiFeature.properties.street',
       },
       {
-        key: "$.features[0].properties.neighbourhood",
+        key: '$.features[0].properties.neighbourhood',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.neighbourhood",
+          'pages.geocodingExplanation.apiFeature.properties.neighbourhood',
       },
       {
-        key: "$.features[0].properties.region_gid",
+        key: '$.features[0].properties.region_gid',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.region_gid",
+          'pages.geocodingExplanation.apiFeature.properties.region_gid',
       },
       {
-        key: "$.features[0].properties.name",
-        description: "pages.geocodingExplanation.apiFeature.properties.name",
+        key: '$.features[0].properties.name',
+        description: 'pages.geocodingExplanation.apiFeature.properties.name',
       },
       {
-        key: "$.features[0].properties.match_type",
+        key: '$.features[0].properties.match_type',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.match_type",
+          'pages.geocodingExplanation.apiFeature.properties.match_type',
       },
       {
-        key: "$.features[0].properties.id",
-        description: "pages.geocodingExplanation.apiFeature.properties.id",
+        key: '$.features[0].properties.id',
+        description: 'pages.geocodingExplanation.apiFeature.properties.id',
       },
       {
-        key: "$.features[0].properties.source_id",
+        key: '$.features[0].properties.source_id',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.source_id",
+          'pages.geocodingExplanation.apiFeature.properties.source_id',
       },
       {
-        key: "$.features[0].properties.country_gid",
+        key: '$.features[0].properties.country_gid',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.country_gid",
+          'pages.geocodingExplanation.apiFeature.properties.country_gid',
       },
       {
-        key: "$.features[0].properties.region",
-        description: "pages.geocodingExplanation.apiFeature.properties.region",
+        key: '$.features[0].properties.region',
+        description: 'pages.geocodingExplanation.apiFeature.properties.region',
       },
       {
-        key: "$.features[0].properties.county_gid",
+        key: '$.features[0].properties.county_gid',
         description:
-          "pages.geocodingExplanation.apiFeature.properties.county_gid",
+          'pages.geocodingExplanation.apiFeature.properties.county_gid',
       },
     ],
   ];
@@ -147,64 +147,64 @@ export default function GeocodingExplanation() {
   return (
     <div className="geocoding-explanation">
       <GcdsHeading tag="h1">
-        {t("pages.geocodingExplanation.title")}
+        {t('pages.geocodingExplanation.title')}
       </GcdsHeading>
       <section>
         <GcdsHeading tag="h2" characterLimit="false" id="match-types">
-          {t("pages.geocodingExplanation.underTitleHeader")}
+          {t('pages.geocodingExplanation.underTitleHeader')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          {" "}
-          {t("pages.geocodingExplanation.underTitlePara")}
+          {' '}
+          {t('pages.geocodingExplanation.underTitlePara')}
         </GcdsText>
         <GcdsHeading tag="h3" characterLimit="false">
-          {t("pages.geocodingExplanation.matchTypes.title")}
+          {t('pages.geocodingExplanation.matchTypes.title')}
         </GcdsHeading>
         <ul>
           <li>
             <GcdsText characterLimit="false">
               <strong>
-                {t("pages.geocodingExplanation.matchTypes.exact")}
+                {t('pages.geocodingExplanation.matchTypes.exact')}
               </strong>
-              :{t("pages.geocodingExplanation.matchTypes.exactPara")}
+              :{t('pages.geocodingExplanation.matchTypes.exactPara')}
             </GcdsText>
           </li>
           <li>
             <GcdsText characterLimit="false">
               <strong>
-                {t("pages.geocodingExplanation.matchTypes.centroid")}
+                {t('pages.geocodingExplanation.matchTypes.centroid')}
               </strong>
-              :{t("pages.geocodingExplanation.matchTypes.centroidPara")}
+              :{t('pages.geocodingExplanation.matchTypes.centroidPara')}
             </GcdsText>
           </li>
           <li>
             <GcdsText characterLimit="false">
               <strong>
-                {t("pages.geocodingExplanation.matchTypes.interpolation")}
+                {t('pages.geocodingExplanation.matchTypes.interpolation')}
               </strong>
-              : {t("pages.geocodingExplanation.matchTypes.interpolationPara")}
+              : {t('pages.geocodingExplanation.matchTypes.interpolationPara')}
             </GcdsText>
           </li>
         </ul>
       </section>
       <section>
         <GcdsHeading tag="h2" characterLimit="false" id="improving-accuracy">
-          {t("pages.geocodingExplanation.improvingAccuracy.title")}
+          {t('pages.geocodingExplanation.improvingAccuracy.title')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          {t("pages.geocodingExplanation.improvingAccuracy.underTitle")}:
+          {t('pages.geocodingExplanation.improvingAccuracy.underTitle')}:
         </GcdsText>
         <ol>
           <li>
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.verifyAddress.title",
+                  'pages.geocodingExplanation.improvingAccuracy.verifyAddress.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.verifyAddress.para",
+                'pages.geocodingExplanation.improvingAccuracy.verifyAddress.para',
               )}
             </GcdsText>
           </li>
@@ -212,12 +212,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.title",
+                  'pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.para",
+                'pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.para',
               )}
             </GcdsText>
           </li>
@@ -225,23 +225,23 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.details.title",
+                  'pages.geocodingExplanation.improvingAccuracy.details.title',
                 )}
                 :
-              </strong>{" "}
-              {t("pages.geocodingExplanation.improvingAccuracy.details.para")}
+              </strong>{' '}
+              {t('pages.geocodingExplanation.improvingAccuracy.details.para')}
             </GcdsText>
           </li>
           <li>
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.title",
+                  'pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.title',
                 )}
                 :
               </strong>
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.para",
+                'pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.para',
               )}
             </GcdsText>
           </li>
@@ -249,12 +249,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.billingualReqs.title",
+                  'pages.geocodingExplanation.improvingAccuracy.billingualReqs.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.billingualReqs.para",
+                'pages.geocodingExplanation.improvingAccuracy.billingualReqs.para',
               )}
             </GcdsText>
           </li>
@@ -262,12 +262,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.standardDigraphs.title",
+                  'pages.geocodingExplanation.improvingAccuracy.standardDigraphs.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.standardDigraphs.para",
+                'pages.geocodingExplanation.improvingAccuracy.standardDigraphs.para',
               )}
             </GcdsText>
           </li>
@@ -275,12 +275,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.specialChars.title",
+                  'pages.geocodingExplanation.improvingAccuracy.specialChars.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.specialChars.para",
+                'pages.geocodingExplanation.improvingAccuracy.specialChars.para',
               )}
             </GcdsText>
           </li>
@@ -288,12 +288,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.capitilization.title",
+                  'pages.geocodingExplanation.improvingAccuracy.capitilization.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.capitilization.para",
+                'pages.geocodingExplanation.improvingAccuracy.capitilization.para',
               )}
             </GcdsText>
           </li>
@@ -301,12 +301,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.improvingAccuracy.addressVars.title",
+                  'pages.geocodingExplanation.improvingAccuracy.addressVars.title',
                 )}
                 :
-              </strong>{" "}
+              </strong>{' '}
               {t(
-                "pages.geocodingExplanation.improvingAccuracy.addressVars.para",
+                'pages.geocodingExplanation.improvingAccuracy.addressVars.para',
               )}
             </GcdsText>
           </li>
@@ -315,23 +315,23 @@ export default function GeocodingExplanation() {
 
       <section>
         <GcdsHeading tag="h2" characterLimit="false" id="less-accurate-matches">
-          {t("pages.geocodingExplanation.lessAccurateMatch.title")}
+          {t('pages.geocodingExplanation.lessAccurateMatch.title')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          {" "}
-          {t("pages.geocodingExplanation.lessAccurateMatch.underTitle")}
+          {' '}
+          {t('pages.geocodingExplanation.lessAccurateMatch.underTitle')}
         </GcdsText>
         <ul>
           <li>
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.lessAccurateMatch.spatialAccuracy",
+                  'pages.geocodingExplanation.lessAccurateMatch.spatialAccuracy',
                 )}
               </strong>
-              :{" "}
+              :{' '}
               {t(
-                "pages.geocodingExplanation.lessAccurateMatch.spatialAccuracyPara",
+                'pages.geocodingExplanation.lessAccurateMatch.spatialAccuracyPara',
               )}
             </GcdsText>
           </li>
@@ -339,12 +339,12 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t(
-                  "pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracy",
+                  'pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracy',
                 )}
               </strong>
               :
               {t(
-                "pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracyPAra",
+                'pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracyPAra',
               )}
             </GcdsText>
           </li>
@@ -353,23 +353,23 @@ export default function GeocodingExplanation() {
 
       <section>
         <GcdsHeading tag="h2" characterLimit="false">
-          {t("pages.geocodingExplanation.apiFeature.title")}
+          {t('pages.geocodingExplanation.apiFeature.title')}
         </GcdsHeading>
         <div className="table-wrapper" tabIndex="0">
           <table
             id="features"
-            aria-label={t("pages.geocodingExplanation.apiFeature.tableTitle")}
+            aria-label={t('pages.geocodingExplanation.apiFeature.tableTitle')}
           >
             <thead>
               <tr>
                 <th>
                   <GcdsText characterLimit="false" textRole="light">
-                    {t("pages.geocodingExplanation.property")}
+                    {t('pages.geocodingExplanation.property')}
                   </GcdsText>
                 </th>
                 <th>
                   <GcdsText textRole="light" characterLimit="false">
-                    {t("pages.geocodingExplanation.description")}
+                    {t('pages.geocodingExplanation.description')}
                   </GcdsText>
                 </th>
               </tr>

@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import Map from "ol/Map.js";
-import View from "ol/View.js";
-import TileLayer from "ol/layer/Tile.js";
-import OSM from "ol/source/OSM.js";
-import { fromLonLat } from "ol/proj";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import Feature from "ol/Feature";
-import Point from "ol/geom/Point";
-import Overlay from "ol/Overlay";
-import { Style, Circle, Fill, Stroke } from "ol/style";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useRef, useState } from 'react';
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import TileLayer from 'ol/layer/Tile.js';
+import OSM from 'ol/source/OSM.js';
+import { fromLonLat } from 'ol/proj';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import Overlay from 'ol/Overlay';
+import { Style, Circle, Fill, Stroke } from 'ol/style';
+import { useTranslation } from 'react-i18next';
 import {
   GcdsHeading,
   GcdsSrOnly,
   GcdsText,
-} from "@cdssnc/gcds-components-react";
+} from '@cdssnc/gcds-components-react';
 
 export default function RevMapping({ filteredApiResults, originalPoints }) {
   const { t } = useTranslation();
@@ -27,11 +27,11 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 
   // Handle Media Query Changes for Screen Width
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1080px)");
+    const mediaQuery = window.matchMedia('(min-width: 1080px)');
     const handleMediaChange = () => setIsWideScreen(mediaQuery.matches);
 
-    mediaQuery.addEventListener("change", handleMediaChange);
-    return () => mediaQuery.removeEventListener("change", handleMediaChange);
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
   }, []);
 
   useEffect(() => {
@@ -41,13 +41,13 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 
     // Function to determine color based on confidence level
     const getColorByConfidence = (confidence) => {
-      if (!confidence || typeof confidence !== "number") return "#B22222";
+      if (!confidence || typeof confidence !== 'number') return '#B22222';
       const confidenceValue = confidence * 100;
-      if (confidenceValue >= 100) return "#006400";
-      if (confidenceValue >= 80) return "#389638";
-      if (confidenceValue >= 50) return "#FFBF00";
-      if (confidenceValue >= 30) return "#FF8C00";
-      return "#B22222";
+      if (confidenceValue >= 100) return '#006400';
+      if (confidenceValue >= 80) return '#389638';
+      if (confidenceValue >= 50) return '#FFBF00';
+      if (confidenceValue >= 30) return '#FF8C00';
+      return '#B22222';
     };
 
     // Add API results as colored points
@@ -64,7 +64,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
             ]),
           ),
           data: item,
-          type: "apiPoint",
+          type: 'apiPoint',
         });
 
         pointFeature.setStyle(
@@ -72,7 +72,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
             image: new Circle({
               radius: 5,
               fill: new Fill({ color: confidenceColor }),
-              stroke: new Stroke({ color: "black", width: 1 }),
+              stroke: new Stroke({ color: 'black', width: 1 }),
             }),
           }),
         );
@@ -88,15 +88,15 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
         const bluePointFeature = new Feature({
           geometry: new Point(fromLonLat([point.ddLong, point.ddLat])),
           data: point,
-          type: "originalPoint",
+          type: 'originalPoint',
         });
 
         bluePointFeature.setStyle(
           new Style({
             image: new Circle({
               radius: 5,
-              fill: new Fill({ color: "blue" }), // Always blue
-              stroke: new Stroke({ color: "black", width: 1 }),
+              fill: new Fill({ color: 'blue' }), // Always blue
+              stroke: new Stroke({ color: 'black', width: 1 }),
             }),
           }),
         );
@@ -146,47 +146,47 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
     // Create overlay for hover display
     const overlay = new Overlay({
       element: overlayRef.current,
-      positioning: "bottom-center",
+      positioning: 'bottom-center',
       stopEvent: false,
     });
     map.addOverlay(overlay);
 
-    map.on("pointermove", (event) => {
+    map.on('pointermove', (event) => {
       const feature = map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
       if (feature) {
         const coordinates = feature.getGeometry().getCoordinates();
         overlay.setPosition(coordinates);
 
-        const data = feature.get("data");
+        const data = feature.get('data');
 
-        if (feature.get("type") === "apiPoint") {
+        if (feature.get('type') === 'apiPoint') {
           overlayRef.current.innerHTML = `
                     <div>
-                        <strong>${t("components.reverseBulk.outputTable.inputID")}:</strong> ${data.inputID} <br />
+                        <strong>${t('components.reverseBulk.outputTable.inputID')}:</strong> ${data.inputID} <br />
                         <strong>id ranking:</strong> ${data.featureIndex + 1} <br />
-                        <strong>${t("components.reverseBulk.outputTable.address")}:</strong> ${data.result?.properties?.label || "N/A"} <br />
-                        <strong>${t("components.reverseBulk.outputTable.lat")}:</strong> ${data?.result?.geometry?.coordinates?.[1] ?? "N/A"} <br />
-                        <strong>${t("components.reverseBulk.outputTable.lon")}:</strong> ${data?.result?.geometry?.coordinates?.[0] ?? "N/A"} <br />
-                        <strong>${t("components.reverseBulk.outputTable.confidenceLevel")}:</strong> 
-                        ${data?.result?.properties?.confidence !== undefined ? `${data.result.properties.confidence * 100}%` : "N/A"} <br />
-                        <strong>${t("components.reverseBulk.outputTable.distance")}:</strong> ${data?.result?.properties?.distance || "N/A"} km <br />
-                        <strong>${t("components.reverseBulk.outputTable.accuracy")}:</strong> ${data?.result?.properties?.accuracy || "N/A"} <br />
+                        <strong>${t('components.reverseBulk.outputTable.address')}:</strong> ${data.result?.properties?.label || 'N/A'} <br />
+                        <strong>${t('components.reverseBulk.outputTable.lat')}:</strong> ${data?.result?.geometry?.coordinates?.[1] ?? 'N/A'} <br />
+                        <strong>${t('components.reverseBulk.outputTable.lon')}:</strong> ${data?.result?.geometry?.coordinates?.[0] ?? 'N/A'} <br />
+                        <strong>${t('components.reverseBulk.outputTable.confidenceLevel')}:</strong> 
+                        ${data?.result?.properties?.confidence !== undefined ? `${data.result.properties.confidence * 100}%` : 'N/A'} <br />
+                        <strong>${t('components.reverseBulk.outputTable.distance')}:</strong> ${data?.result?.properties?.distance || 'N/A'} km <br />
+                        <strong>${t('components.reverseBulk.outputTable.accuracy')}:</strong> ${data?.result?.properties?.accuracy || 'N/A'} <br />
                     </div>
                     `;
-        } else if (feature.get("type") === "originalPoint") {
+        } else if (feature.get('type') === 'originalPoint') {
           overlayRef.current.innerHTML = `
                         <div>
-                            <strong>${t("components.reverseBulk.outputTable.inputID")}:</strong> ${data.inputID} <br />
-                            <strong>${t("components.reverseBulk.outputTable.lat")}:</strong> ${data.ddLat} <br />
-                            <strong>${t("components.reverseBulk.outputTable.lon")}:</strong> ${data.ddLong} <br />
+                            <strong>${t('components.reverseBulk.outputTable.inputID')}:</strong> ${data.inputID} <br />
+                            <strong>${t('components.reverseBulk.outputTable.lat')}:</strong> ${data.ddLat} <br />
+                            <strong>${t('components.reverseBulk.outputTable.lon')}:</strong> ${data.ddLong} <br />
                         </div>
                     `;
         }
 
-        overlayRef.current.style.display = "block";
+        overlayRef.current.style.display = 'block';
       } else {
         overlay.setPosition(undefined);
-        overlayRef.current.style.display = "none";
+        overlayRef.current.style.display = 'none';
       }
     });
 
@@ -198,41 +198,41 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
   return (
     <>
       <GcdsHeading tag="h3" characterLimit="false">
-        {t("components.map.header")}
+        {t('components.map.header')}
       </GcdsHeading>
       {filteredApiResults.length > 0 || originalPoints.length > 0 ? (
         <>
           <div
             ref={mapRef}
             style={{
-              width: "100%",
-              height: isWideScreen ? "500px" : "250px",
-              position: "relative",
+              width: '100%',
+              height: isWideScreen ? '500px' : '250px',
+              position: 'relative',
             }}
             role="region"
-            aria-label={t("components.map.aria")}
+            aria-label={t('components.map.aria')}
             tabIndex="0"
           ></div>
 
           <div
             ref={overlayRef}
             style={{
-              position: "relative",
-              backgroundColor: "white",
-              border: "1px solid black",
-              borderRadius: "3px",
-              padding: "2px",
-              pointerEvents: "none",
-              fontSize: isWideScreen ? "12px" : "8px",
-              width: "200px",
-              display: "none",
+              position: 'relative',
+              backgroundColor: 'white',
+              border: '1px solid black',
+              borderRadius: '3px',
+              padding: '2px',
+              pointerEvents: 'none',
+              fontSize: isWideScreen ? '12px' : '8px',
+              width: '200px',
+              display: 'none',
             }}
           ></div>
           <GcdsText size="small" characterLimit="false">
-            <i>{t("components.map.warning")}</i>
+            <i>{t('components.map.warning')}</i>
           </GcdsText>
           <GcdsSrOnly>
-            {t("components.reverseBulk.map.screenReader")}
+            {t('components.reverseBulk.map.screenReader')}
           </GcdsSrOnly>
         </>
       ) : null}

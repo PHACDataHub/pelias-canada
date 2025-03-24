@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export default function PercentageCircle({ confidencePercentage }) {
   const radius = 50;
@@ -8,15 +8,15 @@ export default function PercentageCircle({ confidencePercentage }) {
   // Define colors with sufficient contrast
   let color;
   if (confidencePercentage >= 0.99) {
-    color = "#006400"; // Dark Green
+    color = '#006400'; // Dark Green
   } else if (confidencePercentage >= 0.8) {
-    color = "#389638"; // Forest Green
+    color = '#389638'; // Forest Green
   } else if (confidencePercentage >= 0.5) {
-    color = "#FFBF00"; // Dark Yellow (Amber)
+    color = '#FFBF00'; // Dark Yellow (Amber)
   } else if (confidencePercentage >= 0.3) {
-    color = "#FF8C00"; // Dark Orange
+    color = '#FF8C00'; // Dark Orange
   } else {
-    color = "#B22222"; // Firebrick Red
+    color = '#B22222'; // Firebrick Red
   }
 
   const centerText = `${(confidencePercentage * 100).toFixed(1)}%`;
@@ -40,9 +40,9 @@ export default function PercentageCircle({ confidencePercentage }) {
           r={radius}
           style={{
             stroke: color,
-            strokeWidth: "10",
-            strokeLinecap: "round",
-            fill: "transparent",
+            strokeWidth: '10',
+            strokeLinecap: 'round',
+            fill: 'transparent',
             strokeDasharray: circumference,
             strokeDashoffset: strokeDashoffset,
           }}

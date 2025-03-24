@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   GcdsButton,
   GcdsDetails,
   GcdsHeading,
-} from "@cdssnc/gcds-components-react";
-import "@cdssnc/gcds-components-react/gcds.css"; // Import the CSS file if necessary
-import { copyToClipboard } from "../../assets/copyToClipboard.jsx"; // Adjust the path as necessary
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "react-i18next";
-import RZipDownload from "../../components/zipDowloads/RZipDownload.jsx";
+} from '@cdssnc/gcds-components-react';
+import '@cdssnc/gcds-components-react/gcds.css'; // Import the CSS file if necessary
+import { copyToClipboard } from '../../assets/copyToClipboard.jsx'; // Adjust the path as necessary
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+import RZipDownload from '../../components/zipDowloads/RZipDownload.jsx';
 
 export default function RShinyAPIPage() {
-  const [rForwardCode, setRForwardCode] = useState("");
-  const [rReverseCode, setRReverseCode] = useState("");
+  const [rForwardCode, setRForwardCode] = useState('');
+  const [rReverseCode, setRReverseCode] = useState('');
 
   const { t } = useTranslation();
 
@@ -21,15 +21,15 @@ export default function RShinyAPIPage() {
     const fetchRScript = async () => {
       try {
         const response = await fetch(
-          "/codeZips/R/forwardGeocode_R_script_v1.r",
+          '/codeZips/R/forwardGeocode_R_script_v1.r',
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
         const text = await response.text();
         setRForwardCode(text);
       } catch (error) {
-        console.error("Failed to fetch R script:", error);
+        console.error('Failed to fetch R script:', error);
       }
     };
 
@@ -40,15 +40,15 @@ export default function RShinyAPIPage() {
     const fetchRScript = async () => {
       try {
         const response = await fetch(
-          "/codeZips/R/reverseGeocode_R_script_v1.r",
+          '/codeZips/R/reverseGeocode_R_script_v1.r',
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
         const text = await response.text();
         setRReverseCode(text);
       } catch (error) {
-        console.error("Failed to fetch R script:", error);
+        console.error('Failed to fetch R script:', error);
       }
     };
 
@@ -57,51 +57,51 @@ export default function RShinyAPIPage() {
 
   const handleCopyRForward = () => {
     copyToClipboard(rForwardCode, () => {
-      toast.success(t("codeCopied"), {
-        "aria-live": "assertive", // Ensure it's announced by screen readers
+      toast.success(t('codeCopied'), {
+        'aria-live': 'assertive', // Ensure it's announced by screen readers
       });
     });
   };
 
   const handleCopyRReverse = () => {
     copyToClipboard(rReverseCode, () => {
-      toast.success(t("codeCopied"), {
-        "aria-live": "assertive", // Ensure it's announced by screen readers
+      toast.success(t('codeCopied'), {
+        'aria-live': 'assertive', // Ensure it's announced by screen readers
       });
     });
   };
 
   const codeBlockStyles = {
-    marginTop: "20px",
-    overflowWrap: "break-word",
-    overflowX: "auto",
+    marginTop: '20px',
+    overflowWrap: 'break-word',
+    overflowX: 'auto',
   };
 
   return (
     <>
-      <GcdsHeading tag="h1">{t("pages.rshiny.title")}</GcdsHeading>
-      <div style={{ overflow: "auto" }}>
-        <p>{t("pages.rshiny.rshinyParagraph")}</p>
+      <GcdsHeading tag="h1">{t('pages.rshiny.title')}</GcdsHeading>
+      <div style={{ overflow: 'auto' }}>
+        <p>{t('pages.rshiny.rshinyParagraph')}</p>
       </div>
-      <div style={{ display: "flex", width: "100%", flexDirection: "column" }}>
+      <div style={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
         <RZipDownload />
         <br />
 
-        <GcdsDetails detailsTitle={t("pages.rshiny.forwardRDetails")}>
+        <GcdsDetails detailsTitle={t('pages.rshiny.forwardRDetails')}>
           <div>
             <GcdsButton
               size="small"
               onClick={handleCopyRForward}
-              aria-label={t("pages.rshiny.CopyForwardRCode")}
+              aria-label={t('pages.rshiny.CopyForwardRCode')}
             >
-              {t("copyCode")}
+              {t('copyCode')}
             </GcdsButton>
           </div>
           <div>
             <pre style={codeBlockStyles}>
               <code
                 style={codeBlockStyles}
-                aria-label={t("pages.rshiny.forwardRCode")}
+                aria-label={t('pages.rshiny.forwardRCode')}
               >
                 {rForwardCode}
               </code>
@@ -109,20 +109,20 @@ export default function RShinyAPIPage() {
           </div>
         </GcdsDetails>
         <br />
-        <GcdsDetails detailsTitle={t("pages.rshiny.reverseRDetails")}>
+        <GcdsDetails detailsTitle={t('pages.rshiny.reverseRDetails')}>
           <div>
             <GcdsButton
               size="small"
               onClick={handleCopyRReverse}
-              aria-label={t("pages.rshiny.CopyReverseRCode")}
+              aria-label={t('pages.rshiny.CopyReverseRCode')}
             >
-              {t("copyCode")}
+              {t('copyCode')}
             </GcdsButton>
           </div>
           <pre style={codeBlockStyles}>
             <code
               style={codeBlockStyles}
-              aria-label={t("pages.rshiny.reverseRCode")}
+              aria-label={t('pages.rshiny.reverseRCode')}
             >
               {rReverseCode}
             </code>

@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   GcdsButton,
   GcdsHeading,
   GcdsInput,
-} from "@cdssnc/gcds-components-react";
-import "@cdssnc/gcds-components-react/gcds.css";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import Loading from "../Loading";
+} from '@cdssnc/gcds-components-react';
+import '@cdssnc/gcds-components-react/gcds.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import Loading from '../Loading';
 
 ReverseSinglefetch.propTypes = {
   onResponseData: PropTypes.func.isRequired,
@@ -17,8 +17,8 @@ ReverseSinglefetch.propTypes = {
 
 export default function ReverseSinglefetch({ onResponseData }) {
   const { t, i18n } = useTranslation();
-  const [formData, setFormData] = useState({ latitude: "", longitude: "" });
-  const [errors, setErrors] = useState({ latitude: "", longitude: "" });
+  const [formData, setFormData] = useState({ latitude: '', longitude: '' });
+  const [errors, setErrors] = useState({ latitude: '', longitude: '' });
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
 
@@ -42,19 +42,19 @@ export default function ReverseSinglefetch({ onResponseData }) {
     if (isNaN(value)) {
       return ` ${name} ${t(`components.apiFetch.reverseSingleFetch.alerts.required`)}`;
     }
-    if (name === "latitude" && (value < LAT_MIN || value > LAT_MAX)) {
+    if (name === 'latitude' && (value < LAT_MIN || value > LAT_MAX)) {
       // return `${t("components.apiFetch.reverseSingleFetch.latitude")} must be between ${LAT_MIN} and ${LAT_MAX}.`
-      return i18n.language === "en"
-        ? `${t("components.apiFetch.reverseSingleFetch.latitude")} must be between ${LAT_MIN} and ${LAT_MAX}.`
-        : `${t("components.apiFetch.reverseSingleFetch.latitude")} doit être compris entre ${LAT_MIN} et ${LAT_MAX}.`;
+      return i18n.language === 'en'
+        ? `${t('components.apiFetch.reverseSingleFetch.latitude')} must be between ${LAT_MIN} and ${LAT_MAX}.`
+        : `${t('components.apiFetch.reverseSingleFetch.latitude')} doit être compris entre ${LAT_MIN} et ${LAT_MAX}.`;
     }
-    if (name === "longitude" && (value < LONG_MIN || value > LONG_MAX)) {
+    if (name === 'longitude' && (value < LONG_MIN || value > LONG_MAX)) {
       // return `${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.`
-      return i18n.languag === "en"
-        ? `${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.`
-        : `${t("components.apiFetch.reverseSingleFetch.longitude")} doit être compris entre ${LONG_MIN} et ${LONG_MAX}.`;
+      return i18n.languag === 'en'
+        ? `${t('components.apiFetch.reverseSingleFetch.longitude')} must be between ${LONG_MIN} and ${LONG_MAX}.`
+        : `${t('components.apiFetch.reverseSingleFetch.longitude')} doit être compris entre ${LONG_MIN} et ${LONG_MAX}.`;
     }
-    return "";
+    return '';
   };
 
   const handleSubmit = async (e) => {
@@ -64,8 +64,8 @@ export default function ReverseSinglefetch({ onResponseData }) {
 
     console.log(latitude);
     const newErrors = {
-      latitude: validateField("latitude", latitude),
-      longitude: validateField("longitude", longitude),
+      latitude: validateField('latitude', latitude),
+      longitude: validateField('longitude', longitude),
     };
     setErrors(newErrors);
 
@@ -84,7 +84,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
         setFormData({ latitude: coords[1], longitude: coords[0] });
       } else {
         toast.error(
-          t("components.apiFetch.reverseSingleFetch.alerts.moreSpecificCoords"),
+          t('components.apiFetch.reverseSingleFetch.alerts.moreSpecificCoords'),
         );
       }
       setResponseData(data);
@@ -97,31 +97,31 @@ export default function ReverseSinglefetch({ onResponseData }) {
   };
 
   const handleReset = () => {
-    setFormData({ latitude: "", longitude: "" });
-    setErrors({ latitude: "", longitude: "" });
-    toast.info(t("components.apiFetch.reverseSingleFetch.alerts.formReset"));
+    setFormData({ latitude: '', longitude: '' });
+    setErrors({ latitude: '', longitude: '' });
+    toast.info(t('components.apiFetch.reverseSingleFetch.alerts.formReset'));
   };
 
   useEffect(() => {
-    setFormData({ latitude: "", longitude: "" });
-    setErrors({ latitude: "", longitude: "" });
+    setFormData({ latitude: '', longitude: '' });
+    setErrors({ latitude: '', longitude: '' });
   }, [i18n.language]);
 
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "column",
-        height: "100%",
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        height: '100%',
       }}
     >
       <GcdsHeading tag="h3" characterLimit="false">
-        {t("components.apiFetch.reverseSingleFetch.inputHeader")}
+        {t('components.apiFetch.reverseSingleFetch.inputHeader')}
       </GcdsHeading>
       <form onSubmit={handleSubmit} key={i18n.language}>
         <GcdsInput
-          label={t("components.apiFetch.reverseSingleFetch.latitude")}
+          label={t('components.apiFetch.reverseSingleFetch.latitude')}
           required
           type="number"
           id="latitude"
@@ -135,7 +135,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
           step="0.01"
         />
         <GcdsInput
-          label={t("components.apiFetch.reverseSingleFetch.longitude")}
+          label={t('components.apiFetch.reverseSingleFetch.longitude')}
           required
           type="number"
           id="longitude"
@@ -150,20 +150,20 @@ export default function ReverseSinglefetch({ onResponseData }) {
         />
         <div
           style={{
-            marginTop: "3rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1em",
+            marginTop: '3rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1em',
           }}
         >
           <div>
             <GcdsButton type="submit">
-              {t("components.apiFetch.reverseSingleFetch.search")}
+              {t('components.apiFetch.reverseSingleFetch.search')}
             </GcdsButton>
           </div>
           <div>
             <GcdsButton type="button" onClick={handleReset} variant="secondary">
-              {t("components.apiFetch.reverseSingleFetch.reset")}
+              {t('components.apiFetch.reverseSingleFetch.reset')}
             </GcdsButton>
           </div>
         </div>
@@ -171,15 +171,15 @@ export default function ReverseSinglefetch({ onResponseData }) {
       <div
         aria-live="polite"
         aria-atomic="true"
-        style={{ position: "absolute", left: "-9999px" }}
+        style={{ position: 'absolute', left: '-9999px' }}
       >
-        {loading && t("loading")}
+        {loading && t('loading')}
         {!loading &&
           responseData &&
-          t("components.apiFetch.forwardSingleFetch.complete")}
+          t('components.apiFetch.forwardSingleFetch.complete')}
       </div>
       {loading && <Loading />}
-      {responseData === true ? "responseData" : null}
+      {responseData === true ? 'responseData' : null}
     </div>
   );
 }

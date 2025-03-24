@@ -6,7 +6,7 @@ body {
   background-color: transparent;
   perspective: 1000px;
   outline: none; /* Remove outline for better styling */
-  padding: "5px";
+  padding: '5px';
 }
 
 .flip-card-inner {

@@ -1,5 +1,5 @@
-import "./FlipCard.css"; // Import the CSS file for styles
-import PropTypes from "prop-types";
+import './FlipCard.css'; // Import the CSS file for styles
+import PropTypes from 'prop-types';
 
 export default function FlipCard({
   frontText,
@@ -21,7 +21,7 @@ export default function FlipCard({
         style={{
           backgroundColor: backColor,
           color: textColor,
-          borderRadius: "25px",
+          borderRadius: '25px',
         }}
       >
         <div
@@ -29,7 +29,7 @@ export default function FlipCard({
           style={{
             backgroundColor: backColor,
             color: textColor,
-            borderRadius: "25px",
+            borderRadius: '25px',
           }}
         >
           <h3>{frontText}</h3>
@@ -39,7 +39,7 @@ export default function FlipCard({
           style={{
             backgroundColor: backColor,
             color: textColor,
-            borderRadius: "25px",
+            borderRadius: '25px',
           }}
         >
           <h4>{frontText}</h4>

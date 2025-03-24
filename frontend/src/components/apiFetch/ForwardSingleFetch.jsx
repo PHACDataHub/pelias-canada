@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   GcdsButton,
   GcdsHeading,
   GcdsInput,
-} from "@cdssnc/gcds-components-react";
-import "@cdssnc/gcds-components-react/gcds.css";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import Loading from "../Loading";
+} from '@cdssnc/gcds-components-react';
+import '@cdssnc/gcds-components-react/gcds.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import Loading from '../Loading';
 
 ForwardSinglefetch.propTypes = {
   onResponseData: PropTypes.func.isRequired,
@@ -18,15 +18,15 @@ ForwardSinglefetch.propTypes = {
 export default function ForwardSinglefetch({ onResponseData }) {
   const { t, i18n } = useTranslation();
   const [formData, setFormData] = useState({
-    address: "",
-    city: "",
-    province: "",
+    address: '',
+    city: '',
+    province: '',
   });
 
   const [errors, setErrors] = useState({
-    address: "",
-    city: "",
-    province: "",
+    address: '',
+    city: '',
+    province: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: value.trim()
-        ? ""
+        ? ''
         : `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
     }));
   };
@@ -54,15 +54,15 @@ export default function ForwardSinglefetch({ onResponseData }) {
     const newErrors = {};
     if (!formData.address) {
       newErrors.address = t(
-        "components.apiFetch.forwardSingleFetch.alerts.address",
+        'components.apiFetch.forwardSingleFetch.alerts.address',
       );
     }
     if (!formData.city) {
-      newErrors.city = t("components.apiFetch.forwardSingleFetch.alerts.city");
+      newErrors.city = t('components.apiFetch.forwardSingleFetch.alerts.city');
     }
     if (!formData.province) {
       newErrors.province = t(
-        "components.apiFetch.forwardSingleFetch.alerts.province",
+        'components.apiFetch.forwardSingleFetch.alerts.province',
       );
     }
     setErrors(newErrors);
@@ -75,15 +75,15 @@ export default function ForwardSinglefetch({ onResponseData }) {
     const aptPattern2 = /\b\d+\b/; // Matches standalone numbers like 120
 
     let match = address.match(aptPattern1);
-    let apartmentNumber = "";
-    let unitNumber = "";
+    let apartmentNumber = '';
+    let unitNumber = '';
     let mainAddress = address.trim();
-    let streetAddress = "";
+    let streetAddress = '';
 
     if (match) {
       apartmentNumber = match[0];
-      const parts = apartmentNumber.split("-").map((part) => part.trim());
-      mainAddress = mainAddress.replace(apartmentNumber, "").trim();
+      const parts = apartmentNumber.split('-').map((part) => part.trim());
+      mainAddress = mainAddress.replace(apartmentNumber, '').trim();
       streetAddress = `${parts[1]} ${mainAddress}`.trim();
       apartmentNumber = {
         firstPart: parts[0],
@@ -94,11 +94,11 @@ export default function ForwardSinglefetch({ onResponseData }) {
       match = address.match(aptPattern2);
       if (match) {
         apartmentNumber = match[0];
-        mainAddress = mainAddress.replace(apartmentNumber, "").trim();
+        mainAddress = mainAddress.replace(apartmentNumber, '').trim();
         streetAddress = `${apartmentNumber} ${mainAddress}`.trim();
         apartmentNumber = {
           firstPart: apartmentNumber,
-          secondPart: "",
+          secondPart: '',
         };
         unitNumber = apartmentNumber.secondPart;
       }
@@ -116,14 +116,14 @@ export default function ForwardSinglefetch({ onResponseData }) {
     // Validate all fields at once
     const newErrors = {
       address: formData.address.trim()
-        ? ""
-        : t("components.apiFetch.forwardSingleFetch.alerts.address"),
+        ? ''
+        : t('components.apiFetch.forwardSingleFetch.alerts.address'),
       city: formData.city.trim()
-        ? ""
-        : t("components.apiFetch.forwardSingleFetch.alerts.city"),
+        ? ''
+        : t('components.apiFetch.forwardSingleFetch.alerts.city'),
       province: formData.province.trim()
-        ? ""
-        : t("components.apiFetch.forwardSingleFetch.alerts.province"),
+        ? ''
+        : t('components.apiFetch.forwardSingleFetch.alerts.province'),
     };
 
     setErrors(newErrors);
@@ -151,7 +151,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 
     // If no street address is found, use the full address as fallback
     if (!streetAddress) {
-      console.warn("No street address found. Using full address:", fullAddress);
+      console.warn('No street address found. Using full address:', fullAddress);
     }
 
     // Fallback URL if no specific street address found
@@ -175,11 +175,11 @@ export default function ForwardSinglefetch({ onResponseData }) {
           // Ensure place_type is an array before calling includes()
           if (
             Array.isArray(firstFeature.place_type) &&
-            (firstFeature.place_type.includes("region") ||
-              firstFeature.place_type.includes("locality"))
+            (firstFeature.place_type.includes('region') ||
+              firstFeature.place_type.includes('locality'))
           ) {
             toast.warn(
-              t("components.apiFetch.forwardSingleFetch.alerts.moreSpecific"),
+              t('components.apiFetch.forwardSingleFetch.alerts.moreSpecific'),
             );
           } else {
             const result = {
@@ -191,15 +191,15 @@ export default function ForwardSinglefetch({ onResponseData }) {
           }
         } else {
           toast.error(
-            t("components.apiFetch.forwardSingleFetch.alerts.noResults"),
+            t('components.apiFetch.forwardSingleFetch.alerts.noResults'),
           );
         }
       })
 
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
         toast.error(
-          `${t("components.apiFetch.forwardSingleFetch.alerts.error")} ${error}`,
+          `${t('components.apiFetch.forwardSingleFetch.alerts.error')} ${error}`,
         );
         setLoading(false);
       });
@@ -208,41 +208,41 @@ export default function ForwardSinglefetch({ onResponseData }) {
   // Handle form reset
   const handleReset = () => {
     setFormData({
-      address: "",
-      city: "",
-      province: "",
+      address: '',
+      city: '',
+      province: '',
     });
     setErrors({
-      address: "",
-      city: "",
-      province: "",
+      address: '',
+      city: '',
+      province: '',
     });
-    toast.info(t("components.apiFetch.forwardSingleFetch.alerts.formReset"));
+    toast.info(t('components.apiFetch.forwardSingleFetch.alerts.formReset'));
   };
 
   // Reset form when the language changes
   useEffect(() => {
     setFormData({
-      address: "",
-      city: "",
-      province: "",
+      address: '',
+      city: '',
+      province: '',
     });
     setErrors({
-      address: "",
-      city: "",
-      province: "",
+      address: '',
+      city: '',
+      province: '',
     });
   }, [i18n.language]);
 
   return (
     <div>
       <GcdsHeading tag="h3" characterLimit="false">
-        {t("components.apiFetch.forwardSingleFetch.inputHeader")}
+        {t('components.apiFetch.forwardSingleFetch.inputHeader')}
       </GcdsHeading>
       <form onSubmit={handleSubmit} key={i18n.language}>
         <br />
         <GcdsInput
-          label={t("components.apiFetch.forwardSingleFetch.address")}
+          label={t('components.apiFetch.forwardSingleFetch.address')}
           required
           type="text"
           id="address"
@@ -253,7 +253,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           errorMessage={errors.address}
         />
         <GcdsInput
-          label={t("components.apiFetch.forwardSingleFetch.city")}
+          label={t('components.apiFetch.forwardSingleFetch.city')}
           required
           type="text"
           id="city"
@@ -264,7 +264,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           errorMessage={errors.city}
         />
         <GcdsInput
-          label={t("components.apiFetch.forwardSingleFetch.province")}
+          label={t('components.apiFetch.forwardSingleFetch.province')}
           required
           type="text"
           id="province"
@@ -276,19 +276,19 @@ export default function ForwardSinglefetch({ onResponseData }) {
         />
         <div
           style={{
-            marginTop: "1rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1em",
+            marginTop: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1em',
           }}
         >
           <div>
             <GcdsButton
               type="submit"
-              buttonId={t("components.apiFetch.forwardSingleFetch.search")}
-              name={t("components.apiFetch.forwardSingleFetch.search")}
+              buttonId={t('components.apiFetch.forwardSingleFetch.search')}
+              name={t('components.apiFetch.forwardSingleFetch.search')}
             >
-              {t("components.apiFetch.forwardSingleFetch.search")}
+              {t('components.apiFetch.forwardSingleFetch.search')}
             </GcdsButton>
           </div>
           <div>
@@ -296,10 +296,10 @@ export default function ForwardSinglefetch({ onResponseData }) {
               type="button"
               onClick={handleReset}
               variant="secondary"
-              buttonId={t("components.apiFetch.forwardSingleFetch.reset")}
-              name={t("components.apiFetch.forwardSingleFetch.reset")}
+              buttonId={t('components.apiFetch.forwardSingleFetch.reset')}
+              name={t('components.apiFetch.forwardSingleFetch.reset')}
             >
-              {t("components.apiFetch.forwardSingleFetch.reset")}
+              {t('components.apiFetch.forwardSingleFetch.reset')}
             </GcdsButton>
           </div>
         </div>
@@ -307,15 +307,15 @@ export default function ForwardSinglefetch({ onResponseData }) {
       <div
         aria-live="polite"
         aria-atomic="true"
-        style={{ position: "absolute", left: "-9999px" }}
+        style={{ position: 'absolute', left: '-9999px' }}
       >
-        {loading && t("loading")}
+        {loading && t('loading')}
         {!loading &&
           responseData &&
-          t("components.apiFetch.forwardSingleFetch.complete")}
+          t('components.apiFetch.forwardSingleFetch.complete')}
       </div>
       {loading === true ? <Loading /> : null}
-      {responseData === true ? "responseData" : null}
+      {responseData === true ? 'responseData' : null}
       {/* <pre> 
 				{JSON.stringify(responseData, null, 2
 					

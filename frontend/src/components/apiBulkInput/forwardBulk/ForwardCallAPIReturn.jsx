@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   GcdsDetails,
   GcdsErrorMessage,
   GcdsHeading,
   GcdsText,
-} from "@cdssnc/gcds-components-react";
-import { useTranslation } from "react-i18next";
+} from '@cdssnc/gcds-components-react';
+import { useTranslation } from 'react-i18next';
 
 export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
   const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0);
@@ -40,7 +40,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 
   // Function to parse a physical address
   const parseAddress = (address) => {
-    let cleanedAddress = address.replace(/"$/, "").trim();
+    let cleanedAddress = address.replace(/"$/, '').trim();
 
     let apartment = null,
       streetNumber = null,
@@ -54,7 +54,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
     const postalMatch = cleanedAddress.match(postalRegex);
     if (postalMatch) {
       postalCode = postalMatch[0];
-      cleanedAddress = cleanedAddress.replace(postalCode, "").trim();
+      cleanedAddress = cleanedAddress.replace(postalCode, '').trim();
     }
 
     // Regex for province and region (e.g., QC, ON)
@@ -64,30 +64,30 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       region = regionProvinceMatch[1].trim();
       province = regionProvinceMatch[2].trim();
       cleanedAddress = cleanedAddress
-        .replace(regionProvinceMatch[0], "")
+        .replace(regionProvinceMatch[0], '')
         .trim();
     }
 
     // Handle special cases
     switch (true) {
-      case cleanedAddress.startsWith("P.O. Box"):
-      case cleanedAddress.startsWith("PO Box"):
-      case cleanedAddress.startsWith("Box"):
+      case cleanedAddress.startsWith('P.O. Box'):
+      case cleanedAddress.startsWith('PO Box'):
+      case cleanedAddress.startsWith('Box'):
         streetName = cleanedAddress.trim();
-        cleanedAddress = "";
+        cleanedAddress = '';
         break;
-      case cleanedAddress.startsWith("RR#"):
-      case cleanedAddress.startsWith("RR"):
+      case cleanedAddress.startsWith('RR#'):
+      case cleanedAddress.startsWith('RR'):
         streetName = cleanedAddress.trim();
-        cleanedAddress = "";
+        cleanedAddress = '';
         break;
       case /^C\.P\./.test(cleanedAddress):
         streetName = cleanedAddress.trim();
-        cleanedAddress = "";
+        cleanedAddress = '';
         break;
       case /\b(North|South|East|West)\b/.test(cleanedAddress):
         streetName = cleanedAddress.trim();
-        cleanedAddress = "";
+        cleanedAddress = '';
         break;
       case /^\d+-\d+/.test(cleanedAddress): {
         const apartmentStreetRegex = /^(\d+)-(\d+)\s+(.+)/;
@@ -97,7 +97,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
           streetNumber = match[2].trim();
           streetName = match[3].trim();
         }
-        cleanedAddress = "";
+        cleanedAddress = '';
         break;
       }
       case /\b(unité|apt|suite)\s+\d+/.test(cleanedAddress): {
@@ -112,7 +112,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       case /Concession \d+/.test(cleanedAddress):
       case /Lot \d+/.test(cleanedAddress):
         streetName = cleanedAddress.trim();
-        cleanedAddress = "";
+        cleanedAddress = '';
         break;
     }
 
@@ -126,7 +126,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 
     // Construct query string
     const query =
-      `${streetNumber ? streetNumber : ""} ${streetName ? streetName : ""}, ${region ? region : ""}, ${province ? province : ""}`.trim();
+      `${streetNumber ? streetNumber : ''} ${streetName ? streetName : ''}, ${region ? region : ''}, ${province ? province : ''}`.trim();
 
     return {
       apartment: apartment || null,
@@ -150,61 +150,61 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
   return (
     <>
       <GcdsHeading tag="h4">
-        {t("components.forwardBulk.forwardCallAPIReturn.dataProcessingSummary")}
+        {t('components.forwardBulk.forwardCallAPIReturn.dataProcessingSummary')}
       </GcdsHeading>
       <GcdsText characterLimit="false">
-        {t("components.forwardBulk.forwardCallAPIReturn.dataProcessingPara")}
+        {t('components.forwardBulk.forwardCallAPIReturn.dataProcessingPara')}
       </GcdsText>
 
       <div
         className="summary-container"
         style={{
-          background: "#26374a",
-          padding: "12px",
-          borderRadius: "6px",
-          marginTop: "10px",
-          color: "#FFFFFF",
+          background: '#26374a',
+          padding: '12px',
+          borderRadius: '6px',
+          marginTop: '10px',
+          color: '#FFFFFF',
         }}
       >
         <GcdsText textRole="light">
           <strong>
-            {t("components.forwardBulk.forwardCallAPIReturn.inputLength")}:
-          </strong>{" "}
+            {t('components.forwardBulk.forwardCallAPIReturn.inputLength')}:
+          </strong>{' '}
           {totalRowsSubmitted}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
-            {t("components.forwardBulk.forwardCallAPIReturn.cleanedLength")}:
-          </strong>{" "}
+            {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
+          </strong>{' '}
           {validResults.length}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
-            {t("components.forwardBulk.forwardCallAPIReturn.errorLength")}:
-          </strong>{" "}
+            {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
+          </strong>{' '}
           {invalidResults.length}
         </GcdsText>
       </div>
 
       {/* click to view inputted details */}
       <GcdsHeading tag="h4">
-        {" "}
-        {t("components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails")}
+        {' '}
+        {t('components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails')}
       </GcdsHeading>
       <GcdsText>
-        {" "}
+        {' '}
         {t(
-          "components.forwardBulk.forwardCallAPIReturn.recievedDataJsonPreview",
-        )}{" "}
+          'components.forwardBulk.forwardCallAPIReturn.recievedDataJsonPreview',
+        )}{' '}
       </GcdsText>
       <GcdsDetails
         detailsTitle={t(
-          "components.forwardBulk.forwardCallAPIReturn.inputDataDetails",
+          'components.forwardBulk.forwardCallAPIReturn.inputDataDetails',
         )}
       >
         {inputtedResults.length > 0 && (
-          <div style={{ overflow: "hidden" }}>
-            <div style={{ height: "300px", overflow: "scroll" }}>
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ height: '300px', overflow: 'scroll' }}>
               <GcdsText>
                 <pre>{JSON.stringify(inputtedResults, null, 2)}</pre>
               </GcdsText>
@@ -214,101 +214,101 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       </GcdsDetails>
       <hr></hr>
       <GcdsText>
-        {" "}
-        {t("components.forwardBulk.forwardCallAPIReturn.cleanDataPreview")}{" "}
+        {' '}
+        {t('components.forwardBulk.forwardCallAPIReturn.cleanDataPreview')}{' '}
       </GcdsText>
       <GcdsDetails
         detailsTitle={t(
-          "components.forwardBulk.forwardCallAPIReturn.cleanDataDetails",
+          'components.forwardBulk.forwardCallAPIReturn.cleanDataDetails',
         )}
       >
         {validResults.length > 0 ? (
-          <div style={{ overflow: "hidden" }}>
-            <div style={{ height: "300px", overflow: "scroll" }}>
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ height: '300px', overflow: 'scroll' }}>
               {validResults.map((parsedResult) => (
                 <div key={parsedResult.inputID}>
                   <ul>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.inputId",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.inputId',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.inputID}
                     </li>
 
                     <li>
                       <strong>
-                        {" "}
+                        {' '}
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.physicalAddress",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.physicalAddress',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.physicalAddress}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.apartment",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.apartment',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.apartment}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.streetNumber",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.streetNumber',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.streetNumber}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.streetName",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.streetName',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.streetName}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.region",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.region',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.region}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.province",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.province',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.province}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.postalCode",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.postalCode',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.postalCode}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.forwardBulk.forwardCallAPIReturn.previewData.query",
+                          'components.forwardBulk.forwardCallAPIReturn.previewData.query',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.query}
                     </li>
                   </ul>
@@ -324,11 +324,11 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
         <>
           <hr />
           <GcdsErrorMessage>
-            {t("components.forwardBulk.forwardCallAPIReturn.errorPara")}
+            {t('components.forwardBulk.forwardCallAPIReturn.errorPara')}
           </GcdsErrorMessage>
           <GcdsDetails
             detailsTitle={t(
-              "components.forwardBulk.forwardCallAPIReturn.errorDataDetails",
+              'components.forwardBulk.forwardCallAPIReturn.errorDataDetails',
             )}
           >
             {invalidResults.map((parsedResult) => (

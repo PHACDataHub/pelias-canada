@@ -1,9 +1,9 @@
-import CryptoJS from "crypto-js";
-import JSZip from "jszip";
-import { saveAs } from "file-saver";
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { GcdsButton } from "@cdssnc/gcds-components-react";
+import CryptoJS from 'crypto-js';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { GcdsButton } from '@cdssnc/gcds-components-react';
 
 export default function reverseExportFiles({ filteredApiResults }) {
   const { t } = useTranslation();
@@ -20,10 +20,10 @@ export default function reverseExportFiles({ filteredApiResults }) {
       // Initialize confidence count buckets
       const confidenceCounts = {
         100: 0,
-        "80-99": 0,
-        "50-80": 0,
-        "30-50": 0,
-        "0-30": 0,
+        '80-99': 0,
+        '50-80': 0,
+        '30-50': 0,
+        '0-30': 0,
       };
 
       // Process data to count confidence ranges
@@ -32,15 +32,15 @@ export default function reverseExportFiles({ filteredApiResults }) {
         if (confidenceValue !== undefined) {
           const confidence = confidenceValue * 100;
           if (confidence === 100) {
-            confidenceCounts["100"]++;
+            confidenceCounts['100']++;
           } else if (confidence >= 80) {
-            confidenceCounts["80-99"]++;
+            confidenceCounts['80-99']++;
           } else if (confidence >= 50) {
-            confidenceCounts["50-80"]++;
+            confidenceCounts['50-80']++;
           } else if (confidence >= 30) {
-            confidenceCounts["30-50"]++;
+            confidenceCounts['30-50']++;
           } else {
-            confidenceCounts["0-30"]++;
+            confidenceCounts['0-30']++;
           }
         }
       });
@@ -48,7 +48,7 @@ export default function reverseExportFiles({ filteredApiResults }) {
       // Generate checksum
       const content = filteredApiResults
         .map((result) => result?.result?.geocoding?.query?.text)
-        .join(",");
+        .join(',');
       const checksum = CryptoJS.MD5(content).toString(CryptoJS.enc.Hex);
 
       // Create metadata
@@ -56,7 +56,7 @@ export default function reverseExportFiles({ filteredApiResults }) {
         epochTimestamp,
         checksum,
         timestamp: new Date().toISOString(),
-        coordinateSystem: "WGS 1984",
+        coordinateSystem: 'WGS 1984',
         accurateMatchScores: confidenceCounts,
         totalRowsProcessed: filteredApiResults.length,
       };
@@ -70,29 +70,29 @@ export default function reverseExportFiles({ filteredApiResults }) {
   }, [filteredApiResults]); // Runs once when filteredApiResults is available
 
   const convertToCSV = (data) => {
-    if (!data || data.length === 0) return "";
+    if (!data || data.length === 0) return '';
 
-    const headers = t("components.reverseBulk.reverseExportFiles.csvHeaders");
+    const headers = t('components.reverseBulk.reverseExportFiles.csvHeaders');
 
     const rows = data.map((result, index) => {
       const confidenceValue = result?.result?.properties?.confidence;
       const confidence =
-        confidenceValue !== undefined ? confidenceValue * 100 : "N/A";
+        confidenceValue !== undefined ? confidenceValue * 100 : 'N/A';
 
       const rowData = [
-        result.inputID || "N/A", // Index
-        result.featureIndex + 1 || "N/A",
-        `"${result?.result?.properties?.label || "N/A" || "N/A"}"`, // Query (wrapped in quotes)
-        result?.result?.geometry?.coordinates?.[1] ?? "N/A", // Latitude
-        result?.result?.geometry?.coordinates?.[0] ?? "N/A", // Longitude
-        confidence !== "N/A" ? `${confidence}%` : "N/A", // Confidence
-        result?.result?.properties?.distance || "N/A", // Match Type
-        result?.result?.properties?.accuracy || "N/A", // Accuracy
+        result.inputID || 'N/A', // Index
+        result.featureIndex + 1 || 'N/A',
+        `"${result?.result?.properties?.label || 'N/A' || 'N/A'}"`, // Query (wrapped in quotes)
+        result?.result?.geometry?.coordinates?.[1] ?? 'N/A', // Latitude
+        result?.result?.geometry?.coordinates?.[0] ?? 'N/A', // Longitude
+        confidence !== 'N/A' ? `${confidence}%` : 'N/A', // Confidence
+        result?.result?.properties?.distance || 'N/A', // Match Type
+        result?.result?.properties?.accuracy || 'N/A', // Accuracy
       ];
-      return rowData.join(",");
+      return rowData.join(',');
     });
 
-    return `\uFEFF${headers}\n${rows.join("\n")}`; // Add UTF-8 BOM for proper encoding
+    return `\uFEFF${headers}\n${rows.join('\n')}`; // Add UTF-8 BOM for proper encoding
   };
 
   const convertToGeoJSON = (data) => {
@@ -103,38 +103,38 @@ export default function reverseExportFiles({ filteredApiResults }) {
         confidenceValue !== undefined ? confidenceValue * 100 : null;
 
       return {
-        type: "Feature",
+        type: 'Feature',
         geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: [
             result?.result?.geometry?.coordinates?.[0] ?? null, // Longitude
             result?.result?.geometry?.coordinates?.[1] ?? null, // Latitude
           ],
         },
         properties: {
-          query: result?.result?.properties?.label || "N/A",
+          query: result?.result?.properties?.label || 'N/A',
           confidence: confidence,
-          matchType: result?.result?.properties?.distance || "N/A",
-          accuracy: result?.result?.properties?.accuracy || "N/A",
+          matchType: result?.result?.properties?.distance || 'N/A',
+          accuracy: result?.result?.properties?.accuracy || 'N/A',
         },
       };
     });
 
     return {
-      type: "FeatureCollection",
+      type: 'FeatureCollection',
       features: features,
     };
   };
 
   const handleExportCSV = async () => {
     if (!filteredApiResults || filteredApiResults.length === 0) {
-      alert(t("components.reverseBulk.reverseExportFiles.notDataAvail"));
+      alert(t('components.reverseBulk.reverseExportFiles.notDataAvail'));
 
       return;
     }
 
     if (!metadata) {
-      alert(t("components.reverseBulk.reverseExportFiles.metaNotAvail"));
+      alert(t('components.reverseBulk.reverseExportFiles.metaNotAvail'));
       return;
     }
 
@@ -144,20 +144,20 @@ export default function reverseExportFiles({ filteredApiResults }) {
     const zip = new JSZip();
     zip.file(`data_${metadata.epochTimestamp}.csv`, csvContent);
     zip.file(`${metadata.epochTimestamp}_checksum.md5`, metadata.checksum);
-    zip.file("metadata.json", JSON.stringify(metadata, null, 2));
+    zip.file('metadata.json', JSON.stringify(metadata, null, 2));
 
-    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
     saveAs(zipBlob, `data_${metadata.epochTimestamp}_csvData.zip`);
   };
 
   const handleExportGeoJSON = async () => {
     if (!filteredApiResults || filteredApiResults.length === 0) {
-      alert(t("components.reverseBulk.reverseExportFiles.notDataAvail"));
+      alert(t('components.reverseBulk.reverseExportFiles.notDataAvail'));
       return;
     }
 
     if (!metadata) {
-      alert(t("components.reverseBulk.reverseExportFiles.metaNotAvail"));
+      alert(t('components.reverseBulk.reverseExportFiles.metaNotAvail'));
       return;
     }
 
@@ -171,9 +171,9 @@ export default function reverseExportFiles({ filteredApiResults }) {
     const zip = new JSZip();
     zip.file(`data_${metadata.epochTimestamp}.geojson`, geoJSONContent);
     zip.file(`${metadata.epochTimestamp}_checksum.md5`, metadata.checksum);
-    zip.file("metadata.json", JSON.stringify(metadata, null, 2));
+    zip.file('metadata.json', JSON.stringify(metadata, null, 2));
 
-    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
     saveAs(zipBlob, `data_${metadata.epochTimestamp}_geojsonFile.zip`);
   };
 
@@ -182,22 +182,22 @@ export default function reverseExportFiles({ filteredApiResults }) {
       <GcdsButton
         onGcdsClick={handleExportCSV}
         buttonId={t(
-          "components.reverseBulk.reverseExportFiles.exportDataCSVId",
+          'components.reverseBulk.reverseExportFiles.exportDataCSVId',
         )}
-        name={t("components.reverseBulk.reverseExportFiles.exportDataCSV")}
+        name={t('components.reverseBulk.reverseExportFiles.exportDataCSV')}
       >
-        {t("components.reverseBulk.reverseExportFiles.exportDataCSV")}
+        {t('components.reverseBulk.reverseExportFiles.exportDataCSV')}
       </GcdsButton>
       <br />
       <br />
       <GcdsButton
         onGcdsClick={handleExportGeoJSON}
         buttonId={t(
-          "components.reverseBulk.reverseExportFiles.exportDataGeoJSONId",
+          'components.reverseBulk.reverseExportFiles.exportDataGeoJSONId',
         )}
-        name={t("components.reverseBulk.reverseExportFiles.exportDataGeoJSON")}
+        name={t('components.reverseBulk.reverseExportFiles.exportDataGeoJSON')}
       >
-        {t("components.reverseBulk.reverseExportFiles.exportDataGeoJSON")}
+        {t('components.reverseBulk.reverseExportFiles.exportDataGeoJSON')}
       </GcdsButton>
     </div>
   );

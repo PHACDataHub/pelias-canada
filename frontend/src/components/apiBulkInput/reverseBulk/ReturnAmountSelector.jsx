@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import { GcdsSelect } from "@cdssnc/gcds-components-react";
-import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
+import { GcdsSelect } from '@cdssnc/gcds-components-react';
+import React, { useState } from 'react';
 
 export default function ReturnAmountSelector({ onChange }) {
   const { t, i18n } = useTranslation();
@@ -16,10 +16,10 @@ export default function ReturnAmountSelector({ onChange }) {
 
   return (
     <GcdsSelect
-      selectId={t("components.reverseBulk.ReturnAmountSelector.selectID")}
-      label={t("components.reverseBulk.ReturnAmountSelector.label")}
-      name={t("components.reverseBulk.ReturnAmountSelector.label")}
-      hint={t("components.reverseBulk.ReturnAmountSelector.hint")}
+      selectId={t('components.reverseBulk.ReturnAmountSelector.selectID')}
+      label={t('components.reverseBulk.ReturnAmountSelector.label')}
+      name={t('components.reverseBulk.ReturnAmountSelector.label')}
+      hint={t('components.reverseBulk.ReturnAmountSelector.hint')}
       onGcdsChange={handleChange}
       lang={i18n.language}
       value={itemsPerCall}

@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   GcdsDetails,
   GcdsErrorMessage,
   GcdsHeading,
   GcdsText,
-} from "@cdssnc/gcds-components-react";
-import { useTranslation } from "react-i18next";
+} from '@cdssnc/gcds-components-react';
+import { useTranslation } from 'react-i18next';
 
 export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
   const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0);
@@ -55,53 +55,53 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
   return (
     <>
       <GcdsHeading tag="h4">
-        {t("components.reverseBulk.reverseCallAPIReturn.dataProcessingSummary")}
+        {t('components.reverseBulk.reverseCallAPIReturn.dataProcessingSummary')}
       </GcdsHeading>
       <GcdsText characterLimit="false">
-        {t("components.reverseBulk.reverseCallAPIReturn.dataProcessingPara")}
+        {t('components.reverseBulk.reverseCallAPIReturn.dataProcessingPara')}
       </GcdsText>
 
       <div
         className="summary-container"
         style={{
-          background: "#26374a",
-          padding: "12px",
-          borderRadius: "6px",
-          marginTop: "10px",
-          color: "#FFFFFF",
+          background: '#26374a',
+          padding: '12px',
+          borderRadius: '6px',
+          marginTop: '10px',
+          color: '#FFFFFF',
         }}
       >
         <GcdsText textRole="light">
           <strong>
-            {t("components.reverseBulk.reverseCallAPIReturn.inputLength")}:
-          </strong>{" "}
+            {t('components.reverseBulk.reverseCallAPIReturn.inputLength')}:
+          </strong>{' '}
           {totalRowsSubmitted}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
-            {t("components.forwardBulk.forwardCallAPIReturn.cleanedLength")}:
-          </strong>{" "}
+            {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
+          </strong>{' '}
           {parsedResults.length}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
-            {t("components.forwardBulk.forwardCallAPIReturn.errorLength")}:
-          </strong>{" "}
+            {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
+          </strong>{' '}
           {invalidResults.length}
         </GcdsText>
       </div>
 
       <GcdsHeading tag="h4">
-        {t("components.reverseBulk.reverseCallAPIReturn.dataReceivedDetails")}
+        {t('components.reverseBulk.reverseCallAPIReturn.dataReceivedDetails')}
       </GcdsHeading>
       <GcdsDetails
         detailsTitle={t(
-          "components.reverseBulk.reverseCallAPIReturn.inputDataDetails",
+          'components.reverseBulk.reverseCallAPIReturn.inputDataDetails',
         )}
       >
         {inputtedResults.length > 0 && (
-          <div style={{ overflow: "hidden" }}>
-            <div style={{ height: "300px", overflow: "scroll" }}>
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ height: '300px', overflow: 'scroll' }}>
               <GcdsText>
                 <pre>{JSON.stringify(inputtedResults, null, 2)}</pre>
               </GcdsText>
@@ -111,44 +111,44 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
       </GcdsDetails>
       <hr></hr>
       <GcdsText>
-        {t("components.reverseBulk.reverseCallAPIReturn.cleanDataPreview")}
+        {t('components.reverseBulk.reverseCallAPIReturn.cleanDataPreview')}
       </GcdsText>
       <GcdsDetails
         detailsTitle={t(
-          "components.reverseBulk.reverseCallAPIReturn.cleanDataDetails",
+          'components.reverseBulk.reverseCallAPIReturn.cleanDataDetails',
         )}
       >
         {parsedResults.length > 0 ? (
-          <div style={{ overflow: "hidden" }}>
-            <div style={{ height: "300px", overflow: "scroll" }}>
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ height: '300px', overflow: 'scroll' }}>
               {parsedResults.map((parsedResult) => (
                 <div key={parsedResult.inputID}>
                   <ul>
                     <li>
                       <strong>
                         {t(
-                          "components.reverseBulk.reverseCallAPIReturn.previewData.inputId",
+                          'components.reverseBulk.reverseCallAPIReturn.previewData.inputId',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.inputID}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.reverseBulk.reverseCallAPIReturn.previewData.ddLat",
+                          'components.reverseBulk.reverseCallAPIReturn.previewData.ddLat',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.ddLat}
                     </li>
                     <li>
                       <strong>
                         {t(
-                          "components.reverseBulk.reverseCallAPIReturn.previewData.ddLong",
+                          'components.reverseBulk.reverseCallAPIReturn.previewData.ddLong',
                         )}
                         :
-                      </strong>{" "}
+                      </strong>{' '}
                       {parsedResult.ddLong}
                     </li>
                   </ul>
@@ -163,16 +163,16 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
         <>
           <hr />
           <GcdsErrorMessage>
-            {t("components.reverseBulk.reverseCallAPIReturn.errorPara")}
+            {t('components.reverseBulk.reverseCallAPIReturn.errorPara')}
           </GcdsErrorMessage>
           <GcdsDetails
             detailsTitle={t(
-              "components.reverseBulk.reverseCallAPIReturn.errorDataDetails",
+              'components.reverseBulk.reverseCallAPIReturn.errorDataDetails',
             )}
           >
             {invalidResults.length > 0 ? (
-              <div style={{ overflow: "hidden" }}>
-                <div style={{ height: "300px", overflow: "scroll" }}>
+              <div style={{ overflow: 'hidden' }}>
+                <div style={{ height: '300px', overflow: 'scroll' }}>
                   <GcdsText>
                     <pre>{JSON.stringify(invalidResults, null, 2)}</pre>
                   </GcdsText>

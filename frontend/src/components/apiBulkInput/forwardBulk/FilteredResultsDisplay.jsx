@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 import {
   GcdsHeading,
   GcdsNotice,
   GcdsText,
-} from "@cdssnc/gcds-components-react";
-import Loading from "../../Loading";
-import { useTranslation } from "react-i18next";
-import ConfidenceTable from "../../tables/ConfidenceTable";
-import PaginatedTable from "../../tables/dataTable";
-import Mapping from "./map/forwardmap";
-import ForwardExportFiles from "./ForwardExportFiles";
+} from '@cdssnc/gcds-components-react';
+import Loading from '../../Loading';
+import { useTranslation } from 'react-i18next';
+import ConfidenceTable from '../../tables/ConfidenceTable';
+import PaginatedTable from '../../tables/dataTable';
+import Mapping from './map/forwardmap';
+import ForwardExportFiles from './ForwardExportFiles';
 
 export default function FilteredResultsDisplay({
   filteredResults,
@@ -56,8 +56,8 @@ export default function FilteredResultsDisplay({
             const response = await fetch(
               `https://geocoder.alpha.phac.gc.ca/api/v1/search?text=${encodeURIComponent(item.query)}`,
               {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
               },
             );
             const data = await response.json();
@@ -79,28 +79,28 @@ export default function FilteredResultsDisplay({
   return (
     <>
       <GcdsText characterLimit="false">
-        <i>{t("components.forwardBulk.callTimes.headerPara")}</i>
+        <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
       </GcdsText>
       <GcdsHeading tag="h2">
-        {t("components.forwardBulk.callTimes.header")}{" "}
+        {t('components.forwardBulk.callTimes.header')}{' '}
       </GcdsHeading>
       <GcdsNotice type="info" noticeTitleTag="h3" noticeTitle="Estimated Time">
         <GcdsText>
           <i>
-            {t("components.forwardBulk.callTimes.estSingle1")} {callEstTime}{" "}
-            {t("components.forwardBulk.callTimes.estSingle2")}
+            {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}{' '}
+            {t('components.forwardBulk.callTimes.estSingle2')}
           </i>
         </GcdsText>
         <GcdsText>
-          {t("components.forwardBulk.callTimes.estCallTime1")}{" "}
+          {t('components.forwardBulk.callTimes.estCallTime1')}{' '}
           {filteredResults.length}
-          {t("components.forwardBulk.callTimes.estCallTime2")}:{" "}
-          {estimatedApiTime} {t("components.forwardBulk.callTimes.seconds")}
+          {t('components.forwardBulk.callTimes.estCallTime2')}:{' '}
+          {estimatedApiTime} {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
         <GcdsText>
-          {t("components.forwardBulk.callTimes.realTime")}:{" "}
-          {elapsedTime.toFixed(1)}{" "}
-          {t("components.forwardBulk.callTimes.seconds")}
+          {t('components.forwardBulk.callTimes.realTime')}:{' '}
+          {elapsedTime.toFixed(1)}{' '}
+          {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
       </GcdsNotice>
       <br />
@@ -114,7 +114,7 @@ export default function FilteredResultsDisplay({
 
       {errors.length > 0 && (
         <div role="alert" aria-live="assertive">
-          <GcdsHeading tag="h3">{t("error")}</GcdsHeading>
+          <GcdsHeading tag="h3">{t('error')}</GcdsHeading>
           <ul role="list">
             {errors.map((error, index) => (
               <li key={index}>{error}</li>
@@ -124,26 +124,26 @@ export default function FilteredResultsDisplay({
       )}
 
       <GcdsText>
-        {t("components.forwardBulk.resultsTable.validRows")}{" "}
+        {t('components.forwardBulk.resultsTable.validRows')}{' '}
         {filteredResults.length}
       </GcdsText>
 
       {apiResults.length > 0 && (
         <>
           <GcdsText>
-            {t("components.forwardBulk.resultsTable.returnedRows")}:{" "}
+            {t('components.forwardBulk.resultsTable.returnedRows')}:{' '}
             {apiResults.length}
           </GcdsText>
           <ForwardExportFiles apiResults={apiResults} />
           <Mapping apiResults={apiResults} />
           <GcdsHeading tag="h3">
             {t(
-              "components.forwardBulk.resultsTable.confidence.confidenceTableHeader",
+              'components.forwardBulk.resultsTable.confidence.confidenceTableHeader',
             )}
           </GcdsHeading>
           <ConfidenceTable apiResults={apiResults} />
           <GcdsHeading tag="h3">
-            {t("components.forwardBulk.resultsTable.previewResultsHeader")}
+            {t('components.forwardBulk.resultsTable.previewResultsHeader')}
           </GcdsHeading>
           <PaginatedTable apiResults={apiResults} />
           <br />

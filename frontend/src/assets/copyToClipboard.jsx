@@ -9,7 +9,7 @@ export const copyToClipboard = (text, callback) => {
       }
     })
     .catch((error) => {
-      console.error("Failed to copy:", error);
-      alert("Failed to copy to clipboard. Please try again.");
+      console.error('Failed to copy:', error);
+      alert('Failed to copy to clipboard. Please try again.');
     });
 };

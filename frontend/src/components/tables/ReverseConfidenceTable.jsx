@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
-import "./Tables.css";
+import { useTranslation } from 'react-i18next';
+import React, { useEffect } from 'react';
+import './Tables.css';
 
 export default function ReverseConfidenceTable({ apiResults }) {
   const { t } = useTranslation();
@@ -21,10 +21,10 @@ export default function ReverseConfidenceTable({ apiResults }) {
   // Initialize counters for different confidence ranges
   const confidenceCounts = {
     100: 0,
-    "80-99": 0,
-    "50-80": 0,
-    "30-50": 0,
-    "0-30": 0,
+    '80-99': 0,
+    '50-80': 0,
+    '30-50': 0,
+    '0-30': 0,
   };
 
   // Categorize each valid item's confidence into the appropriate range
@@ -32,22 +32,22 @@ export default function ReverseConfidenceTable({ apiResults }) {
     const confidence = item.result.properties.confidence * 100; // Corrected JSON mapping
 
     if (confidence === 100) {
-      confidenceCounts["100"]++;
+      confidenceCounts['100']++;
     } else if (confidence >= 80) {
-      confidenceCounts["80-99"]++;
+      confidenceCounts['80-99']++;
     } else if (confidence >= 50) {
-      confidenceCounts["50-80"]++;
+      confidenceCounts['50-80']++;
     } else if (confidence >= 30) {
-      confidenceCounts["30-50"]++;
+      confidenceCounts['30-50']++;
     } else {
-      confidenceCounts["0-30"]++;
+      confidenceCounts['0-30']++;
     }
   });
 
   // If no valid data, warn
   useEffect(() => {
     if (validData.length === 0) {
-      console.warn("No valid confidence data found.");
+      console.warn('No valid confidence data found.');
     }
   }, [validData]);
 
@@ -55,15 +55,15 @@ export default function ReverseConfidenceTable({ apiResults }) {
     <>
       <table border="1">
         <caption>
-          {t("components.forwardBulk.mapReady.tableHeaderConfidence")}
+          {t('components.forwardBulk.mapReady.tableHeaderConfidence')}
         </caption>
         <thead>
           <tr>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.tableRange")}
+              {t('components.forwardBulk.mapReady.tableRange')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.tableCount")}
+              {t('components.forwardBulk.mapReady.tableCount')}
             </th>
           </tr>
         </thead>

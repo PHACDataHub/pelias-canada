@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react";
-import ReverseBulk from "../../components/apiBulkInput/reverseBulk/IntakeReverseBulk";
+import { GcdsHeading, GcdsText } from '@cdssnc/gcds-components-react';
+import ReverseBulk from '../../components/apiBulkInput/reverseBulk/IntakeReverseBulk';
 
 export default function ReverseBulkInput() {
   const { t } = useTranslation();
   return (
     <>
-      <GcdsHeading tag="h1">{t("pages.reverseBulk.title")}</GcdsHeading>
+      <GcdsHeading tag="h1">{t('pages.reverseBulk.title')}</GcdsHeading>
 
       <div>
         <section aria-labelledby="what-is-the-bulk-upload">
@@ -16,10 +16,10 @@ export default function ReverseBulkInput() {
             characterLimit="false"
             id="what-is-the-bulk-upload"
           >
-            {t("pages.reverseBulk.subTitle")}?
+            {t('pages.reverseBulk.subTitle')}?
           </GcdsHeading>
           <GcdsText characterLimit="false">
-            {t("pages.reverseBulk.subtTitlePara")}
+            {t('pages.reverseBulk.subtTitlePara')}
           </GcdsText>
         </section>
 
@@ -29,15 +29,15 @@ export default function ReverseBulkInput() {
             characterLimit="false"
             id="how-to-use-bulk-input"
           >
-            {t("pages.reverseBulk.howToUse.title")}
+            {t('pages.reverseBulk.howToUse.title')}
           </GcdsHeading>
           <GcdsText characterLimit="false">
-            <i>{t("pages.reverseBulk.howToUse.fileType")}</i>
+            <i>{t('pages.reverseBulk.howToUse.fileType')}</i>
           </GcdsText>
           <GcdsText characterLimit="false">
             <ol>
               <li>
-                {t("pages.reverseBulk.howToUse.one")}:
+                {t('pages.reverseBulk.howToUse.one')}:
                 <ul>
                   <li>
                     <strong>inputID</strong>
@@ -50,11 +50,11 @@ export default function ReverseBulkInput() {
                   </li>
                 </ul>
               </li>
-              <li>{t("pages.reverseBulk.howToUse.two")}</li>
-              <li>{t("pages.reverseBulk.howToUse.three")}</li>
-              <li>{t("pages.reverseBulk.howToUse.four")}</li>
+              <li>{t('pages.reverseBulk.howToUse.two')}</li>
+              <li>{t('pages.reverseBulk.howToUse.three')}</li>
+              <li>{t('pages.reverseBulk.howToUse.four')}</li>
               {/* <li>{t("pages.reverseBulk.howToUse.five")}</li> */}
-              <li>{t("pages.reverseBulk.howToUse.six")}</li>
+              <li>{t('pages.reverseBulk.howToUse.six')}</li>
             </ol>
           </GcdsText>
         </section>

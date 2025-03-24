@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import Map from "ol/Map.js";
-import View from "ol/View.js";
-import TileLayer from "ol/layer/Tile.js";
-import OSM from "ol/source/OSM.js";
-import { fromLonLat } from "ol/proj";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import Feature from "ol/Feature";
-import Point from "ol/geom/Point";
-import Overlay from "ol/Overlay";
-import { Style, Circle, Fill, Stroke } from "ol/style";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useRef, useState } from 'react';
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import TileLayer from 'ol/layer/Tile.js';
+import OSM from 'ol/source/OSM.js';
+import { fromLonLat } from 'ol/proj';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import Overlay from 'ol/Overlay';
+import { Style, Circle, Fill, Stroke } from 'ol/style';
+import { useTranslation } from 'react-i18next';
 import {
   GcdsHeading,
   GcdsSrOnly,
   GcdsText,
-} from "@cdssnc/gcds-components-react";
+} from '@cdssnc/gcds-components-react';
 
 export default function Mapping({ apiResults }) {
   const { t } = useTranslation();
@@ -25,40 +25,40 @@ export default function Mapping({ apiResults }) {
   // Responsive State for Wide Screen Check
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1080);
   const addLegend = (t, isWideScreen) => {
-    const legendContainer = document.createElement("div");
-    legendContainer.style.position = "absolute";
-    legendContainer.style.bottom = "30px";
-    legendContainer.style.right = "10px";
-    legendContainer.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
-    legendContainer.style.padding = "5px";
-    legendContainer.style.borderRadius = "5px";
-    legendContainer.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.3)";
-    legendContainer.style.fontSize = isWideScreen ? "16px" : "12px";
-    legendContainer.style.lineHeight = "1.5em";
+    const legendContainer = document.createElement('div');
+    legendContainer.style.position = 'absolute';
+    legendContainer.style.bottom = '30px';
+    legendContainer.style.right = '10px';
+    legendContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+    legendContainer.style.padding = '5px';
+    legendContainer.style.borderRadius = '5px';
+    legendContainer.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)';
+    legendContainer.style.fontSize = isWideScreen ? '16px' : '12px';
+    legendContainer.style.lineHeight = '1.5em';
 
     // Add legend title
-    legendContainer.innerHTML = `<strong>${t("legend.confidence")}</strong> <br/>`;
+    legendContainer.innerHTML = `<strong>${t('legend.confidence')}</strong> <br/>`;
 
     const grades = [100, 80, 50, 30, 0];
-    const colors = ["#006400", "#389638", "#FFBF00", "#FF8C00", "#B22222"];
+    const colors = ['#006400', '#389638', '#FFBF00', '#FF8C00', '#B22222'];
 
     const labels = grades.map((grade, i) => {
       return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
         grade
-      }% ${i < grades.length - 4 ? "+" : `&ndash; ${grades[i - 1]}%`}`;
+      }% ${i < grades.length - 4 ? '+' : `&ndash; ${grades[i - 1]}%`}`;
     });
 
-    legendContainer.innerHTML += labels.join("<br>");
+    legendContainer.innerHTML += labels.join('<br>');
     return legendContainer;
   };
 
   // Handle Media Query Changes for Screen Width
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1080px)");
+    const mediaQuery = window.matchMedia('(min-width: 1080px)');
     const handleMediaChange = () => setIsWideScreen(mediaQuery.matches);
 
-    mediaQuery.addEventListener("change", handleMediaChange);
-    return () => mediaQuery.removeEventListener("change", handleMediaChange);
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
   }, []);
 
   useEffect(() => {
@@ -67,13 +67,13 @@ export default function Mapping({ apiResults }) {
 
     // Function to determine color based on confidence level
     const getColorByConfidence = (confidence) => {
-      if (!confidence || typeof confidence !== "number") return "#B22222";
+      if (!confidence || typeof confidence !== 'number') return '#B22222';
       const confidenceValue = confidence * 100; // Convert to percentage
-      if (confidenceValue >= 100) return "#006400"; // Green
-      if (confidenceValue >= 80) return "#389638"; // Light Green
-      if (confidenceValue >= 50) return "#FFBF00"; // Yellow
-      if (confidenceValue >= 30) return "#FF8C00"; // Orange
-      return "#B22222"; // Red for low confidence
+      if (confidenceValue >= 100) return '#006400'; // Green
+      if (confidenceValue >= 80) return '#389638'; // Light Green
+      if (confidenceValue >= 50) return '#FFBF00'; // Yellow
+      if (confidenceValue >= 30) return '#FF8C00'; // Orange
+      return '#B22222'; // Red for low confidence
     };
 
     // Add points from apiResults
@@ -96,7 +96,7 @@ export default function Mapping({ apiResults }) {
           image: new Circle({
             radius: 5, // You can adjust the radius if you want it to vary based on confidence
             fill: new Fill({ color: confidenceColor }), // Color based on confidence
-            stroke: new Stroke({ color: "black", width: 1 }),
+            stroke: new Stroke({ color: 'black', width: 1 }),
           }),
         }),
       );
@@ -135,33 +135,33 @@ export default function Mapping({ apiResults }) {
     // Create overlay for hover display
     const overlay = new Overlay({
       element: overlayRef.current,
-      positioning: "bottom-center",
+      positioning: 'bottom-center',
       stopEvent: false,
     });
     map.addOverlay(overlay);
 
-    map.on("pointermove", (event) => {
+    map.on('pointermove', (event) => {
       const feature = map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
       if (feature) {
         const coordinates = feature.getGeometry().getCoordinates();
         overlay.setPosition(coordinates);
 
-        const data = feature.get("data");
-        overlayRef.current.style.display = "block";
+        const data = feature.get('data');
+        overlayRef.current.style.display = 'block';
         overlayRef.current.innerHTML = `
 					<div>
-						<strong>${t("components.forwardBulk.mapReady.outputTable.inputID")}:</strong> ${data.inputID} <br />
-						<strong>${t("components.forwardBulk.mapReady.outputTable.address")}:</strong> ${data?.result?.geocoding?.query?.text || "N/A"} <br />
-						<strong>${t("components.forwardBulk.mapReady.outputTable.lat")}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[1] ?? "N/A"} <br />
-						<strong>${t("components.forwardBulk.mapReady.outputTable.lon")}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[0] ?? "N/A"} <br />
-						<strong>${t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}:</strong> ${data?.result?.features?.[0]?.properties?.confidence !== undefined ? `${data.result.features[0].properties.confidence * 100}%` : "N/A"} <br />
-						<strong>${t("components.forwardBulk.mapReady.outputTable.matchType")}:</strong> ${data?.result?.features?.[0]?.properties?.match_type || "N/A"} <br />
-						<strong>${t("components.forwardBulk.mapReady.outputTable.accuracy")}:</strong> ${data?.result?.features?.[0]?.properties?.accuracy || "N/A"} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.inputID')}:</strong> ${data.inputID} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.address')}:</strong> ${data?.result?.geocoding?.query?.text || 'N/A'} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.lat')}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[1] ?? 'N/A'} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.lon')}:</strong> ${data?.result?.features?.[0]?.geometry?.coordinates?.[0] ?? 'N/A'} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.confidenceLevel')}:</strong> ${data?.result?.features?.[0]?.properties?.confidence !== undefined ? `${data.result.features[0].properties.confidence * 100}%` : 'N/A'} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.matchType')}:</strong> ${data?.result?.features?.[0]?.properties?.match_type || 'N/A'} <br />
+						<strong>${t('components.forwardBulk.mapReady.outputTable.accuracy')}:</strong> ${data?.result?.features?.[0]?.properties?.accuracy || 'N/A'} <br />
 					</div>
 				`;
       } else {
         overlay.setPosition(undefined);
-        overlayRef.current.style.display = "none";
+        overlayRef.current.style.display = 'none';
       }
     });
 
@@ -180,19 +180,19 @@ export default function Mapping({ apiResults }) {
 
   return (
     <>
-      <GcdsHeading tag="h3"> {t("components.map.header")}</GcdsHeading>
+      <GcdsHeading tag="h3"> {t('components.map.header')}</GcdsHeading>
       {apiResults.length > 0 && (
         <>
           {/* Map Container */}
           <div
             ref={mapRef}
             style={{
-              width: "100%",
-              height: isWideScreen ? "500px" : "250px",
-              position: "relative",
+              width: '100%',
+              height: isWideScreen ? '500px' : '250px',
+              position: 'relative',
             }}
             role="region"
-            aria-label={t("components.map.aria")}
+            aria-label={t('components.map.aria')}
             tabIndex="0"
           ></div>
 
@@ -200,22 +200,22 @@ export default function Mapping({ apiResults }) {
           <div
             ref={overlayRef}
             style={{
-              position: "relative",
-              backgroundColor: "white",
-              border: "1px solid black",
-              borderRadius: "3px",
-              padding: "2px",
-              pointerEvents: "none",
-              fontSize: isWideScreen ? "12px" : "8px",
-              lineHeight: "1",
-              width: "200px",
-              display: "none",
+              position: 'relative',
+              backgroundColor: 'white',
+              border: '1px solid black',
+              borderRadius: '3px',
+              padding: '2px',
+              pointerEvents: 'none',
+              fontSize: isWideScreen ? '12px' : '8px',
+              lineHeight: '1',
+              width: '200px',
+              display: 'none',
             }}
           ></div>
           <GcdsText size="small" characterLimit="false">
-            <i>{t("components.map.warning")}</i>
+            <i>{t('components.map.warning')}</i>
           </GcdsText>
-          <GcdsSrOnly> {t("components.map.screenReader")}</GcdsSrOnly>
+          <GcdsSrOnly> {t('components.map.screenReader')}</GcdsSrOnly>
         </>
       )}
     </>

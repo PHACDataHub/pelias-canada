@@ -1,11 +1,11 @@
-import { useEffect, useState, useCallback, useRef } from "react";
-import { parse } from "papaparse";
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { parse } from 'papaparse';
 import {
   GcdsButton,
   GcdsHeading,
   GcdsText,
-} from "@cdssnc/gcds-components-react";
-import { useTranslation } from "react-i18next";
+} from '@cdssnc/gcds-components-react';
+import { useTranslation } from 'react-i18next';
 
 export default function FAQ() {
   const [faqData, setFaqData] = useState(null);
@@ -39,7 +39,7 @@ export default function FAQ() {
         setSelectedCategory(Object.keys(groupedData)[0]);
       }
     } catch (error) {
-      console.error("Failed to load FAQ data:", error);
+      console.error('Failed to load FAQ data:', error);
     } finally {
       setLoading(false);
     }
@@ -47,10 +47,10 @@ export default function FAQ() {
 
   useEffect(() => {
     fetchFaqData();
-    i18n.on("languageChanged", fetchFaqData);
+    i18n.on('languageChanged', fetchFaqData);
 
     return () => {
-      i18n.off("languageChanged", fetchFaqData);
+      i18n.off('languageChanged', fetchFaqData);
     };
   }, [fetchFaqData, i18n]);
 
@@ -60,10 +60,10 @@ export default function FAQ() {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -77,44 +77,44 @@ export default function FAQ() {
   return (
     <>
       <GcdsHeading tag="h1" characterLimit="false">
-        {t("pages.faq.title")}
+        {t('pages.faq.title')}
       </GcdsHeading>
 
       <div
         className="faq-container"
-        style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}
+        style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}
       >
         {/* Side Menu */}
         <nav
           className="sideMenu"
-          aria-label={t("tableOfContents")}
+          aria-label={t('tableOfContents')}
           style={{
-            flex: "1 1 200px",
-            position: isSticky ? "sticky" : "static",
-            top: "calc(10vh)",
-            maxHeight: isSticky ? "calc(100vh - 130px)" : "calc(100vh + 180px)",
-            overflowY: "auto",
-            padding: "5px 0px 0 30px",
+            flex: '1 1 200px',
+            position: isSticky ? 'sticky' : 'static',
+            top: 'calc(10vh)',
+            maxHeight: isSticky ? 'calc(100vh - 130px)' : 'calc(100vh + 180px)',
+            overflowY: 'auto',
+            padding: '5px 0px 0 30px',
           }}
         >
           {loading ? (
-            <p aria-live="polite">{t("loading")}</p>
+            <p aria-live="polite">{t('loading')}</p>
           ) : (
             <>
-              <GcdsHeading tag="h2">{t("pages.faq.category")}</GcdsHeading>
-              <ul style={{ listStyle: "none", padding: 0 }}>
+              <GcdsHeading tag="h2">{t('pages.faq.category')}</GcdsHeading>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
                 {faqData &&
                   Object.keys(faqData).map((category) => (
-                    <li key={category} style={{ marginBottom: "10px" }}>
+                    <li key={category} style={{ marginBottom: '10px' }}>
                       <GcdsButton
                         buttonRole="primary"
                         size="small"
                         disabled={
-                          selectedCategory === category ? "true" : undefined
+                          selectedCategory === category ? 'true' : undefined
                         }
                         onClick={() => setSelectedCategory(category)}
                         aria-current={
-                          selectedCategory === category ? "true" : undefined
+                          selectedCategory === category ? 'true' : undefined
                         }
                       >
                         {category}
@@ -130,9 +130,9 @@ export default function FAQ() {
         <div
           className="faq-content"
           style={{
-            flex: "3 1 600px",
-            paddingLeft: "25px",
-            borderLeft: "1px solid #ccc",
+            flex: '3 1 600px',
+            paddingLeft: '25px',
+            borderLeft: '1px solid #ccc',
           }}
         >
           {selectedCategory ? (
@@ -161,11 +161,11 @@ export default function FAQ() {
 								
 							</span> */}
               </GcdsHeading>
-              <ul style={{ listStyle: "none", padding: 0 }}>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
                 {faqData[selectedCategory].map(
                   ({ Question, Answer }, index) => (
-                    <li key={index} style={{ marginBottom: "20px" }}>
-                      <div style={{ fontWeight: "bold", marginBottom: "5px" }}>
+                    <li key={index} style={{ marginBottom: '20px' }}>
+                      <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
                         {Question}
                       </div>
                       <GcdsText style={{ margin: 0 }}>{Answer}</GcdsText>
@@ -175,7 +175,7 @@ export default function FAQ() {
               </ul>
             </>
           ) : (
-            <p>{t("selectCategory")}</p>
+            <p>{t('selectCategory')}</p>
           )}
         </div>
       </div>

@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-input[type="file"] {
+input[type='file'] {
   margin: 8px 0;
 }
 
@@ -33,8 +33,8 @@ select:focus {
 }
 
 select::after {
-  content: "\f078"; /* Unicode for Font Awesome down arrow */
-  font-family: "Font Awesome 5 Free"; /* Use Font Awesome font */
+  content: '\f078'; /* Unicode for Font Awesome down arrow */
+  font-family: 'Font Awesome 5 Free'; /* Use Font Awesome font */
   font-weight: 900; /* Use solid style */
   position: absolute;
   right: 200px;

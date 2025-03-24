@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import {
   GcdsButton,
   GcdsHeading,
   GcdsSelect,
-} from "@cdssnc/gcds-components-react";
-import React, { useState, useEffect } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import "./Tables.css";
+} from '@cdssnc/gcds-components-react';
+import React, { useState, useEffect } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import './Tables.css';
 
 export default function PaginatedTable({ apiResults }) {
   const { t, i18n } = useTranslation();
@@ -20,7 +20,7 @@ export default function PaginatedTable({ apiResults }) {
     pages.push(1);
 
     if (currentPage > Math.floor(maxVisiblePages / 2) + 2) {
-      pages.push("...");
+      pages.push('...');
     }
 
     const startPage = Math.max(
@@ -37,7 +37,7 @@ export default function PaginatedTable({ apiResults }) {
     }
 
     if (currentPage < totalPages - Math.floor(maxVisiblePages / 2) - 1) {
-      pages.push("...");
+      pages.push('...');
     }
 
     if (totalPages > 1) {
@@ -69,10 +69,10 @@ export default function PaginatedTable({ apiResults }) {
   return (
     <>
       <GcdsSelect
-        selectId={t("components.tablePageation.itemsID")}
-        label={t("components.tablePageation.itemsPerPage")}
-        name={t("components.tablePageation.itemsID")}
-        hint={t("components.tablePageation.hint")}
+        selectId={t('components.tablePageation.itemsID')}
+        label={t('components.tablePageation.itemsPerPage')}
+        name={t('components.tablePageation.itemsID')}
+        hint={t('components.tablePageation.hint')}
         onGcdsChange={(e) => {
           const newItemsPerPage = Number(e.target.value);
           setItemsPerPage(newItemsPerPage);
@@ -88,7 +88,7 @@ export default function PaginatedTable({ apiResults }) {
 
       <table>
         <caption>
-          {i18n.language === "en"
+          {i18n.language === 'en'
             ? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
             : `
 					Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems} `}
@@ -96,25 +96,25 @@ export default function PaginatedTable({ apiResults }) {
         <thead>
           <tr>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.inputID")}
+              {t('components.forwardBulk.mapReady.outputTable.inputID')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.address")}
+              {t('components.forwardBulk.mapReady.outputTable.address')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.lat")}
+              {t('components.forwardBulk.mapReady.outputTable.lat')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.lon")}
+              {t('components.forwardBulk.mapReady.outputTable.lon')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.confidenceLevel")}
+              {t('components.forwardBulk.mapReady.outputTable.confidenceLevel')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.matchType")}
+              {t('components.forwardBulk.mapReady.outputTable.matchType')}
             </th>
             <th scope="col">
-              {t("components.forwardBulk.mapReady.outputTable.accuracy")}
+              {t('components.forwardBulk.mapReady.outputTable.accuracy')}
             </th>
           </tr>
         </thead>
@@ -122,29 +122,29 @@ export default function PaginatedTable({ apiResults }) {
           {paginatedData.map((result, index) => (
             <tr
               key={index}
-              style={{ background: index % 2 === 0 ? "#ffffff" : "#e0e0e0" }}
+              style={{ background: index % 2 === 0 ? '#ffffff' : '#e0e0e0' }}
             >
-              <td>{startIndex + index + 1 || "N/A"}</td>
-              <td>{result?.result?.geocoding?.query?.text || "N/A"}</td>
+              <td>{startIndex + index + 1 || 'N/A'}</td>
+              <td>{result?.result?.geocoding?.query?.text || 'N/A'}</td>
               <td>
                 {result?.result?.features?.[0]?.geometry?.coordinates?.[1] ??
-                  "N/A"}
+                  'N/A'}
               </td>
               <td>
                 {result?.result?.features?.[0]?.geometry?.coordinates?.[0] ??
-                  "N/A"}
+                  'N/A'}
               </td>
               <td>
                 {result?.result?.features?.[0]?.properties?.confidence !==
                 undefined
                   ? `${result.result.features[0].properties.confidence * 100}%`
-                  : "N/A"}
+                  : 'N/A'}
               </td>
               <td>
-                {result?.result?.features?.[0]?.properties?.match_type || "N/A"}
+                {result?.result?.features?.[0]?.properties?.match_type || 'N/A'}
               </td>
               <td>
-                {result?.result?.features?.[0]?.properties?.accuracy || "N/A"}
+                {result?.result?.features?.[0]?.properties?.accuracy || 'N/A'}
               </td>
             </tr>
           ))}
@@ -155,28 +155,28 @@ export default function PaginatedTable({ apiResults }) {
         <nav aria-label="Pagination">
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              paddingTop: "16px",
-              width: "full",
-              flexWrap: "wrap",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              paddingTop: '16px',
+              width: 'full',
+              flexWrap: 'wrap',
             }}
           >
             {getPageNumbersToDisplay(totalPages, currentPage).map(
               (page, index) => (
                 <React.Fragment key={index}>
-                  {page === "..." ? (
+                  {page === '...' ? (
                     <span aria-hidden="true">...</span>
                   ) : (
                     <GcdsButton
                       size="small"
                       buttonRole={
-                        currentPage === page ? "primary" : "secondary"
+                        currentPage === page ? 'primary' : 'secondary'
                       }
                       onClick={() => handlePageChange(page)}
-                      aria-label={`${t("components.tablePageation.goToPage")} ${page}`}
+                      aria-label={`${t('components.tablePageation.goToPage')} ${page}`}
                       disabled={currentPage === page}
                     >
                       {page}
@@ -189,22 +189,22 @@ export default function PaginatedTable({ apiResults }) {
 
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              padding: "16px",
-              width: "full",
-              flexWrap: "wrap",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              padding: '16px',
+              width: 'full',
+              flexWrap: 'wrap',
             }}
           >
             {currentPage > 1 && (
               <GcdsButton
                 size="small"
                 onClick={() => handlePageChange(currentPage - 1)}
-                aria-label={t("components.tablePageation.ariaPrevious")}
+                aria-label={t('components.tablePageation.ariaPrevious')}
               >
-                <FaAngleLeft /> {t("components.tablePageation.previous")}
+                <FaAngleLeft /> {t('components.tablePageation.previous')}
               </GcdsButton>
             )}
 
@@ -212,18 +212,18 @@ export default function PaginatedTable({ apiResults }) {
               <GcdsButton
                 size="small"
                 onClick={() => handlePageChange(currentPage + 1)}
-                aria-label={t("components.tablePageation.ariaNext")}
+                aria-label={t('components.tablePageation.ariaNext')}
               >
-                {t("components.tablePageation.next")} <FaAngleRight />
+                {t('components.tablePageation.next')} <FaAngleRight />
               </GcdsButton>
             )}
           </div>
         </nav>
       )}
-      {i18n.language === "en" ? "" : ""}
+      {i18n.language === 'en' ? '' : ''}
       <div className="sr-only" aria-live="polite">
         Page {currentPage} of {totalPages}
-        {i18n.language === "en"
+        {i18n.language === 'en'
           ? `Page ${currentPage} of ${totalPages}`
           : `Page ${currentPage} de ${totalPages}`}
       </div>

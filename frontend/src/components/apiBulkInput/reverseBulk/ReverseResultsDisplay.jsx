@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   GcdsErrorMessage,
   GcdsText,
   GcdsHeading,
-} from "@cdssnc/gcds-components-react";
-import ReversePaginatedTable from "../../tables/ReverseDataTable";
-import ReverseConfidenceTable from "../../tables/ReverseConfidenceTable";
-import Loading from "../../Loading";
-import RevMapping from "./map/revMap";
-import ReverseExportFiles from "./ReverseExportFiles";
+} from '@cdssnc/gcds-components-react';
+import ReversePaginatedTable from '../../tables/ReverseDataTable';
+import ReverseConfidenceTable from '../../tables/ReverseConfidenceTable';
+import Loading from '../../Loading';
+import RevMapping from './map/revMap';
+import ReverseExportFiles from './ReverseExportFiles';
 
 export default function ReverseResultsDisplay({
   filteredResults,
@@ -38,8 +38,8 @@ export default function ReverseResultsDisplay({
           try {
             const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${ddLat}&point.lon=${ddLong}&size=${itemsPerCall}`;
             const response = await fetch(url, {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' },
             });
 
             const data = await response.json();
@@ -57,7 +57,7 @@ export default function ReverseResultsDisplay({
                 });
               }
             } else {
-              newResults.push({ inputID, result: "No results found" });
+              newResults.push({ inputID, result: 'No results found' });
             }
           } catch (error) {
             console.error(`Error with reverse lookup for ${inputID}:`, error);
@@ -89,7 +89,7 @@ export default function ReverseResultsDisplay({
 
       {errors.length > 0 && (
         <div role="alert" aria-live="assertive">
-          <GcdsHeading tag="h3">{t("error")}</GcdsHeading>
+          <GcdsHeading tag="h3">{t('error')}</GcdsHeading>
           <ul role="list">
             {errors.map((error, index) => (
               <li key={index}>{error}</li>
@@ -101,23 +101,23 @@ export default function ReverseResultsDisplay({
       {filteredApiResults.length > 0 && (
         <>
           <GcdsText characterLimit="false">
-            <i>{t("components.forwardBulk.callTimes.headerPara")}</i>
+            <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
           </GcdsText>
           <GcdsHeading tag="h2">
-            {t("components.forwardBulk.callTimes.header")}{" "}
+            {t('components.forwardBulk.callTimes.header')}{' '}
           </GcdsHeading>
           <GcdsText>
-            {t("components.forwardBulk.resultsTable.validRows")}{" "}
+            {t('components.forwardBulk.resultsTable.validRows')}{' '}
             {filteredResults.length}
           </GcdsText>
           <GcdsText>
-            {t("components.forwardBulk.resultsTable.returnedRows")}:{" "}
+            {t('components.forwardBulk.resultsTable.returnedRows')}:{' '}
             {filteredApiResults.length}
           </GcdsText>
           {singleResultIDs.length > 0 && (
             <div>
               <GcdsHeading tag="h3">
-                {t("components.reverseBulk.singleResultID.header")}:
+                {t('components.reverseBulk.singleResultID.header')}:
               </GcdsHeading>
               <ul>
                 {singleResultIDs.map((id, index) => (
@@ -125,8 +125,8 @@ export default function ReverseResultsDisplay({
                 ))}
               </ul>
               <GcdsErrorMessage>
-                {" "}
-                {t("components.reverseBulk.singleResultID.errorMess")}
+                {' '}
+                {t('components.reverseBulk.singleResultID.errorMess')}
               </GcdsErrorMessage>
             </div>
           )}
@@ -137,12 +137,12 @@ export default function ReverseResultsDisplay({
           />
           <GcdsHeading tag="h3">
             {t(
-              "components.forwardBulk.resultsTable.confidence.confidenceTableHeader",
+              'components.forwardBulk.resultsTable.confidence.confidenceTableHeader',
             )}
           </GcdsHeading>
           <ReverseConfidenceTable apiResults={filteredApiResults} />
           <GcdsHeading tag="h3">
-            {t("components.forwardBulk.resultsTable.previewResultsHeader")}
+            {t('components.forwardBulk.resultsTable.previewResultsHeader')}
           </GcdsHeading>
           <ReversePaginatedTable apiResults={filteredApiResults} />
         </>

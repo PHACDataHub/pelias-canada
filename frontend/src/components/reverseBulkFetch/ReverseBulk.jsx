@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from "react";
-import L from "leaflet";
-import JSZip from "jszip";
-import CryptoJS from "crypto-js";
-import "leaflet/dist/leaflet.css";
-import "./reverseBulk.css";
-import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
-import { GcdsButton, GcdsGrid } from "@cdssnc/gcds-components-react";
-import Loading from "../Loading";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
-import "../map/MapComponentOL.css";
+import { useState, useEffect, useRef } from 'react';
+import L from 'leaflet';
+import JSZip from 'jszip';
+import CryptoJS from 'crypto-js';
+import 'leaflet/dist/leaflet.css';
+import './reverseBulk.css';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import { GcdsButton, GcdsGrid } from '@cdssnc/gcds-components-react';
+import Loading from '../Loading';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
+import '../map/MapComponentOL.css';
 
 export default function ReverseBulk() {
   const { t } = useTranslation();
@@ -30,28 +30,28 @@ export default function ReverseBulk() {
   const resultsTableRef = useRef(null);
   const [totalPages, setTotalPages] = useState(0);
   const boundsRef = useRef(L.latLngBounds());
-  const [csvData, setCsvData] = useState("");
-  const [metadataJson, setMetadataJson] = useState("");
+  const [csvData, setCsvData] = useState('');
+  const [metadataJson, setMetadataJson] = useState('');
   const [geoJsonData, setGeoJsonData] = useState({});
   const [epochCreation, setEpochCreation] = useState(Date.now()); // this is for the creation of the results
   const [epochCreationSelection, setEpochCreationSelection] = useState(
     Date.now(),
   ); // this is for the user selected epoch of the results from the seletion table
-  const [md5Checksum, setMd5Checksum] = useState("");
+  const [md5Checksum, setMd5Checksum] = useState('');
 
   // Initial coordinates
   const initialLatLng = [45.4215, -75.6919];
   const Legend = () => {
     const getColor = (d) => {
       return d >= 100
-        ? "#006400"
+        ? '#006400'
         : d > 80
-          ? "#389638"
+          ? '#389638'
           : d > 50
-            ? "#FFBF00"
+            ? '#FFBF00'
             : d > 30
-              ? "#FF8C00"
-              : "#B22222";
+              ? '#FF8C00'
+              : '#B22222';
     };
 
     // const grades = [0, 30, 50, 80, 99]
@@ -62,35 +62,35 @@ export default function ReverseBulk() {
     const labels = grades
       .map((grade, i) => {
         return `<i style="background:${getColor(grade + 1)}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> 
-				${i === 0 ? `${grades[i] + 1}%` : `${grades[i]}%`} ${i < grades.length - 4 ? "+" : `&ndash; ${grades[i - 1]}% `}`;
+				${i === 0 ? `${grades[i] + 1}%` : `${grades[i]}%`} ${i < grades.length - 4 ? '+' : `&ndash; ${grades[i - 1]}% `}`;
       })
-      .join("<br>");
+      .join('<br>');
 
     return (
       <div
         className="legend"
         style={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-          padding: "10px",
-          borderRadius: "5px",
-          fontSize: "14px",
-          zIndex: "1000",
+          position: 'absolute',
+          bottom: '10px',
+          right: '10px',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          padding: '10px',
+          borderRadius: '5px',
+          fontSize: '14px',
+          zIndex: '1000',
         }}
       >
         <strong>Confidence / Confiance</strong>
         <br />
         <i
           style={{
-            background: "blue",
-            width: "18px",
-            height: "18px",
-            display: "inline-block",
-            marginRight: "8px",
+            background: 'blue',
+            width: '18px',
+            height: '18px',
+            display: 'inline-block',
+            marginRight: '8px',
           }}
-        ></i>{" "}
+        ></i>{' '}
         Input / Entrée
         <br />
         <div dangerouslySetInnerHTML={{ __html: labels }} />
@@ -103,11 +103,11 @@ export default function ReverseBulk() {
     const initializeMap = () => {
       if (mapRef.current && !mapInstanceRef.current) {
         try {
-          mapInstanceRef.current = L.map("map").setView(
+          mapInstanceRef.current = L.map('map').setView(
             [56.1304, -106.3468],
             4,
           );
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution:
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           }).addTo(mapInstanceRef.current);
@@ -115,8 +115,8 @@ export default function ReverseBulk() {
           // Add initial marker with blue color
           L.circleMarker(initialLatLng, {
             radius: 10,
-            fillColor: "#0000ff", // Blue color
-            color: "#fff",
+            fillColor: '#0000ff', // Blue color
+            color: '#fff',
             weight: 2,
             opacity: 1,
             fillOpacity: 0.8,
@@ -126,7 +126,7 @@ export default function ReverseBulk() {
             )
             .addTo(mapInstanceRef.current);
         } catch (error) {
-          console.error("Error initializing the map:", error);
+          console.error('Error initializing the map:', error);
         }
       }
     };
@@ -147,17 +147,17 @@ export default function ReverseBulk() {
       reader.onload = (e) => {
         const csvContent = e.target.result;
         const rows = csvContent
-          .split("\n")
+          .split('\n')
           .map((row) => row.trim())
           .filter((row) => row.length > 0);
 
         if (rows.length === 0) {
-          alert("The CSV file is empty.");
+          alert('The CSV file is empty.');
           return;
         }
 
-        const headers = rows[0].split(",").map((header) => header.trim());
-        const requiredColumns = ["inputID", "ddLat", "ddLong"];
+        const headers = rows[0].split(',').map((header) => header.trim());
+        const requiredColumns = ['inputID', 'ddLat', 'ddLong'];
         const hasRequiredColumns = requiredColumns.every((column) =>
           headers.includes(column),
         );
@@ -166,13 +166,13 @@ export default function ReverseBulk() {
           setOriginalRows(rows.slice(1));
           if (processButtonRef.current) {
             processButtonRef.current.disabled = false;
-            processButtonRef.current.addEventListener("click", () =>
+            processButtonRef.current.addEventListener('click', () =>
               processCSV(rows, headers),
             );
           }
         } else {
           alert(
-            "The CSV file is missing required columns: inputID, ddLat, ddLong",
+            'The CSV file is missing required columns: inputID, ddLat, ddLong',
           );
         }
       };
@@ -190,21 +190,21 @@ export default function ReverseBulk() {
 
   // Reverse geocode function
   const reverseGeocode = async (lat, lon) => {
-    const base_url = "https://geocoder.alpha.phac.gc.ca/api/v1/reverse?";
+    const base_url = 'https://geocoder.alpha.phac.gc.ca/api/v1/reverse?';
     const params = new URLSearchParams({
-      "point.lat": lat,
-      "point.lon": lon,
+      'point.lat': lat,
+      'point.lon': lon,
     });
 
     try {
       const response = await fetch(base_url + params);
       if (!response.ok) {
-        throw new Error("Failed to fetch geocoding data.");
+        throw new Error('Failed to fetch geocoding data.');
       }
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Error in reverse geocoding:", error);
+      console.error('Error in reverse geocoding:', error);
       return null;
     }
   };
@@ -217,17 +217,17 @@ export default function ReverseBulk() {
     setLoading(true);
 
     if (!mapInstanceRef.current) {
-      alert("Map is not initialized yet.");
+      alert('Map is not initialized yet.');
       setLoading(false);
       return;
     }
 
-    const latIndex = headers.indexOf("ddLat");
-    const lonIndex = headers.indexOf("ddLong");
-    const inputIDIndex = headers.indexOf("inputID");
+    const latIndex = headers.indexOf('ddLat');
+    const lonIndex = headers.indexOf('ddLong');
+    const inputIDIndex = headers.indexOf('inputID');
 
     if (latIndex === -1 || lonIndex === -1 || inputIDIndex === -1) {
-      alert("The CSV file is missing required columns: inputID, ddLat, ddLong");
+      alert('The CSV file is missing required columns: inputID, ddLat, ddLong');
       setLoading(false);
       return;
     }
@@ -240,48 +240,48 @@ export default function ReverseBulk() {
 
     const newMetadata = {
       epochInitiated: epochInitiated,
-      coordinateSystem: "WGS 1984",
+      coordinateSystem: 'WGS 1984',
       accurateMatchScores: {
-        "0-0.3": 0,
-        "0.3-0.5": 0,
-        "0.5-0.8": 0,
-        "0.8-0.99": 0,
-        "1.0": 0,
+        '0-0.3': 0,
+        '0.3-0.5': 0,
+        '0.5-0.8': 0,
+        '0.8-0.99': 0,
+        '1.0': 0,
       },
       totalRowsProcessed: 0,
       metadata: {
-        "ISO 19115:2014 Metadata begins": {
-          language: "en",
-          characterSet: "latin-1",
-          hierarchyLevel: "service, dataset",
-          contact: "Zachary Nick (zachary.nick@hc-sc.gc.ca)",
+        'ISO 19115:2014 Metadata begins': {
+          language: 'en',
+          characterSet: 'latin-1',
+          hierarchyLevel: 'service, dataset',
+          contact: 'Zachary Nick (zachary.nick@hc-sc.gc.ca)',
           dateStamp: epochInitiated,
-          metadataStandardName: "ISO 19115-1:2014",
-          metadataStandardVersion: "2014",
+          metadataStandardName: 'ISO 19115-1:2014',
+          metadataStandardVersion: '2014',
           identificationInfo: {
             citation: {
               title:
-                "Reverse geocoding results from v1 geocoder at https://geocoder.alpha.phac.gc.ca/api/v1",
+                'Reverse geocoding results from v1 geocoder at https://geocoder.alpha.phac.gc.ca/api/v1',
               date: epochInitiated,
             },
-            abstract: "Results from the HC reverse bulk geocoding service v1",
-            pointOfContact: "Zachary Nick (zachary.nick@hc-sc.gc.ca)",
+            abstract: 'Results from the HC reverse bulk geocoding service v1',
+            pointOfContact: 'Zachary Nick (zachary.nick@hc-sc.gc.ca)',
             descriptiveKeywords:
-              "geocoding, bulk, resolving, decimal degrees latitude and longitude",
+              'geocoding, bulk, resolving, decimal degrees latitude and longitude',
             spatialResolution:
-              "up to point level rooftop depending on data source and match. ***USE AT OWN RISK***",
-            language: "en",
-            characterSet: "latin-1",
-            topicCategory: ["GIS", "geomatics", "geocoding"],
+              'up to point level rooftop depending on data source and match. ***USE AT OWN RISK***',
+            language: 'en',
+            characterSet: 'latin-1',
+            topicCategory: ['GIS', 'geomatics', 'geocoding'],
           },
           dataQualityInfo: {
             scope: `Use of .osm data from geofabrik.de download on ${epochInitiated} populated in Pelias geocoding service on ${epochInitiated}`,
             lineage: {
-              statement: "populated with .osm data from Geofabrik.de (date)",
+              statement: 'populated with .osm data from Geofabrik.de (date)',
             },
           },
           boundingBox: `*********** boundingBox: 43.62756426554726,-79.57165718078613, 43.66482931854453,-79.18353080749513 ******************** `,
-          endOfReport: "END OF REPORT",
+          endOfReport: 'END OF REPORT',
         },
       },
     };
@@ -293,7 +293,7 @@ export default function ReverseBulk() {
 
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
-      const columns = row.split(",").map((col) => col.trim());
+      const columns = row.split(',').map((col) => col.trim());
 
       const lat = parseFloat(columns[latIndex]);
       const lon = parseFloat(columns[lonIndex]);
@@ -305,8 +305,8 @@ export default function ReverseBulk() {
 
       L.circleMarker([lat, lon], {
         radius: 10,
-        fillColor: "#007bff",
-        color: "#fff",
+        fillColor: '#007bff',
+        color: '#fff',
         weight: 2,
         opacity: 1,
         fillOpacity: 0.8,
@@ -337,38 +337,38 @@ export default function ReverseBulk() {
             ddLatOut: feature.geometry.coordinates[1],
             ddLongOut: feature.geometry.coordinates[0],
             matchConfidencePercentageDecimal:
-              feature.properties.confidence || "",
-            distanceKm: feature.properties.distance || "",
-            accuracy: feature.properties.accuracy || "",
-            country: feature.properties.country || "",
-            region: feature.properties.region || "",
-            region_a: feature.properties.region_a || "",
-            county: feature.properties.county || "",
-            locality: feature.properties.locality || "",
-            neighbourhood: feature.properties.neighbourhood || "",
+              feature.properties.confidence || '',
+            distanceKm: feature.properties.distance || '',
+            accuracy: feature.properties.accuracy || '',
+            country: feature.properties.country || '',
+            region: feature.properties.region || '',
+            region_a: feature.properties.region_a || '',
+            county: feature.properties.county || '',
+            locality: feature.properties.locality || '',
+            neighbourhood: feature.properties.neighbourhood || '',
             rankingByInputId: index + 1,
-            name: feature.properties.name || "",
-            housenumber: feature.properties.housenumber || "",
-            streetName: feature.properties.street || "",
-            labelFullCivicAddress: feature.properties.label || "",
+            name: feature.properties.name || '',
+            housenumber: feature.properties.housenumber || '',
+            streetName: feature.properties.street || '',
+            labelFullCivicAddress: feature.properties.label || '',
           });
 
           if (feature.properties.confidence <= 0.3)
-            newMetadata.accurateMatchScores["0-0.3"]++;
+            newMetadata.accurateMatchScores['0-0.3']++;
           else if (feature.properties.confidence <= 0.5)
-            newMetadata.accurateMatchScores["0.3-0.5"]++;
+            newMetadata.accurateMatchScores['0.3-0.5']++;
           else if (feature.properties.confidence <= 0.8)
-            newMetadata.accurateMatchScores["0.5-0.8"]++;
+            newMetadata.accurateMatchScores['0.5-0.8']++;
           else if (feature.properties.confidence < 1.0)
-            newMetadata.accurateMatchScores["0.8-0.99"]++;
-          else newMetadata.accurateMatchScores["1.0"]++;
+            newMetadata.accurateMatchScores['0.8-0.99']++;
+          else newMetadata.accurateMatchScores['1.0']++;
 
           const marker = L.circleMarker(
             [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
             {
               radius: 8,
               fillColor: calculateMarkerColor(feature.properties.confidence),
-              color: "#000",
+              color: '#000',
               weight: 2,
               opacity: 1,
               fillOpacity: 0.8,
@@ -377,7 +377,7 @@ export default function ReverseBulk() {
 
           marker
             .bindPopup(
-              `<strong>${feature.properties.name || "Unknown"}</strong><br>Confidence: ${feature.properties.confidence}<br>Distance: ${feature.properties.distance}`,
+              `<strong>${feature.properties.name || 'Unknown'}</strong><br>Confidence: ${feature.properties.confidence}<br>Distance: ${feature.properties.distance}`,
             )
             .addTo(markersLayerRef.current);
 
@@ -430,53 +430,53 @@ export default function ReverseBulk() {
 
   // Calculate marker color based on confidence
   const calculateMarkerColor = (confidence) => {
-    if (confidence < 0.3) return "#B22222";
-    if (confidence < 0.5) return "#FF8C00";
-    if (confidence < 0.8) return "#FFBF00";
-    if (confidence < 1.0) return "#389638";
-    return "#006400";
+    if (confidence < 0.3) return '#B22222';
+    if (confidence < 0.5) return '#FF8C00';
+    if (confidence < 0.8) return '#FFBF00';
+    if (confidence < 1.0) return '#389638';
+    return '#006400';
   };
 
   // Convert array of objects to CSV
   const convertArrayToCSV = (data) => {
     const header = [
-      "inputID",
-      "lat",
-      "lon",
-      "ddLatOut",
-      "ddLongOut",
-      "matchConfidencePercentageDecimal",
-      "distanceKm",
-      "accuracy",
-      "country",
-      "region",
-      "region_a",
-      "county",
-      "locality",
-      "neighbourhood",
-      "rankingByInputId",
-      "name",
-      "housenumber",
-      "streetName",
-      "labelFullCivicAddress",
+      'inputID',
+      'lat',
+      'lon',
+      'ddLatOut',
+      'ddLongOut',
+      'matchConfidencePercentageDecimal',
+      'distanceKm',
+      'accuracy',
+      'country',
+      'region',
+      'region_a',
+      'county',
+      'locality',
+      'neighbourhood',
+      'rankingByInputId',
+      'name',
+      'housenumber',
+      'streetName',
+      'labelFullCivicAddress',
     ];
 
-    const rows = [header.join(",")];
+    const rows = [header.join(',')];
     data.forEach((row) => {
       const values = header.map((fieldName) =>
-        JSON.stringify(row[fieldName] || ""),
+        JSON.stringify(row[fieldName] || ''),
       );
-      rows.push(values.join(","));
+      rows.push(values.join(','));
     });
 
-    return rows.join("\n");
+    return rows.join('\n');
   };
 
   const convertArrayToGeoJSON = (array) => {
     // Create a map from inputID to original latitude and longitude
     const originalCoordsMap = new Map(
       originalRows.map((row) => {
-        const [inputID, lat, lon] = row.split(",").map((value) => value.trim());
+        const [inputID, lat, lon] = row.split(',').map((value) => value.trim());
         const parsedLat = parseFloat(lat);
         const parsedLon = parseFloat(lon);
         return [
@@ -490,7 +490,7 @@ export default function ReverseBulk() {
     );
 
     return {
-      type: "FeatureCollection",
+      type: 'FeatureCollection',
       features: array.map((row) => {
         // Find the original coordinates for the current inputID
         const originalCoords = originalCoordsMap.get(row.inputID) || {
@@ -499,7 +499,7 @@ export default function ReverseBulk() {
         };
 
         return {
-          type: "Feature",
+          type: 'Feature',
           properties: {
             inputID: row.inputID,
             matchConfidencePercentageDecimal:
@@ -521,7 +521,7 @@ export default function ReverseBulk() {
             labelFullCivicAddress: row.labelFullCivicAddress,
           },
           geometry: {
-            type: "Point",
+            type: 'Point',
             coordinates: [row.ddLongOut, row.ddLatOut],
           },
         };
@@ -538,13 +538,13 @@ export default function ReverseBulk() {
     checksum,
   ) => {
     const zip = new JSZip();
-    zip.file("data.csv", csvData);
-    zip.file("metadata.json", metadataJson);
-    zip.file("data.geojson", JSON.stringify(geoJsonData, null, 2)); // Adding GeoJSON file
-    zip.file("checksum.md5", checksum);
+    zip.file('data.csv', csvData);
+    zip.file('metadata.json', metadataJson);
+    zip.file('data.geojson', JSON.stringify(geoJsonData, null, 2)); // Adding GeoJSON file
+    zip.file('checksum.md5', checksum);
 
-    zip.generateAsync({ type: "blob" }).then((content) => {
-      const a = document.createElement("a");
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      const a = document.createElement('a');
       a.href = URL.createObjectURL(content);
       a.download = `reverse-geocoding-results-${epoch}.zip`; // Filename with epoch
       a.click();
@@ -621,15 +621,15 @@ export default function ReverseBulk() {
       (currentPage - 1) * rowsPerPage,
       currentPage * rowsPerPage,
     );
-    let style1 = { background: "#fff", borderRight: "1px solid #fff" };
-    let style2 = { background: "#f1f2f3", borderRight: "1px solid #f1f2f3" };
+    let style1 = { background: '#fff', borderRight: '1px solid #fff' };
+    let style2 = { background: '#f1f2f3', borderRight: '1px solid #f1f2f3' };
 
     return paginatedResults.map((result, index) => {
       const key = `${result.inputID}-${result.rankingByInputId}`;
       const isSelected = selectedRows.has(key);
 
       return (
-        <tr key={key} style={{ background: "grey", border: "1px solid grey" }}>
+        <tr key={key} style={{ background: 'grey', border: '1px solid grey' }}>
           <td style={index % 2 === 0 ? style1 : style2}>
             <input
               type="checkbox"
@@ -647,16 +647,16 @@ export default function ReverseBulk() {
             {result.name}, {result.county}, {result.region_a}
           </td>
           <td style={index % 2 === 0 ? style1 : style2}>
-            {result.lat || "N/A"}
+            {result.lat || 'N/A'}
           </td>
           <td style={index % 2 === 0 ? style1 : style2}>
-            {result.lon || "N/A"}
+            {result.lon || 'N/A'}
           </td>
           <td style={index % 2 === 0 ? style1 : style2}>
-            {`${result.matchConfidencePercentageDecimal * 100} % ` || "N/A"}
+            {`${result.matchConfidencePercentageDecimal * 100} % ` || 'N/A'}
           </td>
           <td style={index % 2 === 0 ? style1 : style2}>
-            {result.accuracy || "N/A"}
+            {result.accuracy || 'N/A'}
           </td>
         </tr>
       );
@@ -671,7 +671,7 @@ export default function ReverseBulk() {
     });
 
     if (selectedData.length === 0) {
-      alert("No rows selected for export.");
+      alert('No rows selected for export.');
       return;
     }
 
@@ -742,10 +742,10 @@ export default function ReverseBulk() {
       <div>
         <form>
           <fieldset>
-            <legend>{t("components.reverseBulk.fileUpload")}</legend>
+            <legend>{t('components.reverseBulk.fileUpload')}</legend>
             <div>
               <label htmlFor="file-upload">
-                {t("components.reverseBulk.upload")}
+                {t('components.reverseBulk.upload')}
               </label>
               <input
                 id="file-upload"
@@ -758,10 +758,10 @@ export default function ReverseBulk() {
             <div>
               <fieldset>
                 <legend>
-                  {t("components.reverseBulk.returnAmountHeader")}
+                  {t('components.reverseBulk.returnAmountHeader')}
                 </legend>
                 <label htmlFor="candidate-slider">
-                  {t("components.reverseBulk.returnAmount")}
+                  {t('components.reverseBulk.returnAmount')}
                 </label>
                 <input
                   id="candidate-slider"
@@ -773,17 +773,17 @@ export default function ReverseBulk() {
                   onChange={handleSliderChange}
                   aria-labelledby="candidate-slider-label"
                   aria-describedby="candidate-slider-description"
-                  style={{ width: "100px" }}
+                  style={{ width: '100px' }}
                 />
                 <span id="candidate-slider-description">
-                  {t("components.reverseBulk.value")}: {userCandidatesSelection}
+                  {t('components.reverseBulk.value')}: {userCandidatesSelection}
                 </span>
               </fieldset>
             </div>
           </fieldset>
         </form>
         <GcdsButton size="small" disabled={!file} ref={processButtonRef}>
-          {t("components.reverseBulk.reverseButton")}
+          {t('components.reverseBulk.reverseButton')}
         </GcdsButton>
       </div>
       {progress < 100 && (
@@ -792,12 +792,12 @@ export default function ReverseBulk() {
           ref={mapRef}
           className="map-container"
           style={{
-            height: "1px",
-            width: "1px",
-            position: "absolute", // Ensure it's removed from normal document flow
-            overflow: "hidden", // Hide any overflow content
-            clip: "rect(0, 0, 0, 0)", // Hide content but keep the space in the DOM
-            clipPath: "inset(50%)", // Alternative method to clip content
+            height: '1px',
+            width: '1px',
+            position: 'absolute', // Ensure it's removed from normal document flow
+            overflow: 'hidden', // Hide any overflow content
+            clip: 'rect(0, 0, 0, 0)', // Hide content but keep the space in the DOM
+            clipPath: 'inset(50%)', // Alternative method to clip content
           }}
           aria-hidden="true" // Hide from screen readers
         />
@@ -818,11 +818,11 @@ export default function ReverseBulk() {
 
       {mapReady && !loading && progress <= 100 && (
         <>
-          <div style={{ height: "600px", width: "100%", paddingTop: "40px" }}>
+          <div style={{ height: '600px', width: '100%', paddingTop: '40px' }}>
             <MapContainer
               center={initialLatLng}
               zoom={4}
-              style={{ height: "100%" }}
+              style={{ height: '100%' }}
             >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -830,7 +830,7 @@ export default function ReverseBulk() {
               />
               {originalRows.map((row, index) => {
                 const [item1, item2, item3] = row
-                  .split(",")
+                  .split(',')
                   .map((value) => parseFloat(value));
 
                 return (
@@ -840,8 +840,8 @@ export default function ReverseBulk() {
                     color="blue"
                     radius={5}
                     pathOptions={{
-                      fillColor: "blue",
-                      color: "blue",
+                      fillColor: 'blue',
+                      color: 'blue',
                       weight: 2,
                       opacity: 1,
                       fillOpacity: 1,
@@ -851,7 +851,7 @@ export default function ReverseBulk() {
                       <div style={{ lineHeight: 0.1 }}>
                         <p>
                           <strong>
-                            {t("components.reverseBulk.outputTable.inputID")}
+                            {t('components.reverseBulk.outputTable.inputID')}
                           </strong>
                           : {item1}
                         </p>
@@ -878,14 +878,14 @@ export default function ReverseBulk() {
                     fillColor: calculateMarkerColor(
                       row.matchConfidencePercentageDecimal,
                     ),
-                    color: "black",
+                    color: 'black',
                     weight: 2,
                     opacity: 1,
                     fillOpacity: 1,
                   }}
                 >
                   <Popup>
-                    <div style={{ lineHeight: 0.1, width: "auto" }}>
+                    <div style={{ lineHeight: 0.1, width: 'auto' }}>
                       <p>
                         <strong>
                           <i>
@@ -899,32 +899,32 @@ export default function ReverseBulk() {
                       </p>
                       <p>
                         <strong>
-                          {t("components.reverseBulk.outputTable.inputID")} &{" "}
-                          {t("components.reverseBulk.outputTable.ranking")}
+                          {t('components.reverseBulk.outputTable.inputID')} &{' '}
+                          {t('components.reverseBulk.outputTable.ranking')}
                         </strong>
                         : {row.inputID} - #{row.rankingByInputId}
                       </p>
                       <p>
                         <strong>
-                          {" "}
+                          {' '}
                           {t(
-                            "components.reverseBulk.outputTable.confidenceLevel",
+                            'components.reverseBulk.outputTable.confidenceLevel',
                           )}
                         </strong>
                         : {row.matchConfidencePercentageDecimal * 100}%
                       </p>
                       <p>
                         <strong>
-                          {" "}
-                          {t("components.reverseBulk.map.distance")}
+                          {' '}
+                          {t('components.reverseBulk.map.distance')}
                         </strong>
                         : {row.distanceKm} km
                       </p>
                       {row.name && (
                         <p>
                           <strong>
-                            {" "}
-                            {t("components.reverseBulk.map.streetName")}
+                            {' '}
+                            {t('components.reverseBulk.map.streetName')}
                           </strong>
                           : {row.name}
                         </p>
@@ -932,8 +932,8 @@ export default function ReverseBulk() {
                       {row.locality && (
                         <p>
                           <strong>
-                            {" "}
-                            {t("components.reverseBulk.map.locality")}
+                            {' '}
+                            {t('components.reverseBulk.map.locality')}
                           </strong>
                           : {row.locality}
                         </p>
@@ -941,8 +941,8 @@ export default function ReverseBulk() {
                       {row.region && (
                         <p>
                           <strong>
-                            {" "}
-                            {t("components.reverseBulk.map.province")}
+                            {' '}
+                            {t('components.reverseBulk.map.province')}
                           </strong>
                           : {row.region}
                         </p>
@@ -950,8 +950,8 @@ export default function ReverseBulk() {
                       {row.accuracy && (
                         <p>
                           <strong>
-                            {" "}
-                            {t("components.reverseBulk.outputTable.accuracy")}
+                            {' '}
+                            {t('components.reverseBulk.outputTable.accuracy')}
                           </strong>
                           : {row.accuracy}
                         </p>
@@ -965,18 +965,18 @@ export default function ReverseBulk() {
           </div>
 
           <div>
-            <h3> {t("components.reverseBulk.resultsHeader")}</h3>
+            <h3> {t('components.reverseBulk.resultsHeader')}</h3>
             <GcdsButton size="small" onClick={handleGenerateDownload}>
-              {t("components.reverseBulk.allResultsButton")}
+              {t('components.reverseBulk.allResultsButton')}
             </GcdsButton>
             <div>
               <p>
-                {t("components.reverseBulk.rowsInOut")}: {originalRows.length} /{" "}
+                {t('components.reverseBulk.rowsInOut')}: {originalRows.length} /{' '}
                 {outputRows.length}
               </p>
               <fieldset>
-                <h4>{t("components.reverseBulk.oneResultHeader")}:</h4>
-                <p>{t("components.reverseBulk.oneResultPara")}.</p>
+                <h4>{t('components.reverseBulk.oneResultHeader')}:</h4>
+                <p>{t('components.reverseBulk.oneResultPara')}.</p>
                 <ul>
                   {findSingleReturnInputIDs().map((inputID) => (
                     <li key={inputID}>Input ID #{inputID}</li>
@@ -987,12 +987,12 @@ export default function ReverseBulk() {
                 <thead>
                   <tr>
                     <th scope="col">
-                      {" "}
-                      {t("components.reverseBulk.tableRange")}
+                      {' '}
+                      {t('components.reverseBulk.tableRange')}
                     </th>
                     <th scope="col">
-                      {" "}
-                      {t("components.reverseBulk.tableCount")}
+                      {' '}
+                      {t('components.reverseBulk.tableCount')}
                     </th>
                   </tr>
                 </thead>
@@ -1027,7 +1027,7 @@ export default function ReverseBulk() {
             >
               <div>
                 <label htmlFor="page-select" className="label-style">
-                  {t("components.reverseBulk.jumpToPage")}:
+                  {t('components.reverseBulk.jumpToPage')}:
                 </label>
                 <select
                   id="page-select"
@@ -1044,7 +1044,7 @@ export default function ReverseBulk() {
               </div>
               <div>
                 <label htmlFor="rows-select" className="label-style">
-                  {t("components.reverseBulk.rowsPerPage")}:
+                  {t('components.reverseBulk.rowsPerPage')}:
                 </label>
                 <select
                   id="rows-select"
@@ -1063,28 +1063,28 @@ export default function ReverseBulk() {
               <thead>
                 <tr>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.select")}
+                    {t('components.reverseBulk.outputTable.select')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.inputID")}
+                    {t('components.reverseBulk.outputTable.inputID')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.ranking")}
+                    {t('components.reverseBulk.outputTable.ranking')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.address")}
+                    {t('components.reverseBulk.outputTable.address')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.lat")}
+                    {t('components.reverseBulk.outputTable.lat')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.lon")}
+                    {t('components.reverseBulk.outputTable.lon')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.confidenceLevel")}
+                    {t('components.reverseBulk.outputTable.confidenceLevel')}
                   </th>
                   <th scope="col">
-                    {t("components.reverseBulk.outputTable.accuracy")}
+                    {t('components.reverseBulk.outputTable.accuracy')}
                   </th>
                 </tr>
               </thead>
@@ -1097,23 +1097,23 @@ export default function ReverseBulk() {
                 onClick={exportSelectedRows}
                 disabled={selectedRows.size === 0}
               >
-                {t("components.reverseBulk.exportSelect")}
+                {t('components.reverseBulk.exportSelect')}
               </GcdsButton>
               <GcdsButton
-                style={{ padding: "2px" }}
+                style={{ padding: '2px' }}
                 onClick={clearSelectedRows}
                 size="small"
                 disabled={selectedRows.size === 0}
               >
-                {t("components.reverseBulk.clearSelect")}
+                {t('components.reverseBulk.clearSelect')}
               </GcdsButton>
             </div>
 
             <div
               style={{
-                width: "full",
-                display: "flex",
-                justifyContent: "center",
+                width: 'full',
+                display: 'flex',
+                justifyContent: 'center',
               }}
             >
               <div id="paginationContainer">
@@ -1122,9 +1122,9 @@ export default function ReverseBulk() {
                   onClick={() => setCurrentPage(1)}
                   aria-label="First Page"
                   disabled={currentPage === 1}
-                  style={{ padding: "2px" }}
+                  style={{ padding: '2px' }}
                 >
-                  {t("components.reverseBulk.firstButton")}
+                  {t('components.reverseBulk.firstButton')}
                 </GcdsButton>
                 <GcdsButton
                   size="small"
@@ -1133,7 +1133,7 @@ export default function ReverseBulk() {
                   }
                   aria-label="Previous Page"
                   disabled={currentPage === 1}
-                  style={{ padding: "2px" }}
+                  style={{ padding: '2px' }}
                 >
                   <FaAngleLeft />
                 </GcdsButton>
@@ -1141,12 +1141,12 @@ export default function ReverseBulk() {
                   .filter((page) => !isNaN(page))
                   .map((page) => (
                     <GcdsButton
-                      style={{ padding: "2px" }}
+                      style={{ padding: '2px' }}
                       size="small"
                       key={page}
                       value={page}
                       buttonRole={
-                        currentPage === page ? "primary" : "secondary"
+                        currentPage === page ? 'primary' : 'secondary'
                       }
                       onClick={() =>
                         handlePageChange({ target: { value: page } })
@@ -1156,7 +1156,7 @@ export default function ReverseBulk() {
                     </GcdsButton>
                   ))}
                 <GcdsButton
-                  style={{ padding: "2px" }}
+                  style={{ padding: '2px' }}
                   size="small"
                   onClick={() =>
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
@@ -1167,13 +1167,13 @@ export default function ReverseBulk() {
                   <FaAngleRight />
                 </GcdsButton>
                 <GcdsButton
-                  style={{ padding: "2px" }}
+                  style={{ padding: '2px' }}
                   size="small"
                   onClick={() => setCurrentPage(totalPages)}
                   aria-label="Last Page"
                   disabled={currentPage === totalPages}
                 >
-                  {t("components.reverseBulk.lastButton")}
+                  {t('components.reverseBulk.lastButton')}
                 </GcdsButton>
               </div>
             </div>

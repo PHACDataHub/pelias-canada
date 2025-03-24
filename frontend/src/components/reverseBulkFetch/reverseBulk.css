@@ -55,7 +55,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-input[type="file"] {
+input[type='file'] {
   display: block;
   margin: 10px 0;
 }

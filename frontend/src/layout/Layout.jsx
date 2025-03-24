@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from 'react-router-dom';
 import {
   GcdsHeader,
   GcdsContainer,
@@ -9,37 +9,37 @@ import {
   GcdsLangToggle,
   GcdsBreadcrumbsItem,
   GcdsBreadcrumbs,
-} from "@cdssnc/gcds-components-react";
-import "@cdssnc/gcds-components-react/gcds.css";
-import "./Layout.css";
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+} from '@cdssnc/gcds-components-react';
+import '@cdssnc/gcds-components-react/gcds.css';
+import './Layout.css';
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
-  const [announcement, setAnnouncement] = useState(""); // State for announcements
+  const [announcement, setAnnouncement] = useState(''); // State for announcements
   const location = useLocation();
 
   // Set the document title dynamically
   useEffect(() => {
     // You can define the titles for different routes here
     const routeTitles = {
-      "/": t("menu.home"),
-      "/reverse-geocoding-bulk": t("pages.reverseBulk.title"),
-      "/bulk-address-geocoding": t(
-        "pages.forwardBulk.BulkGeocodingInput.title",
+      '/': t('menu.home'),
+      '/reverse-geocoding-bulk': t('pages.reverseBulk.title'),
+      '/bulk-address-geocoding': t(
+        'pages.forwardBulk.BulkGeocodingInput.title',
       ),
-      "/r-api": t("pages.rshiny.title"),
-      "/python-api": t("pages.python.title"),
-      "/frequently-asked-questions": t("pages.faq.title"),
-      "/geocoding-results-explanation": t("pages.geocodingExplanation.title"),
-      "/contact-us": t("pages.contactUs.title"),
+      '/r-api': t('pages.rshiny.title'),
+      '/python-api': t('pages.python.title'),
+      '/frequently-asked-questions': t('pages.faq.title'),
+      '/geocoding-results-explanation': t('pages.geocodingExplanation.title'),
+      '/contact-us': t('pages.contactUs.title'),
     };
 
     // Set the title based on the current path
     const currentTitle =
-      routeTitles[location.pathname] + " - Pelias.ca" || "Pelias.ca";
+      routeTitles[location.pathname] + ' - Pelias.ca' || 'Pelias.ca';
     document.title = currentTitle;
 
     // Delay added to allow i18N to translate first before announcing
@@ -52,15 +52,15 @@ export default function Layout() {
   }, [location.pathname, t]);
 
   const contextualLinks = {
-    [t("footer.resultsExplained")]: "/geocoding-results-explanation",
-    [t("footer.faq")]: "/frequently-asked-questions",
+    [t('footer.resultsExplained')]: '/geocoding-results-explanation',
+    [t('footer.faq')]: '/frequently-asked-questions',
   };
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     toast.dismiss();
     setAnnouncement(
-      `${lng === "fr" ? "La langue a été changée en français" : "The language has been changed to English"}`,
+      `${lng === 'fr' ? 'La langue a été changée en français' : 'The language has been changed to English'}`,
     ); // Update announcement
   };
 
@@ -70,7 +70,7 @@ export default function Layout() {
         langHref={i18n.language}
         signatureHasLink="false"
         lang={i18n.language}
-        style={{ fontSize: "20px" }}
+        style={{ fontSize: '20px' }}
       >
         <div slot="menu">
           <GcdsTopNav label="Top navigation" alignment="right">
@@ -78,57 +78,57 @@ export default function Layout() {
               Pelias
             </GcdsNavLink>
             <GcdsNavGroup
-              openTrigger={t("menu.bulkFile")}
-              menuLabel={t("menu.bulkFile")}
+              openTrigger={t('menu.bulkFile')}
+              menuLabel={t('menu.bulkFile')}
             >
               <GcdsNavLink
                 href="/reverse-geocoding-bulk"
                 current={
-                  location.pathname === "/reverse-geocoding-bulk"
+                  location.pathname === '/reverse-geocoding-bulk'
                     ? true
                     : undefined
                 }
               >
-                {t("menu.reverseBulkFile")}
+                {t('menu.reverseBulkFile')}
               </GcdsNavLink>
               <GcdsNavLink
                 href="/bulk-address-geocoding"
                 current={
-                  location.pathname === "/bulk-address-geocoding"
+                  location.pathname === '/bulk-address-geocoding'
                     ? true
                     : undefined
                 }
               >
-                {t("menu.addressBulkFile")}
+                {t('menu.addressBulkFile')}
               </GcdsNavLink>
             </GcdsNavGroup>
             <GcdsNavGroup
-              openTrigger={t("menu.developers")}
-              menuLabel={t("menu.developers")}
+              openTrigger={t('menu.developers')}
+              menuLabel={t('menu.developers')}
             >
               <GcdsNavLink
                 href="/r-api"
-                current={location.pathname === "/r-api" ? true : undefined}
+                current={location.pathname === '/r-api' ? true : undefined}
               >
                 R Api
               </GcdsNavLink>
               <GcdsNavLink
                 href="/python-api"
-                current={location.pathname === "/python-api" ? true : undefined}
+                current={location.pathname === '/python-api' ? true : undefined}
               >
                 Python Api
               </GcdsNavLink>
             </GcdsNavGroup>
             <GcdsNavLink
               href="/contact-us"
-              current={location.pathname === "/contact-us" ? true : undefined}
+              current={location.pathname === '/contact-us' ? true : undefined}
             >
-              {t("menu.contactUs")}
+              {t('menu.contactUs')}
             </GcdsNavLink>
           </GcdsTopNav>
         </div>
         <div slot="breadcrumb">
-          {location.pathname === "/" ? null : (
+          {location.pathname === '/' ? null : (
             <GcdsBreadcrumbs>
               <GcdsBreadcrumbsItem href="/">Pelias</GcdsBreadcrumbsItem>
             </GcdsBreadcrumbs>
@@ -137,19 +137,19 @@ export default function Layout() {
         <div
           slot="skip-to-nav"
           style={{
-            textAlign: "center",
-            top: "10px",
+            textAlign: 'center',
+            top: '10px',
             left: 0,
-            width: "100%",
+            width: '100%',
             zIndex: 3,
           }}
         >
           <a
             className="skip-to-content-link"
             href="#main-content"
-            aria-label={t("menu.skipNav")}
+            aria-label={t('menu.skipNav')}
           >
-            {t("menu.skipNav")}
+            {t('menu.skipNav')}
           </a>
         </div>
         <div slot="toggle">
@@ -158,17 +158,17 @@ export default function Layout() {
             lang={i18n.language}
             onClick={(event) => {
               event.preventDefault();
-              changeLanguage(i18n.language === "en" ? "fr" : "en");
+              changeLanguage(i18n.language === 'en' ? 'fr' : 'en');
             }}
           ></GcdsLangToggle>
         </div>
       </GcdsHeader>
 
       <GcdsContainer
-        size={location.pathname === "/" ? "full" : "xl"}
+        size={location.pathname === '/' ? 'full' : 'xl'}
         centered
         color="black"
-        style={{ flexGrow: "1" }}
+        style={{ flexGrow: '1' }}
         main-container
         id="main-content"
       >
@@ -181,11 +181,11 @@ export default function Layout() {
         aria-live="polite"
         tabIndex="-1"
         style={{
-          position: "absolute",
-          left: "-9999px",
-          width: "1px",
-          height: "1px",
-          overflow: "hidden",
+          position: 'absolute',
+          left: '-9999px',
+          width: '1px',
+          height: '1px',
+          overflow: 'hidden',
         }}
       >
         {announcement}
@@ -194,9 +194,9 @@ export default function Layout() {
       <GcdsFooter
         lang={i18n.language}
         display="full"
-        contextualHeading={t("footer.additionalNav")}
+        contextualHeading={t('footer.additionalNav')}
         contextualLinks={contextualLinks}
-        style={{ paddingTop: "50px" }}
+        style={{ paddingTop: '50px' }}
       />
       <ToastContainer position="top-right" autoClose={false} theme="dark" />
     </>
