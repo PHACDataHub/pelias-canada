@@ -8,11 +8,11 @@ TBC
 
 ### axe-core Accessibility Plugin
 
-TBC 
+TBC
 
 ## Separation of CI from CD
 
-The Continuous Integration (CI) has been split from the Continuous Delivery (CD).  The CD process, uses FluxCD and Cloud Build, uses the pull model where “production" pulls in the images. This eliminates the need for production credentials to be stored in the pipelines. CI pipelines do not have credentials for production (avoiding attacks like the one that happened at Codecov) and are focused running tests and building OCI images.
+The Continuous Integration (CI) has been split from the Continuous Delivery (CD). The CD process, uses FluxCD and Cloud Build, uses the pull model where “production" pulls in the images. This eliminates the need for production credentials to be stored in the pipelines. CI pipelines do not have credentials for production (avoiding attacks like the one that happened at Codecov) and are focused running tests and building OCI images.
 
 ## Continuous Integration Pipelines
 
@@ -40,11 +40,9 @@ TBC
 
 TBC
 
-
-
 ## Infrastructure as Code
 
-- Currently using both [Taskfile](../Taskfile.yaml) and [acm-core](https://github.com/PHACDataHub/acm-core/tree/main/DMIA-PHAC/Experimentation/ph-peliasgeocoderdeploy).  The acm-core repository is where the core infrastructure and project are provisioned. The Taskfile currently outlines additional resources, service accounts and permissions.
+- Currently using both [Taskfile](../Taskfile.yaml) and [acm-core](https://github.com/PHACDataHub/acm-core/tree/main/DMIA-PHAC/Experimentation/ph-peliasgeocoderdeploy). The acm-core repository is where the core infrastructure and project are provisioned. The Taskfile currently outlines additional resources, service accounts and permissions.
 - Versioned in GitHub
 - Using service accounts with the least priviledges
 
@@ -66,8 +64,6 @@ As we're looking to access these vunerabilities through an external (non-public)
 
 TBA -->
 
-
-
 ## Code Quality and Code Reviews
 
 TBA
@@ -79,7 +75,6 @@ TBA
 ## Deployment Frequency - Enabled with Test Coverage
 
 TBA
-
 
 ## [Software Bill of Materials (SBOM) Collection](./sbom)
 
