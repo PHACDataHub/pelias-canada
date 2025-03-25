@@ -2,5 +2,4 @@ k8s/geocoder/rate-limit/test_rate_limiting.sh
 k8s/flux-system/alerts/alerts-secret.yaml
 test-gcs-connection.yaml
 NLFD_test.csv
-**/node_modules/*
-node_modules/
+**/node_modules/
