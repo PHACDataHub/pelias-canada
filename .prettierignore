@@ -13,5 +13,6 @@ frontend/src/public/assets/locales
 dashboard/
 docker/
 
+# ignoring these as to not override the doublequotes around substitutions
 *.yaml
 *.yml
