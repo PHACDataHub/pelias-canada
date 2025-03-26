@@ -1,0 +1,18 @@
+# generated (test artifact)
+**/coverage
+
+# generated (build output)
+*/dist
+
+k8s/*
+
+# generated (by lingui)
+frontend/src/public/assets/locales
+
+# not to be maintained or edited by us
+dashboard/
+docker/
+
+# ignoring these as to not override the doublequotes around substitutions
+*.yaml
+*.yml

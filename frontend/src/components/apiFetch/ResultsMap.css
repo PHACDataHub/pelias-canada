@@ -1,28 +1,28 @@
 /* Override the default OpenLayers zoom buttons */
 .ol-zoom {
-	position: absolute;
-	top: 10px; /* Adjust position as needed */
-	left: 10px;
+  position: absolute;
+  top: 10px; /* Adjust position as needed */
+  left: 10px;
 }
 
 .ol-zoom button,
 .ol-full-screen button {
-	width: 28px; /* Set custom width */
-	height: 28px; /* Set custom height */
-	margin-bottom: 2px;
-    color: black; /* Text color */
+  width: 28px; /* Set custom width */
+  height: 28px; /* Set custom height */
+  margin-bottom: 2px;
+  color: black; /* Text color */
 }
 
 /* Adjust spacing between buttons */
 .ol-zoom-in {
-	margin-bottom: 50px; /* Add spacing below the "+" button */
+  margin-bottom: 50px; /* Add spacing below the "+" button */
 }
 
 .ol-scale-line {
-	padding: 5px; /* Padding around the scale */
+  padding: 5px; /* Padding around the scale */
 }
 
 .ol-scale-line-inner {
-	color: black; /* Text color */
-	font-size: 16px; /* Text size */
+  color: black; /* Text color */
+  font-size: 16px; /* Text size */
 }

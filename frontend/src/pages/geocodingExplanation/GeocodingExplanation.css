@@ -4,7 +4,8 @@
   width: 100%;
 }
 
-#features td, #features th {
+#features td,
+#features th {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -33,4 +34,3 @@
   overflow-x: auto;
   overflow-y: hidden;
 }
-

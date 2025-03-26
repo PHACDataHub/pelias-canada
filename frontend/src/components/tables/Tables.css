@@ -1,135 +1,135 @@
 /* ForwardBulk.css */
 body {
-	font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
-input[type="file"] {
-	margin: 8px 0;
+input[type='file'] {
+  margin: 8px 0;
 }
 
 select {
-	position: relative; /* Required for positioning the pseudo-element */
-	padding-right: 600px; /* Space for the icon */
-	border: var(--gcds-select-border-width) solid;
-	border-radius: var(--gcds-select-border-radius);
-	box-sizing: border-box;
-	color: var(--gcds-select-default-text);
-	display: block;
-	font: inherit;
-	height: auto;
-	margin: var(--gcds-select-margin) !important;
-	max-width: 100%;
-	min-height: var(--gcds-select-min-width-and-height);
-	min-width: var(--gcds-select-min-width-and-height);
-	padding: var(--gcds-select-padding) !important;
-	transition: all 0.15s ease-in-out;
+  position: relative; /* Required for positioning the pseudo-element */
+  padding-right: 600px; /* Space for the icon */
+  border: var(--gcds-select-border-width) solid;
+  border-radius: var(--gcds-select-border-radius);
+  box-sizing: border-box;
+  color: var(--gcds-select-default-text);
+  display: block;
+  font: inherit;
+  height: auto;
+  margin: var(--gcds-select-margin) !important;
+  max-width: 100%;
+  min-height: var(--gcds-select-min-width-and-height);
+  min-width: var(--gcds-select-min-width-and-height);
+  padding: var(--gcds-select-padding) !important;
+  transition: all 0.15s ease-in-out;
 }
 
 select:focus {
-	border-color: var(--gcds-select-focus-text);
-	box-shadow: var(--gcds-select-focus-box-shadow);
-	outline: var(--gcds-select-outline-width) solid var(--gcds-select-focus-text);
-	outline-offset: var(--gcds-select-border-width);
+  border-color: var(--gcds-select-focus-text);
+  box-shadow: var(--gcds-select-focus-box-shadow);
+  outline: var(--gcds-select-outline-width) solid var(--gcds-select-focus-text);
+  outline-offset: var(--gcds-select-border-width);
 }
 
 select::after {
-	content: "\f078"; /* Unicode for Font Awesome down arrow */
-	font-family: "Font Awesome 5 Free"; /* Use Font Awesome font */
-	font-weight: 900; /* Use solid style */
-	position: absolute;
-	right: 200px;
-	background-color: aqua;
-	top: 50%;
-	transform: translateY(-50%);
-	pointer-events: none; /* Prevent icon from interfering with select click */
+  content: '\f078'; /* Unicode for Font Awesome down arrow */
+  font-family: 'Font Awesome 5 Free'; /* Use Font Awesome font */
+  font-weight: 900; /* Use solid style */
+  position: absolute;
+  right: 200px;
+  background-color: aqua;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent icon from interfering with select click */
 }
 
 fieldset {
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	padding: 16px;
-	margin-top: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  margin-top: 16px;
 }
 
 legend {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	font-size: small;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: small;
 }
 
 .table-container {
-	max-height: 300px; /* Adjust the height as needed */
-	overflow-y: auto;
-	border: 1px solid #ccc; /* Optional: Add border for better visibility */
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc; /* Optional: Add border for better visibility */
 }
 th,
 td {
-	border: 1px solid #ddd;
-	padding: 4px;
-	color: #f1f2f3;
+  border: 1px solid #ddd;
+  padding: 4px;
+  color: #f1f2f3;
 }
 td {
-	color: #000;
-	text-align: center;
+  color: #000;
+  text-align: center;
 }
 #address {
-	text-align: left;
+  text-align: left;
 }
 th {
-	background-color: #26374a;
+  background-color: #26374a;
 }
 
 #map {
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	margin-top: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 16px;
 }
 /* ForwardBulk.css */
 .pagination-container {
-	display: flex;
-	flex-direction: column;
-	background-color: #000;
-	gap: 4px;
-	padding: 8px;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  gap: 4px;
+  padding: 8px;
+  align-items: center;
+  justify-content: center;
 }
 
 .pagination-controls {
-	display: flex;
-	align-items: center;
-	gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .page-info {
-	margin: 0;
+  margin: 0;
 }
 
 .select-container {
-	display: flex;
-	align-items: center;
-	gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .select-style {
-	padding: 4px 8px;
-	font-size: small;
+  padding: 4px 8px;
+  font-size: small;
 }
 
 .label-style {
-	font-size: small;
-	margin-right: 8px;
-	font-weight: bold;
+  font-size: small;
+  margin-right: 8px;
+  font-weight: bold;
 }
 /* Container for pagination buttons */
 #pageationContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px; /* Space between buttons */
-	padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between buttons */
+  padding: 16px;
 }

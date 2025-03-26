@@ -2,7 +2,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Breadcrumb = () => {
   const location = useLocation();
-  const pathnames = location.pathname.split('/').filter((x) => x && x.toLowerCase() !== 'home');
+  const pathnames = location.pathname
+    .split('/')
+    .filter((x) => x && x.toLowerCase() !== 'home');
 
   // Check if the current location is not the home page
   if (pathnames.length === 0) {
@@ -20,14 +22,20 @@ const Breadcrumb = () => {
   return (
     <nav aria-label="breadcrumb">
       <ol className="breadcrumb">
-        <li className="breadcrumb-item" >
+        <li className="breadcrumb-item">
           <Link to="/">Home</Link>
         </li>
         {pathnames.map((value, index) => {
           const to = `/${pathnames.slice(0, index + 1).join('/')}`;
           return (
-            <li key={to} className="breadcrumb-item" style={{paddingBottom:"20px"}} >
-              <Link to={to} aria-disabled="true" >{formatBreadcrumb(value)}</Link>
+            <li
+              key={to}
+              className="breadcrumb-item"
+              style={{ paddingBottom: '20px' }}
+            >
+              <Link to={to} aria-disabled="true">
+                {formatBreadcrumb(value)}
+              </Link>
             </li>
           );
         })}
@@ -37,4 +45,3 @@ const Breadcrumb = () => {
 };
 
 export default Breadcrumb;
-

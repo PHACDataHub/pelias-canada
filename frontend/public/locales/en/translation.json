@@ -1,531 +1,531 @@
 {
-	"components": {
-		"apiFetch": {
-			"forwardSingleFetch": {
-				"inputHeader": "Enter a Canadian address, city, and province",
-				"address": "Address",
-				"city": "City",
-				"province": "Province",
-				"complete": "Address search completed successfully.",
-				"search": "Search the address",
-				"reset": "Reset the address",
-				"alerts": {
-					"formReset": "The address form has been reset.",
-					"error": "An error occurred",
-					"address": "Address is required",
-					"city": "City is required",
-					"province": "Province is required"
-				}
-			},
-			"resultSingleFetch": {
-				"returnHeader": "Results",
-				"infoReturn": "Information returned",
-				"addressReturn": "Address returned for",
-				"geoReturn": "Geolocation returned for (longitude, latitude)",
-				"confidence": "Confidence in search results",
-				"matchType": "Match Type",
-				"na": "No match type found",
-				"accuracy": "Accuracy",
-				"source": "Source",
-				"infoVersion": "Information provided by Pelias Geocoder",
-				"dateTime": "Date and Time (YYYY-MM-DD HH:MM:SS AM/PM)",
-				"address": "Address",
-				"longitude": "Longitude",
-				"latitude": "Latitude",
-				"seeMoreOpts": "See more options",
-				"longlat": "Longitude, Latitude",
-				"latlong": "Latitude, Longitude",
-				"viewMap": "View the Map",
-				"success": {
-					"addressCopied": "Address copied successfully.",
-					"latitudeCopied": "Latitude copied successfully.",
-					"longitudeCopied": "Longitude copied successfully.",
-					"latLongCopied": "Latitude and Longitude copied successfully.",
-					"longLatCopied": "Longitude and Latitude copied successfully."
-				},
-				"error": {
-					"addressUnavailable": "Address is unavailable.",
-					"latitudeUnavailable": "Latitude is unavailable.",
-					"longitudeUnavailable": "Longitude is unavailable.",
-					"latLongUnavailable": "Latitude and Longitude are unavailable.",
-					"noResults": "No Results",
-					"checkInput": "Please check your inputs and try again."
-				}
-			},
-			"reverseSingleFetch": {
-				"inputHeader": "Enter a Latitude and a Longitude",
-				"latitude": "Latitude",
-				"longitude": "Longitude",
-				"complete": "The geolocation search completed successfully.",
-				"search": "Search the coordinates",
-				"reset": "Reset the coordinates",
-				"alerts": {
-					"formReset": "The geolocation form has been reset.",
-					"error": "An error occurred",
-					"latitude": "Latitude is required",
-					"longitude": "Longitude is required",
-					"mustBetween": "must be between",
-					"required": "is required",
-					"moreSpecificCoords": "The coordinates are not specific enough"
-				}
-			},
-			"useLocationButton": {
-				"header": "Use the button to detect your location",
-				"warning": "Please note web location access must be authorized",
-				"getLocation": "Get your location",
-				"complete": "Get your location completed successfully",
-				"error": {
-					"geoGet": "Geolocation is not supported by your browser.",
-					"permissionDenied": "Location permission is denied. Please enable it in your browser settings.",
-					"permissionDeniedToast": "Location access is denied. Check your browser settings.",
-					"positionUnavailable": "Unable to retrieve your location.",
-					"timeout": "Location request timed out. Please try again.",
-					"unknownError": "An unknown error occurred while fetching location."
-				}
-			}
-		},
-		"CodeZips": {
-			"pythonDownload": "Download Python files",
-			"rDownload": "Download R files"
-		},
-		"forwardBulk": {
-			"callTimes": {
-				"header": "API Processing Summary",
-				"headerPara": "To run another CSV file, you need to refresh the page before uploading a new file. This ensures that all previous data, including captured files, processed results and API responses, have been completely erased. Refreshing the page resets the system, preventing any conflicts or residual data from affecting the new upload.",
-				"estSingle1": "Estimated time per call is approximately",
-				"estSingle2": "seconds per call",
-				"estCallTime1": "Estimated time for",
-				"estCallTime2": " API calls",
-				"realTime": "Actual Loading Time",
-				"seconds": "seconds"
-			},
-			"forwardCallAPIReturn": {
-				"dataProcessingSummary": "Data Processing Summary",
-				"dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please double-check the addresses and ensure they are correctly formatted in the CSV file.",
-				"inputLength": "Number of lines received from CSV",
-				"cleanedLength": "Number of valid entries",
-				"errorLength": "Number of errors",
-				"dataRecievedDetails": "Recieved Data Details",
-				"recievedDataJsonPreview": "Recieved Data review",
-				"cleanDataPreview": "Cleaned Data preview",
-				"previewData": {
-					"inputId": "Input ID",
-					"physicalAddress": "Physical Address",
-					"apartment": "Apartment",
-					"streetNumber": "Street Number",
-					"streetName": "Street Name",
-					"region": "Region",
-					"province": "Province",
-					"postalCode": "Postal Code",
-					"query": "Query Text"
-				},
-				"inputDataDetails": "click to view inputted details",
-				"cleanDataDetails": "click to preview cleaned data",
-				"errorDataDetails": "click to preview errors",
-				"errorPara": "Data cleaning error—likely due to a unit number or inaccurate address. Please review the addresses before continuing or make the necessary corrections and recheck the input."
-			},
-			"forwardExportFiles": {
-				"exportDataCSVId": "exportCSV",
-				"exportDataCSV": "export to CSV",
-				"exportDataGeoJSONId": "exportGeoJSON",
-				"exportDataGeoJSON": "export to GeoJSON",
-				"metaNotAvail": "Metadata not available",
-				"notDataAvail": "No data to export",
-				"csvHeaders": "Index,Physical Address,Latitude,Longitude,Confidence,Match Type,Accuracy"
-			},
-			"inputUpload": {
-				"title": "Input Upload",
-				"label": "Upload a CSV to use our service",
-				"hint": "Import CSV or excel file to continue",
-				"submit": "Submit",
-				"reset": "Reset",
-				"continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
-				"continue": "Continue",
-				"displayFileName": "Displaying information for uploaded file",
-				"errors": {
-					"uploadFileMissing": "Please select a file to upload.",
-					"fileReadError": "An error occurred while reading the file.",
-					"fileReadFailure": "Error occurred while reading the file. Please try again.",
-					"missingColumns": "CSV must contain inputID and physicalAddress columns.",
-					"missingFields": "Missing required fields (inputID or physicalAddress)",
-					"processingError": "Error processing line."
-				}
-			},
-			"loading": "Loading, please wait",
-			"mapReady": {
-				"resultsHeader": "Results",
-				"allResultsButton": "Download all results",
-				"rowsInOut": "Total Rows Submitted / Returned",
-				"downloadCSV": "Download CSV",
-				"downloadGEO": "Download GeoJSON",
-				"tableRange": "Range of confidence results",
-				"tableCount": "Count of result",
-				"tableHeaderConfidence": "Confidence levels for the valid items",
-				"jumpToPage": "Jump to page",
-				"rowsPerPage": "Rows per page",
-				"outputTable": {
-					"inputID": "Input ID",
-					"matchType": "Match Type",
-					"address": "Physical Address",
-					"lat": "Latitude",
-					"lon": "Longitude",
-					"confidenceLevel": "Confidence Level",
-					"accuracy": "Accuracy"
-				},
-				"map": {
-					"distance": "Distance from original",
-					"streetName": "Street name",
-					"locality": "Locality",
-					"province": "Province"
-				},
-				"exportSelect": "Export Selected",
-				"clearSelect": "Clear Selected",
-				"firstButton": "First",
-				"lastButton": "Last"
-			},
-			"resultsTable": {
-				"queryFailed": "Failed to fetch data for query",
-				"noResults": "no Api Results",
-				"confidence": {
-					"confidenceTableHeader": "Confidence Score Distribution"
-				},
-				"previewResultsHeader": "Results Preview",
-				"validRows": "Total rows successfully submitted without errors",
-				"returnedRows": "Total rows received in the API response"
-			}
-		},
-		"map": {
-			"aria": "Map displaying geographic data",
-			"header": "API Translation Results on Map",
-			"warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness.",
-			"screenReader": "Map showing  the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
-		},
-		"reverseBulk": {
-			"reverseExportFiles": {
-				"exportDataCSVId": "exportCSV",
-				"exportDataCSV": "export to CSV",
-				"exportDataGeoJSONId": "exportGeoJSON",
-				"exportDataGeoJSON": "export to GeoJSON",
-				"metaNotAvail": "Metadata not available",
-				"notDataAvail": "No data to export",
-				"csvHeaders": "Index ID,Index Ranking,physical Address, Latitude,Longitude,Confidence,Distance from original,Accuracy"
-			},
-			"ReturnAmountSelector": {
-				"selectID": "numberOfCandidates",
-				"label": "Select the number of candidates to send per entry",
-				"hint": "Amount of items the API will return per call"
-			},
-			"singleResultID" : {
-				"header": "Input IDs with only one result",
-				"errorMess": "These items will not be included in the tables below"
-			},
-			"reverseCallAPIReturn": {
-				"dataProcessingSummary": "Data Processing Summary",
-				"dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please verify that the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values fall within Canada's boundaries. Additionally, ensure that the input data is sufficiently detailed to produce accurate results. Incomplete or imprecise inputs may affect the quality of the output.",
-				"inputLength": "Number of lines received from CSV",
-				"cleanedLength": "Number of valid entries",
-				"errorLength": "Number of errors",
-				"dataReceivedDetails": "Recieved Data Details",
-				"recievedDataJsonPreview": "Recieved Data review",
-				"cleanDataPreview": "Cleaned Data preview",
-				"previewData": {
-					"inputId": "Input ID",
-					"ddLat": "Latitude",
-					"ddLong": "Longitude"
-				},
-				"inputDataDetails": "click to view inputted details",
-				"cleanDataDetails": "click to preview cleaned data",
-				"errorDataDetails": "click to preview errors",
-				"errorPara": "Data cleaning error—likely due to coordinates outside of Canada or insufficient location detail. Please review the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values before continuing or make the necessary corrections and recheck the input."
-			},
-			"fileUpload": "File Upload and Setting",
-			"upload": "Upload a CSV file:",
-			"returnAmountHeader": "Select Number of Return Candidates per input:",
-			"returnAmount": "Number of candidates",
-			"value": "Value",
-			"chooseFile": "choose File",
-			"reverseButton": "Reverse Geocode",
-			"resultsHeader": "Results",
-			"allResultsButton": "Download all results",
-			"rowsInOut": "Total Rows Submitted / Returned",
-			"oneResultHeader": "The following inputs returned only 1 result",
-			"oneResultPara": "This means the latitude and/or longitude are not accurate enough to create a match. Please check these and try again.",
-			"tableRange": "Range of confidence results",
-			"tableCount": "Count of result",
-			"jumpToPage": "Jump to page",
-			"rowsPerPage": "Rows per page",
-			"outputTable": {
-				"select": "Select",
-				"inputID": "Input ID",
-				"ranking": "Input ID Ranking",
-				"address": "Physical Address",
-				"lat": "Latitude",
-				"lon": "Longitude",
-				"confidenceLevel": "Confidence Level",
-				"accuracy": "Accuracy",
-				"distance": "Distance from original"
-			},
-			"map": {
-				"distance": "Distance from original",
-				"streetName": "Street name",
-				"locality": "Locality",
-				"province": "Province",
-				"screenReader": " Map showing the original input geolocations along with the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
-			},
-			"exportSelect": "Export Selected",
-			"clearSelect": "Clear Selected",
-			"firstButton": "First",
-			"lastButton": "Last"
-		},
-		"tablePageation": {
-			"itemsID": "itemsPerPage",
-			"itemsPerPage": "Items per page",
-			"hint": "Select the number of items per page",
-			"next": "Next",
-			"ariaNext": "Next page",
-			"previous": "Previous",
-			"ariaPrevious": "Previous page",
-			"goToPage": "Go to page"
-		}
-	},
-	"footer": {
-		"additionalNav": "Additional navigation",
-		"resultsExplained": "Geocoding Results Explanation",
-		"faq": "Frequently Asked Questions"
-	},
-	"menu": {
-		"title": "Pelias Geocoder",
-		"home": "Home",
-		"bulkFile": "Bulk Files",
-		"addressBulkFile": "Bulk Address Geocoding Input",
-		"reverseBulkFile": "Reverse Geolocation Bulk Input",
-		"developers": "Developers",
-		"contactUs": "Contact Us",
-		"skipNav": "Skip to main content"
-	},
-	"pages": {
-		"addressBulkFile": {
-			"title": "Address Bulk Files"
-		},
-		"contactUs": {
-			"title": "Contact Us",
-			"subTitle": "Please enter your contact details below. Once completed, send the form using the “submit” button below the form. Once the form has been sent, your e-mail application will open. You can also contact us directly by e-mail:",
-			"subject": {
-				"title": "Reasons for Contacting Us",
-				"hintMessage": "Choose 1 option",
-				"select": "Reasons for Contacting Us",
-				"feedback": "Feedback or Suggestions",
-				"bug": "Reporting a Bug or Issue",
-				"helpOption": "Requesting Support or Help",
-				"inquire": "Inquiring About Products or Services",
-				"followingUp": "Following Up on a Previous Request"
-			},
-			"formTitle": "Give feedback, ask for help or contact us to find out more. ",
-			"name": "Name",
-			"email": "Email",
-			"message": "Message",
-			"required": "required",
-			"submitButton": "Submit",
-			"thankYou": {
-				"title": "Thank you for your message",
-				"message": "We have received your message and thank you for contacting us. We will get back to you as soon as possible."
-			}
-		},
-		"faq": {
-			"title": "Frequently Asked Questions",
-			"nav": "Navigation",
-			"category": "Category"
-		},
-		"forwardBulk": {
-			"BulkGeocodingInput": {
-				"title": "Bulk Address Geocoding Input",
-				"subTitle": "What is the Bulk Address Geocoding Input",
-				"description": "This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page."
-			},
-			"HowToUseBulkInput": {
-				"title": "How to use Bulk Input",
-				"steps": {
-					"fileRequirement": "The file must be a CSV.",
-					"columnRequirement1": "Make sure the column to transform is called",
-					"columnRequirement2": ", and there is a column named ",
-					"dataPreparation": "The tool cleans and formats the addresses for geocoding.",
-					"dataSubmission": "Once the data is ready, it is sent to the Pelias API.",
-					"apiResponse": "The API returns the results with confidence levels and additional data.",
-					"exportOption": "You can export the results as a CSV or GeoJSON."
-				}
-			},
-			"InputUploadTitle": "Input Upload"
-		},
-		"geocodingExplanation": {
-			"title": "Geocoding Results Explanation",
-			"underTitleHeader": "Understanding Match Types in Pelias",
-			"underTitlePara": "When Pelias returns geocoding results, it uses different types of matches to determine the accuracy of the location.",
-			"matchTypes": {
-				"title": "Match types",
-				"exact": "Exact/Rooftop Matches",
-				"exactPara": "These matches are very accurate and pinpoint the exact location of an address.",
-				"centroid": "Centroid Match",
-				"centroidPara": "These matches place the address at the center of a larger area, like a city or postal code region.",
-				"interpolation": "Interpolation Matches",
-				"interpolationPara": "These matches estimate the address location based on nearby known addresses or along road segments."
-			},
-			"improvingAccuracy": {
-				"title": "Improving Geocoding Accuracy",
-				"underTitle": "To improve the accuracy of geocoding results, follow these steps",
-				"verifyAddress": {
-					"title": "Verify Address Format",
-					"para": "Ensure the address is in a standardized format."
-				},
-				"spellingAbbrevs": {
-					"title": "Check Spelling and Abbreviations",
-					"para": "Correct spelling errors and standardize abbreviations."
-				},
-				"details": {
-					"title": "Include Relevant Details",
-					"para": "Provide complete address details like unit numbers and building names."
-				},
-				"splitIntoComponents": {
-					"title": "Split Civic Addresses into Components",
-					"para": "Break down addresses into street number, street name, city, province, etc."
-				},
-				"billingualReqs": {
-					"title": "Consider Bilingual Requirements",
-					"para": "Handle bilingual addresses and special characters correctly."
-				},
-				"standardDigraphs": {
-					"title": "Convert Provinces/Territories to Standard Digraphs",
-					"para": "Use two-letter codes for provinces and territories."
-				},
-				"specialChars": {
-					"title": "Remove Special Characters",
-					"para": "Clean data by removing non-alphanumeric characters."
-				},
-				"capitilization": {
-					"title": "Standardize Capitalization",
-					"para": "Ensure consistent capitalization."
-				},
-				"addressVars": {
-					"title": "Account for Address Variations",
-					"para": "Handle different address formats consistently."
-				}
-			},
-			"lessAccurateMatch": {
-				"title": "Implications of Less Accurate Matches",
-				"underTitle": "Less accurate matches, like centroid or interpolation matches, can impact spatial accuracy and limit the reliability of spatial analyses.",
-				"spatialAccuracy": "Spatial Accuracy",
-				"spatialAccuracyPara": "Matches that are not exact may place addresses at centroids or interpolate along road segments, potentially misrepresenting spatial contexts.",
-				"limitedSpatialAccuracy": "Limitations to Spatial Analyses",
-				"limitedSpatialAccuracyPAra": "Inaccurate geocoding matches can introduce errors in studies such as demographic analysis or emergency response planning."
-			},
-			"understandingGeocodingResults": "Understanding Geocoding Results",
-			"understandingGeocodingResultsPara": "Geocoding is the process of converting addresses into geographic coordinates (like latitude and longitude). When you use a geocoding service like Pelias, you get structured output.",
-			"property": "Property",
-			"description": "Property Description",
-			"apiFeature": {
-				"title": "API Features",
-				"tableTitle": "API Features table",
-				"features": "Represents the list of results you get from the geocoding service.",
-				"bbox": "The bounding box of the feature, defining the area that includes the location.",
-				"geometry": {
-					"coordinates": "The latitude and longitude of the location in decimal degrees, based on WGS 1984.",
-					"type": " The type of geometry (e.g., Point, Polygon)."
-				},
-				"type": "The type of feature (e.g., Feature).",
-				"properties": {
-					"properties": "Additional information about the feature.",
-					"country": "The country of the location.",
-					"gid": "A unique identifier for the location.",
-					"locality_gid": "The unique identifier for the locality (city or town).",
-					"neighbourhood_gid": " The unique identifier for the neighborhood.",
-					"confidence": "A score indicating how confident the service is about the accuracy of the location.",
-					"country_a": "The abbreviation for the country.",
-					"county": "The county of the location.",
-					"locality": "The locality (city or town) of the location.",
-					"accuracy": "The type of accuracy (e.g., rooftop, centroid).",
-					"source": "The data source of the location.",
-					"label": "A human-readable label for the location.",
-					"region_a": "The abbreviation for the region.",
-					"layer": "The layer or category of the feature (e.g., address, venue).",
-					"country_code": "The country code.",
-					"street": "The street name.",
-					"neighbourhood": "The neighborhood.",
-					"region_gid": "The unique identifier for the region.",
-					"name": "The name of the location.",
-					"match_type": "The type of match (e.g., exact, fallback, interpolated).",
-					"id": "A unique ID and source of the location.",
-					"source_id": "The source ID of the location.",
-					"country_gid": "The unique identifier for the country.",
-					"region": "The region of the location.",
-					"county_gid": "The unique identifier for the county."
-				}
-			}
-		},
-		"landingPage": {
-			"title": "Welcome to Pelias Geocoder",
-			"underHeader": "We're excited to offer our in-house geolocation services, including batch geocoding, to ensure your data is accurate, cost-effective, secure, and transparent. This service is the essential starting point for a variety of analytical and spatial projects. Our process includes tech exploration, prototyping, refining based on user feedback, and expanding coverage to meet your needs.",
-			"cardFlipCaption": "By using our in-house solution, you can rely on trusted results without the risks and costs associated with external providers. Join us on this journey to improve efficiency and safeguard your data.",
-			"cardFlip": {
-				"enhancedPrivacyTitle": "Enhanced privacy",
-				"enhancedPrivacyPara": "Ensuring data stays within PHAC's network",
-				"costSavingTitle": "Cost savings",
-				"costSavingPara": "Reduce expenses by avoiding third-party services.",
-				"traceabilityTitle": "Traceability",
-				"traceabilityPara": "Easily track and manage your data.",
-				"flexibilityTitle": "Flexibility and modularity",
-				"flexibilityPara": "Adapt our services to fit your specific needs."
-			},
-			"landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. ",
-			"apiSectionTitle": "Try Our Service",
-			"apiSectionPara": "This is a Canadian-only service, with all offers limited to locations within domestic boundaries. We can only provide geolocation data for addresses within the provinces and territories of Canada, which means that we cannot support international addresses or geolocations as inputs.",
-			"clearResults": "Clear the Results"
-		},
-		"python": {
-			"title": "Python API",
-			"pythonParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
-			"forwardPythonDetails": "Example of address geocoding with Python",
-			"CopyForwardPythonCode": "Copy geocoding Python code forward to clipboard",
-			"forwardPythonCode": "Code for Address Geocoding using python",
-			"reversePythonDetails": "Example of reverse geocoding with Python",
-			"CopyReversePythonCode": "Copy the reverse geocoding Python code to the clipboard",
-			"reversePythonCode": "Code for reverse geocodingusing python"
-		},
-		"reverseBulk": {
-			"title": "Reverse Geocoding Bulk Input",
-			"subTitle": "What is Reverse Geocoding Bulk Input",
-			"subtTitlePara": "This tool allows users to input multiple Longitude and Latitude locations at once to get geocoding results in bulk. Users can upload a CSV file containing the geolocations, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page.",
-			"howToUse": {
-				"title": "How to use the Reverse Geocoding Bulk Input service",
-				"fileType": "File type must be a CSV",
-				"one": "For any data you wish to transform, ensure the three (3) following column are in your CSV Headers",
-				"two": "The tool cleans and formats the locations, preparing them for geocoding.",
-				"three": "Once the data is prepared and ready, the data will be sent to the Pelias Application Programming Interface (API).",
-				"four": "After the API receives the data, it will return the results, including confidence levels and additional data.",
-				"five": "Users will automatically download a copy of the results in a CSV file and a GeoJSON file.",
-				"six": "Users can export selected results in the table at the bottom of the page once results have been returned. Selected results will be available in a CSV file and a GeoJSON file."
-			},
-			"inputUpload": "Input Upload for bulk data"
-		},
-		"rshiny": {
-			"title": "R API",
-			"rshinyParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
-			"forwardRDetails": "Example of address geocoding with R",
-			"CopyForwardRCode": "Copy geocoding R code forward to clipboard",
-			"forwardRCode": "Code for Address Geocoding using R",
-			"reverseRDetails": "Example of reverse geocoding with R",
-			"CopyReverseRCode": "Copy the reverse geocoding R code to the clipboard",
-			"reverseRCode": "Code for reverse geocodingusing R"
-		}
-	},
-	"copyCode": "Copy code",
-	"codeCopied": "The code has been copied",
-	"copy": "Copy",
-	"error": "Errors",
-	"legend": {
-		"confidence": "Confidence"
-	},
-	"loading": "Loading",
-	"navigateToSection": "Navigate to section",
-	"search": "Search",
-	"tableOfContents": "Table of contents",
-	"reset": "Reset"
+  "components": {
+    "apiFetch": {
+      "forwardSingleFetch": {
+        "inputHeader": "Enter a Canadian address, city, and province",
+        "address": "Address",
+        "city": "City",
+        "province": "Province",
+        "complete": "Address search completed successfully.",
+        "search": "Search the address",
+        "reset": "Reset the address",
+        "alerts": {
+          "formReset": "The address form has been reset.",
+          "error": "An error occurred",
+          "address": "Address is required",
+          "city": "City is required",
+          "province": "Province is required"
+        }
+      },
+      "resultSingleFetch": {
+        "returnHeader": "Results",
+        "infoReturn": "Information returned",
+        "addressReturn": "Address returned for",
+        "geoReturn": "Geolocation returned for (longitude, latitude)",
+        "confidence": "Confidence in search results",
+        "matchType": "Match Type",
+        "na": "No match type found",
+        "accuracy": "Accuracy",
+        "source": "Source",
+        "infoVersion": "Information provided by Pelias Geocoder",
+        "dateTime": "Date and Time (YYYY-MM-DD HH:MM:SS AM/PM)",
+        "address": "Address",
+        "longitude": "Longitude",
+        "latitude": "Latitude",
+        "seeMoreOpts": "See more options",
+        "longlat": "Longitude, Latitude",
+        "latlong": "Latitude, Longitude",
+        "viewMap": "View the Map",
+        "success": {
+          "addressCopied": "Address copied successfully.",
+          "latitudeCopied": "Latitude copied successfully.",
+          "longitudeCopied": "Longitude copied successfully.",
+          "latLongCopied": "Latitude and Longitude copied successfully.",
+          "longLatCopied": "Longitude and Latitude copied successfully."
+        },
+        "error": {
+          "addressUnavailable": "Address is unavailable.",
+          "latitudeUnavailable": "Latitude is unavailable.",
+          "longitudeUnavailable": "Longitude is unavailable.",
+          "latLongUnavailable": "Latitude and Longitude are unavailable.",
+          "noResults": "No Results",
+          "checkInput": "Please check your inputs and try again."
+        }
+      },
+      "reverseSingleFetch": {
+        "inputHeader": "Enter a Latitude and a Longitude",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "complete": "The geolocation search completed successfully.",
+        "search": "Search the coordinates",
+        "reset": "Reset the coordinates",
+        "alerts": {
+          "formReset": "The geolocation form has been reset.",
+          "error": "An error occurred",
+          "latitude": "Latitude is required",
+          "longitude": "Longitude is required",
+          "mustBetween": "must be between",
+          "required": "is required",
+          "moreSpecificCoords": "The coordinates are not specific enough"
+        }
+      },
+      "useLocationButton": {
+        "header": "Use the button to detect your location",
+        "warning": "Please note web location access must be authorized",
+        "getLocation": "Get your location",
+        "complete": "Get your location completed successfully",
+        "error": {
+          "geoGet": "Geolocation is not supported by your browser.",
+          "permissionDenied": "Location permission is denied. Please enable it in your browser settings.",
+          "permissionDeniedToast": "Location access is denied. Check your browser settings.",
+          "positionUnavailable": "Unable to retrieve your location.",
+          "timeout": "Location request timed out. Please try again.",
+          "unknownError": "An unknown error occurred while fetching location."
+        }
+      }
+    },
+    "CodeZips": {
+      "pythonDownload": "Download Python files",
+      "rDownload": "Download R files"
+    },
+    "forwardBulk": {
+      "callTimes": {
+        "header": "API Processing Summary",
+        "headerPara": "To run another CSV file, you need to refresh the page before uploading a new file. This ensures that all previous data, including captured files, processed results and API responses, have been completely erased. Refreshing the page resets the system, preventing any conflicts or residual data from affecting the new upload.",
+        "estSingle1": "Estimated time per call is approximately",
+        "estSingle2": "seconds per call",
+        "estCallTime1": "Estimated time for",
+        "estCallTime2": " API calls",
+        "realTime": "Actual Loading Time",
+        "seconds": "seconds"
+      },
+      "forwardCallAPIReturn": {
+        "dataProcessingSummary": "Data Processing Summary",
+        "dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please double-check the addresses and ensure they are correctly formatted in the CSV file.",
+        "inputLength": "Number of lines received from CSV",
+        "cleanedLength": "Number of valid entries",
+        "errorLength": "Number of errors",
+        "dataRecievedDetails": "Recieved Data Details",
+        "recievedDataJsonPreview": "Recieved Data review",
+        "cleanDataPreview": "Cleaned Data preview",
+        "previewData": {
+          "inputId": "Input ID",
+          "physicalAddress": "Physical Address",
+          "apartment": "Apartment",
+          "streetNumber": "Street Number",
+          "streetName": "Street Name",
+          "region": "Region",
+          "province": "Province",
+          "postalCode": "Postal Code",
+          "query": "Query Text"
+        },
+        "inputDataDetails": "click to view inputted details",
+        "cleanDataDetails": "click to preview cleaned data",
+        "errorDataDetails": "click to preview errors",
+        "errorPara": "Data cleaning error—likely due to a unit number or inaccurate address. Please review the addresses before continuing or make the necessary corrections and recheck the input."
+      },
+      "forwardExportFiles": {
+        "exportDataCSVId": "exportCSV",
+        "exportDataCSV": "export to CSV",
+        "exportDataGeoJSONId": "exportGeoJSON",
+        "exportDataGeoJSON": "export to GeoJSON",
+        "metaNotAvail": "Metadata not available",
+        "notDataAvail": "No data to export",
+        "csvHeaders": "Index,Physical Address,Latitude,Longitude,Confidence,Match Type,Accuracy"
+      },
+      "inputUpload": {
+        "title": "Input Upload",
+        "label": "Upload a CSV to use our service",
+        "hint": "Import CSV or excel file to continue",
+        "submit": "Submit",
+        "reset": "Reset",
+        "continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
+        "continue": "Continue",
+        "displayFileName": "Displaying information for uploaded file",
+        "errors": {
+          "uploadFileMissing": "Please select a file to upload.",
+          "fileReadError": "An error occurred while reading the file.",
+          "fileReadFailure": "Error occurred while reading the file. Please try again.",
+          "missingColumns": "CSV must contain inputID and physicalAddress columns.",
+          "missingFields": "Missing required fields (inputID or physicalAddress)",
+          "processingError": "Error processing line."
+        }
+      },
+      "loading": "Loading, please wait",
+      "mapReady": {
+        "resultsHeader": "Results",
+        "allResultsButton": "Download all results",
+        "rowsInOut": "Total Rows Submitted / Returned",
+        "downloadCSV": "Download CSV",
+        "downloadGEO": "Download GeoJSON",
+        "tableRange": "Range of confidence results",
+        "tableCount": "Count of result",
+        "tableHeaderConfidence": "Confidence levels for the valid items",
+        "jumpToPage": "Jump to page",
+        "rowsPerPage": "Rows per page",
+        "outputTable": {
+          "inputID": "Input ID",
+          "matchType": "Match Type",
+          "address": "Physical Address",
+          "lat": "Latitude",
+          "lon": "Longitude",
+          "confidenceLevel": "Confidence Level",
+          "accuracy": "Accuracy"
+        },
+        "map": {
+          "distance": "Distance from original",
+          "streetName": "Street name",
+          "locality": "Locality",
+          "province": "Province"
+        },
+        "exportSelect": "Export Selected",
+        "clearSelect": "Clear Selected",
+        "firstButton": "First",
+        "lastButton": "Last"
+      },
+      "resultsTable": {
+        "queryFailed": "Failed to fetch data for query",
+        "noResults": "no Api Results",
+        "confidence": {
+          "confidenceTableHeader": "Confidence Score Distribution"
+        },
+        "previewResultsHeader": "Results Preview",
+        "validRows": "Total rows successfully submitted without errors",
+        "returnedRows": "Total rows received in the API response"
+      }
+    },
+    "map": {
+      "aria": "Map displaying geographic data",
+      "header": "API Translation Results on Map",
+      "warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness.",
+      "screenReader": "Map showing  the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
+    },
+    "reverseBulk": {
+      "reverseExportFiles": {
+        "exportDataCSVId": "exportCSV",
+        "exportDataCSV": "export to CSV",
+        "exportDataGeoJSONId": "exportGeoJSON",
+        "exportDataGeoJSON": "export to GeoJSON",
+        "metaNotAvail": "Metadata not available",
+        "notDataAvail": "No data to export",
+        "csvHeaders": "Index ID,Index Ranking,physical Address, Latitude,Longitude,Confidence,Distance from original,Accuracy"
+      },
+      "ReturnAmountSelector": {
+        "selectID": "numberOfCandidates",
+        "label": "Select the number of candidates to send per entry",
+        "hint": "Amount of items the API will return per call"
+      },
+      "singleResultID": {
+        "header": "Input IDs with only one result",
+        "errorMess": "These items will not be included in the tables below"
+      },
+      "reverseCallAPIReturn": {
+        "dataProcessingSummary": "Data Processing Summary",
+        "dataProcessingPara": "The data has been cleaned and prepared for the API call. Below is a summary of the processed data, including any detected errors. If errors are present, please verify that the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values fall within Canada's boundaries. Additionally, ensure that the input data is sufficiently detailed to produce accurate results. Incomplete or imprecise inputs may affect the quality of the output.",
+        "inputLength": "Number of lines received from CSV",
+        "cleanedLength": "Number of valid entries",
+        "errorLength": "Number of errors",
+        "dataReceivedDetails": "Recieved Data Details",
+        "recievedDataJsonPreview": "Recieved Data review",
+        "cleanDataPreview": "Cleaned Data preview",
+        "previewData": {
+          "inputId": "Input ID",
+          "ddLat": "Latitude",
+          "ddLong": "Longitude"
+        },
+        "inputDataDetails": "click to view inputted details",
+        "cleanDataDetails": "click to preview cleaned data",
+        "errorDataDetails": "click to preview errors",
+        "errorPara": "Data cleaning error—likely due to coordinates outside of Canada or insufficient location detail. Please review the latitude (41.679999 to 83.113336) and longitude (-141.001087 to -52.622111) values before continuing or make the necessary corrections and recheck the input."
+      },
+      "fileUpload": "File Upload and Setting",
+      "upload": "Upload a CSV file:",
+      "returnAmountHeader": "Select Number of Return Candidates per input:",
+      "returnAmount": "Number of candidates",
+      "value": "Value",
+      "chooseFile": "choose File",
+      "reverseButton": "Reverse Geocode",
+      "resultsHeader": "Results",
+      "allResultsButton": "Download all results",
+      "rowsInOut": "Total Rows Submitted / Returned",
+      "oneResultHeader": "The following inputs returned only 1 result",
+      "oneResultPara": "This means the latitude and/or longitude are not accurate enough to create a match. Please check these and try again.",
+      "tableRange": "Range of confidence results",
+      "tableCount": "Count of result",
+      "jumpToPage": "Jump to page",
+      "rowsPerPage": "Rows per page",
+      "outputTable": {
+        "select": "Select",
+        "inputID": "Input ID",
+        "ranking": "Input ID Ranking",
+        "address": "Physical Address",
+        "lat": "Latitude",
+        "lon": "Longitude",
+        "confidenceLevel": "Confidence Level",
+        "accuracy": "Accuracy",
+        "distance": "Distance from original"
+      },
+      "map": {
+        "distance": "Distance from original",
+        "streetName": "Street name",
+        "locality": "Locality",
+        "province": "Province",
+        "screenReader": " Map showing the original input geolocations along with the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
+      },
+      "exportSelect": "Export Selected",
+      "clearSelect": "Clear Selected",
+      "firstButton": "First",
+      "lastButton": "Last"
+    },
+    "tablePageation": {
+      "itemsID": "itemsPerPage",
+      "itemsPerPage": "Items per page",
+      "hint": "Select the number of items per page",
+      "next": "Next",
+      "ariaNext": "Next page",
+      "previous": "Previous",
+      "ariaPrevious": "Previous page",
+      "goToPage": "Go to page"
+    }
+  },
+  "footer": {
+    "additionalNav": "Additional navigation",
+    "resultsExplained": "Geocoding Results Explanation",
+    "faq": "Frequently Asked Questions"
+  },
+  "menu": {
+    "title": "Pelias Geocoder",
+    "home": "Home",
+    "bulkFile": "Bulk Files",
+    "addressBulkFile": "Bulk Address Geocoding Input",
+    "reverseBulkFile": "Reverse Geolocation Bulk Input",
+    "developers": "Developers",
+    "contactUs": "Contact Us",
+    "skipNav": "Skip to main content"
+  },
+  "pages": {
+    "addressBulkFile": {
+      "title": "Address Bulk Files"
+    },
+    "contactUs": {
+      "title": "Contact Us",
+      "subTitle": "Please enter your contact details below. Once completed, send the form using the “submit” button below the form. Once the form has been sent, your e-mail application will open. You can also contact us directly by e-mail:",
+      "subject": {
+        "title": "Reasons for Contacting Us",
+        "hintMessage": "Choose 1 option",
+        "select": "Reasons for Contacting Us",
+        "feedback": "Feedback or Suggestions",
+        "bug": "Reporting a Bug or Issue",
+        "helpOption": "Requesting Support or Help",
+        "inquire": "Inquiring About Products or Services",
+        "followingUp": "Following Up on a Previous Request"
+      },
+      "formTitle": "Give feedback, ask for help or contact us to find out more. ",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "required": "required",
+      "submitButton": "Submit",
+      "thankYou": {
+        "title": "Thank you for your message",
+        "message": "We have received your message and thank you for contacting us. We will get back to you as soon as possible."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "nav": "Navigation",
+      "category": "Category"
+    },
+    "forwardBulk": {
+      "BulkGeocodingInput": {
+        "title": "Bulk Address Geocoding Input",
+        "subTitle": "What is the Bulk Address Geocoding Input",
+        "description": "This tool allows users to input multiple addresses or locations at once to get geocoding results in bulk. Users can upload a CSV file containing the addresses, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page."
+      },
+      "HowToUseBulkInput": {
+        "title": "How to use Bulk Input",
+        "steps": {
+          "fileRequirement": "The file must be a CSV.",
+          "columnRequirement1": "Make sure the column to transform is called",
+          "columnRequirement2": ", and there is a column named ",
+          "dataPreparation": "The tool cleans and formats the addresses for geocoding.",
+          "dataSubmission": "Once the data is ready, it is sent to the Pelias API.",
+          "apiResponse": "The API returns the results with confidence levels and additional data.",
+          "exportOption": "You can export the results as a CSV or GeoJSON."
+        }
+      },
+      "InputUploadTitle": "Input Upload"
+    },
+    "geocodingExplanation": {
+      "title": "Geocoding Results Explanation",
+      "underTitleHeader": "Understanding Match Types in Pelias",
+      "underTitlePara": "When Pelias returns geocoding results, it uses different types of matches to determine the accuracy of the location.",
+      "matchTypes": {
+        "title": "Match types",
+        "exact": "Exact/Rooftop Matches",
+        "exactPara": "These matches are very accurate and pinpoint the exact location of an address.",
+        "centroid": "Centroid Match",
+        "centroidPara": "These matches place the address at the center of a larger area, like a city or postal code region.",
+        "interpolation": "Interpolation Matches",
+        "interpolationPara": "These matches estimate the address location based on nearby known addresses or along road segments."
+      },
+      "improvingAccuracy": {
+        "title": "Improving Geocoding Accuracy",
+        "underTitle": "To improve the accuracy of geocoding results, follow these steps",
+        "verifyAddress": {
+          "title": "Verify Address Format",
+          "para": "Ensure the address is in a standardized format."
+        },
+        "spellingAbbrevs": {
+          "title": "Check Spelling and Abbreviations",
+          "para": "Correct spelling errors and standardize abbreviations."
+        },
+        "details": {
+          "title": "Include Relevant Details",
+          "para": "Provide complete address details like unit numbers and building names."
+        },
+        "splitIntoComponents": {
+          "title": "Split Civic Addresses into Components",
+          "para": "Break down addresses into street number, street name, city, province, etc."
+        },
+        "billingualReqs": {
+          "title": "Consider Bilingual Requirements",
+          "para": "Handle bilingual addresses and special characters correctly."
+        },
+        "standardDigraphs": {
+          "title": "Convert Provinces/Territories to Standard Digraphs",
+          "para": "Use two-letter codes for provinces and territories."
+        },
+        "specialChars": {
+          "title": "Remove Special Characters",
+          "para": "Clean data by removing non-alphanumeric characters."
+        },
+        "capitilization": {
+          "title": "Standardize Capitalization",
+          "para": "Ensure consistent capitalization."
+        },
+        "addressVars": {
+          "title": "Account for Address Variations",
+          "para": "Handle different address formats consistently."
+        }
+      },
+      "lessAccurateMatch": {
+        "title": "Implications of Less Accurate Matches",
+        "underTitle": "Less accurate matches, like centroid or interpolation matches, can impact spatial accuracy and limit the reliability of spatial analyses.",
+        "spatialAccuracy": "Spatial Accuracy",
+        "spatialAccuracyPara": "Matches that are not exact may place addresses at centroids or interpolate along road segments, potentially misrepresenting spatial contexts.",
+        "limitedSpatialAccuracy": "Limitations to Spatial Analyses",
+        "limitedSpatialAccuracyPAra": "Inaccurate geocoding matches can introduce errors in studies such as demographic analysis or emergency response planning."
+      },
+      "understandingGeocodingResults": "Understanding Geocoding Results",
+      "understandingGeocodingResultsPara": "Geocoding is the process of converting addresses into geographic coordinates (like latitude and longitude). When you use a geocoding service like Pelias, you get structured output.",
+      "property": "Property",
+      "description": "Property Description",
+      "apiFeature": {
+        "title": "API Features",
+        "tableTitle": "API Features table",
+        "features": "Represents the list of results you get from the geocoding service.",
+        "bbox": "The bounding box of the feature, defining the area that includes the location.",
+        "geometry": {
+          "coordinates": "The latitude and longitude of the location in decimal degrees, based on WGS 1984.",
+          "type": " The type of geometry (e.g., Point, Polygon)."
+        },
+        "type": "The type of feature (e.g., Feature).",
+        "properties": {
+          "properties": "Additional information about the feature.",
+          "country": "The country of the location.",
+          "gid": "A unique identifier for the location.",
+          "locality_gid": "The unique identifier for the locality (city or town).",
+          "neighbourhood_gid": " The unique identifier for the neighborhood.",
+          "confidence": "A score indicating how confident the service is about the accuracy of the location.",
+          "country_a": "The abbreviation for the country.",
+          "county": "The county of the location.",
+          "locality": "The locality (city or town) of the location.",
+          "accuracy": "The type of accuracy (e.g., rooftop, centroid).",
+          "source": "The data source of the location.",
+          "label": "A human-readable label for the location.",
+          "region_a": "The abbreviation for the region.",
+          "layer": "The layer or category of the feature (e.g., address, venue).",
+          "country_code": "The country code.",
+          "street": "The street name.",
+          "neighbourhood": "The neighborhood.",
+          "region_gid": "The unique identifier for the region.",
+          "name": "The name of the location.",
+          "match_type": "The type of match (e.g., exact, fallback, interpolated).",
+          "id": "A unique ID and source of the location.",
+          "source_id": "The source ID of the location.",
+          "country_gid": "The unique identifier for the country.",
+          "region": "The region of the location.",
+          "county_gid": "The unique identifier for the county."
+        }
+      }
+    },
+    "landingPage": {
+      "title": "Welcome to Pelias Geocoder",
+      "underHeader": "We're excited to offer our in-house geolocation services, including batch geocoding, to ensure your data is accurate, cost-effective, secure, and transparent. This service is the essential starting point for a variety of analytical and spatial projects. Our process includes tech exploration, prototyping, refining based on user feedback, and expanding coverage to meet your needs.",
+      "cardFlipCaption": "By using our in-house solution, you can rely on trusted results without the risks and costs associated with external providers. Join us on this journey to improve efficiency and safeguard your data.",
+      "cardFlip": {
+        "enhancedPrivacyTitle": "Enhanced privacy",
+        "enhancedPrivacyPara": "Ensuring data stays within PHAC's network",
+        "costSavingTitle": "Cost savings",
+        "costSavingPara": "Reduce expenses by avoiding third-party services.",
+        "traceabilityTitle": "Traceability",
+        "traceabilityPara": "Easily track and manage your data.",
+        "flexibilityTitle": "Flexibility and modularity",
+        "flexibilityPara": "Adapt our services to fit your specific needs."
+      },
+      "landingPagePara": "Developing in-house, geolocation services (i.e. 'batch geocoding') within PHAC ensuring accurate, cost-effective, secure, trusted, and transparency results as a common but important start of multiple analytical, spatial journeys. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external. ",
+      "apiSectionTitle": "Try Our Service",
+      "apiSectionPara": "This is a Canadian-only service, with all offers limited to locations within domestic boundaries. We can only provide geolocation data for addresses within the provinces and territories of Canada, which means that we cannot support international addresses or geolocations as inputs.",
+      "clearResults": "Clear the Results"
+    },
+    "python": {
+      "title": "Python API",
+      "pythonParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
+      "forwardPythonDetails": "Example of address geocoding with Python",
+      "CopyForwardPythonCode": "Copy geocoding Python code forward to clipboard",
+      "forwardPythonCode": "Code for Address Geocoding using python",
+      "reversePythonDetails": "Example of reverse geocoding with Python",
+      "CopyReversePythonCode": "Copy the reverse geocoding Python code to the clipboard",
+      "reversePythonCode": "Code for reverse geocodingusing python"
+    },
+    "reverseBulk": {
+      "title": "Reverse Geocoding Bulk Input",
+      "subTitle": "What is Reverse Geocoding Bulk Input",
+      "subtTitlePara": "This tool allows users to input multiple Longitude and Latitude locations at once to get geocoding results in bulk. Users can upload a CSV file containing the geolocations, the tool then processes these inputs and provides the geocoded results, which can be downloaded or viewed on the page.",
+      "howToUse": {
+        "title": "How to use the Reverse Geocoding Bulk Input service",
+        "fileType": "File type must be a CSV",
+        "one": "For any data you wish to transform, ensure the three (3) following column are in your CSV Headers",
+        "two": "The tool cleans and formats the locations, preparing them for geocoding.",
+        "three": "Once the data is prepared and ready, the data will be sent to the Pelias Application Programming Interface (API).",
+        "four": "After the API receives the data, it will return the results, including confidence levels and additional data.",
+        "five": "Users will automatically download a copy of the results in a CSV file and a GeoJSON file.",
+        "six": "Users can export selected results in the table at the bottom of the page once results have been returned. Selected results will be available in a CSV file and a GeoJSON file."
+      },
+      "inputUpload": "Input Upload for bulk data"
+    },
+    "rshiny": {
+      "title": "R API",
+      "rshinyParagraph": "Developing in-house geolocation services within PHAC to improve accuracy, precision, cost-effectiveness, security, and transparency. Phases include tech exploration, prototyping, refining based on user interaction, and expanding coverage. Advantages include enhanced privacy, cost savings, traceability, independence from external resources, flexibility, and modularity. Avoids reliance on third-party services, ensuring data stays within PHAC's network and reducing costs associated with external queries.",
+      "forwardRDetails": "Example of address geocoding with R",
+      "CopyForwardRCode": "Copy geocoding R code forward to clipboard",
+      "forwardRCode": "Code for Address Geocoding using R",
+      "reverseRDetails": "Example of reverse geocoding with R",
+      "CopyReverseRCode": "Copy the reverse geocoding R code to the clipboard",
+      "reverseRCode": "Code for reverse geocodingusing R"
+    }
+  },
+  "copyCode": "Copy code",
+  "codeCopied": "The code has been copied",
+  "copy": "Copy",
+  "error": "Errors",
+  "legend": {
+    "confidence": "Confidence"
+  },
+  "loading": "Loading",
+  "navigateToSection": "Navigate to section",
+  "search": "Search",
+  "tableOfContents": "Table of contents",
+  "reset": "Reset"
 }

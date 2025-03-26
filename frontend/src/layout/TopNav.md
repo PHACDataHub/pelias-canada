@@ -7,6 +7,7 @@ The `TopNav` component is a React component designed to render a navigation bar 
 ### Main Menu
 
 The main menu consists of:
+
 - **Logo/Title**: Displayed as a link to the homepage (`/`).
 - **Menu Toggle Button**: A button to toggle the visibility of the main menu items.
 - **Menu Items**: Links to various sections such as Home, Bulk Input, and Frequently Asked Questions.
@@ -14,6 +15,7 @@ The main menu consists of:
 ### Dropdown Menu
 
 The dropdown menu appears under the "Developers" button and includes:
+
 - **Dropdown Toggle Button**: Toggles the visibility of the dropdown menu.
 - **Dropdown Menu Items**: Links to specific developer resources like R Shiny API and Python API.
 
@@ -59,5 +61,5 @@ import TopNav from "./TopNav"
 
 
       <TopNav />
-    
+
 ```

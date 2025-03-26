@@ -1,102 +1,101 @@
 [
-    {
-      "InputID": 1,
-      "PhysicalAddress": "P.O. Box 5678, Vancouver, BC",
-      "Latitude": 49.2819,
-      "Longitude": -123.11874,
-      "Confidence Level": "100%",
-      "MatchType": "exact",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 2,
-      "PhysicalAddress": "P.O. Box 123, Trois-Rivières, QC",
-      "Latitude": 46.363917,
-      "Longitude": -72.609021,
-      "Confidence Level": "100%",
-      "MatchType": "exact",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 3,
-      "PhysicalAddress": "RR#7, Box 89, St. John's, NL",
-      "Latitude": 47.56494,
-      "Longitude": -52.70931,
-      "Confidence Level": "60%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 4,
-      "PhysicalAddress": "1234 Elm St, Montreal, QC",
-      "Latitude": 45.572744,
-      "Longitude": -73.586295,
-      "Confidence Level": "60%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 5,
-      "PhysicalAddress": "123 Anywhere St., Ottawa, ON",
-      "Latitude": 45.209415,
-      "Longitude": -75.783876,
-      "Confidence Level": "60%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 6,
-      "PhysicalAddress": "RR 5, Box 234, Charlottetown, PE",
-      "Latitude": 46.249282,
-      "Longitude": -63.131325,
-      "Confidence Level": "60%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 7,
-      "PhysicalAddress": "6789 King St West, Suite 100, Calgary, AB",
-      "Latitude": 51.056508,
-      "Longitude": -114.033822,
-      "Confidence Level": "60%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 8,
-      "PhysicalAddress": "3100 Carling Ave, Ottawa, ON",
-      "Latitude": 45.353519,
-      "Longitude": -75.806883,
-      "Confidence Level": "100%",
-      "MatchType": "exact",
-      "Accuracy": "point"
-    },
-    {
-      "InputID": 9,
-      "PhysicalAddress": "987 Rue Saint-Denis, Québec, QC",
-      "Latitude": 46.7923359,
-      "Longitude": -71.2389753,
-      "Confidence Level": "80%",
-      "MatchType": "interpolated",
-      "Accuracy": "point"
-    },
-    {
-      "InputID": 10,
-      "PhysicalAddress": "345 Maple Ave, Toronto, ON",
-      "Latitude": 43.67507,
-      "Longitude": -79.374631,
-      "Confidence Level": "80%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    },
-    {
-      "InputID": 11,
-      "PhysicalAddress": "4321 Rue de la Montagne, Montréal, QC",
-      "Latitude": 45.494728,
-      "Longitude": -73.568439,
-      "ConfidenceLevel": "80%",
-      "MatchType": "fallback",
-      "Accuracy": "centroid"
-    }
-  ]
-  
+  {
+    "InputID": 1,
+    "PhysicalAddress": "P.O. Box 5678, Vancouver, BC",
+    "Latitude": 49.2819,
+    "Longitude": -123.11874,
+    "Confidence Level": "100%",
+    "MatchType": "exact",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 2,
+    "PhysicalAddress": "P.O. Box 123, Trois-Rivières, QC",
+    "Latitude": 46.363917,
+    "Longitude": -72.609021,
+    "Confidence Level": "100%",
+    "MatchType": "exact",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 3,
+    "PhysicalAddress": "RR#7, Box 89, St. John's, NL",
+    "Latitude": 47.56494,
+    "Longitude": -52.70931,
+    "Confidence Level": "60%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 4,
+    "PhysicalAddress": "1234 Elm St, Montreal, QC",
+    "Latitude": 45.572744,
+    "Longitude": -73.586295,
+    "Confidence Level": "60%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 5,
+    "PhysicalAddress": "123 Anywhere St., Ottawa, ON",
+    "Latitude": 45.209415,
+    "Longitude": -75.783876,
+    "Confidence Level": "60%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 6,
+    "PhysicalAddress": "RR 5, Box 234, Charlottetown, PE",
+    "Latitude": 46.249282,
+    "Longitude": -63.131325,
+    "Confidence Level": "60%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 7,
+    "PhysicalAddress": "6789 King St West, Suite 100, Calgary, AB",
+    "Latitude": 51.056508,
+    "Longitude": -114.033822,
+    "Confidence Level": "60%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 8,
+    "PhysicalAddress": "3100 Carling Ave, Ottawa, ON",
+    "Latitude": 45.353519,
+    "Longitude": -75.806883,
+    "Confidence Level": "100%",
+    "MatchType": "exact",
+    "Accuracy": "point"
+  },
+  {
+    "InputID": 9,
+    "PhysicalAddress": "987 Rue Saint-Denis, Québec, QC",
+    "Latitude": 46.7923359,
+    "Longitude": -71.2389753,
+    "Confidence Level": "80%",
+    "MatchType": "interpolated",
+    "Accuracy": "point"
+  },
+  {
+    "InputID": 10,
+    "PhysicalAddress": "345 Maple Ave, Toronto, ON",
+    "Latitude": 43.67507,
+    "Longitude": -79.374631,
+    "Confidence Level": "80%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  },
+  {
+    "InputID": 11,
+    "PhysicalAddress": "4321 Rue de la Montagne, Montréal, QC",
+    "Latitude": 45.494728,
+    "Longitude": -73.568439,
+    "ConfidenceLevel": "80%",
+    "MatchType": "fallback",
+    "Accuracy": "centroid"
+  }
+]

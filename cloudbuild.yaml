@@ -1,0 +1,50 @@
+# from safeinputs
+steps:
+  - id: 'Install dependencies'
+    name: 'node:22-alpine3.21@sha256:f2dc6eea95f787e25f173ba9904c9d0647ab2506178c7b5b7c5a3d02bc4af145'
+    entrypoint: 'npm'
+    dir: ./
+    args: ['run', 'ci:all'] # script in the root package.json which runs ci at the root and in each sub-project
+
+  - id: 'Prettier check'
+    name: 'node:22-alpine3.21@sha256:f2dc6eea95f787e25f173ba9904c9d0647ab2506178c7b5b7c5a3d02bc4af145'
+    entrypoint: 'npm'
+    dir: ./
+    args: ['run', 'prettier']
+
+  - id: 'Eslint check'
+    name: 'node:22-alpine3.21@sha256:f2dc6eea95f787e25f173ba9904c9d0647ab2506178c7b5b7c5a3d02bc4af145'
+    entrypoint: 'npm'
+    dir: ./
+    args: ['run', 'eslint:ci'] # currently allowing warnings, but could be tightened up
+
+  - id: generate-sbom-if-main
+    name: 'gcr.io/cloud-builders/docker@sha256:b991d50960b337f581ad77ea2a59259a786d177019aa64d8b3acb01f65dbc154'
+    dir: ui
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "$BRANCH_NAME"
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
+          docker run --rm -v /workspace:/workspace anchore/syft:latest /workspace -o cyclonedx-json > /workspace/sbom.json
+        else
+          exit 0
+        fi
+
+  # - id: upload-sbom-to-gcs-bucket-if-main
+  #   name: 'gcr.io/cloud-builders/gsutil@sha256:386bf19745cfa9976fc9e7f979857090be9152b30bf3f50527c6ace1de9d2673'
+  #   entrypoint: 'bash'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       if [[ "$BRANCH_NAME" == "main" ]]
+  #       then
+  #         gsutil cp /workspace/sbom.json gs://pelias-devsecops-outputs-for-dashboard/SBOM/SBOM-${COMMIT_SHA}.json
+  #       else
+  #         exit 0
+  #       fi
+
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET

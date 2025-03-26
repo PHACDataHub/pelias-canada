@@ -1,0 +1,14 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": [".*rc", "*.json", "*.jsonc"],
+      "options": {
+        "trailingComma": "none",
+        "singleQuote": false
+      }
+    }
+  ]
+}

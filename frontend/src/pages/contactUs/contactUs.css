@@ -11,7 +11,9 @@
   color: rgb(211, 8, 12);
 }
 
-.form-input, .form-select, .form-textarea-message {
+.form-input,
+.form-select,
+.form-textarea-message {
   display: block;
   width: 100%;
   padding: 6px 12px;
@@ -22,7 +24,9 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition:
+    border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
   margin-bottom: 10px;
 }
 
@@ -30,7 +34,9 @@
   min-height: 100px;
 }
 
-.form-input:focus, .form-select:focus, .form-textarea-message:focus {
+.form-input:focus,
+.form-select:focus,
+.form-textarea-message:focus {
   border-color: #0056b3;
   box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.25);
 }
@@ -65,4 +71,3 @@
 .thank-you-message p {
   color: #004d00;
 }
-
