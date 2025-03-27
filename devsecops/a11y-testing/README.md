@@ -112,6 +112,8 @@ gcloud builds submit --config ./devsecops/axe-testing/cloudbuild.yaml
 
 This runs both the unit and end-to-end tests. The end to end test spins up a webserver with both an accessible and inaccessible pages to ensure the scan is behaving as expected.
 
+Commit to GitHub in this directory (on any branch) will trigger the accessibility cloudbuild to run. This will run the tests on the accessibility testing code and save the test code coverage to a storage bucket. If any test fails, it will block the merge to main branch.
+
 ## Other Considerations
 
 - Add tests for language, such as the inclusion of both French and English aria labels.
