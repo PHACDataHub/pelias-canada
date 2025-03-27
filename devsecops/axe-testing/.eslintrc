@@ -5,7 +5,7 @@
     "extends": [
       "../../.eslintrc",
       "plugin:n/recommended",
-      "plugin:security/recommended-legacy",
+      "plugin:security/recommended",
       "plugin:@microsoft/sdl/node"
     ],
     "rules":  {
