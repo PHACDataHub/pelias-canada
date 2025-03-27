@@ -2,6 +2,10 @@
     "env": {
         "node": true
       },
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2024
+      },
     "extends": [
       "../../.eslintrc",
       "plugin:n/recommended",
