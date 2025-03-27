@@ -237,7 +237,9 @@ async function performInteractions(route, page, allResults) {
 
 export async function runAccessibilityScan(
   // isSafeInputs = false,
+ 
   HOMEPAGE_URL = process.env.HOMEPAGE_URL,
+  customRoutes = null
 ) {
   const visitedPages = new Set(); // To track visited pages and avoid duplication
   const allResults = []; // Collect all processed results
@@ -284,7 +286,7 @@ export async function runAccessibilityScan(
 
   // change ------------------------------------------------------------------
   // ---------- Define routes to (not-)crawl (more like just visit and interact) ---------- (as this is a SPA using react-router-dom, and your app’s routing is dynamic)
-  const ROUTES_TO_SCAN = [
+  const ROUTES_TO_SCAN = customRoutes || [
     '/',
     '/reverse-geocoding-bulk',
     '/bulk-address-geocoding',

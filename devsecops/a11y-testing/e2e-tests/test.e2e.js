@@ -8,8 +8,9 @@ describe('End-to-End Accessibility Test', () => {
     // const isSafeInputs = false; // Skips the Safe Inputs specific login steps
     // eslint-disable-next-line @microsoft/sdl/no-insecure-url
     const HOMEPAGE_URL = 'http://127.0.0.1:8080';
+    const TEST_ROUTES = ['/accessible.html', '/inaccessible.html'];
     // scanResults = await runAccessibilityScan(isSafeInputs, HOMEPAGE_URL);
-    scanResults = await runAccessibilityScan(HOMEPAGE_URL);
+    scanResults = await runAccessibilityScan(HOMEPAGE_URL, TEST_ROUTES);
   });
 
   it('should crawl and scan more than one page', () => {
