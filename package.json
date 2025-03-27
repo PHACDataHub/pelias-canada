@@ -6,7 +6,7 @@
   "keywords": [],
   "license": "MIT",
   "scripts": {
-    "ci:all": "npm ci && (cd ./frontend && npm ci)",
+    "ci:all": "npm ci && (cd ./frontend && npm ci) && (cd ./devsecops/axe-testing && npm ci)",
     "prettier": "prettier --check .",
     "prettier:write": "prettier --write --log-level warn .",
     "eslint": "eslint --max-warnings 0 --cache .",
