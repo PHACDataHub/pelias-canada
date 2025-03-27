@@ -146,5 +146,14 @@ tasks:
           --branch-pattern=".*" 
           --build-config="cloudbuild.yaml"   
           --include-logs-with-status 
+      - >
+        gcloud builds triggers create github 
+          --name="phx-01hnn9wb0eg-a11y-cloudbuild" 
+          --region={{.REGION}} 
+          --repo-name="pelias-canada" 
+          --repo-owner="PHACDataHub" 
+          --branch-pattern=".*" 
+          --build-config="./devsecops/a11y/cloudbuild.yaml"   
+          --include-logs-with-status 
 
       # Create a dashboard user and give read permissions on the output storage bucket - TODO
