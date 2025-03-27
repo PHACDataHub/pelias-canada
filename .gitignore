@@ -6,3 +6,4 @@ NLFD_test.csv
 **/axe-results
 **/**.env
 **/coverage
+**/**server.pid
