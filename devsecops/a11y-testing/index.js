@@ -237,9 +237,9 @@ async function performInteractions(route, page, allResults) {
 
 export async function runAccessibilityScan(
   // isSafeInputs = false,
- 
+
   HOMEPAGE_URL = process.env.HOMEPAGE_URL,
-  customRoutes = null
+  customRoutes = null,
 ) {
   const visitedPages = new Set(); // To track visited pages and avoid duplication
   const allResults = []; // Collect all processed results
