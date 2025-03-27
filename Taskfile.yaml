@@ -139,7 +139,7 @@ tasks:
       # Create a cloudbuild trigger for additional DevSecOps cloudbuild pipelines 
       - >
         gcloud builds triggers create github 
-          --name="phx-01hnn9wb0eg-main-cloudbuild" 
+          --name="phx-01hnn9wb0eg-main-cloudbuild-trigger" 
           --region={{.REGION}} 
           --repo-name="pelias-canada" 
           --repo-owner="PHACDataHub" 
