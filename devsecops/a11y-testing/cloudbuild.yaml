@@ -1,6 +1,6 @@
 steps:
   - id: 'Run tests for a11y scanning'
-    dir: 'devsecops/axe-testing'
+    dir: 'devsecops/a11y-testing'
     name: 'gcr.io/cloud-builders/docker@sha256:b991d50960b337f581ad77ea2a59259a786d177019aa64d8b3acb01f65dbc154'
     script: |
       #!/usr/bin/env bash
@@ -18,7 +18,7 @@ steps:
 
   - id: 'Upload test coverage report to bucket'
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest@sha256:3a24ff5f089d9ce3627306873ef1e1061488a63ae12c0bd0b5c24ec5ee594798'
-    dir: 'devsecops/axe-testing'
+    dir: 'devsecops/a11y-testing'
     entrypoint: bash
     args:
       - '-c'
