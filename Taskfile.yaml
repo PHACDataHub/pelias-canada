@@ -153,7 +153,7 @@ tasks:
           --repo-name="pelias-canada" 
           --repo-owner="PHACDataHub" 
           --branch-pattern=".*" 
-          --build-config="./devsecops/a11y/cloudbuild.yaml"   
+          --build-config="./devsecops/a11y-testing/cloudbuild.yaml"   
           --include-logs-with-status 
 
       # Create a dashboard user and give read permissions on the output storage bucket - TODO
