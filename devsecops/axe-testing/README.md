@@ -2,7 +2,7 @@
 
 Automated accessibility checks are incorporated into both the development process and the CI pipeline. This ensures that a subset of accessibility issues are caught early, allowing developers to fix them before they reach production. This is currently implimented as a soft gate, meaning the build may not fail on minor issues (at this time any issues). As the team and project matures, more tests will be added, and the strictness of the cut-off will be increased.
 
-*It is important to note that this does not replace manual testing, and does not yet verify bilingualism.* 
+_It is important to note that this does not replace manual testing, and does not yet verify bilingualism._
 
 We're using:
 
@@ -14,6 +14,7 @@ We're using:
 ## To Run
 
 ### Locally
+
 Do do this, you will need to have puppeteer and chromium installed - alternatively, run using the Docker - instructions in the next section.
 
 ```
@@ -54,10 +55,11 @@ OR run the accessibility scan using Docker container
 cd axe-testing && npm run start:docker
 
 ```
+
 docker build -t axe-scan .
 
 docker run --rm \
-  -e HOMEPAGE_URL=https://3000-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev \
+ -e HOMEPAGE_URL=https://3000-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev \
 axe-scan
 
 ### Or in GCP by manualy triggering Cloud Build
@@ -125,6 +127,5 @@ This runs both the unit and end-to-end tests. The end to end test spins up a web
 - Other options (paid) intelligent guided tests into automated workflows for manual testing
   https://www.deque.com/blog/deque-introduces-three-new-features-to-advance-accessibility-test-automation/
   keyboard trap detections
-
 
 Docker compose up --build
