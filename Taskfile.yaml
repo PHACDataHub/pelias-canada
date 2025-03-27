@@ -137,7 +137,6 @@ tasks:
           --role="roles/storage.objectUser"
 
       # Create a cloudbuild trigger for additional DevSecOps cloudbuild pipelines 
-      #    --service-account="projects/{{.PROJECT_ID}} /serviceAccounts/890802265070@cloudbuild.gserviceaccount.com" 
       - >
         gcloud builds triggers create github 
           --name="phx-01hnn9wb0eg-main-cloudbuild" 
