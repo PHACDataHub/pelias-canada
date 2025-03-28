@@ -15,11 +15,11 @@ We're using:
 
 ### Locally
 
-Do do this, you will need to have puppeteer and chromium installed - alternatively, run using the Docker - instructions in the next section.
+Do do this, you will need to have puppeteer and chromium installed - alternatively, you can run using the Docker without installing these in you dev environment - instructions in the next section.
 
 ```
-sudo apt update
-sudo apt install -y chromium-browser
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
 export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
 ```
@@ -36,8 +36,10 @@ npm run dev
 
 ```
 cd devsecops/axe-testing
-# echo "HOMEPAGE_URL=https://3000-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev/" > .env
-echo "HOMEPAGE_URL=http://127.0.0.1:3000/" > devsecops/axe-testing/.env
+
+echo "HOMEPAGE_URL=http://127.0.0.1:3000/" > .env
+echo RESULTS_DIR=./axe-results > .env
+echo PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome > .env
 ```
 
 3. Run the accessibility scan:
@@ -48,19 +50,38 @@ npm install
 npm start
 ```
 
-OR run the accessibility scan using Docker container
+After run, confirm in debug images that it actually ran and didn't run into cloud workstation permsission errors, if you did - try the docker option.
+
+OR run the accessibility scan using Docker container (this assumes the frontend is running):
 
 ```
 
-cd axe-testing && npm run start:docker
+cd axe-testing
+npm run start:docker
 
 ```
 
-docker build -t axe-scan .
+<!-- docker build -t axe-scan .
 
 docker run --rm \
  -e HOMEPAGE_URL=https://3000-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev \
-axe-scan
+axe-scan -->
+
+### Or run using docker compose
+
+This runs the docker-compose.axe.yaml at the root of the project. (No need to start the front end separately.)
+
+At the root,
+
+```
+docker compose -f docker-compose.axe.yaml up --build
+```
+
+When done, remove the volumes and ensure containers stopped:
+
+```
+docker compose -f docker-compose.axe.yaml down -v
+```
 
 ### Or in GCP by manualy triggering Cloud Build
 
@@ -97,6 +118,8 @@ This is triggered in the Continuous Integration as a step in the [ui/cloudbuild.
 To bypass specific URLs or violation ids, the [axeignore.json](./axeignore.json) file is used to define exceptions.
 
 ## To Test
+
+In the devescops/a11y directory:
 
 ```
 npm run test:all:docker
