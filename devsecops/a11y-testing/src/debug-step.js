@@ -1,4 +1,5 @@
 import fs from 'fs';
+
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,6 +14,7 @@ export function debugStep(page, label) {
 
   return Promise.all([
     page.screenshot({ path: screenshotPath, fullPage: true }),
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     page.content().then((html) => fs.writeFileSync(htmlPath, html)),
   ]);
 }

@@ -7,9 +7,9 @@ import puppeteer from 'puppeteer';
 import waitOn from 'wait-on';
 
 // import { crawlPage } from './src/crawl-page.js';
-import { processAxeReport } from './src/process-axe-report.js';
 import { performInteractions } from './src/perform-interactions.js';
 import { debugStep } from './src/debug-step.js';
+import { processAxeReport } from './src/process-axe-report.js';
 
 dotenv.config();
 

@@ -1,3 +1,5 @@
+import { AxePuppeteer } from '@axe-core/puppeteer';
+
 import { debugStep } from './debug-step.js';
 
 export async function performInteractions(route, page, allResults) {
