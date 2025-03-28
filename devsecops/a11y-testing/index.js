@@ -59,24 +59,8 @@ export async function runAccessibilityScan(
   const page = await browser.newPage();
   await page.setBypassCSP(true);
 
-  // // Navigate to Landing Page
-  // await page.goto(HOMEPAGE_URL, { waitUntil: 'networkidle2' }); // Wait until the page is fully loaded
-
-  // // Perform accessibility scan on the login page (localhost) before logging in
-  // console.log('\nAssessing login page:', HOMEPAGE_URL);
-  // const homePageResults = await new AxePuppeteer(page).analyze();
-
-  // allResults.push({
-  //   url: HOMEPAGE_URL,
-  //   results: homePageResults,
-  // });
-
-  // await loginToSafeInputs(page, isSafeInputs);
-
-  // change ------------------------------------------------------------------
-  // ---------- Define routes to (not-)crawl (more like just visit and interact) ----------
-  // (as this is a SPA using react-router-dom, and app’s routing is dynamic some elements were't being recognized when crawling
-  const ROUTES_TO_SCAN = customRoutes || [
+  // Define routes to scan (No longer crawling - but hard coding routes to visit, scan, then interact and scan. This is done as the is a SPA using react-router-dom, and app’s routing is dynamic some elements weren't being recognized when crawling)
+  const ROUTES_TO_SCAN = customRoutes || [ // customRoutes are used in test cases
     '/',
     '/reverse-geocoding-bulk',
     '/bulk-address-geocoding',
@@ -96,6 +80,7 @@ export async function runAccessibilityScan(
       continue;
     }
 
+    // See note above - if we are completely eliminating crawling - blacklist will be removed. 
     const isBlacklisted = blacklistPatterns.some((pattern) => {
       const regex = new RegExp(pattern);
       return regex.test(url);
@@ -161,54 +146,10 @@ export async function runAccessibilityScan(
   };
 }
 
-// ---------- CLI Entry ----------
+// CLI entry for tests
 if (import.meta.url.startsWith('file:')) {
   const modulePath = url.fileURLToPath(import.meta.url);
   if (process.argv[1] === modulePath) {
     await runAccessibilityScan();
   }
 }
-// ----------------------------------------------------------------------------
-
-//   // Start crawling from the dashboard or starting point
-//   await crawlPage(
-//     page,
-//     browser,
-//     HOMEPAGE_URL,
-//     visitedPages,
-//     allResults,
-//     blacklistPatterns,
-//   );
-
-//   const {
-//     urlsWithViolations,
-//     urlsWithSeriousImpactViolations,
-//     urlsWithIncompletes,
-//     filteredResults, // For testing
-//   } = await processAxeReport(allResults);
-
-//   console.log('\nResults Summary:');
-//   console.log('URLs with violations:', urlsWithViolations);
-//   console.log(
-//     'URLs with violations with serious impact:',
-//     urlsWithSeriousImpactViolations,
-//   );
-//   console.log('URLs with incompletes:', urlsWithIncompletes);
-
-//   // Close the browser
-//   await browser.close();
-
-//   // For testing
-//   return {
-//     urlsWithViolations,
-//     filteredResults,
-//   };
-// }
-
-// // if main, run as SafeInputs (including Safe Inputs' login section as isSafeInputs default is true)
-// if (import.meta.url.startsWith('file:')) {
-//   const modulePath = url.fileURLToPath(import.meta.url);
-//   if (process.argv[1] === modulePath) {
-//     await runAccessibilityScan();
-//   }
-// }
