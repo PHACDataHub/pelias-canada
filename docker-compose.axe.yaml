@@ -1,0 +1,36 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - a11y-network
+    # healthcheck:
+    #   test: curl -f http://localhost:3000 || exit 1
+    #   interval: 5s
+    #   retries: 10
+    #   start_period: 10s
+
+  axe-testing:
+    build:
+      context: ./devsecops/a11y-testing
+    container_name: axe-testing
+    depends_on:
+      - frontend
+      # frontend:
+      #   condition: service_healthy
+    environment:
+      - HOMEPAGE_URL=http://frontend:3000
+      - RESULTS_DIR=/app/axe-results
+    user: node
+    volumes:
+      - ./devsecops/a11y-testing/axe-results:/app/axe-results
+    networks:
+      - a11y-network
+    command: ["node", "index.js"]
+
+networks:
+  a11y-network:
+    driver: bridge

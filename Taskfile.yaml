@@ -112,3 +112,52 @@ tasks:
         --path=./k8s/
         --components="source-controller,kustomize-controller,notification-controller"
         --components-extra="image-reflector-controller,image-automation-controller"
+
+  provision-devsecops-reporting:
+    desc: Provision resources to enable DevSecOps reporting
+    cmds:
+      # Enable services for storage bucket for outputs, vunerability container scanning, pub sub  
+      - >
+        gcloud services enable cloudresourcemanager.googleapis.com 
+          eventarc.googleapis.com 
+          storage.googleapis.com 
+          pubsub.googleapis.com 
+          containeranalysis.googleapis.com 
+          containerscanning.googleapis.com
+          --project={{.PROJECT_ID}}
+
+      # Create storage bucket with 30 day retention policy for outputs and give cloudbuild service account permission to write to it
+      - >
+        gcloud storage buckets create gs://pelias-devsecops-outputs-for-dashboard 
+          --location={{.REGION}} 
+      # -> 
+      #   gcloud storage buckets update gs://pelias-devsecops-outputs-for-dashboard \
+      #     --lifecycle-file=delete-after-30-days.json
+      - >
+        gcloud storage buckets add-iam-policy-binding gs://pelias-devsecops-outputs-for-dashboard  
+          --member="serviceAccount:890802265070@cloudbuild.gserviceaccount.com" 
+          --role="roles/storage.objectUser"
+
+      # Create a cloudbuild trigger for additional DevSecOps cloudbuild pipelines 
+      - >
+        gcloud builds triggers create github 
+          --name="phx-01hnn9wb0eg-main-cloudbuild-trigger" 
+          --region={{.REGION}} 
+          --repo-name="pelias-canada" 
+          --repo-owner="PHACDataHub" 
+          --branch-pattern=".*" 
+          --build-config="cloudbuild.yaml"   
+          --include-logs-with-status 
+      - >
+        gcloud builds triggers create github 
+          --name="phx-01hnn9wb0eg-a11y-cloudbuild" 
+          --region={{.REGION}} 
+          --repo-name="pelias-canada" 
+          --repo-owner="PHACDataHub" 
+          --branch-pattern=".*" 
+          --build-config="./devsecops/a11y-testing/cloudbuild.yaml"   
+          --include-logs-with-status 
+
+      # Updated frontend cloudbuild to run on everybranch 
+
+      # Create a dashboard user and give read permissions on the output storage bucket - TODO

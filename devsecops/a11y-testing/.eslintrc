@@ -1,0 +1,41 @@
+{
+    "env": {
+        "node": true
+      },
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2024
+      },
+    "extends": [
+      "../../.eslintrc",
+      "plugin:n/recommended",
+      "plugin:security/recommended-legacy",
+      "plugin:@microsoft/sdl/node"
+    ],
+    "rules":  {
+        "n/no-unsupported-features/es-syntax": [
+          "error",
+          {
+            "ignores": ["modules"]
+          }
+        ],
+        "n/no-extraneous-import": [
+          "error",
+          {
+            "allowModules": ["src"]
+          }
+        ],
+        "no-console": 0
+      },
+    "overrides": [
+      {
+        "files": ["**/*test.unit.js", "**/*test.e2e.js"],
+        "plugins": ["jest"],
+        "env": {
+          "jest/globals": true
+        }
+      }
+    ]
+  }
+  
+  

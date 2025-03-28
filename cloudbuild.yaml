@@ -33,18 +33,18 @@ steps:
           exit 0
         fi
 
-  # - id: upload-sbom-to-gcs-bucket-if-main
-  #   name: 'gcr.io/cloud-builders/gsutil@sha256:386bf19745cfa9976fc9e7f979857090be9152b30bf3f50527c6ace1de9d2673'
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       if [[ "$BRANCH_NAME" == "main" ]]
-  #       then
-  #         gsutil cp /workspace/sbom.json gs://pelias-devsecops-outputs-for-dashboard/SBOM/SBOM-${COMMIT_SHA}.json
-  #       else
-  #         exit 0
-  #       fi
+  - id: upload-sbom-to-gcs-bucket-if-main
+    name: 'gcr.io/cloud-builders/gsutil@sha256:386bf19745cfa9976fc9e7f979857090be9152b30bf3f50527c6ace1de9d2673'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
+          gsutil cp /workspace/sbom.json gs://pelias-devsecops-outputs-for-dashboard/SBOM/${COMMIT_SHA}.json
+        else
+          exit 0
+        fi
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET

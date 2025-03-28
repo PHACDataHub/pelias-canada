@@ -85,3 +85,11 @@ We selected [Syft](https://github.com/anchore/syft), an open source tool, for SB
 The SBOM results are saved to a Google Cloud Storage bucket using the Commit SHA as part of the filename.
 
 While Syft includes licenses in the SBOM, we may also add a [specific license risk scan](https://aquasecurity.github.io/trivy/v0.47/docs/scanner/license/) to more easily flag conflicts and/or risks in the future.
+
+## Accessibility
+
+While accessibility might not traditionally be part of DevSecOps, it plays an important role in delivering compliant applications. Accessibilty can often become a bottleneck when seeking authority to operate (ATO), and since DevSecOps aims to remove bottlenecks, we're addressing this by shifting accessibility left in the development process. This approach ensures applications are built with accessibility in mind from the start, allowing developers to learn and integrate feedback from the accessibility scans and linters as they work. However, because not all accessibility issues can be caught through automation, automated scans testing is paired with manual testing at regular intervals.
+
+As the application matures, so will the accessibility testing, eventually incorporating testing for specific user flows.
+
+For further details, refer to the [a11y-testing directory](./a11y-testing/).
