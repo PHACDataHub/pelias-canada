@@ -130,7 +130,9 @@ tasks:
       - >
         gcloud storage buckets create gs://pelias-devsecops-outputs-for-dashboard 
           --location={{.REGION}} 
-          --retention-period=30d 
+      # -> 
+      #   gcloud storage buckets update gs://pelias-devsecops-outputs-for-dashboard \
+      #     --lifecycle-file=delete-after-30-days.json
       - >
         gcloud storage buckets add-iam-policy-binding gs://pelias-devsecops-outputs-for-dashboard  
           --member="serviceAccount:890802265070@cloudbuild.gserviceaccount.com" 
