@@ -8,238 +8,28 @@ import waitOn from 'wait-on';
 
 // import { crawlPage } from './src/crawl-page.js';
 import { processAxeReport } from './src/process-axe-report.js';
+import { performInteractions } from './src/perform-interactions.js';
+import { debugStep } from './src/debug-step.js';
 
 dotenv.config();
 
+// Create a directory to save the results of the scan
 const resultsDir = process.env.RESULTS_DIR || './axe-results';
 fs.mkdirSync(resultsDir, { recursive: true });
 
+// Import and parse the accessibility ignore config file
 const config = JSON.parse(fs.readFileSync('./axeignore.json', 'utf8'));
 
-const blacklistPatterns = config.blacklistPatterns || [];
+const blacklistPatterns = config.blacklistPatterns || []; // these are urls not to visit, though if we're no longer crawling this may no longer needed
 console.log('Exempted URL Patterns:', blacklistPatterns);
-const ignoreIncomplete = config.ignoreIncomplete || [];
+const ignoreIncomplete = config.ignoreIncomplete || []; // axe-core ids to bypass if incomplete
 console.log('Exempted incomplete ids:', ignoreIncomplete);
-const ignoreViolations = config.ignoreViolations || [];
+const ignoreViolations = config.ignoreViolations || []; // axe-core ids to bypass if violations occur (ie false positive - right now failures are non-blocking, but may be of more use in the future if are using to block deployment)
 console.log('Exempted violation ids:', ignoreViolations);
 
-function debugStep(page, label) {
-  const timestamp = Date.now();
-  const cleanLabel = label.replace(/[^\w-]/g, '_');
-  const screenshotPath = `${resultsDir}/debug-${cleanLabel}-${timestamp}.png`;
-  const htmlPath = `${resultsDir}/debug-${cleanLabel}-${timestamp}.html`;
-
-  return Promise.all([
-    page.screenshot({ path: screenshotPath, fullPage: true }),
-    page.content().then((html) => fs.writeFileSync(htmlPath, html)),
-  ]);
-}
-
-// // Extract Safe Inputs specific logic for testing
-// async function loginToSafeInputs(page, isSafeInputs) {
-//   if (isSafeInputs) {
-//     // Perform login in order to move to the next page
-//     await page.type('#email', 'owner-axe@phac-aspc.gc.ca'); // email field
-//     await page
-//       .locator('button[type="submit"]', { hasText: /sign in/i }) // case insensitive regex search for sign in button
-//       .click();
-
-//     // Bypass authentication in the dev environment
-//     const textSelector = await page
-//       .locator('text/Or click here to complete authentication')
-//       .waitHandle();
-
-//     textSelector.click();
-
-//     await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 10000 });
-//   }
-// }
-
-async function performInteractions(route, page, allResults) {
-  switch (route) {
-    case '/':
-      console.log('Interacting with homepage...');
-
-      // await debugStep(page, 'before-latitude-input');
-
-      try {
-        // get latitude gcds-input field
-        await page.waitForSelector('gcds-input[name="latitude"]', {
-          visible: true,
-          timeout: 10000,
-        });
-
-        // Set latitude value inside shadow DOM
-        await page.evaluate(() => {
-          const el = document.querySelector('gcds-input[name="latitude"]');
-          const input = el?.shadowRoot?.querySelector('input');
-          if (input) {
-            input.value = '45.1234';
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-          }
-        });
-
-        // await debugStep(page, 'after-latitude-input');
-
-        //  get longitude gcds-input field
-        await page.waitForSelector('gcds-input[name="longitude"]', {
-          visible: true,
-          timeout: 10000,
-        });
-
-        // Set longitude value inside shadow DOM
-        await page.evaluate(() => {
-          const el = document.querySelector('gcds-input[name="longitude"]');
-          const input = el?.shadowRoot?.querySelector('input');
-          if (input) {
-            input.value = '-75.7007';
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-          }
-        });
-
-        // await debugStep(page, 'after-longitude-input');
-
-        // await page.evaluate(() => {
-        //   const buttons = Array.from(document.querySelectorAll('gcds-button'));
-        //   const searchButton = buttons.find(btn => btn.textContent?.includes('Search the coordinates'));
-
-        //   if (!searchButton) {
-        //     console.warn('[page] Could not find the "Search the coordinates" button');
-        //     return;
-        //   }
-
-        //   console.log('[page] Found search button, attempting to click');
-        //   searchButton.scrollIntoView({ behavior: 'instant', block: 'center' });
-
-        //   searchButton.click();
-
-        //   // // Try to dispatch the click event manually
-        //   // searchButton.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-        //    // Follow with dispatch, in case native click doesn't work
-        //   console.log('[page] Dispatching real MouseEvent click...');
-        //   const event = new MouseEvent('click', { bubbles: true, cancelable: true });
-        //   searchButton.dispatchEvent(event);
-        // });
-
-        const buttons = await page.$$('gcds-button');
-        for (const button of buttons) {
-          const text = await page.evaluate((el) => el.textContent, button);
-          if (text.includes('Search the coordinates')) {
-            console.log(
-              '[test] Found search button, clicking with Puppeteer...',
-            );
-            await button.evaluate((el) =>
-              el.scrollIntoView({ behavior: 'instant', block: 'center' }),
-            );
-            await button.click();
-            break;
-          }
-        }
-
-        // wait 10 seconds
-        await new Promise((resolve) => setTimeout(resolve, 10000));
-        await debugStep(page, 'after-puppeteer-click');
-
-        // Try waiting for something new to appear — like a map
-        try {
-          await page.waitForSelector('canvas', {
-            visible: true,
-            timeout: 5000,
-          });
-          console.log('[test] Canvas appeared after clicking!');
-        } catch (e) {
-          console.warn('[test] Canvas did not appear after click.');
-        }
-
-        try {
-          await page.waitForFunction(
-            () => {
-              return Array.from(document.querySelectorAll('gcds-heading')).some(
-                (h) => h.textContent?.includes('Information returned:'),
-              );
-            },
-            { timeout: 5000 },
-          );
-          console.log('[test] "Information returned" heading found!');
-        } catch (e) {
-          console.warn('[test] Heading not found after click.');
-        }
-
-        // Step 2: Axe analysis after interaction
-        const coordResults = await new AxePuppeteer(page).analyze();
-        allResults.push({
-          url: `${page.url()}-after-coordinates`,
-          results: coordResults,
-        });
-      } catch (err) {
-        console.warn(`Failed interaction on ${route}:`, err.message);
-        await debugStep(page, `error-${route}`);
-      }
-
-      break;
-
-    //   // Step 2: Search by address
-    //   try {
-    //     await page.waitForSelector('input[name="address"]');
-    //     await page.type('input[name="address"]', '1000 Airport Parkway Private');
-
-    //     await page.waitForSelector('input[name="city"]');
-    //     await page.type('input[name="city"]', 'Ottawa');
-
-    //     await page.waitForSelector('input[name="province"]');
-    //     await page.type('input[name="province"]', 'Ontario');
-
-    //     await page.waitForSelector('gcds-button[button-id="Search the address"]');
-    //     await page.click('gcds-button[button-id="Search the address"]');
-
-    //     await page.waitForTimeout(2000); // or wait for result
-
-    //     // Scan after address search
-    //     const addressResults = await new AxePuppeteer(page).analyze();
-    //     allResults.push({
-    //       url: `${page.url()}-after-address`,
-    //       results: addressResults,
-    //     });
-    //   } catch (err) {
-    //     console.warn(`Failed coordinate search interaction on ${route}:`, err.message);
-    //   }
-
-    //   break;
-
-    // case '/reverse-geocoding-bulk':
-    //   console.log('Interacting with reverse geocoding page...');
-    //   try {
-    //     await page.type('#reverse-input', '45.4236, -75.7009'); // example input
-    //     await page.click('#submit-reverse'); // simulate form submit
-    //     await page.waitForSelector('.reverse-results'); // wait for results to appear
-    //   } catch (err) {
-    //     console.warn(`Failed coordinate search interaction on ${route}:`, err.message);
-    //   }
-    //   break;
-
-    // case '/bulk-address-geocoding':
-    //   console.log('Interacting with bulk address geocoding page...');
-    //   // If there’s a file upload component or textarea
-    //   try {
-    //     await page.type('#bulk-address-input', '123 Main St\n456 Elm St');
-    //     await page.click('#bulk-submit');
-    //     await page.waitForSelector('.bulk-results');
-    //   } catch (err) {
-    //     console.warn(`Failed coordinate search interaction on ${route}:`, err.message);
-    //   }
-    //   break;
-
-    default:
-      console.log(`No interactions defined for ${route}`);
-      break;
-  }
-}
-
 export async function runAccessibilityScan(
-  // isSafeInputs = false,
-
   HOMEPAGE_URL = process.env.HOMEPAGE_URL,
-  customRoutes = null,
+  customRoutes = null, // This is used for testing as we have the routes hardcoded here, and this is a way to bypass that.
 ) {
   const visitedPages = new Set(); // To track visited pages and avoid duplication
   const allResults = []; // Collect all processed results
@@ -264,28 +54,28 @@ export async function runAccessibilityScan(
     // Unless webGL etc is specifically required, disabling the GPU is fine in headless
     // (used to be the default behaviour https://github.com/puppeteer/puppeteer/issues/1260)
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
-    // args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
   const page = await browser.newPage();
   await page.setBypassCSP(true);
 
-  // Navigate to your login page
-  await page.goto(HOMEPAGE_URL, { waitUntil: 'networkidle2' }); // Wait until the page is fully loaded
+  // // Navigate to Landing Page
+  // await page.goto(HOMEPAGE_URL, { waitUntil: 'networkidle2' }); // Wait until the page is fully loaded
 
-  // Perform accessibility scan on the login page (localhost) before logging in
-  console.log('\nAssessing login page:', HOMEPAGE_URL);
-  const homePageResults = await new AxePuppeteer(page).analyze();
+  // // Perform accessibility scan on the login page (localhost) before logging in
+  // console.log('\nAssessing login page:', HOMEPAGE_URL);
+  // const homePageResults = await new AxePuppeteer(page).analyze();
 
-  allResults.push({
-    url: HOMEPAGE_URL,
-    results: homePageResults,
-  });
+  // allResults.push({
+  //   url: HOMEPAGE_URL,
+  //   results: homePageResults,
+  // });
 
   // await loginToSafeInputs(page, isSafeInputs);
 
   // change ------------------------------------------------------------------
-  // ---------- Define routes to (not-)crawl (more like just visit and interact) ---------- (as this is a SPA using react-router-dom, and your app’s routing is dynamic)
+  // ---------- Define routes to (not-)crawl (more like just visit and interact) ----------
+  // (as this is a SPA using react-router-dom, and app’s routing is dynamic some elements were't being recognized when crawling
   const ROUTES_TO_SCAN = customRoutes || [
     '/',
     '/reverse-geocoding-bulk',
@@ -297,10 +87,7 @@ export async function runAccessibilityScan(
     '/home',
     '/contact-us',
     '/test',
-    // '/'
   ];
-
-  //  need to upload bulk data and submit test files!!
 
   for (const route of ROUTES_TO_SCAN) {
     const url = `${HOMEPAGE_URL.replace(/\/$/, '')}${route}`;
