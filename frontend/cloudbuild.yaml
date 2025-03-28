@@ -12,11 +12,6 @@ steps:
       mkdir -p ./devsecops/a11y-testing/axe-results
       chmod -R 777 ./devsecops/a11y-testing/axe-results
 
-      # # ensure env_variable when running locally 
-      # if [[ -z "$COMMIT_SHA" ]]; then
-      #     export COMMIT_SHA="unknown_sha"
-      # fi
-
       # Run docker compose dev environment, detached mode 
       docker compose -f ./docker-compose.axe.yaml up -d --build 
 
@@ -52,7 +47,12 @@ steps:
     args:
       - '-c'
       - |
-        echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
+          echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
+        else
+          exit 0
+        fi
 
   # Build the Docker image if the branch is 'main'
   - name: 'gcr.io/cloud-builders/docker'
