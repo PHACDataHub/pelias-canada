@@ -137,7 +137,7 @@ This runs both the unit and end-to-end tests. The end to end test spins up a web
 
 Commit to GitHub in this directory (on any branch) will trigger the accessibility cloudbuild to run. This will run the tests on the accessibility testing code and save the test code coverage to a storage bucket. If any test fails, it will block the merge to main branch.
 
-Run the front end from the root with 
+Run the front end from the root with
 
 ```
 gcloud builds submit --config=frontend/cloudbuild.yaml .

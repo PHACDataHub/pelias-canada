@@ -60,7 +60,8 @@ export async function runAccessibilityScan(
   await page.setBypassCSP(true);
 
   // Define routes to scan (No longer crawling - but hard coding routes to visit, scan, then interact and scan. This is done as the is a SPA using react-router-dom, and app’s routing is dynamic some elements weren't being recognized when crawling)
-  const ROUTES_TO_SCAN = customRoutes || [ // customRoutes are used in test cases
+  const ROUTES_TO_SCAN = customRoutes || [
+    // customRoutes are used in test cases
     '/',
     '/reverse-geocoding-bulk',
     '/bulk-address-geocoding',
@@ -80,7 +81,7 @@ export async function runAccessibilityScan(
       continue;
     }
 
-    // See note above - if we are completely eliminating crawling - blacklist will be removed. 
+    // See note above - if we are completely eliminating crawling - blacklist will be removed.
     const isBlacklisted = blacklistPatterns.some((pattern) => {
       const regex = new RegExp(pattern);
       return regex.test(url);
