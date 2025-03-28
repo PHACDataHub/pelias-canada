@@ -8,26 +8,25 @@ services:
     networks:
       - a11y-network
     # healthcheck:
-    #   # test: curl -f http://localhost:3000 || exit 1
-    #   test: curl -f https://3000-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev/ || exit 1
+    #   test: curl -f http://localhost:3000 || exit 1
     #   interval: 5s
-    #   retries: 20
+    #   retries: 10
     #   start_period: 10s
 
   axe-testing:
     build:
-      context: ./devsecops/axe-testing
+      context: ./devsecops/a11y-testing
     container_name: axe-testing
     depends_on:
       - frontend
       # frontend:
-        # condition: service_healthy
+      #   condition: service_healthy
     environment:
       - HOMEPAGE_URL=http://frontend:3000
       - RESULTS_DIR=/app/axe-results
     user: node
     volumes:
-      - ./devsecops/axe-testing/axe-results:/app/axe-results
+      - ./devsecops/a11y-testing/axe-results:/app/axe-results
     networks:
       - a11y-network
     command: ["node", "index.js"]
