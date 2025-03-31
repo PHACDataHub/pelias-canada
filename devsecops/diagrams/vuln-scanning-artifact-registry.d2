@@ -1,0 +1,29 @@
+# Define components
+
+Google Cloud: {
+  ArtifactRegistry: "Artifact Registry" {
+    shape: image
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FDeveloper%20Tools%2FContainer%20Registry.svg
+  }
+
+  CloudStorage: "Cloud Storage Bucket" {
+    shape: image
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FStorage%2FCloud%20Storage.svg
+  }
+
+  CloudFunctions: "Cloud Function" {
+    shape: image
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FCompute%2FCloud%20Functions.svg
+  }
+
+  PubSub: "Cloud Pub/Sub" {
+    shape: image
+    icon: https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FData%20Analytics%2FCloud%20PubSub.svg
+  }
+}
+
+# Define connections
+Google Cloud.ArtifactRegistry -> Google Cloud.PubSub: "Publishes occurrences from continuous scan."
+Google Cloud.PubSub -> Google Cloud.CloudFunctions: "Triggers Cloud Function on new occurrence."
+Google Cloud.CloudFunctions -> Google Cloud.CloudStorage: "Filters for vulnerability occurrences, saves each as file."
+Google Cloud.CloudStorage -> Dashboard: "Provides data for dashboard"
