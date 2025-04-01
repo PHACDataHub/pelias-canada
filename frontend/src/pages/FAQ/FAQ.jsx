@@ -17,8 +17,8 @@ export default function FAQ() {
 
   const fetchFaqData = useCallback(async () => {
     setLoading(true);
-    // Fix for puppeteer that subs "en-US" for "en"
-    const fullLang = i18n.language; // e.g., "en-US"
+    // extract shortlang to prevent puppeteer from using "en-US" instead of "en"
+    const fullLang = i18n.language; // e.g., "en-US" for puppeteer
     const shortLang = fullLang.split('-')[0]; // extract just "en"
   
     const filePath = `locales/${shortLang}/FAQ-${shortLang}.csv`;
