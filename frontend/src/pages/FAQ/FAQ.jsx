@@ -20,7 +20,7 @@ export default function FAQ() {
     // extract shortlang to prevent puppeteer from using "en-US" instead of "en"
     const fullLang = i18n.language; // e.g., "en-US" for puppeteer
     const shortLang = fullLang.split('-')[0]; // extract just "en"
-  
+
     const filePath = `locales/${shortLang}/FAQ-${shortLang}.csv`;
 
     try {
