@@ -1,5 +1,45 @@
 steps:
-  # Step 1: Generate the Docker image name and save to a workspace file
+  - id: run-accessibility-scan
+    name: 'gcr.io/cloud-builders/docker@sha256:b991d50960b337f581ad77ea2a59259a786d177019aa64d8b3acb01f65dbc154'
+    dir: ./
+    script: |
+      #!/bin/bash
+      set -o errexit
+      set -o pipefail
+      set -o nounset
+
+      # fix permission issues when running the axe tests, need to be able to write to ./axe-results/*.json
+      mkdir -p ./devsecops/a11y-testing/axe-results
+      chmod -R 777 ./devsecops/a11y-testing/axe-results
+
+      # Run docker compose dev environment, detached mode 
+      docker compose -f ./docker-compose.axe.yaml up -d --build 
+
+      # Wait for the axe-testing container to finish
+      docker compose -f ./docker-compose.axe.yaml wait axe-testing
+
+  - id: upload-axe-results-to-gcs
+    name: 'gcr.io/cloud-builders/gsutil@sha256:386bf19745cfa9976fc9e7f979857090be9152b30bf3f50527c6ace1de9d2673'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # fallback values for local or improperly set environments
+        if [[ -z "$BRANCH_NAME" ]]; then export BRANCH_NAME="unknown_branch"; fi
+        if [[ -z "$COMMIT_SHA" ]]; then export COMMIT_SHA="unknown_sha"; fi
+
+        gsutil cp /workspace/devsecops/a11y-testing/axe-results/ci_axe_results_*.json \
+        gs://pelias-devsecops-outputs-for-dashboard/axe-ci-results/$BRANCH_NAME-$COMMIT_SHA.json
+
+  - id: clean-up-axe-a11y-testing-environment
+    name: 'gcr.io/cloud-builders/docker@sha256:b991d50960b337f581ad77ea2a59259a786d177019aa64d8b3acb01f65dbc154'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker compose -f ./docker-compose.axe.yaml down -v
+
+  # Generate the Docker image name and save to a workspace file
   - name: 'gcr.io/cloud-builders/docker'
     id: generate-image-name
     entrypoint: 'bash'
@@ -7,9 +47,14 @@ steps:
     args:
       - '-c'
       - |
-        echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
+        if [[ "$BRANCH_NAME" == "main" ]]
+        then
+          echo "northamerica-northeast1-docker.pkg.dev/${PROJECT_ID}/pelias-geocoder/ui:$BRANCH_NAME-$SHORT_SHA-$(date +%s)" > /workspace/imagename
+        else
+          exit 0
+        fi
 
-  # Step 2: Build the Docker image if the branch is 'main'
+  # Build the Docker image if the branch is 'main'
   - name: 'gcr.io/cloud-builders/docker'
     id: build-if-main
     entrypoint: 'bash'
@@ -25,7 +70,7 @@ steps:
           exit 0
         fi
 
-  # Step 3: Push the Docker image to the registry if the branch is 'main'
+  # Push the Docker image to the registry if the branch is 'main'
   - name: 'gcr.io/cloud-builders/docker'
     id: push-if-main
     entrypoint: 'bash'

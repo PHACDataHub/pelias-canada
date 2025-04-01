@@ -1,0 +1,28 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - a11y-network
+
+  axe-testing:
+    build:
+      context: ./devsecops/a11y-testing
+    container_name: axe-testing
+    depends_on:
+      - frontend
+    environment:
+      - HOMEPAGE_URL=http://frontend:3000
+      - RESULTS_DIR=/app/axe-results
+    user: node
+    volumes:
+      - ./devsecops/a11y-testing/axe-results:/app/axe-results
+    networks:
+      - a11y-network
+
+networks:
+  a11y-network:
+    driver: bridge

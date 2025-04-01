@@ -1,0 +1,36 @@
+steps:
+  - id: 'Run tests for a11y scanning'
+    dir: 'devsecops/a11y-testing'
+    name: 'gcr.io/cloud-builders/docker@sha256:b991d50960b337f581ad77ea2a59259a786d177019aa64d8b3acb01f65dbc154'
+    script: |
+      #!/usr/bin/env bash
+      set -o errexit
+      set -o pipefail
+      set -o nounset
+
+      # Create the coverage directory 
+      mkdir -p /workspace/coverage
+      chmod -R 777 /workspace/coverage
+
+      # Run tests in the Docker container with volume mounting for coverage report 
+      docker build -t axe-e2e .
+      docker run --rm --network host -v /workspace/coverage:/app/coverage axe-e2e npm run test:all
+
+  - id: 'Upload test coverage report to bucket'
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest@sha256:3a24ff5f089d9ce3627306873ef1e1061488a63ae12c0bd0b5c24ec5ee594798'
+    dir: 'devsecops/a11y-testing'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        # Copy upload script
+        cp ../code-coverage-reporting/upload-coverage-to-gcs.sh upload-coverage-to-gcs.sh
+
+        # Upload coverage to GCS
+        ./upload-coverage-to-gcs.sh \
+          --cloudbuild-dir a11y \
+          --coverage-dir /workspace/coverage \
+          --branch-name $BRANCH_NAME \
+          --short-sha $SHORT_SHA
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
