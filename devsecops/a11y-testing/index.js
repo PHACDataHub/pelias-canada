@@ -94,6 +94,7 @@ export async function runAccessibilityScan(
 
     console.log(`Scanning route: ${url}`);
     const routePage = await browser.newPage();
+    await routePage.setViewport({ width: 1280, height: 800 }); //for desktop - default is smaller
     await routePage.setBypassCSP(true);
 
     // DEBUGGING - browser side console
