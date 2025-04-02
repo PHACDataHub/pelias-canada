@@ -233,7 +233,7 @@ tasks:
       # Create a cloudbuild trigger for additional DevSecOps cloudbuild pipelines 
       - >
         gcloud builds triggers create github 
-          --name="phx-01hnn9wb0eg-main-cloudbuild-trigger" 
+          --name="phx-01hnn9wb0eg-root-cloudbuild-trigger" 
           --region={{.REGION}} 
           --repo-name="pelias-canada" 
           --repo-owner="PHACDataHub" 
@@ -250,6 +250,17 @@ tasks:
           --build-config="./devsecops/a11y-testing/cloudbuild.yaml"   
           --include-logs-with-status 
 
+      - >
+        gcloud builds triggers create github 
+          --name="phx-01hnn9wb0eg-vuln-cf-cloudbuild-trigger" 
+          --region={{.REGION}} 
+          --repo-name="pelias-canada" 
+          --repo-owner="PHACDataHub" 
+          --branch-pattern=".*" 
+          --build-config="./devsecops/artifact-registry-vulnerability-scanning/cloudbuild.yaml"   
+          --include-logs-with-status 
+
       # Updated frontend cloudbuild to run on everybranch 
 
       # Create a dashboard user and give read permissions on the output storage bucket - TODO
+
