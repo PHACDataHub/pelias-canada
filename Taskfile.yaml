@@ -113,10 +113,15 @@ tasks:
         --components="source-controller,kustomize-controller,notification-controller"
         --components-extra="image-reflector-controller,image-automation-controller"
   
-  vulnerability-cloud-function-resources:
-    desc: Resources for pubsub vulnerability scanning from Artifact registry
+  provision-vulnerability-cloud-function-resources:
+    desc: Resources for to save pubsub vulnerability messages from Artifact Registry scans
     cmds:
-      # Create the artifact registry repo for the cloud function 
+      # Enable services 
+      - gcloud services enable cloudfunctions.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable run.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable eventarc.googleapis.com --project={{.PROJECT_ID}}
+
+      # Create the artifact registry repo for the cloud function image
       - >      
         gcloud artifacts repositories create $PROJECT_ID-vuln-cloudfunction \
         --repository-format=docker \
@@ -129,111 +134,76 @@ tasks:
         --display-name="Vulnerability Cloud Function runtime" \
         --description="To be used as the cloud function runtime service account to be able to pick off occurrences from container analysis and save to bucket."
       
-      # Create the vuln cloud function build  service account: 
+      # Create the vuln cloud function build service account: 
       - >          
         gcloud iam service-accounts create $PROJECT_ID-vgcf-build \
         --display-name="Vulnerability Cloud Function build" \
         --description="To be used as the cloud function build account (to separate from cloud build to eliminate circular dependency)."
  
-      # Bind artifact registry writer to the cloud function build accounts 
-    #  - >          
-    #     gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
-    #     --location=northamerica-northeast1 \
-    #     --member="serviceAccount:$PROJECT_ID-cloudbuild@$PROJECT_ID.iam.gserviceaccount.com" \
-    #     --role="roles/artifactregistry.writer"
-      - >     
-        gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
-          --location=northamerica-northeast1 \
-          --member="serviceAccount:$PROJECT_ID-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
-          --role="roles/artifactregistry.writer"
+    # Apply partial IAM bindings 
+      # (this was generated with gcloud projects get-iam-policy "$PROJECT_ID" > policy-pelias.json, 
+      # then added in binds and reapplied with: )
+      - gcloud projects set-iam-policy "$PROJECT_ID" policy-pelias.json (see below)
+    
+      # Similiarly, that set-iam-policy could be done with the following commented out lines, but, unfortunately not the partial bindings part
 
-      # Bind the artifact registry reader role to the cloud function runtime and build service accounts:
-      - >     
-        gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
-        --location=northamerica-northeast1 \
-        --member="serviceAccount:$PROJECT_ID-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
-        --role="roles/artifactregistry.reader"
-      - >  
-        gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
-          --location=northamerica-northeast1 \
-          --member="serviceAccount:$PROJECT_ID-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
-          --role="roles/artifactregistry.reader"
-      # - >  
+      # Bind artifact registry writer to the cloud function build account
+      # - >     
       #   gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
       #     --location=northamerica-northeast1 \
-      #     --member="serviceAccount:$PROJECT_ID-cloudbuild@$PROJECT_ID.iam.gserviceaccount.com" \
-      #     --role="roles/artifactregistry.reader"
+      #     --member="serviceAccount:$PROJECT_ID-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
+      #     --role="roles/artifactregistry.writer"
 
-      # give storage object user role to vgcf-runtime service account on decsecops-outputs bucket 
-      - >  
-        gcloud storage buckets add-iam-policy-binding gs://pelias-devsecops-outputs-for-dashboard \
-        --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
-        --role="roles/storage.objectUser"
+      # # Bind the artifact registry reader role to the cloud function runtime and build service accounts:
+      # - >     
+      #   gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
+      #   --location=northamerica-northeast1 \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/artifactregistry.reader"
+      # - >  
+      #   gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction \
+      #   --location=northamerica-northeast1 \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/artifactregistry.reader"
+  
+      # # Bind storage object user role to vgcf-runtime service account on decsecops-outputs bucket 
+      # - >  
+      #   gcloud storage buckets add-iam-policy-binding gs://pelias-devsecops-outputs-for-dashboard \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/storage.objectUser"
 
+      # # Bind the cloudfunctions.developer role to the Cloud Build SA
+      #   gcloud projects add-iam-policy-binding $PROJECT_ID \
+      #   --member="serviceAccount:$PROJECT_ID-cloudbuild@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/cloudfunctions.developer"
 
+      # # Bind storage.objectViewer to vgcf-build
+      # gcloud projects add-iam-policy-binding $PROJECT_ID \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/storage.objectViewer"
 
+      # Bind containeranalysis.occurrences.viewer to the vuln runtime SA
+      # gcloud projects add-iam-policy-binding $PROJECT_ID \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/containeranalysis.occurrences.viewer"
+
+      # Bind the objectUser for vuln runtime + build SA (this should be conditional on a particular bucket)
+      # # runtime
+      # gcloud projects add-iam-policy-binding $PROJECT_ID \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/storage.objectUser"
+
+      # gcloud projects add-iam-policy-binding $PROJECT_ID \
+      #   --member="serviceAccount:$PROJECT_ID-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/storage.objectUser"
+
+      # Bind the run.invoker role to the vuln runtime SA
+      # gcloud projects add-iam-policy-binding $PROJECT_ID \
+      #   --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
+      #   --role="roles/run.invoker"
 
       # Create a cloudbuild trigger for devsecops/artifact-registry-vulnerability-scanning/cloudbuild.yaml 
       - >    
 
 
-extra stuff 
-roles/cloudfunctions.developer for Cloud Build SA
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-cloudbuild@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/cloudfunctions.developer"
-
-roles/storage.objectViewer (with a condition) 
-# Cloudbuild
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-cloudbuild@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/storage.objectViewer"
-
-# vgcf-build
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/storage.objectViewer"
-
-roles/containeranalysis.occurrences.viewer for vuln runtime SA
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/containeranalysis.occurrences.viewer"
-
-
-roles/storage.objectUser for vuln runtime + build SA
-# runtime
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/storage.objectUser"
-
-# build
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-vgcf-build@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/storage.objectUser"
-
-roles/run.invoker for vuln runtime SA
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/run.invoker"
-
-      # Create the artifact registry repo for the cloud function 
-      - >     
-
-      # Create service account the cloud function runs under
-      - >
-        gcloud iam service-accounts create $VULN_CLOUD_FUNCTION_SERVICE_ACCOUNT \
-        --description="Service Account to create process image scan vulnerabilities" \
-        --display-name="Image Vulnerability Processor"
-
-      # Add Container Analysis Occurrences Viewer role to service account 
-      # https://cloud.google.com/functions/docs/concepts/iam
-      - >      
-        gcloud projects add-iam-policy-binding $PROJECT_ID \
-            --member=serviceAccount:$VULN_CLOUD_FUNCTION_SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com \
-            --role=roles/containeranalysis.occurrences.viewer \
-            --role=roles/cloudfunctions.serviceAgent
-
-      # And add Object Creator role to vuln sa (on bucket we just created) 
-      - >        
-        gsutil iam ch serviceAccount:$VULN_CLOUD_FUNCTION_SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com:objectCreator gs://$BUCKET_NAME
 
