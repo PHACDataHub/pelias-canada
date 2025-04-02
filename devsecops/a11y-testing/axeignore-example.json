@@ -1,0 +1,5 @@
+{
+  "blacklistPatterns": ["termsAndConditions"],
+  "ignoreViolations": ["page-has-title"],
+  "ignoreIncomplete": ["landmark-one-main", "page-has-title", "color-contrast"]
+}

@@ -9,6 +9,7 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
+    load: 'languageOnly', // to prevent puppeteer from using 'US-en' rather than 'en' for translation.json path
     backend: {
       loadPath: '/locales/{{lng}}/translation.json',
     },
