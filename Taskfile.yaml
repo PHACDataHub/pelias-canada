@@ -260,7 +260,15 @@ tasks:
           --build-config="./devsecops/artifact-registry-vulnerability-scanning/cloudbuild.yaml"   
           --include-logs-with-status 
 
-      # Updated frontend cloudbuild to run on everybranch 
+      # Create a dashboard user and give read permissions on the output storage bucket
+      - >
+        gcloud iam service-accounts create dashboard-user \
+        --project="$PROJECT_ID" \
+        --display-name="Dashboard User Service Account"
 
-      # Create a dashboard user and give read permissions on the output storage bucket - TODO
-
+      # Grant storage user access to the outputs bucket 
+      - >
+        gcloud storage buckets add-iam-policy-binding "gs://pelias-devsecops-outputs-for-dashboard" \
+        --member="serviceAccount:dashboard-user@$PROJECT_ID.iam.gserviceaccount.com" \
+        --role="roles/storage.objectUser" \
+        --project="$PROJECT_ID"
