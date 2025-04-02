@@ -26,9 +26,7 @@
       "role": "roles/artifactregistry.serviceAgent"
     },
     {
-      "members": [
-        "serviceAccount:890802265070@cloudbuild.gserviceaccount.com"
-      ],
+      "members": ["serviceAccount:890802265070@cloudbuild.gserviceaccount.com"],
       "role": "roles/cloudbuild.builds.builder"
     },
     {
@@ -38,9 +36,7 @@
       "role": "roles/cloudbuild.serviceAgent"
     },
     {
-      "members": [
-        "serviceAccount:890802265070@cloudbuild.gserviceaccount.com"
-      ],
+      "members": ["serviceAccount:890802265070@cloudbuild.gserviceaccount.com"],
       "role": "roles/cloudfunctions.developer"
     },
     {
