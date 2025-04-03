@@ -19,6 +19,7 @@ The Continuous Integration (CI) has been split from the Continuous Delivery (CD)
 ### Root cloudbuild
 
 [../cloudbuild.yaml](../cloudbuild.yaml)
+
 - Will be triggered on any change to the codebase. (Commits to PR)
 - Installs dependencies
 - Prettier check
@@ -30,19 +31,21 @@ The Continuous Integration (CI) has been split from the Continuous Delivery (CD)
 #### Frontend Cloudbuild - triggered to changes in code to frontend
 
 [../frontend/cloudbuild.yaml](../frontend/cloudbuild.yaml)
+
 - Runs accessibility scan (saves to storage bucket)
-- Builds and pushes new image to Artifact Registry if main branch 
+- Builds and pushes new image to Artifact Registry if main branch
 - Retrieves Artifact Registry digest of new image if main branch (saves to bucket)
 
 #### Accessibility Cloudbuild - triggered to changes in code to devsecops/a11y-testing
 
 [./a11y-testing/cloudbuild.yaml](./a11y-testing/cloudbuild.yaml)
-- Runs tests (saves test coverage to bucket)
 
+- Runs tests (saves test coverage to bucket)
 
 #### Vulnerability Cloud Function - triggered to changes in code to devsecops/artifact-registry-vulnerability-scanning
 
 [./artifact-registry-vulnerability-scanning/cloudbuild.yaml](./artifact-registry-vulnerability-scanning/cloudbuild.yaml)
+
 - If main branch, deploys cloud function to pick up vulnerabilities detected in the Artifact registry
 - Retrieves Artifact Registry digest of new image if main branch (saves to bucket)
 
@@ -66,7 +69,7 @@ Artifact Registry stores container images that are used by GCP services. When th
 
 As we're looking to access these vunerabilities through an external (non-public) DevSecOps dashboard, we're using a cloud function to filter the occurances, then save the vunerabilities to a storage bucket that the dashboard will have access to.
 
-Dependabot is also enabled on the source code repository in GitHub.  This scans everything, including development dependencies and automatically creates PR if fixes are available. 
+Dependabot is also enabled on the source code repository in GitHub. This scans everything, including development dependencies and automatically creates PR if fixes are available.
 
 <!-- ## Code Quality and Code Reviews
 
