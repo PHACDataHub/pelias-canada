@@ -1,6 +1,6 @@
 # DevSecOps
 
-## IDE Plugins and Tools
+<!-- ## IDE Plugins and Tools
 
 ### Eslint Security and Accessibility Plugin
 
@@ -8,7 +8,7 @@ TBC
 
 ### axe-core Accessibility Plugin
 
-TBC
+TBC -->
 
 ## Separation of CI from CD
 
@@ -16,29 +16,35 @@ The Continuous Integration (CI) has been split from the Continuous Delivery (CD)
 
 ## Continuous Integration Pipelines
 
-### Main [Cloud Build](../cloudbuild.yaml)
+### Root cloudbuild
 
+[../cloudbuild.yaml](../cloudbuild.yaml)
 - Will be triggered on any change to the codebase. (Commits to PR)
 - Installs dependencies
 - Prettier check
 - Eslint check
-- Extracts SBOM if 'main' branch
-
-<!-- ### GitHub Actions
-
-- Triggered on commits to a PR
-- CodeQL
- -->
+- Extracts SBOM if 'main' branch (saves to bucket)
 
 ### Code Modules Specific Pipelines
 
-#### FrontEnd
+#### Frontend Cloudbuild - triggered to changes in code to frontend
 
-TBC
+[../frontend/cloudbuild.yaml](../frontend/cloudbuild.yaml)
+- Runs accessibility scan (saves to storage bucket)
+- Builds and pushes new image to Artifact Registry if main branch 
+- Retrieves Artifact Registry digest of new image if main branch (saves to bucket)
 
-#### Vulnerability Cloud Function
+#### Accessibility Cloudbuild - triggered to changes in code to devsecops/a11y-testing
 
-TBC
+[./a11y-testing/cloudbuild.yaml](./a11y-testing/cloudbuild.yaml)
+- Runs tests (saves test coverage to bucket)
+
+
+#### Vulnerability Cloud Function - triggered to changes in code to devsecops/artifact-registry-vulnerability-scanning
+
+[./artifact-registry-vulnerability-scanning/cloudbuild.yaml](./artifact-registry-vulnerability-scanning/cloudbuild.yaml)
+- If main branch, deploys cloud function to pick up vulnerabilities detected in the Artifact registry
+- Retrieves Artifact Registry digest of new image if main branch (saves to bucket)
 
 ## Infrastructure as Code
 
@@ -46,7 +52,7 @@ TBC
 - Versioned in GitHub
 - Using service accounts with the least priviledges
 
-<!-- ## Vunerability Scanning
+## Vunerability Scanning
 
 Scanning for vulnerabilities using third-party tools in CI is limited to the time of commit. Since both Dependabot/Renovate and Artifact Registry both already scan for vunerabilities continuously, we can use these assess risk.
 
@@ -58,23 +64,20 @@ Scanning for vulnerabilities using third-party tools in CI is limited to the tim
 
 Artifact Registry stores container images that are used by GCP services. When the container analysis service is turned on, Artifact Registry checks for vunerabilities multiple times a day, then publishes occurances (i.e. discovery, package, vunerability) to Pub/Sub which can be monitored.
 
-As we're looking to access these vunerabilities through an external (non-public) DevSecOps dashboard, we're using a cloud function to filter the occurances, then save the vunerabilities to a storage bucket that the dashboard will have access to. -->
+As we're looking to access these vunerabilities through an external (non-public) DevSecOps dashboard, we're using a cloud function to filter the occurances, then save the vunerabilities to a storage bucket that the dashboard will have access to.
 
-<!-- ### TODO Cluster scanning
+Dependabot is also enabled on the source code repository in GitHub.  This scans everything, including development dependencies and automatically creates PR if fixes are available. 
 
-TBA -->
-
-## Code Quality and Code Reviews
+<!-- ## Code Quality and Code Reviews
 
 TBA
 
 - Main branch requires peer review before merge
 - GitHub actions ensure complys with linting and code quality checks (CodeQL)
-- Any changes to IaC code requires
 
 ## Deployment Frequency - Enabled with Test Coverage
 
-TBA
+TBA -->
 
 ## [Software Bill of Materials (SBOM) Collection](./sbom)
 
