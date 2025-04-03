@@ -266,7 +266,7 @@ tasks:
         gcloud iam service-accounts create dashboard-user 
         --project="$PROJECT_ID" 
         --display-name="Dashboard User Service Account"
-
+        
       # Grant storage user access to the outputs bucket 
       - >
         gcloud storage buckets add-iam-policy-binding "gs://pelias-devsecops-outputs-for-dashboard" 
