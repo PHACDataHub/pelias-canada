@@ -84,3 +84,28 @@ steps:
         else
           exit 0
         fi
+
+  - id: get-and-save-artifact-registry-image-digest-if-main
+    # This is a workaround to help filter only current image vulnerabilities for devcheck dashboard - we need the AR image digest for this.
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest@sha256:3a24ff5f089d9ce3627306873ef1e1061488a63ae12c0bd0b5c24ec5ee594798'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [[ $BRANCH_NAME == "main" ]]
+        then
+          # Get all images from Artifact Registry, sort by create time
+          artifact_registry_digests="$(gcloud artifacts files list \
+            --project=$PROJECT_ID \
+            --repository=pelias-geocoder \
+            --location=northamerica-northeast1 \
+            --package=ui \
+            --sort-by=~CREATE_TIME)"
+
+          # Get most recent image's short sha, use in filename and save to bucket
+          most_recent_sha=$(echo "${artifact_registry_digests}" | sed -n 's/.*sha256:\([a-f0-9]\{12\}\).*/\1/p' | head -n 1)
+          file_name="gs://safe-inputs-devsecops-outputs-for-dashboard/artifact-registry-image-digests/ui__${most_recent_sha}.txt"
+          echo "${most_recent_sha}" | gsutil cp - "${file_name}"
+        else
+          exit 0
+        fi

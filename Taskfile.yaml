@@ -112,6 +112,99 @@ tasks:
         --path=./k8s/
         --components="source-controller,kustomize-controller,notification-controller"
         --components-extra="image-reflector-controller,image-automation-controller"
+  
+  provision-vulnerability-cloud-function-resources:
+    desc: Resources for to save pubsub vulnerability messages from Artifact Registry scans
+    cmds:
+      # Enable services 
+      - gcloud services enable cloudfunctions.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable run.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable eventarc.googleapis.com --project={{.PROJECT_ID}}
+
+      # Create the artifact registry repo for the cloud function image
+      - >      
+        gcloud artifacts repositories create ${{.PROJECT_ID}}-vuln-cloudfunction 
+        --repository-format=docker 
+        --location=northamerica-northeast1 
+        --description="Artifact registry for safeinputs cloud function images"
+
+      # Create the vuln cloud function runtime service account: 
+      - >   
+        gcloud iam service-accounts create ${{.PROJECT_ID}}-vgcf-runtime 
+        --display-name="Vulnerability Cloud Function runtime" 
+        --description="To be used as the cloud function runtime service account to be able to pick off occurrences from container analysis and save to bucket."
+      
+      # Create the vuln cloud function build service account: 
+      - >          
+        gcloud iam service-accounts create ${{.PROJECT_ID}}-vgcf-build 
+        --display-name="Vulnerability Cloud Function build" 
+        --description="To be used as the cloud function build account (to separate from cloud build to eliminate circular dependency)."
+ 
+    # # Apply partial IAM bindings 
+      # (this was generated with gcloud projects get-iam-policy "$PROJECT_ID" > policy-pelias.json, 
+      # then added in binds and reapplied with: )
+      - gcloud projects set-iam-policy "${{.PROJECT_ID}}" policy-pelias.json (see below)
+    
+      # # Similiarly, that set-iam-policy could be done with the following commented out lines, but, unfortunately not the partial bindings part
+
+      # # Bind artifact registry writer to the cloud function build account
+      # - >     
+      #   gcloud artifacts repositories add-iam-policy-binding ${{.PROJECT_ID}}-vuln-cloudfunction 
+      #     --location=northamerica-northeast1 
+      #     --member="serviceAccount:${{.PROJECT_ID}}-vgcf-build@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #     --role="roles/artifactregistry.writer"
+
+      # # Bind the artifact registry reader role to the cloud function runtime and build service accounts:
+      # - >     
+      #   gcloud artifacts repositories add-iam-policy-binding $PROJECT_ID-vuln-cloudfunction 
+      #   --location=northamerica-northeast1 
+      #   --member="serviceAccount:${{.PROJECT_ID}}-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #   --role="roles/artifactregistry.reader"
+      # - >  
+      #   gcloud artifacts repositories add-iam-policy-binding ${{.PROJECT_ID}}-vuln-cloudfunction 
+      #   --location=northamerica-northeast1 
+      #   --member="serviceAccount:${{.PROJECT_ID}}-vgcf-build@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #   --role="roles/artifactregistry.reader"
+  
+      # # Bind storage object user role to vgcf-runtime service account on decsecops-outputs bucket 
+      # - >  
+      #   gcloud storage buckets add-iam-policy-binding gs://pelias-devsecops-outputs-for-dashboard 
+      #   --member="serviceAccount:${{.PROJECT_ID}}-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #   --role="roles/storage.objectUser"
+
+      # # Bind the cloudfunctions.developer role to the Cloud Build SA
+      # - >           
+      #   gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} 
+      #   --member="serviceAccount:${{.PROJECT_ID}}-cloudbuild@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #   --role="roles/cloudfunctions.developer"
+
+      # # Bind storage.objectViewer to vgcf-build
+      # - >           
+      #   gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} 
+      #     --member="serviceAccount:${{.PROJECT_ID}}-vgcf-build@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #     --role="roles/storage.objectViewer"
+
+      # # Bind containeranalysis.occurrences.viewer to the vuln runtime SA
+      # - >           
+      #   gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} 
+      #     --member="serviceAccount:${{.PROJECT_ID}}-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #     --role="roles/containeranalysis.occurrences.viewer"
+
+      # # Bind the objectUser for vuln runtime + build SA (this should be conditional on a particular bucket)
+      # - >           
+      #   gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} 
+      #     --member="serviceAccount:${{.PROJECT_ID}}-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #     --role="roles/storage.objectUser"
+      # - >     
+      # gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} \
+      #   --member="serviceAccount:${{.PROJECT_ID}}-vgcf-build@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #   --role="roles/storage.objectUser"
+
+      # # Bind the run.invoker role to the vuln runtime SA
+      # - >           
+      #   gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} 
+      #     --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
+      #     --role="roles/run.invoker"
 
   provision-devsecops-reporting:
     desc: Provision resources to enable DevSecOps reporting
@@ -126,7 +219,7 @@ tasks:
           containerscanning.googleapis.com
           --project={{.PROJECT_ID}}
 
-      # Create storage bucket with 30 day retention policy for outputs and give cloudbuild service account permission to write to it
+      # Create storage bucket with 30 day lifecycle for outputs and give cloudbuild service account permission to write to it
       - >
         gcloud storage buckets create gs://pelias-devsecops-outputs-for-dashboard 
           --location={{.REGION}} 
@@ -141,7 +234,7 @@ tasks:
       # Create a cloudbuild trigger for additional DevSecOps cloudbuild pipelines 
       - >
         gcloud builds triggers create github 
-          --name="phx-01hnn9wb0eg-main-cloudbuild-trigger" 
+          --name="phx-01hnn9wb0eg-root-cloudbuild-trigger" 
           --region={{.REGION}} 
           --repo-name="pelias-canada" 
           --repo-owner="PHACDataHub" 
@@ -157,7 +250,25 @@ tasks:
           --branch-pattern=".*" 
           --build-config="./devsecops/a11y-testing/cloudbuild.yaml"   
           --include-logs-with-status 
+      - >
+        gcloud builds triggers create github 
+          --name="phx-01hnn9wb0eg-vuln-cf-cloudbuild-trigger" 
+          --region={{.REGION}} 
+          --repo-name="pelias-canada" 
+          --repo-owner="PHACDataHub" 
+          --branch-pattern=".*" 
+          --build-config="./devsecops/artifact-registry-vulnerability-scanning/cloudbuild.yaml"   
+          --include-logs-with-status 
 
-      # Updated frontend cloudbuild to run on everybranch 
-
-      # Create a dashboard user and give read permissions on the output storage bucket - TODO
+      # Create a dashboard user and give read permissions on the output storage bucket
+      - >
+        gcloud iam service-accounts create dashboard-user 
+        --project="$PROJECT_ID" 
+        --display-name="Dashboard User Service Account"
+        
+      # Grant storage user access to the outputs bucket 
+      - >
+        gcloud storage buckets add-iam-policy-binding "gs://pelias-devsecops-outputs-for-dashboard" 
+        --member="serviceAccount:dashboard-user@{{.PROJECT_ID}}.iam.gserviceaccount.com" 
+        --role="roles/storage.objectUser" 
+        --project="$PROJECT_ID"
