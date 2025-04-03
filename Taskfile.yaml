@@ -120,6 +120,7 @@ tasks:
       - gcloud services enable cloudfunctions.googleapis.com --project={{.PROJECT_ID}}
       - gcloud services enable run.googleapis.com --project={{.PROJECT_ID}}
       - gcloud services enable eventarc.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable cloudresourcemanager.googleapis.com --project={{.PROJECT_ID}}
 
       # Create the artifact registry repo for the cloud function image
       - >      
