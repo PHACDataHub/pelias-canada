@@ -120,6 +120,7 @@ tasks:
       - gcloud services enable cloudfunctions.googleapis.com --project={{.PROJECT_ID}}
       - gcloud services enable run.googleapis.com --project={{.PROJECT_ID}}
       - gcloud services enable eventarc.googleapis.com --project={{.PROJECT_ID}}
+      - gcloud services enable cloudresourcemanager.googleapis.com --project={{.PROJECT_ID}}
 
       # Create the artifact registry repo for the cloud function image
       - >      
@@ -265,7 +266,7 @@ tasks:
         gcloud iam service-accounts create dashboard-user 
         --project="$PROJECT_ID" 
         --display-name="Dashboard User Service Account"
-        
+
       # Grant storage user access to the outputs bucket 
       - >
         gcloud storage buckets add-iam-policy-binding "gs://pelias-devsecops-outputs-for-dashboard" 
