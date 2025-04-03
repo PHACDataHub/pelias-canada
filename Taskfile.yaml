@@ -207,10 +207,18 @@ tasks:
         gcloud projects add-iam-policy-binding ${{.PROJECT_ID}} 
           --member="serviceAccount:phx-01j1tbke0ax-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com" 
           --role="roles/run.invoker"
+      # Have cloud build impersonate cf runtime SA
       - >
-        gcloud iam service-accounts add-iam-policy-binding ${{.PROJECT_ID}} -vgcf-runtime@phx-01hnn9wb0eg.iam.gserviceaccount.com 
-          --member="serviceAccount:${{.PROJECT_ID}}@cloudbuild.gserviceaccount.com" 
+        gcloud iam service-accounts add-iam-policy-binding ${{.PROJECT_ID}}-vgcf-runtime@${{.PROJECT_ID}}.iam.gserviceaccount.com 
+          --member="serviceAccount:${{.PROJECT_NUMBER}}@cloudbuild.gserviceaccount.com" 
           --role="roles/iam.serviceAccountUser"
+      # Have cloud build impersonate cf build SA
+      - >
+        gcloud iam service-accounts add-iam-policy-binding 
+          ${{.PROJECT_ID}}-vgcf-build@${{.PROJECT_ID}}.iam.gserviceaccount.com 
+          --member="serviceAccount:${{.PROJECT_NUMBER}}@cloudbuild.gserviceaccount.com" 
+          --role="roles/iam.serviceAccountUser"
+
 
   provision-devsecops-reporting:
     desc: Provision resources to enable DevSecOps reporting
