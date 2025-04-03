@@ -219,7 +219,7 @@ tasks:
           containerscanning.googleapis.com
           --project={{.PROJECT_ID}}
 
-      # Create storage bucket with 30 day retention policy for outputs and give cloudbuild service account permission to write to it
+      # Create storage bucket with 30 day lifecycle for outputs and give cloudbuild service account permission to write to it
       - >
         gcloud storage buckets create gs://pelias-devsecops-outputs-for-dashboard 
           --location={{.REGION}} 
@@ -265,7 +265,7 @@ tasks:
         gcloud iam service-accounts create dashboard-user 
         --project="$PROJECT_ID" 
         --display-name="Dashboard User Service Account"
-
+        
       # Grant storage user access to the outputs bucket 
       - >
         gcloud storage buckets add-iam-policy-binding "gs://pelias-devsecops-outputs-for-dashboard" 
