@@ -37,7 +37,8 @@ i18n
     }
 
     // Optional: force toggle to ensure clean language load
-    i18n.changeLanguage('fr')
+    i18n
+      .changeLanguage('fr')
       .then(() => i18n.changeLanguage('en'))
       .then(() => i18n.changeLanguage(normalizedLang));
   });
