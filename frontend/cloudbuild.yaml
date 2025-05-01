@@ -109,3 +109,5 @@ steps:
         else
           exit 0
         fi
+options:
+  machineType: "E2_HIGHCPU_8"
