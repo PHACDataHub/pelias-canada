@@ -189,9 +189,49 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
         overlayRef.current.style.display = 'none';
       }
     });
+    const addLegend = (t, isWideScreen) => {
+      const legendContainer = document.createElement('div');
+      legendContainer.style.position = 'absolute';
+      legendContainer.style.bottom = '30px';
+      legendContainer.style.right = '10px';
+      legendContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+      legendContainer.style.padding = '5px';
+      legendContainer.style.borderRadius = '5px';
+      legendContainer.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)';
+      legendContainer.style.fontSize = isWideScreen ? '16px' : '12px';
+      legendContainer.style.lineHeight = '1.5em';
 
+      legendContainer.innerHTML = `
+        <div style="margin-bottom: 6px;">
+        <strong>${t('legend.confidence')}</strong><br/>
+          <i style="background: blue; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i>
+          <span>${t('legend.original')}</span>
+        </div>
+      `;
+
+      const grades = [100, 80, 50, 30, 0];
+      const colors = ['#006400', '#389638', '#FFBF00', '#FF8C00', '#B22222'];
+
+      const labels = grades.map((grade, i) => {
+        return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
+          grade
+        }% ${i < grades.length - 4 ? '+' : `&ndash; ${grades[i - 1]}%`}`;
+      });
+
+      legendContainer.innerHTML += labels.join('<br>');
+      return legendContainer;
+    };
+
+    // After map is created
+    const legend = addLegend(t, isWideScreen);
+    mapRef.current.appendChild(legend);
+
+    // Cleanup in return
     return () => {
       map.setTarget(null);
+      if (legend && legend.parentNode) {
+        legend.parentNode.removeChild(legend);
+      }
     };
   }, [t, isWideScreen, filteredApiResults, originalPoints]);
 

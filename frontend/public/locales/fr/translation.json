@@ -521,7 +521,8 @@
   "copy": "Copiez",
   "error": "Erreurs",
   "legend": {
-    "confidence": "Confiance"
+    "confidence": "Confiance",
+    "original": "Point d'entrée"
   },
   "loading": "chargement",
   "navigateToSection": "Naviguer vers la section",
