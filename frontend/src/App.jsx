@@ -16,6 +16,11 @@ import ReverseBulk from './components/apiBulkInput/reverseBulk/IntakeReverseBulk
 // TO add a page, go to server.ts and add to list located in << const ROUTES_TO_REDIRECT >>
 //
 
+// Clear saved language in development
+if (process.env.NODE_ENV === 'development') {
+  localStorage.removeItem('i18nextLng');
+}
+
 function App() {
   return (
     <Routes>
