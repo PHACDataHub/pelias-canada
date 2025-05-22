@@ -50,7 +50,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
     }
     if (name === 'longitude' && (value < LONG_MIN || value > LONG_MAX)) {
       // return `${t("components.apiFetch.reverseSingleFetch.longitude")} must be between ${LONG_MIN} and ${LONG_MAX}.`
-      return i18n.languag === 'en'
+      return i18n.language === 'en'
         ? `${t('components.apiFetch.reverseSingleFetch.longitude')} must be between ${LONG_MIN} and ${LONG_MAX}.`
         : `${t('components.apiFetch.reverseSingleFetch.longitude')} doit être compris entre ${LONG_MIN} et ${LONG_MAX}.`;
     }
