@@ -13,14 +13,13 @@ export default function FAQ() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isSticky, setIsSticky] = useState(true);
   const { i18n, t } = useTranslation();
-  const categoryHeadingRef = useRef(null); // Ref for the heading
+  const categoryHeadingRef = useRef(null);
+  const liveRegionRef = useRef(null);
 
   const fetchFaqData = useCallback(async () => {
     setLoading(true);
-    // extract shortlang to prevent puppeteer from using "en-US" instead of "en"
-    const fullLang = i18n.language; // e.g., "en-US" for puppeteer
-    const shortLang = fullLang.split('-')[0]; // extract just "en"
-
+    const fullLang = i18n.language;
+    const shortLang = fullLang.split('-')[0];
     const filePath = `locales/${shortLang}/FAQ-${shortLang}.csv`;
 
     try {
@@ -51,7 +50,6 @@ export default function FAQ() {
   useEffect(() => {
     fetchFaqData();
     i18n.on('languageChanged', fetchFaqData);
-
     return () => {
       i18n.off('languageChanged', fetchFaqData);
     };
@@ -61,21 +59,42 @@ export default function FAQ() {
     const handleResize = () => {
       setIsSticky(window.innerWidth >= 1024);
     };
-
     handleResize();
     window.addEventListener('resize', handleResize);
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // Focus the heading when a new category is selected
   useEffect(() => {
     if (categoryHeadingRef.current) {
       categoryHeadingRef.current.focus();
     }
+    if (liveRegionRef.current) {
+      liveRegionRef.current.textContent =
+        i18n.language === 'en'
+          ? `${selectedCategory} is now displayed`
+          : `${selectedCategory} est maintenant affichée`;
+    }
   }, [selectedCategory]);
+
+  // Arrow key navigation between FAQ questions
+  const handleKeyDown = (e) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+
+    const headings = Array.from(
+      document.querySelectorAll('.faq-content h4[tabindex="0"]')
+    );
+    const index = headings.findIndex((el) => el === document.activeElement);
+
+    if (e.key === 'ArrowDown' && index < headings.length - 1) {
+      headings[index + 1].focus();
+      e.preventDefault();
+    } else if (e.key === 'ArrowUp' && index > 0) {
+      headings[index - 1].focus();
+      e.preventDefault();
+    }
+  };
 
   return (
     <>
@@ -140,13 +159,54 @@ export default function FAQ() {
         >
           {selectedCategory ? (
             <>
-              <GcdsHeading
-                tag="h3"
-                tabIndex="-1" // Makes it focusable for programmatic focus
-                ref={categoryHeadingRef} // Attach ref
+              <div
+                ref={categoryHeadingRef}
+                tabIndex={-1}
+                aria-labelledby="category-heading"
               >
-                {selectedCategory}
-                {/* 
+                <GcdsHeading tag="h3" id="category-heading">
+                  {selectedCategory}
+                </GcdsHeading>
+              </div>
+
+              {/* Screen reader live region */}
+              <span
+                ref={liveRegionRef}
+                role="status"
+                aria-live="polite"
+                style={{
+                  position: 'absolute',
+                  left: '-9999px',
+                  width: '1px',
+                  height: '1px',
+                  overflow: 'hidden',
+                }}
+              />
+
+              <ul
+                style={{ listStyle: 'none', padding: 0 }}
+                onKeyDown={handleKeyDown}
+              >
+                {faqData[selectedCategory].map(({ Question, Answer }, index) => (
+                  <li key={index} style={{ marginBottom: '20px' }}>
+                    <GcdsHeading tag="h4" tabIndex={0}>
+                      {Question}
+                    </GcdsHeading>
+                    <GcdsText style={{ margin: 0 }}>{Answer}</GcdsText>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p>{t('selectCategory')}</p>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+  {/* 
 								announcement of category on selection
 								<span
 								role="status"
@@ -163,25 +223,3 @@ export default function FAQ() {
 								{i18n.language === "en" ?  (`${selectedCategory} is now displayed`) :(`${selectedCategory} est maintenant affichée`) }
 								
 							</span> */}
-              </GcdsHeading>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                {faqData[selectedCategory].map(
-                  ({ Question, Answer }, index) => (
-                    <li key={index} style={{ marginBottom: '20px' }}>
-                      <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
-                        {Question}
-                      </div>
-                      <GcdsText style={{ margin: 0 }}>{Answer}</GcdsText>
-                    </li>
-                  ),
-                )}
-              </ul>
-            </>
-          ) : (
-            <p>{t('selectCategory')}</p>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
