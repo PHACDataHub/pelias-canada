@@ -83,7 +83,7 @@ export default function FAQ() {
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
 
     const headings = Array.from(
-      document.querySelectorAll('.faq-content h4[tabindex="0"]')
+      document.querySelectorAll('.faq-content h4[tabindex="0"]'),
     );
     const index = headings.findIndex((el) => el === document.activeElement);
 
@@ -187,14 +187,16 @@ export default function FAQ() {
                 style={{ listStyle: 'none', padding: 0 }}
                 onKeyDown={handleKeyDown}
               >
-                {faqData[selectedCategory].map(({ Question, Answer }, index) => (
-                  <li key={index} style={{ marginBottom: '20px' }}>
-                    <GcdsHeading tag="h4" tabIndex={0}>
-                      {Question}
-                    </GcdsHeading>
-                    <GcdsText style={{ margin: 0 }}>{Answer}</GcdsText>
-                  </li>
-                ))}
+                {faqData[selectedCategory].map(
+                  ({ Question, Answer }, index) => (
+                    <li key={index} style={{ marginBottom: '20px' }}>
+                      <GcdsHeading tag="h4" tabIndex={0}>
+                        {Question}
+                      </GcdsHeading>
+                      <GcdsText style={{ margin: 0 }}>{Answer}</GcdsText>
+                    </li>
+                  ),
+                )}
               </ul>
             </>
           ) : (
@@ -206,7 +208,8 @@ export default function FAQ() {
   );
 }
 
-  {/* 
+{
+  /* 
 								announcement of category on selection
 								<span
 								role="status"
@@ -222,4 +225,5 @@ export default function FAQ() {
 							>
 								{i18n.language === "en" ?  (`${selectedCategory} is now displayed`) :(`${selectedCategory} est maintenant affichée`) }
 								
-							</span> */}
+							</span> */
+}
