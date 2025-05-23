@@ -13,8 +13,10 @@ export default function FAQ() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isSticky, setIsSticky] = useState(true);
   const { i18n, t } = useTranslation();
+
   const categoryHeadingRef = useRef(null);
   const liveRegionRef = useRef(null);
+  const userSelected = useRef(false);
 
   const fetchFaqData = useCallback(async () => {
     setLoading(true);
@@ -67,9 +69,11 @@ export default function FAQ() {
   }, []);
 
   useEffect(() => {
-    if (categoryHeadingRef.current) {
+    if (userSelected.current && categoryHeadingRef.current) {
       categoryHeadingRef.current.focus();
+      userSelected.current = false; // Reset the flag after use
     }
+
     if (liveRegionRef.current) {
       liveRegionRef.current.textContent =
         i18n.language === 'en'
@@ -101,7 +105,6 @@ export default function FAQ() {
       <GcdsHeading tag="h1" characterLimit="false">
         {t('pages.faq.title')}
       </GcdsHeading>
-
       <div
         className="faq-container"
         style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}
@@ -134,7 +137,10 @@ export default function FAQ() {
                         disabled={
                           selectedCategory === category ? 'true' : undefined
                         }
-                        onClick={() => setSelectedCategory(category)}
+                        onClick={() => {
+                          userSelected.current = true;
+                          setSelectedCategory(category);
+                        }}
                         aria-current={
                           selectedCategory === category ? 'true' : undefined
                         }
