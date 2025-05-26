@@ -12,7 +12,7 @@ export default function FAQ() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isSticky, setIsSticky] = useState(true);
-  const { i18n, t } = useTranslation();
+  const { t, i18n, ready } = useTranslation();
 
   const categoryHeadingRef = useRef(null);
   const liveRegionRef = useRef(null);
@@ -23,6 +23,7 @@ export default function FAQ() {
     const fullLang = i18n.language;
     const shortLang = fullLang.split('-')[0];
     const filePath = `locales/${shortLang}/FAQ-${shortLang}.csv`;
+    // console.log('Fetching FAQ CSV:', filePath);
 
     try {
       const response = await fetch(filePath);
@@ -105,6 +106,7 @@ export default function FAQ() {
       <GcdsHeading tag="h1" characterLimit="false">
         {t('pages.faq.title')}
       </GcdsHeading>
+      {/* <p>{i18n.language} is the current language </p> */}
       <div
         className="faq-container"
         style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}
@@ -135,14 +137,14 @@ export default function FAQ() {
                         buttonRole="primary"
                         size="small"
                         disabled={
-                          selectedCategory === category ? 'true' : undefined
+                          selectedCategory === category ? true : undefined
                         }
                         onClick={() => {
                           userSelected.current = true;
                           setSelectedCategory(category);
                         }}
                         aria-current={
-                          selectedCategory === category ? 'true' : undefined
+                          selectedCategory === category ? true : undefined
                         }
                       >
                         {category}
