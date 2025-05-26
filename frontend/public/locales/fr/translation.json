@@ -301,7 +301,8 @@
     "reverseBulkFile": "Géocodage inversé entrée en masse",
     "developers": "Développeurs",
     "contactUs": "Contactez-nous",
-    "skipNav": "Passer au contenu principal"
+    "skipNav": "Passer au contenu principal",
+    "navBar" : "barre de navigation"
   },
   "pages": {
     "addressBulkFile": {

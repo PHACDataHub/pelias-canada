@@ -74,7 +74,7 @@ export default function Layout() {
       >
         <div slot="menu">
           <GcdsTopNav
-            label="Top navigation"
+            label={t('menu.navBar')}
             alignment="right"
             lang={i18n.language}
           >
