@@ -301,7 +301,8 @@
     "reverseBulkFile": "Reverse Geolocation Bulk Input",
     "developers": "Developers",
     "contactUs": "Contact Us",
-    "skipNav": "Skip to main content"
+    "skipNav": "Skip to main content",
+    "navBar": "Top navigation"
   },
   "pages": {
     "addressBulkFile": {
