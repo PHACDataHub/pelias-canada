@@ -73,7 +73,11 @@ export default function Layout() {
         style={{ fontSize: '20px' }}
       >
         <div slot="menu">
-          <GcdsTopNav label="Top navigation" alignment="right" lang={i18n.language}>
+          <GcdsTopNav
+            label="Top navigation"
+            alignment="right"
+            lang={i18n.language}
+          >
             <GcdsNavLink href="/" slot="home">
               Pelias
             </GcdsNavLink>
