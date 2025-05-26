@@ -175,9 +175,10 @@ export default function LandingPage() {
                 <hr />
                 <br />
                 <GcdsButton
-                  buttonId="clear-results"
+                  buttonId={t('pages.landingPage.clearResults')}
                   name={t('pages.landingPage.clearResults')}
-                  aria-label={t('pages.landingPage.clearResults')}
+                  // aria-label={t('pages.landingPage.clearResults')}
+                  // commented out to possibly fix art-8721. Mac book not seeing button 
                   onClick={resetData} // Clear all results
                 >
                   {t('pages.landingPage.clearResults')}
