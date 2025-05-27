@@ -203,7 +203,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
 
       legendContainer.innerHTML = `
         <div style="margin-bottom: 6px;">
-        <strong>${t('legend.confidence')}</strong><br/>
+          <strong><GcdsHeading tag="h4" characterLimit="false" marginTop="0" marginBottom="0">${t('legend.confidence')}</GcdsHeading></strong> </br>
           <i style="background: blue; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i>
           <span>${t('legend.original')}</span>
         </div>

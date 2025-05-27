@@ -43,7 +43,7 @@ const addLegend = (t, isWideScreen) => {
   legendContainer.style.lineHeight = '1.5em';
 
   // Add legend title
-  legendContainer.innerHTML = `<strong>${t('legend.confidence')}</strong> <br/>`;
+  legendContainer.innerHTML = `<strong><GcdsHeading tag="h4" characterLimit="false" marginTop="0" marginBottom="0">${t('legend.confidence')}</GcdsHeading></strong> </br>`;
 
   const grades = [100, 80, 50, 30, 0];
   const colors = ['#006400', '#389638', '#FFBF00', '#FF8C00', '#B22222'];
