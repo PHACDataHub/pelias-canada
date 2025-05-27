@@ -51,7 +51,9 @@ export default function ForwardBulkInput() {
                 <strong>physicalAddress</strong>.
               </li>
               <li>
-                {t('pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation')}{' '}
+                {t(
+                  'pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation',
+                )}{' '}
               </li>
               <li>
                 {t('pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission')}

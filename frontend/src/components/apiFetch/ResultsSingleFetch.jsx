@@ -138,7 +138,8 @@ export default function SingleFetchResults({
               </GcdsHeading>
               <p>
                 <strong>
-                  {t('components.apiFetch.resultSingleFetch.addressReturn')}:{' '}
+                  {t('components.apiFetch.resultSingleFetch.addressReturn')}
+                  :{' '}
                 </strong>
                 {result.features[0].properties.housenumber !== undefined
                   ? ` ${result.features[0].properties.housenumber + ' '}`
@@ -179,14 +180,16 @@ export default function SingleFetchResults({
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <p>
                     <strong>
-                      {t('components.apiFetch.resultSingleFetch.matchType')}:{' '}
+                      {t('components.apiFetch.resultSingleFetch.matchType')}
+                      :{' '}
                     </strong>
                     {result.features[0].properties.match_type ||
                       t('components.apiFetch.resultSingleFetch.na')}
                   </p>
                   <p>
                     <strong>
-                      {t('components.apiFetch.resultSingleFetch.accuracy')}:{' '}
+                      {t('components.apiFetch.resultSingleFetch.accuracy')}
+                      :{' '}
                     </strong>{' '}
                     {result.features[0].properties.accuracy}
                   </p>
