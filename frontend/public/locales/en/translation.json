@@ -217,7 +217,7 @@
       },
       "singleResultID": {
         "header": "Input IDs with only one result",
-        "errorMess": "These items will not be included in the tables below"
+        "errorMess": "These items will not be included in the map, summary table, detail table, or in the exported files."
       },
       "reverseCallAPIReturn": {
         "dataProcessingSummary": "Data Processing Summary",

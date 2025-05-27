@@ -217,7 +217,7 @@
       },
       "singleResultID": {
         "header": "ID d'entrée avec un seul résultat",
-        "errorMess": "Ces éléments ne seront pas inclus dans les tableaux ci-dessous"
+        "errorMess": "Ces éléments ne seront pas inclus dans la carte, le tableau récapitulatif, le tableau détaillé ou les fichiers exportés."
       },
       "reverseCallAPIReturn": {
         "dataProcessingSummary": "Sommaire du traitement des données",
