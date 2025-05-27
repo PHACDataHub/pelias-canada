@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write --log-level warn ."
   },
   "dependencies": {
     "@cdssnc/gcds-components": "^0.31.0",

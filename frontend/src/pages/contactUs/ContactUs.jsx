@@ -66,7 +66,7 @@ export default function ContactUs() {
       ) : (
         <div>
           <GcdsText characterLimit="false">
-            {t('pages.contactUs.subTitle')}{' '}
+            {t('pages.contactUs.subTitle')}
             <a href="mailto:Geordin.Raganold@hc-sc.gc.ca">
               Geordin.Raganold@hc-sc.gc.ca
             </a>

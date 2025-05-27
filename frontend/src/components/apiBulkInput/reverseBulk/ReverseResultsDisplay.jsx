@@ -104,14 +104,14 @@ export default function ReverseResultsDisplay({
             <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
           </GcdsText>
           <GcdsHeading tag="h2">
-            {t('components.forwardBulk.callTimes.header')}{' '}
+            {t('components.forwardBulk.callTimes.header')}
           </GcdsHeading>
           <GcdsText>
-            {t('components.forwardBulk.resultsTable.validRows')}{' '}
+            {t('components.forwardBulk.resultsTable.validRows')}
             {filteredResults.length}
           </GcdsText>
           <GcdsText>
-            {t('components.forwardBulk.resultsTable.returnedRows')}:{' '}
+            {t('components.forwardBulk.resultsTable.returnedRows')}:
             {filteredApiResults.length}
           </GcdsText>
           {singleResultIDs.length > 0 && (
@@ -125,7 +125,7 @@ export default function ReverseResultsDisplay({
                 ))}
               </ul>
               <GcdsErrorMessage>
-                {' '}
+                
                 {t('components.reverseBulk.singleResultID.errorMess')}
               </GcdsErrorMessage>
             </div>

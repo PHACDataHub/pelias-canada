@@ -133,12 +133,12 @@ export default function LandingPage() {
       >
         <GcdsText characterLimit="false">
           {t('pages.landingPage.landingPagePara')}
-        </GcdsText>{' '}
+        </GcdsText>
         {/* Main paragraph text */}
         <div>
           <GcdsHeading tag="h2">
             {t('pages.landingPage.apiSectionTitle')}
-          </GcdsHeading>{' '}
+          </GcdsHeading>
           {/* Section heading for API-related content */}
           <GcdsText characterLimit="false">
             <em> {t('pages.landingPage.apiSectionPara')} </em>

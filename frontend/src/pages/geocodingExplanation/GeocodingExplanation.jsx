@@ -154,7 +154,7 @@ export default function GeocodingExplanation() {
           {t('pages.geocodingExplanation.underTitleHeader')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          {' '}
+          
           {t('pages.geocodingExplanation.underTitlePara')}
         </GcdsText>
         <GcdsHeading tag="h3" characterLimit="false">
@@ -202,7 +202,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.verifyAddress.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.verifyAddress.para',
               )}
@@ -215,7 +215,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.para',
               )}
@@ -228,7 +228,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.details.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t('pages.geocodingExplanation.improvingAccuracy.details.para')}
             </GcdsText>
           </li>
@@ -252,7 +252,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.billingualReqs.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.billingualReqs.para',
               )}
@@ -265,7 +265,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.standardDigraphs.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.standardDigraphs.para',
               )}
@@ -278,7 +278,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.specialChars.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.specialChars.para',
               )}
@@ -291,7 +291,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.capitilization.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.capitilization.para',
               )}
@@ -304,7 +304,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.improvingAccuracy.addressVars.title',
                 )}
                 :
-              </strong>{' '}
+              </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.addressVars.para',
               )}
@@ -318,7 +318,7 @@ export default function GeocodingExplanation() {
           {t('pages.geocodingExplanation.lessAccurateMatch.title')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          {' '}
+          
           {t('pages.geocodingExplanation.lessAccurateMatch.underTitle')}
         </GcdsText>
         <ul>
@@ -329,7 +329,7 @@ export default function GeocodingExplanation() {
                   'pages.geocodingExplanation.lessAccurateMatch.spatialAccuracy',
                 )}
               </strong>
-              :{' '}
+              :
               {t(
                 'pages.geocodingExplanation.lessAccurateMatch.spatialAccuracyPara',
               )}

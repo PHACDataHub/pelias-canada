@@ -90,7 +90,7 @@ export default function ReverseBulk() {
             display: 'inline-block',
             marginRight: '8px',
           }}
-        ></i>{' '}
+        ></i>
         Input / Entrée
         <br />
         <div dangerouslySetInnerHTML={{ __html: labels }} />
@@ -899,14 +899,14 @@ export default function ReverseBulk() {
                       </p>
                       <p>
                         <strong>
-                          {t('components.reverseBulk.outputTable.inputID')} &{' '}
+                          {t('components.reverseBulk.outputTable.inputID')} &
                           {t('components.reverseBulk.outputTable.ranking')}
                         </strong>
                         : {row.inputID} - #{row.rankingByInputId}
                       </p>
                       <p>
                         <strong>
-                          {' '}
+                          
                           {t(
                             'components.reverseBulk.outputTable.confidenceLevel',
                           )}
@@ -915,7 +915,7 @@ export default function ReverseBulk() {
                       </p>
                       <p>
                         <strong>
-                          {' '}
+                          
                           {t('components.reverseBulk.map.distance')}
                         </strong>
                         : {row.distanceKm} km
@@ -923,7 +923,7 @@ export default function ReverseBulk() {
                       {row.name && (
                         <p>
                           <strong>
-                            {' '}
+                            
                             {t('components.reverseBulk.map.streetName')}
                           </strong>
                           : {row.name}
@@ -932,7 +932,7 @@ export default function ReverseBulk() {
                       {row.locality && (
                         <p>
                           <strong>
-                            {' '}
+                            
                             {t('components.reverseBulk.map.locality')}
                           </strong>
                           : {row.locality}
@@ -941,7 +941,7 @@ export default function ReverseBulk() {
                       {row.region && (
                         <p>
                           <strong>
-                            {' '}
+                            
                             {t('components.reverseBulk.map.province')}
                           </strong>
                           : {row.region}
@@ -950,7 +950,7 @@ export default function ReverseBulk() {
                       {row.accuracy && (
                         <p>
                           <strong>
-                            {' '}
+                            
                             {t('components.reverseBulk.outputTable.accuracy')}
                           </strong>
                           : {row.accuracy}
@@ -971,7 +971,7 @@ export default function ReverseBulk() {
             </GcdsButton>
             <div>
               <p>
-                {t('components.reverseBulk.rowsInOut')}: {originalRows.length} /{' '}
+                {t('components.reverseBulk.rowsInOut')}: {originalRows.length} /
                 {outputRows.length}
               </p>
               <fieldset>
@@ -987,11 +987,11 @@ export default function ReverseBulk() {
                 <thead>
                   <tr>
                     <th scope="col">
-                      {' '}
+                      
                       {t('components.reverseBulk.tableRange')}
                     </th>
                     <th scope="col">
-                      {' '}
+                      
                       {t('components.reverseBulk.tableCount')}
                     </th>
                   </tr>

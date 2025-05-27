@@ -169,33 +169,33 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
         <GcdsText textRole="light">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.inputLength')}:
-          </strong>{' '}
+          </strong>
           {totalRowsSubmitted}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
-          </strong>{' '}
+          </strong>
           {validResults.length}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
-          </strong>{' '}
+          </strong>
           {invalidResults.length}
         </GcdsText>
       </div>
 
       {/* click to view inputted details */}
       <GcdsHeading tag="h4">
-        {' '}
+        
         {t('components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails')}
       </GcdsHeading>
       <GcdsText>
-        {' '}
+        
         {t(
           'components.forwardBulk.forwardCallAPIReturn.recievedDataJsonPreview',
-        )}{' '}
+        )}
       </GcdsText>
       <GcdsDetails
         detailsTitle={t(
@@ -214,8 +214,8 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       </GcdsDetails>
       <hr></hr>
       <GcdsText>
-        {' '}
-        {t('components.forwardBulk.forwardCallAPIReturn.cleanDataPreview')}{' '}
+        
+        {t('components.forwardBulk.forwardCallAPIReturn.cleanDataPreview')}
       </GcdsText>
       <GcdsDetails
         detailsTitle={t(
@@ -234,18 +234,18 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.inputId',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.inputID}
                     </li>
 
                     <li>
                       <strong>
-                        {' '}
+                        
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.physicalAddress',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.physicalAddress}
                     </li>
                     <li>
@@ -254,7 +254,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.apartment',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.apartment}
                     </li>
                     <li>
@@ -263,7 +263,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.streetNumber',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.streetNumber}
                     </li>
                     <li>
@@ -272,7 +272,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.streetName',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.streetName}
                     </li>
                     <li>
@@ -281,7 +281,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.region',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.region}
                     </li>
                     <li>
@@ -290,7 +290,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.province',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.province}
                     </li>
                     <li>
@@ -299,7 +299,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.postalCode',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.postalCode}
                     </li>
                     <li>
@@ -308,7 +308,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                           'components.forwardBulk.forwardCallAPIReturn.previewData.query',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.query}
                     </li>
                   </ul>

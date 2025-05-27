@@ -82,24 +82,24 @@ export default function FilteredResultsDisplay({
         <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
       </GcdsText>
       <GcdsHeading tag="h2">
-        {t('components.forwardBulk.callTimes.header')}{' '}
+        {t('components.forwardBulk.callTimes.header')}
       </GcdsHeading>
       <GcdsNotice type="info" noticeTitleTag="h3" noticeTitle="Estimated Time">
         <GcdsText>
           <i>
-            {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}{' '}
+            {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}
             {t('components.forwardBulk.callTimes.estSingle2')}
           </i>
         </GcdsText>
         <GcdsText>
-          {t('components.forwardBulk.callTimes.estCallTime1')}{' '}
+          {t('components.forwardBulk.callTimes.estCallTime1')}
           {filteredResults.length}
-          {t('components.forwardBulk.callTimes.estCallTime2')}:{' '}
+          {t('components.forwardBulk.callTimes.estCallTime2')}:
           {estimatedApiTime} {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
         <GcdsText>
-          {t('components.forwardBulk.callTimes.realTime')}:{' '}
-          {elapsedTime.toFixed(1)}{' '}
+          {t('components.forwardBulk.callTimes.realTime')}:
+          {elapsedTime.toFixed(1)}
           {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
       </GcdsNotice>
@@ -124,14 +124,14 @@ export default function FilteredResultsDisplay({
       )}
 
       <GcdsText>
-        {t('components.forwardBulk.resultsTable.validRows')}{' '}
+        {t('components.forwardBulk.resultsTable.validRows')}
         {filteredResults.length}
       </GcdsText>
 
       {apiResults.length > 0 && (
         <>
           <GcdsText>
-            {t('components.forwardBulk.resultsTable.returnedRows')}:{' '}
+            {t('components.forwardBulk.resultsTable.returnedRows')}:
             {apiResults.length}
           </GcdsText>
           <ForwardExportFiles apiResults={apiResults} />
