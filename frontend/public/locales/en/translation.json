@@ -94,7 +94,7 @@
         "headerPara": "To run another CSV file, you need to refresh the page before uploading a new file. This ensures that all previous data, including captured files, processed results and API responses, have been completely erased. Refreshing the page resets the system, preventing any conflicts or residual data from affecting the new upload.",
         "estSingle1": "Estimated time per call is approximately",
         "estSingle2": "seconds per call",
-        "estCallTime1": "Estimated time for",
+        "estCallTime1": "Estimated time for ",
         "estCallTime2": " API calls",
         "realTime": "Actual Loading Time",
         "seconds": "seconds"
@@ -527,7 +527,8 @@
   },
   "loading": "Loading",
   "navigateToSection": "Navigate to section",
+  "reset": "Reset",
   "search": "Search",
   "tableOfContents": "Table of contents",
-  "reset": "Reset"
+  "timeEst": "Estimated time"
 }

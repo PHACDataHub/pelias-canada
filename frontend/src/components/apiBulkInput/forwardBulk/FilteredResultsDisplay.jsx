@@ -84,7 +84,7 @@ export default function FilteredResultsDisplay({
       <GcdsHeading tag="h2">
         {t('components.forwardBulk.callTimes.header')}
       </GcdsHeading>
-      <GcdsNotice type="info" noticeTitleTag="h3" noticeTitle="Estimated Time">
+      <GcdsNotice type="info" noticeTitleTag="h3" noticeTitle={t('timeEst')}>
         <GcdsText>
           <i>
             {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}

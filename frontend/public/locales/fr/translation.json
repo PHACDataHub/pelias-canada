@@ -527,7 +527,8 @@
   },
   "loading": "chargement",
   "navigateToSection": "Naviguer vers la section",
+  "reset": "Réinitialiser",
   "search": "Rechercher",
   "tableOfContents": "Table des matières",
-  "reset": "Réinitialiser"
+  "timeEst": "Durée estimée"
 }
