@@ -64,7 +64,7 @@ export default function ForwardBulk() {
                 sendFilteredResults={handleFilteredResults}
               />
               <GcdsText characterLimit="false">
-                {t('components.forwardBulk.inputUpload.continuePara')}{' '}
+                {t('components.forwardBulk.inputUpload.continuePara')}
               </GcdsText>
               <GcdsButton
                 buttonId={t('components.forwardBulk.inputUpload.continue')}

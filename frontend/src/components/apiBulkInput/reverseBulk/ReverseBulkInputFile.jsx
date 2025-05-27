@@ -161,8 +161,7 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
       {results.length > 0 && (
         <>
           <GcdsHeading tag="h3" characterLimit="false">
-            {t('components.forwardBulk.inputUpload.displayFileName')}:{' '}
-            {fileName}
+            {t('components.forwardBulk.inputUpload.displayFileName')}:{fileName}
           </GcdsHeading>
         </>
       )}

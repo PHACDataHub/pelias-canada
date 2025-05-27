@@ -8,7 +8,6 @@ export default function ForwardBulkInput() {
   return (
     <>
       <GcdsHeading tag="h1">
-        {' '}
         {t('pages.forwardBulk.BulkGeocodingInput.title')}
       </GcdsHeading>
       <div>
@@ -51,7 +50,7 @@ export default function ForwardBulkInput() {
                 <strong>physicalAddress</strong>.
               </li>
               <li>
-                {t('pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation')}{' '}
+                {t('pages.forwardBulk.HowToUseBulkInput.steps.dataPreparation')}
               </li>
               <li>
                 {t('pages.forwardBulk.HowToUseBulkInput.steps.dataSubmission')}

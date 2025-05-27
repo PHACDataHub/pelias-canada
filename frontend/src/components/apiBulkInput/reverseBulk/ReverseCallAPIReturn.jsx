@@ -74,19 +74,19 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
         <GcdsText textRole="light">
           <strong>
             {t('components.reverseBulk.reverseCallAPIReturn.inputLength')}:
-          </strong>{' '}
+          </strong>
           {totalRowsSubmitted}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
-          </strong>{' '}
+          </strong>
           {parsedResults.length}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
-          </strong>{' '}
+          </strong>
           {invalidResults.length}
         </GcdsText>
       </div>
@@ -130,7 +130,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
                           'components.reverseBulk.reverseCallAPIReturn.previewData.inputId',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.inputID}
                     </li>
                     <li>
@@ -139,7 +139,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
                           'components.reverseBulk.reverseCallAPIReturn.previewData.ddLat',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.ddLat}
                     </li>
                     <li>
@@ -148,7 +148,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
                           'components.reverseBulk.reverseCallAPIReturn.previewData.ddLong',
                         )}
                         :
-                      </strong>{' '}
+                      </strong>
                       {parsedResult.ddLong}
                     </li>
                   </ul>
