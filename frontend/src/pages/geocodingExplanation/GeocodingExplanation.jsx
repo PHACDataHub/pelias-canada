@@ -154,7 +154,6 @@ export default function GeocodingExplanation() {
           {t('pages.geocodingExplanation.underTitleHeader')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          
           {t('pages.geocodingExplanation.underTitlePara')}
         </GcdsText>
         <GcdsHeading tag="h3" characterLimit="false">
@@ -318,7 +317,6 @@ export default function GeocodingExplanation() {
           {t('pages.geocodingExplanation.lessAccurateMatch.title')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          
           {t('pages.geocodingExplanation.lessAccurateMatch.underTitle')}
         </GcdsText>
         <ul>

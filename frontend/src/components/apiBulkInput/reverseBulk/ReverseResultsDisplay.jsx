@@ -125,7 +125,6 @@ export default function ReverseResultsDisplay({
                 ))}
               </ul>
               <GcdsErrorMessage>
-                
                 {t('components.reverseBulk.singleResultID.errorMess')}
               </GcdsErrorMessage>
             </div>

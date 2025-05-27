@@ -906,7 +906,6 @@ export default function ReverseBulk() {
                       </p>
                       <p>
                         <strong>
-                          
                           {t(
                             'components.reverseBulk.outputTable.confidenceLevel',
                           )}
@@ -915,7 +914,6 @@ export default function ReverseBulk() {
                       </p>
                       <p>
                         <strong>
-                          
                           {t('components.reverseBulk.map.distance')}
                         </strong>
                         : {row.distanceKm} km
@@ -923,7 +921,6 @@ export default function ReverseBulk() {
                       {row.name && (
                         <p>
                           <strong>
-                            
                             {t('components.reverseBulk.map.streetName')}
                           </strong>
                           : {row.name}
@@ -932,7 +929,6 @@ export default function ReverseBulk() {
                       {row.locality && (
                         <p>
                           <strong>
-                            
                             {t('components.reverseBulk.map.locality')}
                           </strong>
                           : {row.locality}
@@ -941,7 +937,6 @@ export default function ReverseBulk() {
                       {row.region && (
                         <p>
                           <strong>
-                            
                             {t('components.reverseBulk.map.province')}
                           </strong>
                           : {row.region}
@@ -950,7 +945,6 @@ export default function ReverseBulk() {
                       {row.accuracy && (
                         <p>
                           <strong>
-                            
                             {t('components.reverseBulk.outputTable.accuracy')}
                           </strong>
                           : {row.accuracy}
@@ -987,11 +981,9 @@ export default function ReverseBulk() {
                 <thead>
                   <tr>
                     <th scope="col">
-                      
                       {t('components.reverseBulk.tableRange')}
                     </th>
                     <th scope="col">
-                      
                       {t('components.reverseBulk.tableCount')}
                     </th>
                   </tr>

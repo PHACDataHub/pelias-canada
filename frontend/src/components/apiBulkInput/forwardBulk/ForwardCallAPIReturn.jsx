@@ -188,11 +188,9 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 
       {/* click to view inputted details */}
       <GcdsHeading tag="h4">
-        
         {t('components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails')}
       </GcdsHeading>
       <GcdsText>
-        
         {t(
           'components.forwardBulk.forwardCallAPIReturn.recievedDataJsonPreview',
         )}
@@ -214,7 +212,6 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       </GcdsDetails>
       <hr></hr>
       <GcdsText>
-        
         {t('components.forwardBulk.forwardCallAPIReturn.cleanDataPreview')}
       </GcdsText>
       <GcdsDetails
@@ -240,7 +237,6 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 
                     <li>
                       <strong>
-                        
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.physicalAddress',
                         )}
