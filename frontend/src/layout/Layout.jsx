@@ -158,6 +158,7 @@ export default function Layout() {
         </div>
         <div slot="toggle">
           <GcdsLangToggle
+            style={{ width: 'auto', display: 'inline-block' }}
             href="#"
             lang={i18n.language}
             onClick={(event) => {
