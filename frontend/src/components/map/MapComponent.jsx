@@ -13,6 +13,7 @@ import { defaults as defaultControls } from 'ol/control';
 import ScaleLine from 'ol/control/ScaleLine';
 import FullScreen from 'ol/control/FullScreen';
 import { useTranslation } from 'react-i18next';
+import Zoom from 'ol/control/Zoom';
 
 // Function to determine marker color based on confidence level
 const getColorForConfidence = (confidence) => {
@@ -85,8 +86,16 @@ function MapComponentOL({ mapContentJSON }) {
         zoom: 6, // Initial zoom level
       }),
       controls: defaultControls().extend([
-        new ScaleLine(), // Add a scale line control
-        new FullScreen(), // Add a full-screen control
+        new Zoom({
+          zoomInTipLabel: t('map.zoomIn'), // tooltip for zoom in button
+          zoomOutTipLabel: t('map.zoomOut'), // tooltip for zoom out button
+        }),
+        new FullScreen({
+          tipLabel: t('map.fullscreen'), // tooltip for fullscreen toggle
+        }),
+        new ScaleLine({
+          // ScaleLine doesn't have a tooltip by default, but you can customize labels if needed
+        }),
       ]),
     });
 
