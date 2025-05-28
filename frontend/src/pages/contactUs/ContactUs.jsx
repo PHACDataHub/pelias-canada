@@ -83,6 +83,7 @@ export default function ContactUs() {
               type="text"
               id="name"
               name="name"
+              autocomplete="name"
               value={formData.name}
               onGcdsChange={handleInputChange}
               lang={i18n.language}
@@ -93,6 +94,7 @@ export default function ContactUs() {
               type="email"
               id="email"
               name="email"
+              autocomplete="email"
               value={formData.email}
               onGcdsChange={handleInputChange}
               lang={i18n.language}
