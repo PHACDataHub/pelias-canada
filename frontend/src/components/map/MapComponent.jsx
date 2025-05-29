@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import 'ol/ol.css';
+import './MapComponentOL.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
@@ -9,9 +10,12 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Style, Circle, Fill, Stroke } from 'ol/style';
-import { defaults as defaultControls } from 'ol/control';
-import ScaleLine from 'ol/control/ScaleLine';
-import FullScreen from 'ol/control/FullScreen';
+import {
+  defaults as defaultControls,
+  ScaleLine,
+  FullScreen,
+  Zoom,
+} from 'ol/control';
 import { useTranslation } from 'react-i18next';
 
 // Function to determine marker color based on confidence level
@@ -84,9 +88,21 @@ function MapComponentOL({ mapContentJSON }) {
         center: fromLonLat([-95, 60]), // Initial center for Canada
         zoom: 6, // Initial zoom level
       }),
-      controls: defaultControls().extend([
-        new ScaleLine(), // Add a scale line control
-        new FullScreen(), // Add a full-screen control
+      controls: defaultControls({
+        zoom: false, // disables zoom buttons
+        attribution: false, // disables attribution buttons
+        rotate: false, // disables rotate buttons
+      }).extend([
+        new Zoom({
+          zoomInTipLabel: t('map.zoomIn'), // tooltip for zoom in button
+          zoomOutTipLabel: t('map.zoomOut'), // tooltip for zoom out button
+        }),
+        new FullScreen({
+          tipLabel: t('map.fullscreen'), // tooltip for fullscreen toggle
+        }),
+        new ScaleLine({
+          // ScaleLine doesn't have a tooltip by default, but you can customize labels if needed
+        }),
       ]),
     });
 

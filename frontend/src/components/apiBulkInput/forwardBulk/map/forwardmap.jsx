@@ -16,6 +16,12 @@ import {
   GcdsSrOnly,
   GcdsText,
 } from '@cdssnc/gcds-components-react';
+import {
+  defaults as defaultControls,
+  ScaleLine,
+  FullScreen,
+  Zoom,
+} from 'ol/control';
 
 export default function Mapping({ apiResults }) {
   const { t } = useTranslation();
@@ -121,6 +127,22 @@ export default function Mapping({ apiResults }) {
         vectorLayer,
       ],
       target: mapRef.current,
+      controls: defaultControls({
+        zoom: false, // disables zoom buttons
+        attribution: false, // disables attribution buttons
+        rotate: false, // disables rotate buttons
+      }).extend([
+        new Zoom({
+          zoomInTipLabel: t('map.zoomIn'), // tooltip for zoom in button
+          zoomOutTipLabel: t('map.zoomOut'), // tooltip for zoom out button
+        }),
+        new FullScreen({
+          tipLabel: t('map.fullscreen'), // tooltip for fullscreen toggle
+        }),
+        new ScaleLine({
+          // ScaleLine doesn't have a tooltip by default, but you can customize labels if needed
+        }),
+      ]),
     });
 
     // Fit map to all points

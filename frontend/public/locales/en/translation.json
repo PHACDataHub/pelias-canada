@@ -293,6 +293,11 @@
     "resultsExplained": "Geocoding Results Explanation",
     "faq": "Frequently Asked Questions"
   },
+  "map": {
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fullscreen": "Toggle fullscreen"
+  },
   "menu": {
     "title": "Pelias Geocoder",
     "home": "Home",

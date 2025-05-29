@@ -13,6 +13,19 @@
   color: black; /* Text color */
 }
 
+/* On keyboard focus */
+.ol-zoom button:focus,
+.ol-full-screen button:focus {
+  outline: 2px solid black;
+}
+
+/* On mouse hover */
+.ol-zoom button:hover,
+.ol-full-screen button:hover {
+  outline: 2px solid black;
+  cursor: pointer;
+}
+
 /* Adjust spacing between buttons */
 .ol-zoom-in {
   margin-bottom: 50px; /* Add spacing below the "+" button */
@@ -25,4 +38,17 @@
 .ol-scale-line-inner {
   color: black; /* Text color */
   font-size: 16px; /* Text size */
+}
+
+/* Keyboard accessibility outline */
+.ol-zoom button:focus-visible,
+.ol-full-screen button:focus-visible {
+  outline: 2px solid black;
+}
+
+/* Prevent nested elements from being accidentally tabbable or focusable */
+.ol-zoom button *,
+.ol-full-screen button * {
+  pointer-events: none;
+  outline: none !important;
 }
