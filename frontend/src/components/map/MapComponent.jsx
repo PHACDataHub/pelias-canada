@@ -85,7 +85,10 @@ function MapComponentOL({ mapContentJSON }) {
         center: fromLonLat([-95, 60]), // Initial center for Canada
         zoom: 6, // Initial zoom level
       }),
-      controls: defaultControls().extend([
+      controls: defaultControls({
+        zoom: false, // 🚫 disables zoom buttons
+        attribution: false,
+      }).extend([
         new Zoom({
           zoomInTipLabel: t('map.zoomIn'), // tooltip for zoom in button
           zoomOutTipLabel: t('map.zoomOut'), // tooltip for zoom out button
