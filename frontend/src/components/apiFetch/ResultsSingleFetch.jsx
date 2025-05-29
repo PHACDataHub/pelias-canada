@@ -229,7 +229,7 @@ export default function SingleFetchResults({
                 style={{ marginLeft: '10px' }}
                 onClick={handleCopyAddress}
               >
-                {t('copy')}
+                {`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
               </GcdsButton>
             </p>
             <p>
@@ -243,7 +243,8 @@ export default function SingleFetchResults({
                 style={{ marginLeft: '10px' }}
                 onClick={handleCopyLongitude}
               >
-                {t('copy')}
+                {t('copy')}&nbsp;
+                {t('components.apiFetch.resultSingleFetch.longitude')}
               </GcdsButton>
             </p>
 
@@ -258,7 +259,8 @@ export default function SingleFetchResults({
                 style={{ marginLeft: '10px' }}
                 onClick={handleCopyLatitude}
               >
-                {t('copy')}
+                {t('copy')}&nbsp;
+                {t('components.apiFetch.resultSingleFetch.latitude')}
               </GcdsButton>
             </p>
 
@@ -277,7 +279,7 @@ export default function SingleFetchResults({
                   style={{ marginLeft: '10px' }}
                   onClick={handleCopyLongitudeLatitude}
                 >
-                  {t('copy')}
+                  {`${t('copy')} Longitude Latitude`}
                 </GcdsButton>
               </p>
 
@@ -293,7 +295,7 @@ export default function SingleFetchResults({
                   style={{ marginLeft: '10px' }}
                   onClick={handleCopyLatitudeLongitude}
                 >
-                  {t('copy')}
+                  {`${t('copy')} Latitude Longitude`}
                 </GcdsButton>
               </p>
             </GcdsDetails>
