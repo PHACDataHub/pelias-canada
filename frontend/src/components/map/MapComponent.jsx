@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import 'ol/ol.css';
+import './MapComponentOL.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
@@ -9,11 +10,13 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Style, Circle, Fill, Stroke } from 'ol/style';
-import { defaults as defaultControls } from 'ol/control';
-import ScaleLine from 'ol/control/ScaleLine';
-import FullScreen from 'ol/control/FullScreen';
+import {
+  defaults as defaultControls,
+  ScaleLine,
+  FullScreen,
+  Zoom,
+} from 'ol/control';
 import { useTranslation } from 'react-i18next';
-import Zoom from 'ol/control/Zoom';
 
 // Function to determine marker color based on confidence level
 const getColorForConfidence = (confidence) => {
@@ -86,8 +89,9 @@ function MapComponentOL({ mapContentJSON }) {
         zoom: 6, // Initial zoom level
       }),
       controls: defaultControls({
-        zoom: false, // 🚫 disables zoom buttons
-        attribution: false,
+        zoom: false, // disables zoom buttons
+        attribution: false, // disables attribution buttons
+        rotate: false, // disables rotate buttons
       }).extend([
         new Zoom({
           zoomInTipLabel: t('map.zoomIn'), // tooltip for zoom in button
