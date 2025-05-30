@@ -12,8 +12,8 @@
     "prettier": "prettier --write --log-level warn ."
   },
   "dependencies": {
-    "@cdssnc/gcds-components": "^0.31.0",
-    "@cdssnc/gcds-components-react": "^0.31.0",
+    "@cdssnc/gcds-components": "^0.34.3",
+    "@cdssnc/gcds-components-react": "^0.34.3",
     "crypto-js": "^4.2.0",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
