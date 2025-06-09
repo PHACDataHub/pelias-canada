@@ -141,7 +141,7 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
             accept=".csv"
             label={t('components.forwardBulk.inputUpload.label')}
             hint={t('components.forwardBulk.inputUpload.hint')}
-            uploaderId={t('components.forwardBulk.inputUpload.title')}
+            uploaderId={t('components.forwardBulk.inputUpload.titleID')}
             name={t('components.forwardBulk.inputUpload.title')}
             ref={fileInputRef}
             onGcdsChange={handleFileChange}
