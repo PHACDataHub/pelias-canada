@@ -104,7 +104,7 @@ export default function ContactUs() {
               label={t('pages.contactUs.subject.title')}
               name="subject"
               hint={t('pages.contactUs.subject.hintMessage')}
-              defaultValue="Select option."
+              defaultValue={t('pages.contactUs.subject.selectOption')}
               value={formData.subject}
               onGcdsChange={handleInputChange}
               required
