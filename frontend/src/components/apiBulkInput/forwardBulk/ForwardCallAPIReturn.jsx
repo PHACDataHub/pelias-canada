@@ -149,7 +149,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
 
   return (
     <>
-      <GcdsHeading tag="h4">
+      <GcdsHeading tag="h4" characterLimit="false">
         {t('components.forwardBulk.forwardCallAPIReturn.dataProcessingSummary')}
       </GcdsHeading>
       <GcdsText characterLimit="false">
@@ -166,19 +166,19 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
           color: '#FFFFFF',
         }}
       >
-        <GcdsText textRole="light">
+        <GcdsText textRole="light" characterLimit="false">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.inputLength')}:
           </strong>
           {totalRowsSubmitted}
         </GcdsText>
-        <GcdsText textRole="light">
+        <GcdsText textRole="light" characterLimit="false">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
           </strong>
           {validResults.length}
         </GcdsText>
-        <GcdsText textRole="light">
+        <GcdsText textRole="light" characterLimit="false">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
           </strong>
@@ -187,7 +187,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       </div>
 
       {/* click to view inputted details */}
-      <GcdsHeading tag="h4">
+      <GcdsHeading tag="h4" characterLimit="false">
         {t('components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails')}
       </GcdsHeading>
       <GcdsText>
@@ -211,7 +211,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
         )}
       </GcdsDetails>
       <hr></hr>
-      <GcdsText>
+      <GcdsText characterLimit="false">
         {t('components.forwardBulk.forwardCallAPIReturn.cleanDataPreview')}
       </GcdsText>
       <GcdsDetails
@@ -329,6 +329,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
           >
             {invalidResults.map((parsedResult) => (
               <GcdsText
+                characterLimit="false"
                 key={parsedResult.inputID}
               >{`Input ID: ${parsedResult.inputID}, Physical Address: ${parsedResult.physicalAddress}`}</GcdsText>
             ))}

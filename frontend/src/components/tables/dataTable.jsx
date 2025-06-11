@@ -51,7 +51,7 @@ export default function PaginatedTable({ apiResults }) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (page) => {
-    if (page > 0 && page <= totalPages) {
+    if (page !== currentPage && page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
@@ -177,7 +177,7 @@ export default function PaginatedTable({ apiResults }) {
                       }
                       onClick={() => handlePageChange(page)}
                       aria-label={`${t('components.tablePageation.goToPage')} ${page}`}
-                      disabled={currentPage === page}
+                      aria-current={currentPage === page ? 'page' : undefined}
                     >
                       {page}
                     </GcdsButton>
@@ -220,9 +220,7 @@ export default function PaginatedTable({ apiResults }) {
           </div>
         </nav>
       )}
-      {i18n.language === 'en' ? '' : ''}
-      <div className="sr-only" aria-live="polite">
-        Page {currentPage} of {totalPages}
+      <div className="sr-only" aria-live="polite" role="status">
         {i18n.language === 'en'
           ? `Page ${currentPage} of ${totalPages}`
           : `Page ${currentPage} de ${totalPages}`}
