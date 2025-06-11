@@ -17,7 +17,7 @@ export default function ReverseResultsDisplay({
 }) {
   const [apiResults, setApiResults] = useState([]);
   const [filteredApiResults, setFilteredApiResults] = useState([]); // Excludes single-result IDs
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [singleResultIDs, setSingleResultIDs] = useState([]); // Stores inputIDs with only 1 result
   const { t } = useTranslation();
@@ -82,7 +82,10 @@ export default function ReverseResultsDisplay({
     <div>
       {loading && (
         <>
-          <Loading />
+          <Loading loading={loading} />
+          <div className="sr-only" role="status" aria-live="assertive">
+            {t('loading')}
+          </div>
           <br />
         </>
       )}
