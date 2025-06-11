@@ -81,11 +81,11 @@ export default function FilteredResultsDisplay({
       <GcdsText characterLimit="false">
         <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
       </GcdsText>
-      <GcdsHeading tag="h2">
+      <GcdsHeading tag="h2" characterLimit="false">
         {t('components.forwardBulk.callTimes.header')}
       </GcdsHeading>
       <GcdsNotice type="info" noticeTitleTag="h3" noticeTitle={t('timeEst')}>
-        <GcdsText>
+        <GcdsText characterLimit="false">
           <i>
             {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}
             {t('components.forwardBulk.callTimes.estSingle2')}
@@ -97,7 +97,7 @@ export default function FilteredResultsDisplay({
           {t('components.forwardBulk.callTimes.estCallTime2')}:
           {estimatedApiTime} {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
-        <GcdsText>
+        <GcdsText characterLimit="false">
           {t('components.forwardBulk.callTimes.realTime')}:
           {elapsedTime.toFixed(1)}
           {t('components.forwardBulk.callTimes.seconds')}
@@ -114,7 +114,9 @@ export default function FilteredResultsDisplay({
 
       {errors.length > 0 && (
         <div role="alert" aria-live="assertive">
-          <GcdsHeading tag="h3">{t('error')}</GcdsHeading>
+          <GcdsHeading tag="h3" characterLimit="false">
+            {t('error')}
+          </GcdsHeading>
           <ul role="list">
             {errors.map((error, index) => (
               <li key={index}>{error}</li>
@@ -123,14 +125,14 @@ export default function FilteredResultsDisplay({
         </div>
       )}
 
-      <GcdsText>
+      <GcdsText characterLimit="false">
         {t('components.forwardBulk.resultsTable.validRows')}
         {filteredResults.length}
       </GcdsText>
 
       {apiResults.length > 0 && (
         <>
-          <GcdsText>
+          <GcdsText characterLimit="false">
             {t('components.forwardBulk.resultsTable.returnedRows')}:
             {apiResults.length}
           </GcdsText>
