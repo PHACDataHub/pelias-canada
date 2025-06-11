@@ -157,17 +157,21 @@ export default function ReverseSinglefetch({ onResponseData }) {
           }}
         >
           <div>
-            <GcdsButton type="submit"
-                 buttonId={t('components.apiFetch.reverseSingleFetch.searchID')}
-          name={t('components.apiFetch.reverseSingleFetch.search')}
-          >
+            <GcdsButton
+              type="submit"
+              buttonId={t('components.apiFetch.reverseSingleFetch.searchID')}
+              name={t('components.apiFetch.reverseSingleFetch.search')}
+            >
               {t('components.apiFetch.reverseSingleFetch.search')}
             </GcdsButton>
           </div>
           <div>
-            <GcdsButton type="button" onClick={handleReset} variant="secondary"
-                      buttonId={t('components.apiFetch.reverseSingleFetch.resetID')}
-          name={t('components.apiFetch.reverseSingleFetch.reset')}
+            <GcdsButton
+              type="button"
+              onClick={handleReset}
+              variant="secondary"
+              buttonId={t('components.apiFetch.reverseSingleFetch.resetID')}
+              name={t('components.apiFetch.reverseSingleFetch.reset')}
             >
               {t('components.apiFetch.reverseSingleFetch.reset')}
             </GcdsButton>

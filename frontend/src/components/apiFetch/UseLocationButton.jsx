@@ -57,38 +57,37 @@ export default function UseLocationButton({ ButtonResponseData }) {
     sendRequest(position.coords.latitude, position.coords.longitude);
   };
 
-const sendRequest = (latitude, longitude) => {
-  setLoading(true);
+  const sendRequest = (latitude, longitude) => {
+    setLoading(true);
 
-  setTimeout(() => {
-    const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`;
+    setTimeout(() => {
+      const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`;
 
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setLoading(false);
-        const resultData =
-          data.features?.length > 0
-            ? { ...data, coordinates: data.features[0].geometry.coordinates }
-            : { ...data };
-        setResult(resultData);
-        ButtonResponseData(resultData);
-      })
-      .catch((err) => {
-        console.error('Error:', err);
-        toast.error(
-          t('components.apiFetch.useLocationButton.error.unknownError'),
-        );
-        setLoading(false);
-      });
-  }, 100); // Delay by 200 milliseconds
-};
-
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setLoading(false);
+          const resultData =
+            data.features?.length > 0
+              ? { ...data, coordinates: data.features[0].geometry.coordinates }
+              : { ...data };
+          setResult(resultData);
+          ButtonResponseData(resultData);
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+          toast.error(
+            t('components.apiFetch.useLocationButton.error.unknownError'),
+          );
+          setLoading(false);
+        });
+    }, 100); // Delay by 200 milliseconds
+  };
 
   const showError = (error) => {
     setLoading(false);
