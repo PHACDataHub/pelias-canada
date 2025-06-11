@@ -16,7 +16,7 @@ export default function FilteredResultsDisplay({
   triggerApiCall,
 }) {
   const [apiResults, setApiResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [elapsedTime, setElapsedTime] = useState(0); // Track elapsed time (in seconds)
   const timerRef = useRef(null); // Store interval reference
@@ -107,7 +107,10 @@ export default function FilteredResultsDisplay({
 
       {loading && (
         <>
-          <Loading />
+          <Loading loading={loading} />
+          <div className="sr-only" role="status" aria-live="assertive">
+            {t('loading')}
+          </div>
           <br />
         </>
       )}
@@ -126,14 +129,14 @@ export default function FilteredResultsDisplay({
       )}
 
       <GcdsText characterLimit="false">
-        {t('components.forwardBulk.resultsTable.validRows')}
+        {t('components.forwardBulk.resultsTable.validRows')}:&nbsp;
         {filteredResults.length}
       </GcdsText>
 
       {apiResults.length > 0 && (
         <>
           <GcdsText characterLimit="false">
-            {t('components.forwardBulk.resultsTable.returnedRows')}:
+            {t('components.forwardBulk.resultsTable.returnedRows')}:&nbsp;
             {apiResults.length}
           </GcdsText>
           <ForwardExportFiles apiResults={apiResults} />

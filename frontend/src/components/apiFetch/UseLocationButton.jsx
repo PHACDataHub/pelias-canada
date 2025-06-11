@@ -59,31 +59,34 @@ export default function UseLocationButton({ ButtonResponseData }) {
 
   const sendRequest = (latitude, longitude) => {
     setLoading(true);
-    const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`;
 
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setLoading(false);
-        const resultData =
-          data.features?.length > 0
-            ? { ...data, coordinates: data.features[0].geometry.coordinates }
-            : { ...data };
-        setResult(resultData);
-        ButtonResponseData(resultData);
-      })
-      .catch((err) => {
-        console.error('Error:', err);
-        toast.error(
-          t('components.apiFetch.useLocationButton.error.unknownError'),
-        );
-        setLoading(false);
-      });
+    setTimeout(() => {
+      const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`;
+
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setLoading(false);
+          const resultData =
+            data.features?.length > 0
+              ? { ...data, coordinates: data.features[0].geometry.coordinates }
+              : { ...data };
+          setResult(resultData);
+          ButtonResponseData(resultData);
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+          toast.error(
+            t('components.apiFetch.useLocationButton.error.unknownError'),
+          );
+          setLoading(false);
+        });
+    }, 100); // Delay by 200 milliseconds
   };
 
   const showError = (error) => {
@@ -141,7 +144,8 @@ export default function UseLocationButton({ ButtonResponseData }) {
         )}
         <GcdsButton
           onClick={getLocation}
-          buttonId={t('components.apiFetch.useLocationButton.getLocation')}
+          buttonId={t('components.apiFetch.useLocationButton.getLocationID')}
+          name={t('components.apiFetch.useLocationButton.getLocation')}
         >
           {t('components.apiFetch.useLocationButton.getLocation')}
         </GcdsButton>
@@ -156,7 +160,7 @@ export default function UseLocationButton({ ButtonResponseData }) {
         {result && t('components.apiFetch.forwardSingleFetch.complete')}
       </div>
 
-      {loading && <Loading />}
+      {loading && <Loading loading={loading} />}
     </div>
   );
 }

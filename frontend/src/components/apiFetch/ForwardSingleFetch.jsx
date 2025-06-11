@@ -285,7 +285,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           <div>
             <GcdsButton
               type="submit"
-              buttonId={t('components.apiFetch.forwardSingleFetch.search')}
+              buttonId={t('components.apiFetch.forwardSingleFetch.searchID')}
               name={t('components.apiFetch.forwardSingleFetch.search')}
             >
               {t('components.apiFetch.forwardSingleFetch.search')}
@@ -296,7 +296,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
               type="button"
               onClick={handleReset}
               variant="secondary"
-              buttonId={t('components.apiFetch.forwardSingleFetch.reset')}
+              buttonId={t('components.apiFetch.forwardSingleFetch.resetID')}
               name={t('components.apiFetch.forwardSingleFetch.reset')}
             >
               {t('components.apiFetch.forwardSingleFetch.reset')}
@@ -314,7 +314,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           responseData &&
           t('components.apiFetch.forwardSingleFetch.complete')}
       </div>
-      {loading === true ? <Loading /> : null}
+      {loading && <Loading loading={loading} />}
       {responseData === true ? 'responseData' : null}
       {/* <pre> 
 				{JSON.stringify(responseData, null, 2

@@ -8,7 +8,9 @@
         "province": "Province",
         "complete": "Address search completed successfully.",
         "search": "Search the address",
+        "searchID": "Search_the_address",
         "reset": "Reset the address",
+        "resetID": "Reset_the_address",
         "alerts": {
           "formReset": "The address form has been reset.",
           "error": "An error occurred",
@@ -58,7 +60,9 @@
         "longitude": "Longitude",
         "complete": "The geolocation search completed successfully.",
         "search": "Search the coordinates",
+        "searchID": "Search_the_coordinates",
         "reset": "Reset the coordinates",
+        "resetID": "Reset_the_coordinates",
         "alerts": {
           "formReset": "The geolocation form has been reset.",
           "error": "An error occurred",
@@ -73,6 +77,7 @@
         "header": "Use the button to detect your location",
         "warning": "Please note web location access must be authorized",
         "getLocation": "Get your location",
+        "getLocationID": "Get_your_location",
         "complete": "Get your location completed successfully",
         "error": {
           "geoGet": "Geolocation is not supported by your browser.",
@@ -533,6 +538,7 @@
     "original": "Input Point"
   },
   "loading": "Loading",
+  "loadingComplete": "Loading complete",
   "navigateToSection": "Navigate to section",
   "reset": "Reset",
   "search": "Search",
