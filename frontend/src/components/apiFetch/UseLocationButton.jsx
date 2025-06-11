@@ -57,8 +57,10 @@ export default function UseLocationButton({ ButtonResponseData }) {
     sendRequest(position.coords.latitude, position.coords.longitude);
   };
 
-  const sendRequest = (latitude, longitude) => {
-    setLoading(true);
+const sendRequest = (latitude, longitude) => {
+  setLoading(true);
+
+  setTimeout(() => {
     const url = `https://geocoder.alpha.phac.gc.ca/api/v1/reverse?point.lat=${latitude}&point.lon=${longitude}`;
 
     fetch(url)
@@ -84,7 +86,9 @@ export default function UseLocationButton({ ButtonResponseData }) {
         );
         setLoading(false);
       });
-  };
+  }, 100); // Delay by 200 milliseconds
+};
+
 
   const showError = (error) => {
     setLoading(false);
@@ -141,7 +145,8 @@ export default function UseLocationButton({ ButtonResponseData }) {
         )}
         <GcdsButton
           onClick={getLocation}
-          buttonId={t('components.apiFetch.useLocationButton.getLocation')}
+          buttonId={t('components.apiFetch.useLocationButton.getLocationID')}
+          name={t('components.apiFetch.useLocationButton.getLocation')}
         >
           {t('components.apiFetch.useLocationButton.getLocation')}
         </GcdsButton>
@@ -156,7 +161,7 @@ export default function UseLocationButton({ ButtonResponseData }) {
         {result && t('components.apiFetch.forwardSingleFetch.complete')}
       </div>
 
-      {loading && <Loading />}
+      {loading && <Loading loading={loading} />}
     </div>
   );
 }
