@@ -127,8 +127,6 @@ export default function LandingPage() {
         color="black"
         style={{ flexGrow: '1' }}
         padding="400"
-        id="main-content"
-        role="main" // Landmark role for main content
         aria-label={t('pages.landingPage.title')} // Associate container with a heading
       >
         <GcdsText characterLimit="false">
