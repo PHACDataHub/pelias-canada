@@ -190,7 +190,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       <GcdsHeading tag="h4" characterLimit="false">
         {t('components.forwardBulk.forwardCallAPIReturn.dataRecievedDetails')}
       </GcdsHeading>
-      <GcdsText>
+      <GcdsText characterLimit="false">
         {t(
           'components.forwardBulk.forwardCallAPIReturn.recievedDataJsonPreview',
         )}
@@ -203,7 +203,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
         {inputtedResults.length > 0 && (
           <div style={{ overflow: 'hidden' }}>
             <div style={{ height: '300px', overflow: 'scroll' }}>
-              <GcdsText>
+              <GcdsText characterLimit="false">
                 <pre>{JSON.stringify(inputtedResults, null, 2)}</pre>
               </GcdsText>
             </div>

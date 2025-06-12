@@ -142,7 +142,7 @@
         "title": "Input Upload",
         "titleID": "input_upload",
         "label": "Upload a CSV to use our service",
-        "hint": "Import CSV or excel file to continue",
+        "hint": "Import CSV file to continue",
         "submit": "Submit",
         "reset": "Reset",
         "continuePara": "Before proceeding, please review the data you have entered. Any errors will not be included in the API call for the remainder of the process.",
@@ -204,7 +204,12 @@
       "aria": "Map displaying geographic data",
       "header": "API Translation Results on Map",
       "warning": "Map performance may be impacted by the number of inputs. Larger files may cause slower loading and reduced responsiveness.",
-      "screenReader": "Map showing  the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
+      "screenReader": "Map showing the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results.",
+      "distance": "Distance from original",
+      "streetName": "Street name",
+      "locality": "Locality",
+      "province": "Province",
+      "screenReaderRev": " Map showing the original input geolocations along with the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
     },
     "reverseBulk": {
       "reverseExportFiles": {
@@ -246,6 +251,16 @@
       },
       "fileUpload": "File Upload and Setting",
       "upload": "Upload a CSV file:",
+      "inputUpload": {
+        "errors": {
+          "uploadFileMissing": "Please select a file to upload.",
+          "fileReadError": "An error occurred while reading the file.",
+          "fileReadFailure": "Error occurred while reading the file. Please try again.",
+          "missingColumns": "CSV must contain inputID, ddLat, and ddLong columns.",
+          "missingFields": "Missing required fields (inputID, ddLat, or ddLong)",
+          "processingError": "Error processing line."
+        }
+      },
       "returnAmountHeader": "Select Number of Return Candidates per input:",
       "returnAmount": "Number of candidates",
       "value": "Value",
@@ -270,13 +285,6 @@
         "confidenceLevel": "Confidence Level",
         "accuracy": "Accuracy",
         "distance": "Distance from original"
-      },
-      "map": {
-        "distance": "Distance from original",
-        "streetName": "Street name",
-        "locality": "Locality",
-        "province": "Province",
-        "screenReader": " Map showing the original input geolocations along with the mapped locations associated with each point. The points are color-coded to indicate the confidence level of the results."
       },
       "exportSelect": "Export Selected",
       "clearSelect": "Clear Selected",

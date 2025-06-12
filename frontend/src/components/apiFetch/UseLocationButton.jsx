@@ -133,7 +133,10 @@ export default function UseLocationButton({ ButtonResponseData }) {
         {/* {t("components.apiFetch.useLocationButton.header")} */}
         {t('components.apiFetch.useLocationButton.header')}
       </GcdsHeading>
-      <GcdsText style={{ textAlign: 'center', padding: '0 15px' }}>
+      <GcdsText
+        style={{ textAlign: 'center', padding: '0 15px' }}
+        characterLimit="false"
+      >
         <em>{t('components.apiFetch.useLocationButton.warning')}</em>
       </GcdsText>
       <div>
