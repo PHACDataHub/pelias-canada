@@ -109,11 +109,11 @@ export default function ReverseResultsDisplay({
           <GcdsHeading tag="h2">
             {t('components.forwardBulk.callTimes.header')}
           </GcdsHeading>
-          <GcdsText>
+          <GcdsText characterLimit="false">
             {t('components.forwardBulk.resultsTable.validRows')}
             {filteredResults.length}
           </GcdsText>
-          <GcdsText>
+          <GcdsText characterLimit="false">
             {t('components.forwardBulk.resultsTable.returnedRows')}:
             {filteredApiResults.length}
           </GcdsText>

@@ -294,7 +294,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
             <i>{t('components.map.warning')}</i>
           </GcdsText>
           <GcdsSrOnly>
-            {t('components.reverseBulk.map.screenReader')}
+            {t('components.reverseBulk.map.screenReaderRev')}
           </GcdsSrOnly>
         </>
       ) : null}

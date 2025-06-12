@@ -201,7 +201,9 @@ export default function FAQ() {
                       <GcdsHeading tag="h4" tabIndex={0}>
                         {Question}
                       </GcdsHeading>
-                      <GcdsText style={{ margin: 0 }}>{Answer}</GcdsText>
+                      <GcdsText characterLimit="false" style={{ margin: 0 }}>
+                        {Answer}
+                      </GcdsText>
                     </li>
                   ),
                 )}

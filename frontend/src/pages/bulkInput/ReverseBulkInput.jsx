@@ -7,7 +7,9 @@ export default function ReverseBulkInput() {
   const { t } = useTranslation();
   return (
     <>
-      <GcdsHeading tag="h1">{t('pages.reverseBulk.title')}</GcdsHeading>
+      <GcdsHeading tag="h1" characterLimit="false">
+        {t('pages.reverseBulk.title')}
+      </GcdsHeading>
 
       <div>
         <section aria-labelledby="what-is-the-bulk-upload">

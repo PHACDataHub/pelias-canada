@@ -1,4 +1,10 @@
-import { useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import 'leaflet/dist/leaflet.css';
 import {
   GcdsButton,
@@ -14,43 +20,49 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
   const [error, setError] = useState(null);
   const [fileName, setFileName] = useState('');
   const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
+    const file = e?.target?.files?.[0];
     if (file) {
       setIsFileUploaded(true);
       setFileName(file.name || '');
       setError(null);
+      setSelectedFile(file); // store the file
     } else {
       setIsFileUploaded(false);
+      setSelectedFile(null);
     }
   };
 
   const handleFileUpload = () => {
-    const file = fileInputRef.current?.files?.[0] || null;
-    if (!file) {
-      setError('components.forwardBulk.inputUpload.errors.uploadFileMissing');
+    setSubmitted(true);
+
+    if (!selectedFile) {
+      setError('components.reverseBulk.inputUpload.errors.uploadFileMissing');
       return;
     }
 
     const reader = new FileReader();
+
     reader.onload = (e) => {
       try {
         let csvData = e.target.result;
-        csvData = csvData.replace(/("\s*\n\s*")/g, ' ');
+        csvData = csvData.replace(/("\s*\n\s*")/g, ' '); // Replace newline within quotes with a space
         processCSV(csvData);
       } catch (err) {
         console.error('File reading error:', err);
-        setError('components.forwardBulk.inputUpload.errors.fileReadError');
+        setError('components.reverseBulk.inputUpload.errors.fileReadError');
       }
     };
 
     reader.onerror = () => {
-      setError('components.forwardBulk.inputUpload.errors.fileReadFailure');
+      setError('components.reverseBulk.inputUpload.errors.fileReadFailure');
     };
 
-    reader.readAsText(file);
+    reader.readAsText(selectedFile);
   };
 
   const processCSV = (data) => {
@@ -66,7 +78,7 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
 
       if (inputIdIndex === -1 || latIndex === -1 || longIndex === -1) {
         throw new Error(
-          'components.forwardBulk.inputUpload.errors.missingColumns',
+          'components.reverseBulk.inputUpload.errors.missingColumns',
         );
       }
 
@@ -84,14 +96,14 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
 
           if (!inputID || !ddLat || !ddLong) {
             errors.push(
-              `Line ${index + 2}: ${t('components.forwardBulk.inputUpload.errors.missingFields')}`,
+              `Line ${index + 2}: ${t('components.reverseBulk.inputUpload.errors.fileReadError')}`,
             );
           } else {
             processedResults.push({ inputID, ddLat, ddLong });
           }
         } catch (err) {
           errors.push(
-            `Line ${index + 2}: ${t('components.forwardBulk.inputUpload.errors.processingError', { errorMessage: err.message })}`,
+            `Line ${index + 2}: ${t('components.reverseBulk.inputUpload.errors.processingError', { errorMessage: err.message })}`,
           );
           console.error(`Error processing line ${index + 2}:`, err);
         }
@@ -104,7 +116,7 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
         setInputtedResults(processedResults);
       }
     } catch (err) {
-      setError('components.forwardBulk.inputUpload.errors.missingColumns');
+      setError('components.reverseBulk.inputUpload.errors.missingColumns');
       console.error('CSV processing error:', err);
     }
   };
@@ -115,6 +127,8 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
     setFileName('');
     setError(null);
     setIsFileUploaded(false);
+    setSubmitted(false);
+    setSelectedFile(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -123,6 +137,12 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
   useImperativeHandle(ref, () => ({
     reset: handleReset,
   }));
+
+  useEffect(() => {
+    if (!selectedFile && error) {
+      setError(null);
+    }
+  }, [i18n.language]);
 
   return (
     <div>
@@ -137,11 +157,28 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
             name={t('components.forwardBulk.inputUpload.title')}
             ref={fileInputRef}
             onGcdsChange={handleFileChange}
-            errorMessage={error ? t(error) : ''}
+            errorMessage={submitted && error ? t(error) : ''} // Display error message here
             onGcdsRemoveFile={handleReset}
             lang={i18n.language}
-            required
+            // required
           />
+          <div
+            role="alert"
+            aria-live="assertive"
+            style={{
+              position: 'absolute',
+              width: '1px',
+              height: '1px',
+              margin: '-1px',
+              border: '0',
+              padding: '0',
+              overflow: 'hidden',
+              clip: 'rect(0 0 0 0)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {submitted && error ? t(error) : ''}
+          </div>
 
           <div
             style={{

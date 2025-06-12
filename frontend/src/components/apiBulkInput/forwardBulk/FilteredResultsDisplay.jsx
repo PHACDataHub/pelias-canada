@@ -91,7 +91,7 @@ export default function FilteredResultsDisplay({
             {t('components.forwardBulk.callTimes.estSingle2')}
           </i>
         </GcdsText>
-        <GcdsText>
+        <GcdsText characterLimit="false">
           {t('components.forwardBulk.callTimes.estCallTime1')}
           {filteredResults.length}
           {t('components.forwardBulk.callTimes.estCallTime2')}:

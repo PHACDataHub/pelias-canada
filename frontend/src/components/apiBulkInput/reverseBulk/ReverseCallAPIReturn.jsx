@@ -102,7 +102,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
         {inputtedResults.length > 0 && (
           <div style={{ overflow: 'hidden' }}>
             <div style={{ height: '300px', overflow: 'scroll' }}>
-              <GcdsText>
+              <GcdsText characterLimit="false">
                 <pre>{JSON.stringify(inputtedResults, null, 2)}</pre>
               </GcdsText>
             </div>
@@ -110,7 +110,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
         )}
       </GcdsDetails>
       <hr></hr>
-      <GcdsText>
+      <GcdsText characterLimit="false">
         {t('components.reverseBulk.reverseCallAPIReturn.cleanDataPreview')}
       </GcdsText>
       <GcdsDetails
@@ -173,7 +173,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
             {invalidResults.length > 0 ? (
               <div style={{ overflow: 'hidden' }}>
                 <div style={{ height: '300px', overflow: 'scroll' }}>
-                  <GcdsText>
+                  <GcdsText characterLimit="false">
                     <pre>{JSON.stringify(invalidResults, null, 2)}</pre>
                   </GcdsText>
                 </div>

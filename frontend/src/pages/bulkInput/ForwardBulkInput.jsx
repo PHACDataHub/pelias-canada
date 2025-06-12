@@ -7,7 +7,7 @@ export default function ForwardBulkInput() {
 
   return (
     <>
-      <GcdsHeading tag="h1">
+      <GcdsHeading tag="h1" characterLimit="false">
         {t('pages.forwardBulk.BulkGeocodingInput.title')}
       </GcdsHeading>
       <div>

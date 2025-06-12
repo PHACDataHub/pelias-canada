@@ -321,7 +321,7 @@ export default function SingleFetchResults({
       {result && (!result.features || result.features.length === 0) && (
         <>
           <br />
-          <GcdsText>
+          <GcdsText characterLimit="false">
             {t('components.apiFetch.resultSingleFetch.error.checkInput')}
           </GcdsText>
         </>

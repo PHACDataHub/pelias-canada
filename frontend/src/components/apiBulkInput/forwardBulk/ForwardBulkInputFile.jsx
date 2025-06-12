@@ -1,4 +1,10 @@
-import { useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import 'leaflet/dist/leaflet.css';
 import {
   GcdsButton,
@@ -15,26 +21,26 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
   const [error, setError] = useState(null); // To store error messages
   const [fileName, setFileName] = useState('');
   const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
+    const file = e?.target?.files?.[0];
     if (file) {
       setIsFileUploaded(true);
-      setFileName(file.name || ''); // Set the file name
-      setError(null); // Reset error when a new file is selected
+      setFileName(file.name || '');
+      setError(null);
+      setSelectedFile(file); // store the file
     } else {
       setIsFileUploaded(false);
+      setSelectedFile(null);
     }
   };
 
   const handleFileUpload = () => {
-    const file =
-      fileInputRef.current && fileInputRef.current.files
-        ? fileInputRef.current.files[0]
-        : null;
-
-    if (!file) {
+    setSubmitted(true);
+    if (!selectedFile) {
       setError('components.forwardBulk.inputUpload.errors.uploadFileMissing');
       return;
     }
@@ -43,7 +49,7 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
     reader.onload = (e) => {
       try {
         let csvData = e.target.result;
-        csvData = csvData.replace(/("\s*\n\s*")/g, ' '); // Replace newline within quotes with a space
+        csvData = csvData.replace(/("\s*\n\s*")/g, ' ');
         processCSV(csvData);
       } catch (err) {
         console.error('File reading error:', err);
@@ -55,7 +61,7 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
       setError('components.forwardBulk.inputUpload.errors.fileReadFailure');
     };
 
-    reader.readAsText(file);
+    reader.readAsText(selectedFile);
   };
 
   const processCSV = (data) => {
@@ -122,7 +128,9 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
     setResults([]); // Clear passing results to parent
     setFileName(''); // Clear file name
     setError(null); // Clear errors
+    setSubmitted(false);
     setIsFileUploaded(false); // Reset file uploaded state
+    setSelectedFile(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = ''; // Clear file input
     }
@@ -131,6 +139,12 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
   useImperativeHandle(ref, () => ({
     reset: handleReset,
   }));
+
+  useEffect(() => {
+    if (!selectedFile && error) {
+      setError(null);
+    }
+  }, [i18n.language]);
 
   return (
     <div>
@@ -145,12 +159,28 @@ const ForwardBulkInputFile = forwardRef(({ setResults }, ref) => {
             name={t('components.forwardBulk.inputUpload.title')}
             ref={fileInputRef}
             onGcdsChange={handleFileChange}
-            errorMessage={error ? t(error) : ''} // Display error message here
+            errorMessage={submitted && error ? t(error) : ''} // Display error message here
             onGcdsRemoveFile={handleReset}
             lang={i18n.language}
-            required
+            // required
           />
-
+          <div
+            role="alert"
+            aria-live="assertive"
+            style={{
+              position: 'absolute',
+              width: '1px',
+              height: '1px',
+              margin: '-1px',
+              border: '0',
+              padding: '0',
+              overflow: 'hidden',
+              clip: 'rect(0 0 0 0)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {submitted && error ? t(error) : ''}
+          </div>
           <div
             style={{
               display: 'flex',
