@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { GcdsHeading, GcdsText } from '@cdssnc/gcds-components-react';
 import ReverseBulk from '../../components/apiBulkInput/reverseBulk/IntakeReverseBulk';
+import Colon from '../../ColonLang';
 
 export default function ReverseBulkInput() {
   const { t } = useTranslation();
@@ -39,7 +40,8 @@ export default function ReverseBulkInput() {
           <GcdsText characterLimit="false">
             <ol>
               <li>
-                {t('pages.reverseBulk.howToUse.one')}:
+                {t('pages.reverseBulk.howToUse.one')}
+                <Colon />
                 <ul>
                   <li>
                     <strong>inputID</strong>

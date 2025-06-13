@@ -13,6 +13,7 @@ import {
 } from '@cdssnc/gcds-components-react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import Colon from '../../../ColonLang';
 
 const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
   const { t, i18n } = useTranslation();
@@ -198,7 +199,9 @@ const ReverseBulkInputFile = forwardRef(({ setResults }, ref) => {
       {results.length > 0 && (
         <>
           <GcdsHeading tag="h3" characterLimit="false">
-            {t('components.forwardBulk.inputUpload.displayFileName')}:{fileName}
+            {t('components.forwardBulk.inputUpload.displayFileName')}
+            <Colon />
+            {fileName}
           </GcdsHeading>
         </>
       )}

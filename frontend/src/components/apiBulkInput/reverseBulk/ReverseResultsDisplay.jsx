@@ -10,6 +10,7 @@ import ReverseConfidenceTable from '../../tables/ReverseConfidenceTable';
 import Loading from '../../Loading';
 import RevMapping from './map/revMap';
 import ReverseExportFiles from './ReverseExportFiles';
+import Colon from '../../../ColonLang';
 
 export default function ReverseResultsDisplay({
   filteredResults,
@@ -106,21 +107,24 @@ export default function ReverseResultsDisplay({
           <GcdsText characterLimit="false">
             <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
           </GcdsText>
-          <GcdsHeading tag="h2">
+          <GcdsHeading tag="h2" characterLimit="false">
             {t('components.forwardBulk.callTimes.header')}
           </GcdsHeading>
           <GcdsText characterLimit="false">
             {t('components.forwardBulk.resultsTable.validRows')}
+            <Colon />
             {filteredResults.length}
           </GcdsText>
           <GcdsText characterLimit="false">
-            {t('components.forwardBulk.resultsTable.returnedRows')}:
+            {t('components.forwardBulk.resultsTable.returnedRows')}
+            <Colon />
             {filteredApiResults.length}
           </GcdsText>
           {singleResultIDs.length > 0 && (
             <div>
               <GcdsHeading tag="h3">
-                {t('components.reverseBulk.singleResultID.header')}:
+                {t('components.reverseBulk.singleResultID.header')}
+                <Colon />
               </GcdsHeading>
               <ul>
                 {singleResultIDs.map((id, index) => (
@@ -137,7 +141,7 @@ export default function ReverseResultsDisplay({
             filteredApiResults={filteredApiResults}
             originalPoints={filteredResults}
           />
-          <GcdsHeading tag="h3">
+          <GcdsHeading tag="h3" characterLimit="false">
             {t(
               'components.forwardBulk.resultsTable.confidence.confidenceTableHeader',
             )}

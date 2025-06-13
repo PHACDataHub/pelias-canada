@@ -329,7 +329,7 @@
     },
     "contactUs": {
       "title": "Contact Us",
-      "subTitle": "Please enter your contact details below. Once completed, send the form using the “submit” button below the form. Once the form has been sent, your e-mail application will open. You can also contact us directly by e-mail:",
+      "subTitle": "Please enter your contact details below. Once completed, send the form using the “submit” button below the form. Once the form has been sent, your e-mail application will open. You can also contact us directly by e-mail",
       "subject": {
         "title": "Reasons for Contacting Us",
         "hintMessage": "Choose 1 option",
@@ -347,6 +347,12 @@
       "message": "Message",
       "required": "required",
       "submitButton": "Submit",
+      "contactUsErrors": {
+        "name": "Please enter the first and last name of the person to be contacted.",
+        "email": "Enter a valid email address to continue. Use a standard format. Example: name@address.ca.",
+        "subject": "Choose an option to continue.",
+        "message": "Please enter your message."
+      },
       "thankYou": {
         "title": "Thank you for your message",
         "message": "We have received your message and thank you for contacting us. We will get back to you as soon as possible."

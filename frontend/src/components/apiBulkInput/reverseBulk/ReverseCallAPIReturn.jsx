@@ -7,6 +7,7 @@ import {
   GcdsText,
 } from '@cdssnc/gcds-components-react';
 import { useTranslation } from 'react-i18next';
+import Colon from '../../../ColonLang';
 
 export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
   const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0);
@@ -73,19 +74,22 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
       >
         <GcdsText textRole="light">
           <strong>
-            {t('components.reverseBulk.reverseCallAPIReturn.inputLength')}:
+            {t('components.reverseBulk.reverseCallAPIReturn.inputLength')}
+            <Colon />
           </strong>
           {totalRowsSubmitted}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
-            {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
+            {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}
+            <Colon />
           </strong>
           {parsedResults.length}
         </GcdsText>
         <GcdsText textRole="light">
           <strong>
-            {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
+            {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}
+            <Colon />
           </strong>
           {invalidResults.length}
         </GcdsText>
@@ -129,7 +133,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.reverseBulk.reverseCallAPIReturn.previewData.inputId',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.inputID}
                     </li>
@@ -138,7 +142,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.reverseBulk.reverseCallAPIReturn.previewData.ddLat',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.ddLat}
                     </li>
@@ -147,7 +151,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.reverseBulk.reverseCallAPIReturn.previewData.ddLong',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.ddLong}
                     </li>

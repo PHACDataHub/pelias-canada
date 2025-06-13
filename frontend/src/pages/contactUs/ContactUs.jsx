@@ -8,6 +8,7 @@ import {
   GcdsText,
 } from '@cdssnc/gcds-components-react';
 import { useTranslation } from 'react-i18next';
+import Colon from '../../ColonLang';
 
 export default function ContactUs() {
   const { t, i18n } = useTranslation();
@@ -67,6 +68,7 @@ export default function ContactUs() {
         <div>
           <GcdsText characterLimit="false">
             {t('pages.contactUs.subTitle')}
+            <Colon />
             <a href="mailto:Geordin.Raganold@hc-sc.gc.ca">
               Geordin.Raganold@hc-sc.gc.ca
             </a>
@@ -75,7 +77,9 @@ export default function ContactUs() {
           <hr style={{ margin: '50px 0' }} />
           <form onSubmit={handleSubmit} key={i18n.language}>
             {/* Adding key to trigger re-render */}
-            <GcdsHeading tag="h2">{t('pages.contactUs.formTitle')}</GcdsHeading>
+            <GcdsHeading tag="h2" characterLimit="false">
+              {t('pages.contactUs.formTitle')}
+            </GcdsHeading>
             <br />
             <GcdsInput
               label={t('pages.contactUs.name')}
