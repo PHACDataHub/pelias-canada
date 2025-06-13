@@ -7,6 +7,7 @@ import {
   GcdsText,
 } from '@cdssnc/gcds-components-react';
 import { useTranslation } from 'react-i18next';
+import Colon from '../../../ColonLang';
 
 export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
   const [totalRowsSubmitted, setTotalRowsSubmitted] = useState(0);
@@ -168,19 +169,22 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
       >
         <GcdsText textRole="light" characterLimit="false">
           <strong>
-            {t('components.forwardBulk.forwardCallAPIReturn.inputLength')}:
+            {t('components.forwardBulk.forwardCallAPIReturn.inputLength')}
+            <Colon />
           </strong>
           {totalRowsSubmitted}
         </GcdsText>
         <GcdsText textRole="light" characterLimit="false">
           <strong>
-            {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}:
+            {t('components.forwardBulk.forwardCallAPIReturn.cleanedLength')}
+            <Colon />
           </strong>
           {validResults.length}
         </GcdsText>
         <GcdsText textRole="light" characterLimit="false">
           <strong>
-            {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}:
+            {t('components.forwardBulk.forwardCallAPIReturn.errorLength')}
+            <Colon />
           </strong>
           {invalidResults.length}
         </GcdsText>
@@ -230,7 +234,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.inputId',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.inputID}
                     </li>
@@ -240,7 +244,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.physicalAddress',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.physicalAddress}
                     </li>
@@ -249,7 +253,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.apartment',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.apartment}
                     </li>
@@ -258,7 +262,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.streetNumber',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.streetNumber}
                     </li>
@@ -267,7 +271,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.streetName',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.streetName}
                     </li>
@@ -276,7 +280,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.region',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.region}
                     </li>
@@ -285,7 +289,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.province',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.province}
                     </li>
@@ -294,7 +298,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.postalCode',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.postalCode}
                     </li>
@@ -303,7 +307,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
                         {t(
                           'components.forwardBulk.forwardCallAPIReturn.previewData.query',
                         )}
-                        :
+                        <Colon />
                       </strong>
                       {parsedResult.query}
                     </li>

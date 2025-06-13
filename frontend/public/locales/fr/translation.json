@@ -330,7 +330,7 @@
     },
     "contactUs": {
       "title": "Contactez-nous",
-      "subTitle": "Veuillez saisir vos coordonnées ci-dessous. Une fois complété, envoyez le formulaire en utilisant le bouton “soumettre” situé sous le formulaire. Une fois le formulaire envoyé, votre application e-mail s'ouvrira. Vous pouvez également nous contacter directement par courrier électronique:",
+      "subTitle": "Veuillez saisir vos coordonnées ci-dessous. Une fois complété, envoyez le formulaire en utilisant le bouton “soumettre” situé sous le formulaire. Une fois le formulaire envoyé, votre application e-mail s'ouvrira. Vous pouvez également nous contacter directement par courrier électronique",
       "subject": {
         "title": "Raisons de nous contacter",
         "hintMessage": "Sélectionnez 1 option.",
@@ -348,6 +348,12 @@
       "message": "Message",
       "required": "requis",
       "submitButton": "Soumettre",
+      "contactUsErrors": {
+        "name": "Veuillez entrer le prénom et le nom de la personne à contacter.",
+        "email": "Entrez une adresse courriel valide pour continuer. Utilisez un format standard. Exemple : nom@adresse.ca.",
+        "subject": "Choisissez une option pour continuer.",
+        "message": "Veuillez entrer votre message."
+      },
       "thankYou": {
         "title": "Merci pour votre message",
         "message": "Nous avons bien reçu votre message et nous vous remercions de nous avoir contactés. Nous vous répondrons dans les plus brefs délais."

@@ -10,6 +10,7 @@ import ConfidenceTable from '../../tables/ConfidenceTable';
 import PaginatedTable from '../../tables/dataTable';
 import Mapping from './map/forwardmap';
 import ForwardExportFiles from './ForwardExportFiles';
+import Colon from '../../../ColonLang';
 
 export default function FilteredResultsDisplay({
   filteredResults,
@@ -84,21 +85,30 @@ export default function FilteredResultsDisplay({
       <GcdsHeading tag="h2" characterLimit="false">
         {t('components.forwardBulk.callTimes.header')}
       </GcdsHeading>
-      <GcdsNotice type="info" noticeTitleTag="h3" noticeTitle={t('timeEst')}>
+      <GcdsNotice
+        type="info"
+        noticeTitleTag="h3"
+        noticeTitle={t('timeEst')}
+        characterLimit="false"
+      >
         <GcdsText characterLimit="false">
           <i>
             {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}
+            &nbsp;
             {t('components.forwardBulk.callTimes.estSingle2')}
           </i>
         </GcdsText>
         <GcdsText characterLimit="false">
           {t('components.forwardBulk.callTimes.estCallTime1')}
           {filteredResults.length}
-          {t('components.forwardBulk.callTimes.estCallTime2')}:
-          {estimatedApiTime} {t('components.forwardBulk.callTimes.seconds')}
+          {t('components.forwardBulk.callTimes.estCallTime2')}
+          <Colon />
+          {estimatedApiTime}
+          {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
         <GcdsText characterLimit="false">
-          {t('components.forwardBulk.callTimes.realTime')}:
+          {t('components.forwardBulk.callTimes.realTime')}
+          <Colon />
           {elapsedTime.toFixed(1)}
           {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
@@ -129,25 +139,27 @@ export default function FilteredResultsDisplay({
       )}
 
       <GcdsText characterLimit="false">
-        {t('components.forwardBulk.resultsTable.validRows')}:&nbsp;
+        {t('components.forwardBulk.resultsTable.validRows')}
+        <Colon />
         {filteredResults.length}
       </GcdsText>
 
       {apiResults.length > 0 && (
         <>
           <GcdsText characterLimit="false">
-            {t('components.forwardBulk.resultsTable.returnedRows')}:&nbsp;
+            {t('components.forwardBulk.resultsTable.returnedRows')}
+            <Colon />
             {apiResults.length}
           </GcdsText>
           <ForwardExportFiles apiResults={apiResults} />
           <Mapping apiResults={apiResults} />
-          <GcdsHeading tag="h3">
+          <GcdsHeading tag="h3" characterLimit="false">
             {t(
               'components.forwardBulk.resultsTable.confidence.confidenceTableHeader',
             )}
           </GcdsHeading>
           <ConfidenceTable apiResults={apiResults} />
-          <GcdsHeading tag="h3">
+          <GcdsHeading tag="h3" characterLimit="false">
             {t('components.forwardBulk.resultsTable.previewResultsHeader')}
           </GcdsHeading>
           <PaginatedTable apiResults={apiResults} />

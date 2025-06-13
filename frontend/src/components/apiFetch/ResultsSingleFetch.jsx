@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import './ResultsMap.css';
+import Colon from '../../ColonLang';
 
 export default function SingleFetchResults({
   forwardResponse,
@@ -133,11 +134,13 @@ export default function SingleFetchResults({
             </GcdsHeading>
             <div style={{ border: '1px solid black', padding: '4px' }}>
               <GcdsHeading tag="h3">
-                {t('components.apiFetch.resultSingleFetch.infoReturn')}:
+                {t('components.apiFetch.resultSingleFetch.infoReturn')}
+                <Colon />
               </GcdsHeading>
               <p>
                 <strong>
-                  {t('components.apiFetch.resultSingleFetch.addressReturn')}:
+                  {t('components.apiFetch.resultSingleFetch.addressReturn')}
+                  <Colon />
                 </strong>
                 {result.features[0].properties.housenumber !== undefined
                   ? ` ${result.features[0].properties.housenumber + ' '}`
@@ -149,7 +152,8 @@ export default function SingleFetchResults({
               </p>
               <p>
                 <strong>
-                  {t('components.apiFetch.resultSingleFetch.geoReturn')}:
+                  {t('components.apiFetch.resultSingleFetch.geoReturn')}
+                  <Colon />
                 </strong>
                 {`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
               </p>
@@ -165,7 +169,8 @@ export default function SingleFetchResults({
                   }}
                 >
                   <p>
-                    {t('components.apiFetch.resultSingleFetch.confidence')}:
+                    {t('components.apiFetch.resultSingleFetch.confidence')}
+                    <Colon />
                   </p>
                   {result.features[0]?.properties?.confidence !== undefined ? (
                     <PercentageCircle
@@ -178,20 +183,23 @@ export default function SingleFetchResults({
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <p>
                     <strong>
-                      {t('components.apiFetch.resultSingleFetch.matchType')}:
+                      {t('components.apiFetch.resultSingleFetch.matchType')}
+                      <Colon />
                     </strong>
                     {result.features[0].properties.match_type ||
                       t('components.apiFetch.resultSingleFetch.na')}
                   </p>
                   <p>
                     <strong>
-                      {t('components.apiFetch.resultSingleFetch.accuracy')}:
+                      {t('components.apiFetch.resultSingleFetch.accuracy')}
+                      <Colon />
                     </strong>
                     {result.features[0].properties.accuracy}
                   </p>
                   <p>
                     <strong>
-                      {t('components.apiFetch.resultSingleFetch.source')}:
+                      {t('components.apiFetch.resultSingleFetch.source')}
+                      <Colon />
                     </strong>
                     {result.features[0].properties.source}
                   </p>
@@ -213,13 +221,15 @@ export default function SingleFetchResults({
             <div>
               <p>
                 <strong>
-                  {t('components.apiFetch.resultSingleFetch.dateTime')}:
+                  {t('components.apiFetch.resultSingleFetch.dateTime')}
+                  <Colon />
                 </strong>
                 {convertTimestamp(result.geocoding.timestamp)}
               </p>
             </div>
             <p>
-              {t('components.apiFetch.resultSingleFetch.address')}:
+              {t('components.apiFetch.resultSingleFetch.address')}
+              <Colon />
               {result.features[0].properties.label}
               <GcdsButton
                 buttonRole="secondary"
@@ -233,7 +243,8 @@ export default function SingleFetchResults({
               </GcdsButton>
             </p>
             <p>
-              {t('components.apiFetch.resultSingleFetch.longitude')}:
+              {t('components.apiFetch.resultSingleFetch.longitude')}
+              <Colon />
               {result.features[0].geometry.coordinates[0]}
               <GcdsButton
                 buttonRole="secondary"
@@ -249,7 +260,8 @@ export default function SingleFetchResults({
             </p>
 
             <p>
-              {t('components.apiFetch.resultSingleFetch.latitude')}:
+              {t('components.apiFetch.resultSingleFetch.latitude')}
+              <Colon />
               {result.features[0].geometry.coordinates[1]}
               <GcdsButton
                 buttonRole="secondary"
@@ -268,7 +280,8 @@ export default function SingleFetchResults({
               detailsTitle={`${t('components.apiFetch.resultSingleFetch.seeMoreOpts')}`}
             >
               <p style={{ fontSize: '16px' }}>
-                {t('components.apiFetch.resultSingleFetch.longlat')}:
+                {t('components.apiFetch.resultSingleFetch.longlat')}
+                <Colon />
                 {result.features[0].geometry.coordinates[0]},
                 {result.features[0].geometry.coordinates[1]}
                 <GcdsButton
@@ -284,7 +297,8 @@ export default function SingleFetchResults({
               </p>
 
               <p style={{ fontSize: '16px' }}>
-                {t('components.apiFetch.resultSingleFetch.latlong')}:
+                {t('components.apiFetch.resultSingleFetch.latlong')}
+                <Colon />
                 {result.features[0].geometry.coordinates[1]},
                 {result.features[0].geometry.coordinates[0]}
                 <GcdsButton
