@@ -89,8 +89,8 @@ export default function ReversePaginatedTable({ apiResults }) {
         <table>
           <caption>
             {i18n.language === 'en'
-              ? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
-              : `Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems}`}
+              ? `Results Preview: Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
+              : `Présentation des résultats : Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems}`}
           </caption>
           <thead>
             <tr>
