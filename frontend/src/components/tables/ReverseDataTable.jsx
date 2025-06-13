@@ -85,70 +85,76 @@ export default function ReversePaginatedTable({ apiResults }) {
         <option value="50">50</option>
         <option value="100">100</option>
       </GcdsSelect>
-      <table>
-        <caption>
-          {i18n.language === 'en'
-            ? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
-            : `Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems}`}
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.inputID')}
-            </th>
-            <th scope="col">rank</th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.address')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.lat')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.lon')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.confidenceLevel')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.accuracy')}
-            </th>
-            <th scope="col">dist from org</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((result, index) => {
-            // The result object itself represents a feature
-            const feature = result?.result;
-            const coordinates = feature?.geometry?.coordinates;
-            const latitude = coordinates ? coordinates[1] : 'N/A'; // Latitude
-            const longitude = coordinates ? coordinates[0] : 'N/A'; // Longitude
-            const confidence =
-              feature?.properties?.confidence !== undefined
-                ? `${feature.properties.confidence * 100}%`
-                : 'N/A';
-            const accuracy = feature?.properties?.accuracy || 'N/A';
-            const physicalAddress = feature?.properties?.label || 'N/A'; // Correctly access address
-            const dist = feature?.properties?.distance || 'N/A';
-            const featureIndex = result?.featureIndex;
+      <div className="table-wrapper" tabIndex="0">
+        <table>
+          <caption>
+            {i18n.language === 'en'
+              ? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
+              : `Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems}`}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.inputID')}
+              </th>
+              <th scope="col">rank</th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.address')}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.lat')}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.lon')}
+              </th>
+              <th scope="col">
+                {t(
+                  'components.forwardBulk.mapReady.outputTable.confidenceLevel',
+                )}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.accuracy')}
+              </th>
+              <th scope="col">dist from org</th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData.map((result, index) => {
+              // The result object itself represents a feature
+              const feature = result?.result;
+              const coordinates = feature?.geometry?.coordinates;
+              const latitude = coordinates ? coordinates[1] : 'N/A'; // Latitude
+              const longitude = coordinates ? coordinates[0] : 'N/A'; // Longitude
+              const confidence =
+                feature?.properties?.confidence !== undefined
+                  ? `${feature.properties.confidence * 100}%`
+                  : 'N/A';
+              const accuracy = feature?.properties?.accuracy || 'N/A';
+              const physicalAddress = feature?.properties?.label || 'N/A'; // Correctly access address
+              const dist = feature?.properties?.distance || 'N/A';
+              const featureIndex = result?.featureIndex;
 
-            return (
-              <tr
-                key={index}
-                style={{ background: index % 2 === 0 ? '#ffffff' : '#e0e0e0' }}
-              >
-                <td>{result?.inputID || 'N/A'}</td>
-                <td>{featureIndex + 1}</td>
-                <td>{physicalAddress}</td>
-                <td>{latitude}</td>
-                <td>{longitude}</td>
-                <td>{confidence}</td>
-                <td>{accuracy}</td>
-                <td>{dist} km</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+              return (
+                <tr
+                  key={index}
+                  style={{
+                    background: index % 2 === 0 ? '#ffffff' : '#e0e0e0',
+                  }}
+                >
+                  <td>{result?.inputID || 'N/A'}</td>
+                  <td>{featureIndex + 1}</td>
+                  <td>{physicalAddress}</td>
+                  <td>{latitude}</td>
+                  <td>{longitude}</td>
+                  <td>{confidence}</td>
+                  <td>{accuracy}</td>
+                  <td>{dist} km</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {totalPages > 1 && (
         <nav aria-label="Pagination">
           <div

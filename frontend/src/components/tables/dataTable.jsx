@@ -85,72 +85,75 @@ export default function PaginatedTable({ apiResults }) {
         <option value="50">50</option>
         <option value="100">100</option>
       </GcdsSelect>
-
-      <table>
-        <caption>
-          {i18n.language === 'en'
-            ? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
-            : `
+      <div className="table-wrapper" tabIndex="0">
+        <table>
+          <caption>
+            {i18n.language === 'en'
+              ? `Displaying Items ${startIndex + 1} - ${endIndex} of ${totalItems}`
+              : `
 					Affichage des articles ${startIndex + 1} - ${endIndex} de ${totalItems} `}
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.inputID')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.address')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.lat')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.lon')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.confidenceLevel')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.matchType')}
-            </th>
-            <th scope="col">
-              {t('components.forwardBulk.mapReady.outputTable.accuracy')}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((result, index) => (
-            <tr
-              key={index}
-              style={{ background: index % 2 === 0 ? '#ffffff' : '#e0e0e0' }}
-            >
-              <td>{startIndex + index + 1 || 'N/A'}</td>
-              <td>{result?.result?.geocoding?.query?.text || 'N/A'}</td>
-              <td>
-                {result?.result?.features?.[0]?.geometry?.coordinates?.[1] ??
-                  'N/A'}
-              </td>
-              <td>
-                {result?.result?.features?.[0]?.geometry?.coordinates?.[0] ??
-                  'N/A'}
-              </td>
-              <td>
-                {result?.result?.features?.[0]?.properties?.confidence !==
-                undefined
-                  ? `${result.result.features[0].properties.confidence * 100}%`
-                  : 'N/A'}
-              </td>
-              <td>
-                {result?.result?.features?.[0]?.properties?.match_type || 'N/A'}
-              </td>
-              <td>
-                {result?.result?.features?.[0]?.properties?.accuracy || 'N/A'}
-              </td>
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.inputID')}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.address')}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.lat')}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.lon')}
+              </th>
+              <th scope="col">
+                {t(
+                  'components.forwardBulk.mapReady.outputTable.confidenceLevel',
+                )}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.matchType')}
+              </th>
+              <th scope="col">
+                {t('components.forwardBulk.mapReady.outputTable.accuracy')}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {paginatedData.map((result, index) => (
+              <tr
+                key={index}
+                style={{ background: index % 2 === 0 ? '#ffffff' : '#e0e0e0' }}
+              >
+                <td>{startIndex + index + 1 || 'N/A'}</td>
+                <td>{result?.result?.geocoding?.query?.text || 'N/A'}</td>
+                <td>
+                  {result?.result?.features?.[0]?.geometry?.coordinates?.[1] ??
+                    'N/A'}
+                </td>
+                <td>
+                  {result?.result?.features?.[0]?.geometry?.coordinates?.[0] ??
+                    'N/A'}
+                </td>
+                <td>
+                  {result?.result?.features?.[0]?.properties?.confidence !==
+                  undefined
+                    ? `${result.result.features[0].properties.confidence * 100}%`
+                    : 'N/A'}
+                </td>
+                <td>
+                  {result?.result?.features?.[0]?.properties?.match_type ||
+                    'N/A'}
+                </td>
+                <td>
+                  {result?.result?.features?.[0]?.properties?.accuracy || 'N/A'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {totalPages > 1 && (
         <nav aria-label="Pagination">
           <div

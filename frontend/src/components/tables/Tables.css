@@ -133,3 +133,10 @@ th {
   gap: 8px; /* Space between buttons */
   padding: 16px;
 }
+/* For table wrapper */
+.table-wrapper {
+  width: 100%;
+  min-width: 150px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
