@@ -342,7 +342,7 @@
         "followingUp": "Following Up on a Previous Request"
       },
       "formTitle": "Give feedback, ask for help or contact us to find out more. ",
-      "name": "Name",
+      "name": "Full name",
       "email": "Email",
       "message": "Message",
       "required": "required",
