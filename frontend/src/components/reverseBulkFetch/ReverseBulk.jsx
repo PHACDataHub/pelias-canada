@@ -48,9 +48,9 @@ export default function ReverseBulk() {
         : d > 80
           ? '#389638'
           : d > 50
-            ? '#FFBF00'
+            ? '#D1A500'
             : d > 30
-              ? '#FF8C00'
+              ? '#CC7000'
               : '#B22222';
     };
 
@@ -431,8 +431,8 @@ export default function ReverseBulk() {
   // Calculate marker color based on confidence
   const calculateMarkerColor = (confidence) => {
     if (confidence < 0.3) return '#B22222';
-    if (confidence < 0.5) return '#FF8C00';
-    if (confidence < 0.8) return '#FFBF00';
+    if (confidence < 0.5) return '#CC7000';
+    if (confidence < 0.8) return '#D1A500';
     if (confidence < 1.0) return '#389638';
     return '#006400';
   };

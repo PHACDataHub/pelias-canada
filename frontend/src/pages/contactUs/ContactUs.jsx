@@ -83,7 +83,7 @@ export default function ContactUs() {
           if (!value.trim())
             newErrors.email = t('pages.contactUs.contactUsErrors.email');
           else if (!isValidEmail(value))
-            newErrors.email = t('pages.contactUs.contactUsErrors.emailFormat');
+            newErrors.email = t('pages.contactUs.contactUsErrors.email');
           else delete newErrors.email;
         } else if (name === 'subject') {
           if (!value.trim())

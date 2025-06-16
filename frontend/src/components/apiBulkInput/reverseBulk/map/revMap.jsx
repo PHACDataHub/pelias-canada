@@ -51,8 +51,8 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
       const confidenceValue = confidence * 100;
       if (confidenceValue >= 100) return '#006400';
       if (confidenceValue >= 80) return '#389638';
-      if (confidenceValue >= 50) return '#FFBF00';
-      if (confidenceValue >= 30) return '#FF8C00';
+      if (confidenceValue >= 50) return '#D1A500';
+      if (confidenceValue >= 30) return '#CC7000';
       return '#B22222';
     };
 
@@ -232,7 +232,7 @@ export default function RevMapping({ filteredApiResults, originalPoints }) {
       `;
 
       const grades = [100, 80, 50, 30, 0];
-      const colors = ['#006400', '#389638', '#FFBF00', '#FF8C00', '#B22222'];
+      const colors = ['#006400', '#389638', '#D1A500', '#CC7000', '#B22222'];
 
       const labels = grades.map((grade, i) => {
         return `<i style="background:${colors[i]}; width: 18px; height: 18px; display: inline-block; margin-right: 8px;"></i> ${
