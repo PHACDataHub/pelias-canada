@@ -5,7 +5,7 @@ import {
   GcdsText,
 } from '@cdssnc/gcds-components-react';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Loading from '../Loading';
@@ -34,12 +34,7 @@ export default function UseLocationButton({ ButtonResponseData }) {
             'components.apiFetch.useLocationButton.error.permissionDenied',
           );
           setError(errorMessage);
-          toast.error(
-            t(
-              'components.apiFetch.useLocationButton.error.permissionDeniedToast',
-            ),
-          );
-          return;
+          return; // ✅ exit early
         }
       } catch (err) {
         console.error('Permission query error:', err);
@@ -81,7 +76,7 @@ export default function UseLocationButton({ ButtonResponseData }) {
         })
         .catch((err) => {
           console.error('Error:', err);
-          toast.error(
+          setError(
             t('components.apiFetch.useLocationButton.error.unknownError'),
           );
           setLoading(false);
@@ -96,11 +91,6 @@ export default function UseLocationButton({ ButtonResponseData }) {
       case error.PERMISSION_DENIED:
         errorMessage = t(
           'components.apiFetch.useLocationButton.error.permissionDenied',
-        );
-        toast.error(
-          t(
-            'components.apiFetch.useLocationButton.error.permissionDeniedToast',
-          ),
         );
         break;
       case error.POSITION_UNAVAILABLE:
