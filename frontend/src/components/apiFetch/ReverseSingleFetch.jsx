@@ -23,8 +23,6 @@ export default function ReverseSinglefetch({ onResponseData }) {
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [resetNotice, setResetNotice] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const LAT_MIN = 41.679999;
   const LAT_MAX = 83.113336;

@@ -13,6 +13,9 @@
         "resetID": "Reset_the_address",
         "alerts": {
           "formReset": "The address form has been reset.",
+          "formResetTitle": "You can now enter a new address.",
+          "formResetButton": "Close address notice",
+          "formResetButtonID": "Close-address-notice",
           "error": "An error occurred",
           "address": "Address is required",
           "city": "City is required",

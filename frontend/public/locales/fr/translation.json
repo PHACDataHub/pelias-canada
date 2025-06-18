@@ -12,7 +12,10 @@
         "reset": "Réinitialiser l'adresse",
         "resetID": "Réinitialiser_          l'adresse",
         "alerts": {
-          "formReset": "Le formulaire de l'adresse a été réinitialisé.",
+          "formReset": "Le formulaire d'adresse a été réinitialisé.",
+          "formResetTitle": "Vous pouvez maintenant entrer une nouvelle adresse.",
+          "formResetButton": "Fermer l'avis d'adresse",
+          "formResetButtonID": "fermer-avis-adresse",
           "error": "Une erreur s'est produite",
           "address": "L'Adresse est requise",
           "city": "La ville est requise",
