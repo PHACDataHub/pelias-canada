@@ -113,6 +113,7 @@ export default function SingleFetchResults({
       'components.apiFetch.resultSingleFetch.success.latLongCopied',
     );
   };
+
   function CopyNotice({ field, copyStatus, successKey, errorKey }) {
     if (copyStatus.field !== field) return null;
 
@@ -151,6 +152,7 @@ export default function SingleFetchResults({
             </GcdsText>
           </GcdsNotice>
         )}
+        <br />
       </>
     );
   }
