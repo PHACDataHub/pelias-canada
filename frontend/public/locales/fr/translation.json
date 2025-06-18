@@ -42,6 +42,7 @@
         "longlat": "Longitude, Latitude",
         "latlong": "Latitude, Longitude",
         "viewMap": "Visualiser la carte",
+        "timeout": "Cet avis disparaîtra automatiquement dans 30 secondes.",
         "success": {
           "addressCopied": "Adresse copiée avec succès.",
           "latitudeCopied": "Latitude copiée avec succès.",

@@ -42,6 +42,7 @@
         "longlat": "Longitude, Latitude",
         "latlong": "Latitude, Longitude",
         "viewMap": "View the Map",
+        "timeout": "This message will disappear in 30 seconds.",
         "success": {
           "addressCopied": "Address copied successfully.",
           "latitudeCopied": "Latitude copied successfully.",

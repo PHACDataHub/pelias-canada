@@ -5,16 +5,16 @@ import {
   GcdsGrid,
   GcdsHeading,
   GcdsText,
+  GcdsNotice,
 } from '@cdssnc/gcds-components-react';
 import MapComponentOL from '../map/MapComponent';
 import PercentageCircle from '../PercentageCircle';
 import { copyToClipboard } from '../../assets/copyToClipboard';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import './ResultsMap.css';
 import Colon from '../../ColonLang';
 import NoResultsSingleFetch from './NoResultsSingleFetch';
+import { useState } from 'react';
 
 export default function SingleFetchResults({
   forwardResponse,
@@ -22,7 +22,11 @@ export default function SingleFetchResults({
   reverseResponse,
 }) {
   const result = forwardResponse || buttonResponse || reverseResponse;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [copyStatus, setCopyStatus] = useState({
+    field: '', // e.g. 'address', 'latitude', 'longitude', etc.
+    status: '', // 'success', 'error', or ''
+  });
 
   const convertTimestamp = (epoch) => {
     const date = new Date(epoch);
@@ -36,87 +40,120 @@ export default function SingleFetchResults({
     return `${dateString} ${timeString}`;
   };
 
-  const handleCopyAddress = () => {
+  const handleCopy = (text, field, errorKey, successKey) => {
     if (!result || !result.features || !result.features[0]) {
-      toast.error(
-        t('components.apiFetch.resultSingleFetch.error.addressUnavailable'),
-      );
+      setCopyStatus({ field, status: 'error' });
       return;
     }
-    copyToClipboard(result.features[0].properties.label.toString(), () => {
-      toast.success(
-        t('components.apiFetch.resultSingleFetch.success.addressCopied'),
-      );
+    copyToClipboard(text, () => {
+      setCopyStatus({ field, status: 'success' });
+
+      // Clear notice after 30 seconds
+      setTimeout(() => setCopyStatus({ field: '', status: '' }), 30000);
     });
   };
 
-  const handleCopyLatitude = () => {
-    if (!result || !result.features || !result.features[0]) {
-      toast.error(
-        t('components.apiFetch.resultSingleFetch.error.latitudeUnavailable'),
-      );
-      return;
-    }
-    copyToClipboard(
-      result.features[0].geometry.coordinates[1].toString(),
-      () => {
-        toast.success(
-          t('components.apiFetch.resultSingleFetch.success.latitudeCopied'),
-        );
-      },
+  const handleCopyAddress = () => {
+    const text = result?.features?.[0]?.properties?.label;
+    handleCopy(
+      text,
+      'address',
+      'components.apiFetch.resultSingleFetch.error.addressUnavailable',
+      'components.apiFetch.resultSingleFetch.success.addressCopied',
     );
   };
 
   const handleCopyLongitude = () => {
-    if (!result || !result.features || !result.features[0]) {
-      toast.error(
-        t('components.apiFetch.resultSingleFetch.error.longitudeUnavailable'),
-      );
+    const text = result?.features?.[0]?.geometry?.coordinates?.[0]?.toString();
+    handleCopy(
+      text,
+      'longitude',
+      'components.apiFetch.resultSingleFetch.error.longitudeUnavailable',
+      'components.apiFetch.resultSingleFetch.success.longitudeCopied',
+    );
+  };
+  const handleCopyLatitude = () => {
+    const text = result?.features?.[0]?.geometry?.coordinates?.[1]?.toString();
+    handleCopy(
+      text,
+      'latitude',
+      'components.apiFetch.resultSingleFetch.error.latitudeUnavailable',
+      'components.apiFetch.resultSingleFetch.success.latitudeCopied',
+    );
+  };
+
+  const handleCopyLongitudeLatitude = () => {
+    if (!result?.features?.[0]) {
+      setCopyStatus({ field: 'longLat', status: 'error' });
       return;
     }
-    copyToClipboard(
-      result.features[0].geometry.coordinates[0].toString(),
-      () => {
-        toast.success(
-          t('components.apiFetch.resultSingleFetch.success.longitudeCopied'),
-        );
-      },
+    const lat = result.features[0].geometry.coordinates[1];
+    const lon = result.features[0].geometry.coordinates[0];
+    const text = `${lon}, ${lat}`;
+    handleCopy(
+      text,
+      'longLat',
+      'components.apiFetch.resultSingleFetch.error.latLongUnavailable',
+      'components.apiFetch.resultSingleFetch.success.longLatCopied',
     );
   };
 
   const handleCopyLatitudeLongitude = () => {
-    if (!result || !result.features || !result.features[0]) {
-      toast.error(
-        t('components.apiFetch.resultSingleFetch.error.latLongUnavailable'),
-      );
+    if (!result?.features?.[0]) {
+      setCopyStatus({ field: 'latLong', status: 'error' });
       return;
     }
-    const latitude = result.features[0].geometry.coordinates[1];
-    const longitude = result.features[0].geometry.coordinates[0];
-    const latLong = `${latitude}, ${longitude}`;
-    copyToClipboard(latLong, () => {
-      toast.success(
-        t('components.apiFetch.resultSingleFetch.success.latLongCopied'),
-      );
-    });
+    const lat = result.features[0].geometry.coordinates[1];
+    const lon = result.features[0].geometry.coordinates[0];
+    const text = `${lat}, ${lon}`;
+    handleCopy(
+      text,
+      'latLong',
+      'components.apiFetch.resultSingleFetch.error.latLongUnavailable',
+      'components.apiFetch.resultSingleFetch.success.latLongCopied',
+    );
   };
+  function CopyNotice({ field, copyStatus, successKey, errorKey }) {
+    if (copyStatus.field !== field) return null;
 
-  const handleCopyLongitudeLatitude = () => {
-    if (!result || !result.features || !result.features[0]) {
-      toast.error(
-        t('components.apiFetch.resultSingleFetch.error.latLongUnavailable'),
-      );
-      return;
-    }
-    const latitude = result.features[0].geometry.coordinates[1];
-    const longitude = result.features[0].geometry.coordinates[0];
-    const longLat = `${longitude}, ${latitude}`;
-    copyToClipboard(longLat, () => {
-      toast.success(
-        t('components.apiFetch.resultSingleFetch.success.longLatCopied'),
-      );
-    });
-  };
+    const isSuccess = copyStatus.status === 'success';
+    const isError = copyStatus.status === 'error';
+
+    return (
+      <>
+        <div role="alert" className="sr-only">
+          {isSuccess && t(successKey)}
+          {isError && t(errorKey)}
+        </div>
+
+        {isSuccess && (
+          <GcdsNotice
+            type="success"
+            noticeTitleTag="h4"
+            lang={i18n.language}
+            noticeTitle={t(successKey)}
+          >
+            <GcdsText>
+              {t('components.apiFetch.resultSingleFetch.timeout')}
+            </GcdsText>
+          </GcdsNotice>
+        )}
+
+        {isError && (
+          <GcdsNotice
+            type="error"
+            noticeTitleTag="h4"
+            lang={i18n.language}
+            noticeTitle={t(errorKey)}
+          >
+            <GcdsText>
+              {t('components.apiFetch.resultSingleFetch.timeout')}
+            </GcdsText>
+          </GcdsNotice>
+        )}
+      </>
+    );
+  }
 
   return (
     <div>
@@ -141,7 +178,13 @@ export default function SingleFetchResults({
                 {t('components.apiFetch.resultSingleFetch.infoReturn')}
                 <Colon />
               </GcdsHeading>
-              <p>
+              <GcdsText
+                size="small"
+                characterLimit="false"
+                display="flex"
+                marginTop="100"
+                marginBottom="100"
+              >
                 <strong>
                   {t('components.apiFetch.resultSingleFetch.addressReturn')}
                   <Colon />
@@ -153,14 +196,20 @@ export default function SingleFetchResults({
                   ? `${result.features[0].properties.street + ', '}`
                   : null}
                 {`${result.features[0].properties.locality}, ${result.features[0].properties.region}`}
-              </p>
-              <p>
+              </GcdsText>
+              <GcdsText
+                size="small"
+                characterLimit="false"
+                display="flex"
+                marginTop="100"
+                marginBottom="100"
+              >
                 <strong>
                   {t('components.apiFetch.resultSingleFetch.geoReturn')}
                   <Colon />
                 </strong>
                 {`${result.features[0].geometry.coordinates[0]}, ${result.features[0].geometry.coordinates[1]}`}
-              </p>
+              </GcdsText>
               <GcdsGrid
                 columns="repeat(auto-fit, minmax(50px, 250px))"
                 justifyContent="space-evenly"
@@ -172,10 +221,16 @@ export default function SingleFetchResults({
                     alignItems: 'center',
                   }}
                 >
-                  <p>
+                  <GcdsText
+                    size="small"
+                    characterLimit="false"
+                    display="flex"
+                    marginTop="100"
+                    marginBottom="100"
+                  >
                     {t('components.apiFetch.resultSingleFetch.confidence')}
                     <Colon />
-                  </p>
+                  </GcdsText>
                   {result.features[0]?.properties?.confidence !== undefined ? (
                     <PercentageCircle
                       confidencePercentage={
@@ -185,28 +240,46 @@ export default function SingleFetchResults({
                   ) : null}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <p>
+                  <GcdsText
+                    size="small"
+                    characterLimit="false"
+                    display="flex"
+                    marginTop="100"
+                    marginBottom="100"
+                  >
                     <strong>
                       {t('components.apiFetch.resultSingleFetch.matchType')}
                       <Colon />
                     </strong>
                     {result.features[0].properties.match_type ||
                       t('components.apiFetch.resultSingleFetch.na')}
-                  </p>
-                  <p>
+                  </GcdsText>
+                  <GcdsText
+                    size="small"
+                    characterLimit="false"
+                    display="flex"
+                    marginTop="100"
+                    marginBottom="100"
+                  >
                     <strong>
                       {t('components.apiFetch.resultSingleFetch.accuracy')}
                       <Colon />
                     </strong>
                     {result.features[0].properties.accuracy}
-                  </p>
-                  <p>
+                  </GcdsText>
+                  <GcdsText
+                    size="small"
+                    characterLimit="false"
+                    display="flex"
+                    marginTop="100"
+                    marginBottom="100"
+                  >
                     <strong>
                       {t('components.apiFetch.resultSingleFetch.source')}
                       <Colon />
                     </strong>
                     {result.features[0].properties.source}
-                  </p>
+                  </GcdsText>
                 </div>
               </GcdsGrid>
               <div
@@ -223,99 +296,263 @@ export default function SingleFetchResults({
               </div>
             </div>
             <div>
-              <p>
+              <GcdsText
+                size="small"
+                characterLimit="false"
+                display="flex"
+                marginTop="300"
+                marginBottom="100"
+              >
                 <strong>
                   {t('components.apiFetch.resultSingleFetch.dateTime')}
                   <Colon />
                 </strong>
                 {convertTimestamp(result.geocoding.timestamp)}
-              </p>
+              </GcdsText>
             </div>
-            <p>
-              {t('components.apiFetch.resultSingleFetch.address')}
-              <Colon />
-              {result.features[0].properties.label}
-              <GcdsButton
-                buttonRole="secondary"
-                buttonId={`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
-                size="small"
-                name={`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
-                style={{ marginLeft: '10px' }}
-                onClick={handleCopyAddress}
-              >
-                {`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
-              </GcdsButton>
-            </p>
-            <p>
-              {t('components.apiFetch.resultSingleFetch.longitude')}
-              <Colon />
-              {result.features[0].geometry.coordinates[0]}
-              <GcdsButton
-                buttonRole="secondary"
-                buttonId={`${t('copy')} Longitude`}
-                size="small"
-                name={`${t('copy')} Longitude`}
-                style={{ marginLeft: '10px' }}
-                onClick={handleCopyLongitude}
-              >
-                {t('copy')}&nbsp;
-                {t('components.apiFetch.resultSingleFetch.longitude')}
-              </GcdsButton>
-            </p>
 
-            <p>
-              {t('components.apiFetch.resultSingleFetch.latitude')}
-              <Colon />
-              {result.features[0].geometry.coordinates[1]}
-              <GcdsButton
-                buttonRole="secondary"
-                buttonId={`${t('copy')} Latitude`}
-                size="small"
-                name={`${t('copy')} Latitude`}
-                style={{ marginLeft: '10px' }}
-                onClick={handleCopyLatitude}
+            {/* Address Start  */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '10px',
+                }}
               >
-                {t('copy')}&nbsp;
-                {t('components.apiFetch.resultSingleFetch.latitude')}
-              </GcdsButton>
-            </p>
+                <GcdsText
+                  size="small"
+                  characterLimit="false"
+                  display="flex"
+                  style={{ alignItems: 'center' }}
+                  marginTop="100"
+                  marginBottom="100"
+                >
+                  {t('components.apiFetch.resultSingleFetch.address')}
+                  <Colon />
+                  {result.features[0].properties.label}
+                </GcdsText>
+
+                <GcdsButton
+                  buttonRole="secondary"
+                  buttonId={`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
+                  size="small"
+                  name={`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
+                  onClick={handleCopyAddress}
+                >
+                  {`${t('copy')} ${t('components.apiFetch.resultSingleFetch.address')}`}
+                </GcdsButton>
+              </div>
+              <CopyNotice
+                field="address"
+                copyStatus={copyStatus}
+                successKey="components.apiFetch.resultSingleFetch.success.addressCopied"
+                errorKey="components.apiFetch.resultSingleFetch.error.addressUnavailable"
+              />
+            </div>
+            {/* Address end  */}
+
+            {/* Longitude Start  */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '10px',
+                }}
+              >
+                {/* text */}
+                <GcdsText
+                  size="small"
+                  characterLimit="false"
+                  display="flex"
+                  marginTop="100"
+                  marginBottom="100"
+                >
+                  {t('components.apiFetch.resultSingleFetch.longitude')}
+                  <Colon />
+                  {result.features[0].geometry.coordinates[0]}
+                  <GcdsButton
+                    buttonRole="secondary"
+                    buttonId={`${t('copy')} Longitude`}
+                    size="small"
+                    name={`${t('copy')} Longitude`}
+                    style={{ marginLeft: '10px' }}
+                    onClick={handleCopyLongitude}
+                  >
+                    {t('copy')}&nbsp;
+                    {t('components.apiFetch.resultSingleFetch.longitude')}
+                  </GcdsButton>
+                </GcdsText>
+              </div>
+              <CopyNotice
+                field="longitude"
+                copyStatus={copyStatus}
+                successKey="components.apiFetch.resultSingleFetch.success.longitudeCopied"
+                errorKey="components.apiFetch.resultSingleFetch.error.longitudeUnavailable"
+              />
+            </div>
+            {/* Longitude end  */}
+
+            {/* Latitude Start  */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '10px',
+                }}
+              >
+                {/* text */}
+                <GcdsText
+                  size="small"
+                  characterLimit="false"
+                  display="flex"
+                  marginTop="100"
+                  marginBottom="300"
+                >
+                  {t('components.apiFetch.resultSingleFetch.latitude')}
+                  <Colon />
+                  {result.features[0].geometry.coordinates[1]}
+                  <GcdsButton
+                    buttonRole="secondary"
+                    buttonId={`${t('copy')} Latitude`}
+                    size="small"
+                    name={`${t('copy')} Latitude`}
+                    style={{ marginLeft: '10px' }}
+                    onClick={handleCopyLatitude}
+                  >
+                    {t('copy')}&nbsp;
+                    {t('components.apiFetch.resultSingleFetch.latitude')}
+                  </GcdsButton>
+                </GcdsText>
+              </div>
+              <CopyNotice
+                field="latitude"
+                copyStatus={copyStatus}
+                successKey="components.apiFetch.resultSingleFetch.success.latitudeCopied"
+                errorKey="components.apiFetch.resultSingleFetch.error.latitudeUnavailable"
+              />
+            </div>
+            {/* Latitude end  */}
 
             <GcdsDetails
               detailsTitle={`${t('components.apiFetch.resultSingleFetch.seeMoreOpts')}`}
             >
-              <p style={{ fontSize: '16px' }}>
-                {t('components.apiFetch.resultSingleFetch.longlat')}
-                <Colon />
-                {result.features[0].geometry.coordinates[0]},
-                {result.features[0].geometry.coordinates[1]}
-                <GcdsButton
-                  buttonRole="secondary"
-                  buttonId={`${t('copy')} Longitude Latitude`}
-                  size="small"
-                  name={`${t('copy')} Longitude Latitude`}
-                  style={{ marginLeft: '10px' }}
-                  onClick={handleCopyLongitudeLatitude}
+              {/* Longitude end  */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px',
+                  }}
                 >
-                  {`${t('copy')} Longitude Latitude`}
-                </GcdsButton>
-              </p>
+                  {/* text */}
+                  <GcdsText
+                    size="small"
+                    characterLimit="false"
+                    display="flex"
+                    marginTop="100"
+                    marginBottom="100"
+                  >
+                    {t('components.apiFetch.resultSingleFetch.longlat')}
+                    <Colon />
+                    {result.features[0].geometry.coordinates[0]},
+                    {result.features[0].geometry.coordinates[1]}
+                    <GcdsButton
+                      buttonRole="secondary"
+                      buttonId={`${t('copy')} Longitude Latitude`}
+                      size="small"
+                      name={`${t('copy')} Longitude Latitude`}
+                      style={{ marginLeft: '10px' }}
+                      onClick={handleCopyLongitudeLatitude}
+                    >
+                      {`${t('copy')} Longitude Latitude`}
+                    </GcdsButton>
+                  </GcdsText>
+                </div>
 
-              <p style={{ fontSize: '16px' }}>
-                {t('components.apiFetch.resultSingleFetch.latlong')}
-                <Colon />
-                {result.features[0].geometry.coordinates[1]},
-                {result.features[0].geometry.coordinates[0]}
-                <GcdsButton
-                  buttonRole="secondary"
-                  buttonId={`${t('copy')} Latitude Longitude`}
-                  size="small"
-                  name={`${t('copy')} Latitude Longitude`}
-                  style={{ marginLeft: '10px' }}
-                  onClick={handleCopyLatitudeLongitude}
+                <CopyNotice
+                  field="longLat"
+                  copyStatus={copyStatus}
+                  successKey="components.apiFetch.resultSingleFetch.success.longLatCopied"
+                  errorKey="components.apiFetch.resultSingleFetch.error.latLongUnavailable"
+                />
+              </div>
+              {/* Longitude end  */}
+
+              {/* Latitude Start  */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px',
+                  }}
                 >
-                  {`${t('copy')} Latitude Longitude`}
-                </GcdsButton>
-              </p>
+                  {/* text */}
+                  <GcdsText
+                    size="small"
+                    characterLimit="false"
+                    display="flex"
+                    marginTop="100"
+                    marginBottom="100"
+                  >
+                    {t('components.apiFetch.resultSingleFetch.latlong')}
+                    <Colon />
+                    {result.features[0].geometry.coordinates[1]},
+                    {result.features[0].geometry.coordinates[0]}
+                    <GcdsButton
+                      buttonRole="secondary"
+                      buttonId={`${t('copy')} Latitude Longitude`}
+                      size="small"
+                      name={`${t('copy')} Latitude Longitude`}
+                      style={{ marginLeft: '10px' }}
+                      onClick={handleCopyLatitudeLongitude}
+                    >
+                      {`${t('copy')} Latitude Longitude`}
+                    </GcdsButton>
+                  </GcdsText>
+                </div>
+                <CopyNotice
+                  field="latLong"
+                  copyStatus={copyStatus}
+                  successKey="components.apiFetch.resultSingleFetch.success.latLongCopied"
+                  errorKey="components.apiFetch.resultSingleFetch.error.latLongUnavailable"
+                />
+              </div>
+              {/* Latitude end  */}
             </GcdsDetails>
 
             <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
