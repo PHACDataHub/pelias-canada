@@ -7,7 +7,6 @@ import {
   GcdsText,
 } from '@cdssnc/gcds-components-react';
 import '@cdssnc/gcds-components-react/gcds.css';
-import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Loading from '../Loading';

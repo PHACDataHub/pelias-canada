@@ -14,7 +14,6 @@ import '@cdssnc/gcds-components-react/gcds.css';
 import './Layout.css';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
@@ -58,7 +57,7 @@ export default function Layout() {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    toast.dismiss();
+
     setAnnouncement(
       `${lng === 'fr' ? 'La langue a été changée en français' : 'The language has been changed to English'}`,
     ); // Update announcement
@@ -203,7 +202,6 @@ export default function Layout() {
         contextualLinks={contextualLinks}
         style={{ paddingTop: '50px' }}
       />
-      <ToastContainer position="top-right" autoClose={false} theme="dark" />
     </>
   );
 }

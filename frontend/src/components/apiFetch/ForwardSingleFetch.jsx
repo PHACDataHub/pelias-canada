@@ -7,8 +7,6 @@ import {
   GcdsText,
 } from '@cdssnc/gcds-components-react';
 import '@cdssnc/gcds-components-react/gcds.css';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Loading from '../Loading';
@@ -20,6 +18,8 @@ ForwardSinglefetch.propTypes = {
 export default function ForwardSinglefetch({ onResponseData }) {
   const { t, i18n } = useTranslation();
   const [resetNotice, setResetNotice] = useState(null);
+  const [moreInformation, setMoreInformation] = useState(null);
+
   const [formData, setFormData] = useState({
     address: '',
     city: '',
@@ -132,7 +132,6 @@ export default function ForwardSinglefetch({ onResponseData }) {
 
     setErrors(newErrors);
 
-    // Display toasts only for newly detected errors
     Object.keys(newErrors).forEach((key) => {
       if (newErrors[key] && !errors[key]) {
         return;
@@ -182,9 +181,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
             (firstFeature.place_type.includes('region') ||
               firstFeature.place_type.includes('locality'))
           ) {
-            toast.warn(
-              t('components.apiFetch.forwardSingleFetch.alerts.moreSpecific'),
-            );
+            setMoreInformation(true);
           } else {
             const result = {
               ...data,
@@ -194,9 +191,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
             onResponseData(result);
           }
         } else {
-          toast.error(
-            t('components.apiFetch.forwardSingleFetch.alerts.noResults'),
-          );
+          setMoreInformation(true);
         }
       })
 
@@ -277,6 +272,25 @@ export default function ForwardSinglefetch({ onResponseData }) {
                   'components.apiFetch.forwardSingleFetch.alerts.formResetButton',
                 )}
               </GcdsButton>
+            </GcdsNotice>
+            <br />
+          </>
+        ) : null}
+        {moreInformation === true ? (
+          <>
+            <GcdsNotice
+              type="warning"
+              noticeTitleTag="h4"
+              lang={i18n.language}
+              noticeTitle={t(
+                'components.apiFetch.forwardSingleFetch.alerts.moreSpecific',
+              )}
+            >
+              <GcdsText>
+                {t(
+                  'components.apiFetch.forwardSingleFetch.alerts.moreSpecific',
+                )}
+              </GcdsText>
             </GcdsNotice>
             <br />
           </>
