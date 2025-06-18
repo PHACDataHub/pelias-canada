@@ -6,7 +6,7 @@
         "address": "Adresse",
         "city": "Ville",
         "province": "Province",
-        "complete": "La recherche d'adresse a été effectuée avec succès.",
+        "complete": "Les données ont été envoyées avec succès à l'API. Les résultats ou erreurs s'afficheront après le bouton Effacer les résultats.",
         "search": "Rechercher l'adresse",
         "searchID": "Rechercher_l'adresse",
         "reset": "Réinitialiser l'adresse",
@@ -20,6 +20,7 @@
         }
       },
       "resultSingleFetch": {
+        "successfulCall": " Les données ont été chargées. Les résultats se trouvent après le bouton Effacer les résultats.",
         "returnHeader": "",
         "infoReturn": "Informations renvoyées",
         "addressReturn": "Adresse renvoyée pour",
@@ -51,7 +52,18 @@
           "longitudeUnavailable": "La longitude n'est pas disponible.",
           "latLongUnavailable": "La latitude et la longitude ne sont pas disponibles.",
           "noResults": "Pas de résultats",
-          "checkInput": "Veuillez vérifier vos entrées et réessayer."
+          "checkInput": "Veuillez vérifier vos entrées et réessayer.",
+          "noticeText": {
+            "explanationIntro": "Aucun résultat trouvé. Consultez la section sous le bouton Effacer les résultats pour des explications possibles.",
+            "noResults": "Nous n'avons trouvé aucun résultat pour ces coordonnées. Voici quelques raisons possibles :",
+            "noticeTitle": "Aucun résultat trouvé",
+            "inWater": "Les coordonnées peuvent tomber dans l'océan ou un lac où il n'y a pas d'adresse.",
+            "notInCanada": "Les frontières du Canada ne forment pas un rectangle parfait, donc certains points à l'intérieur de la boîte peuvent être hors du pays.",
+            "noNearbyAddress": "Certaines régions du Canada sont si éloignées qu'il n'y a rien de proche pour que la recherche retourne un résultat.",
+            "notSpecificEnough": "Des coordonnées arrondies ou vagues peuvent embrouiller le système; nous recommandons d'utiliser au moins trois chiffres après la virgule.",
+            "wrongCoordinateSystem": "Si vos coordonnées utilisent un autre système cartographique, l'emplacement peut être complètement erroné.",
+            "introWithFallback": "We recommend checking that the coordinates you entered are accurate and trying again. If the issue still persists, there's a chance the service is temporarily unavailable — but please check the list below for the most common reasons first:"
+          }
         }
       },
       "reverseSingleFetch": {
@@ -64,7 +76,10 @@
         "reset": "Réinitialiser les coordonnées",
         "resetID": "Réinitialiser_les_coordonnées",
         "alerts": {
-          "formReset": "Le formulaire de geocodage a été réinitialisé.",
+          "formResetTitle": "Le formulaire de geocodage a été réinitialisé.",
+          "formReset": "Vous pouvez maintenant entrer un nouvel emplacement. ",
+          "formResetButton": "Fermer l'avis de géolocalisation",
+          "formResetButtonID": "fermer-avis-geolocalisation",
           "error": "Une erreur s'est produite",
           "latitude": "Latitude est requise",
           "longitude": "Longitude est requise",

@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import './ResultsMap.css';
 import Colon from '../../ColonLang';
+import NoResultsSingleFetch from './NoResultsSingleFetch';
 
 export default function SingleFetchResults({
   forwardResponse,
@@ -128,12 +129,15 @@ export default function SingleFetchResults({
 
       {result && result.features && result.features[0] ? (
         <>
+          <div role="alert" className="sr-only">
+            {t('components.apiFetch.resultSingleFetch.successfulCall')}
+          </div>
           <div>
             <GcdsHeading tag="h2" characterLimit="false">
               {t('components.forwardBulk.mapReady.resultsHeader')}
             </GcdsHeading>
             <div style={{ border: '1px solid black', padding: '4px' }}>
-              <GcdsHeading tag="h3">
+              <GcdsHeading tag="h3" characterLimit="false">
                 {t('components.apiFetch.resultSingleFetch.infoReturn')}
                 <Colon />
               </GcdsHeading>
@@ -323,9 +327,7 @@ export default function SingleFetchResults({
                     ]}
                   />
                 ) : (
-                  <p>
-                    {t('components.apiFetch.resultSingleFetch.error.noResults')}
-                  </p>
+                  <NoResultsSingleFetch />
                 )}
               </>
             </div>
@@ -335,9 +337,7 @@ export default function SingleFetchResults({
       {result && (!result.features || result.features.length === 0) && (
         <>
           <br />
-          <GcdsText characterLimit="false">
-            {t('components.apiFetch.resultSingleFetch.error.checkInput')}
-          </GcdsText>
+          <NoResultsSingleFetch />
         </>
       )}
     </div>

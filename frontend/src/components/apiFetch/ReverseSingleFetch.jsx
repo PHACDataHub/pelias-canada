@@ -3,9 +3,10 @@ import {
   GcdsButton,
   GcdsHeading,
   GcdsInput,
+  GcdsNotice,
+  GcdsText,
 } from '@cdssnc/gcds-components-react';
 import '@cdssnc/gcds-components-react/gcds.css';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +22,9 @@ export default function ReverseSinglefetch({ onResponseData }) {
   const [errors, setErrors] = useState({ latitude: '', longitude: '' });
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
+  const [resetNotice, setResetNotice] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const LAT_MIN = 41.679999;
   const LAT_MAX = 83.113336;
@@ -30,12 +34,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: validateField(name, parseFloat(value)) });
-  };
-
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    setErrors({ ...errors, [name]: validateField(name, parseFloat(value)) });
+    setResetNotice(false);
   };
 
   const validateField = (name, value) => {
@@ -59,6 +58,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setResetNotice(false);
     const latitude = parseFloat(formData.latitude);
     const longitude = parseFloat(formData.longitude);
 
@@ -82,15 +82,12 @@ export default function ReverseSinglefetch({ onResponseData }) {
       if (data.features && data.features.length > 0) {
         const coords = data.features[0].geometry.coordinates;
         setFormData({ latitude: coords[1], longitude: coords[0] });
-      } else {
-        toast.error(
-          t('components.apiFetch.reverseSingleFetch.alerts.moreSpecificCoords'),
-        );
       }
+
       setResponseData(data);
       onResponseData(data);
     } catch (error) {
-      toast.error(error);
+      console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
     }
@@ -99,7 +96,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
   const handleReset = () => {
     setFormData({ latitude: '', longitude: '' });
     setErrors({ latitude: '', longitude: '' });
-    toast.info(t('components.apiFetch.reverseSingleFetch.alerts.formReset'));
+    setResetNotice(true);
   };
 
   useEffect(() => {
@@ -119,6 +116,40 @@ export default function ReverseSinglefetch({ onResponseData }) {
       <GcdsHeading tag="h3" characterLimit="false">
         {t('components.apiFetch.reverseSingleFetch.inputHeader')}
       </GcdsHeading>
+      <div role="status" aria-live="polite">
+        {resetNotice === true ? (
+          <>
+            <GcdsNotice
+              type="info"
+              noticeTitleTag="h4"
+              lang={i18n.language}
+              noticeTitle={t(
+                'components.apiFetch.reverseSingleFetch.alerts.formResetTitle',
+              )}
+            >
+              <GcdsText>
+                {t('components.apiFetch.reverseSingleFetch.alerts.formReset')}
+              </GcdsText>
+              <GcdsButton
+                buttonRole="danger"
+                buttonId={t(
+                  'components.apiFetch.reverseSingleFetch.alerts.formResetButtonID',
+                )}
+                size="small"
+                name={t(
+                  'components.apiFetch.reverseSingleFetch.alerts.formResetButton',
+                )}
+                onClick={() => setResetNotice(false)}
+              >
+                {t(
+                  'components.apiFetch.reverseSingleFetch.alerts.formResetButton',
+                )}
+              </GcdsButton>
+            </GcdsNotice>
+            <br />
+          </>
+        ) : null}
+      </div>
       <form onSubmit={handleSubmit} key={i18n.language}>
         <GcdsInput
           label={t('components.apiFetch.reverseSingleFetch.latitude')}
@@ -128,11 +159,11 @@ export default function ReverseSinglefetch({ onResponseData }) {
           name="latitude"
           value={formData.latitude}
           onGcdsChange={handleInputChange}
-          onBlur={handleBlur}
           lang={i18n.language}
           errorMessage={errors.latitude}
           hint={`${LAT_MIN} to ${LAT_MAX}`}
           step="0.01"
+          validateOn="other"
         />
         <GcdsInput
           label={t('components.apiFetch.reverseSingleFetch.longitude')}
@@ -142,7 +173,7 @@ export default function ReverseSinglefetch({ onResponseData }) {
           name="longitude"
           value={formData.longitude}
           onGcdsChange={handleInputChange}
-          onBlur={handleBlur}
+          validateOn="other"
           lang={i18n.language}
           errorMessage={errors.longitude}
           hint={`${LONG_MIN} to ${LONG_MAX}`}

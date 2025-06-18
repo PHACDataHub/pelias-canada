@@ -6,7 +6,7 @@
         "address": "Address",
         "city": "City",
         "province": "Province",
-        "complete": "Address search completed successfully.",
+        "complete": "The data has been submitted to the API successfully. Any results or errors will be displayed after the Clear Results button.",
         "search": "Search the address",
         "searchID": "Search_the_address",
         "reset": "Reset the address",
@@ -20,6 +20,7 @@
         }
       },
       "resultSingleFetch": {
+        "successfulCall": "The data has been loaded. Results are located after the Clear Results button.",
         "returnHeader": "Results",
         "infoReturn": "Information returned",
         "addressReturn": "Address returned for",
@@ -51,7 +52,18 @@
           "longitudeUnavailable": "Longitude is unavailable.",
           "latLongUnavailable": "Latitude and Longitude are unavailable.",
           "noResults": "No Results",
-          "checkInput": "Please check your inputs and try again."
+          "checkInput": "Please check your inputs and try again.",
+          "noticeText": {
+            "explanationIntro": "No results found. See the section below the Clear Results button for possible explanations.",
+            "noResults": "We couldn't find any results for these coordinates. Here are a few common reasons why that might happen:",
+            "noticeTitle": "No results found",
+            "inWater": "The coordinates might land in the ocean or a lake where there's no address.",
+            "notInCanada": "Canada's borders aren't a perfect rectangle, so some spots inside the bounding box are actually outside Canada.",
+            "noNearbyAddress": "Some parts of Canada are so remote there's nothing nearby for the search to return.",
+            "notSpecificEnough": "Rounded or vague coordinates can confuse the system; we recommend using at least three digits after the decimal point.",
+            "wrongCoordinateSystem": "If your coordinates use a different map system, the location might be completely wrong.",
+            "introWithFallback": "We recommend checking that the coordinates you entered are accurate and trying again. If the issue still persists, there's a chance the service is temporarily unavailable — but please check the list below for the most common reasons first:"
+          }
         }
       },
       "reverseSingleFetch": {
@@ -64,7 +76,10 @@
         "reset": "Reset the coordinates",
         "resetID": "Reset_the_coordinates",
         "alerts": {
-          "formReset": "The geolocation form has been reset.",
+          "formResetTitle": "The geolocation form has been reset.",
+          "formReset": "You can now enter a new location.",
+          "formResetButton": "Close geolocation notice",
+          "formResetButtonID": "close-geolocation-notice",
           "error": "An error occurred",
           "latitude": "Latitude is required",
           "longitude": "Longitude is required",
