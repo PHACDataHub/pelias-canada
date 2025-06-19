@@ -55,17 +55,11 @@ After run, confirm in debug images that it actually ran and didn't run into clou
 OR run the accessibility scan using Docker container (this assumes the frontend is running):
 
 ```
+In the a11y directory:
 
-cd axe-testing
 npm run start:docker
 
 ```
-
-<!-- docker build -t axe-scan .
-
-docker run --rm \
- -e HOMEPAGE_URL=https://3000-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev \
-axe-scan -->
 
 ### Or run using docker compose
 
