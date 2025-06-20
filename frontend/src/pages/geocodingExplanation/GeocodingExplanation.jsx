@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import './GeocodingExplanation.css';
 import { GcdsHeading, GcdsText } from '@cdssnc/gcds-components-react';
+import Colon from '../../ColonLang';
 
 export default function GeocodingExplanation() {
   const featuresData = [
@@ -164,24 +165,27 @@ export default function GeocodingExplanation() {
             <GcdsText characterLimit="false">
               <strong>
                 {t('pages.geocodingExplanation.matchTypes.exact')}
+                <Colon />
               </strong>
-              :{t('pages.geocodingExplanation.matchTypes.exactPara')}
+              {t('pages.geocodingExplanation.matchTypes.exactPara')}
             </GcdsText>
           </li>
           <li>
             <GcdsText characterLimit="false">
               <strong>
                 {t('pages.geocodingExplanation.matchTypes.centroid')}
+                <Colon />
               </strong>
-              :{t('pages.geocodingExplanation.matchTypes.centroidPara')}
+              {t('pages.geocodingExplanation.matchTypes.centroidPara')}
             </GcdsText>
           </li>
           <li>
             <GcdsText characterLimit="false">
               <strong>
                 {t('pages.geocodingExplanation.matchTypes.interpolation')}
+                <Colon />
               </strong>
-              : {t('pages.geocodingExplanation.matchTypes.interpolationPara')}
+              {t('pages.geocodingExplanation.matchTypes.interpolationPara')}
             </GcdsText>
           </li>
         </ul>
@@ -191,7 +195,8 @@ export default function GeocodingExplanation() {
           {t('pages.geocodingExplanation.improvingAccuracy.title')}
         </GcdsHeading>
         <GcdsText characterLimit="false">
-          {t('pages.geocodingExplanation.improvingAccuracy.underTitle')}:
+          {t('pages.geocodingExplanation.improvingAccuracy.underTitle')}
+          <Colon />
         </GcdsText>
         <ol>
           <li>
@@ -200,7 +205,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.verifyAddress.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.verifyAddress.para',
@@ -213,7 +218,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.spellingAbbrevs.para',
@@ -226,7 +231,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.details.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t('pages.geocodingExplanation.improvingAccuracy.details.para')}
             </GcdsText>
@@ -237,7 +242,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.splitIntoComponents.para',
@@ -250,7 +255,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.billingualReqs.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.billingualReqs.para',
@@ -263,7 +268,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.standardDigraphs.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.standardDigraphs.para',
@@ -276,7 +281,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.specialChars.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.specialChars.para',
@@ -289,7 +294,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.capitilization.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.capitilization.para',
@@ -302,7 +307,7 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.improvingAccuracy.addressVars.title',
                 )}
-                :
+                <Colon />
               </strong>
               {t(
                 'pages.geocodingExplanation.improvingAccuracy.addressVars.para',
@@ -326,8 +331,8 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.lessAccurateMatch.spatialAccuracy',
                 )}
+                <Colon />
               </strong>
-              :
               {t(
                 'pages.geocodingExplanation.lessAccurateMatch.spatialAccuracyPara',
               )}
@@ -339,8 +344,8 @@ export default function GeocodingExplanation() {
                 {t(
                   'pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracy',
                 )}
+                <Colon />
               </strong>
-              :
               {t(
                 'pages.geocodingExplanation.lessAccurateMatch.limitedSpatialAccuracyPAra',
               )}
