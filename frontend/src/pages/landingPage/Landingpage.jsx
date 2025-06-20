@@ -17,6 +17,7 @@ export default function LandingPage() {
   const [reverseResponsedata, setReverseResponsedata] = useState('');
   const [useLocationButtonResults, setUseLocationButtonResults] = useState('');
   const { t, i18n } = useTranslation();
+  const [announcement, setAnnouncement] = useState('');
 
   const handleForwardResponseData = (data) => {
     resetData();
@@ -37,6 +38,24 @@ export default function LandingPage() {
     setForwardResponsedata('');
     setReverseResponsedata('');
     setUseLocationButtonResults('');
+  };
+
+  const resetDataButton = () => {
+    setForwardResponsedata('');
+    setReverseResponsedata('');
+    setUseLocationButtonResults('');
+
+    // Force screen reader announcement
+    setAnnouncement('');
+    setTimeout(() => {
+      setAnnouncement('Coordinates have been reset');
+    }, 100);
+
+    // Scroll to the API section heading wrapper
+    const headingWrapper = document.getElementById('api-heading');
+    if (headingWrapper) {
+      headingWrapper.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
@@ -134,17 +153,19 @@ export default function LandingPage() {
         </GcdsText>
         {/* Main paragraph text */}
         <div>
-          <GcdsHeading tag="h2">
-            {t('pages.landingPage.apiSectionTitle')}
-          </GcdsHeading>
-          {/* Section heading for API-related content */}
-          <GcdsText characterLimit="false">
-            <em> {t('pages.landingPage.apiSectionPara')} </em>
-          </GcdsText>
+          <div id="api-heading">
+            <GcdsHeading tag="h2" characterLimit="false">
+              {t('pages.landingPage.apiSectionTitle')}
+            </GcdsHeading>
+            {/* Section heading for API-related content */}
+            <GcdsText characterLimit="false">
+              <em> {t('pages.landingPage.apiSectionPara')} </em>
+            </GcdsText>
+          </div>
           {/* Section heading for API-related content */}
           <GcdsGrid
             container="xl"
-            columns="repeat(auto-fit, minmax(100px, 300px))"
+            columns="repeat(auto-fit, minmax(150px, 300px))"
             justifyContent="space-evenly"
             {...(isWideScreen ? { equalRowHeight: true } : {})} // Apply equalRowHeight only if isWideScreen is true}
           >
@@ -175,9 +196,7 @@ export default function LandingPage() {
                 <GcdsButton
                   buttonId={t('pages.landingPage.clearResults')}
                   name={t('pages.landingPage.clearResults')}
-                  // aria-label={t('pages.landingPage.clearResults')}
-                  // commented out to possibly fix art-8721. Mac book not seeing button
-                  onClick={resetData} // Clear all results
+                  onClick={resetDataButton} // Clear all results
                 >
                   {t('pages.landingPage.clearResults')}
                 </GcdsButton>
@@ -191,6 +210,14 @@ export default function LandingPage() {
           />
         </div>
       </GcdsContainer>
+      {/* Visually hidden announcement for screen readers */}
+      <div
+        role="status"
+        aria-live="polite"
+        style={{ position: 'absolute', left: '-9999px' }}
+      >
+        {announcement}
+      </div>
     </>
   );
 }

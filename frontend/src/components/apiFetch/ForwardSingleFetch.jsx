@@ -3,10 +3,10 @@ import {
   GcdsButton,
   GcdsHeading,
   GcdsInput,
+  GcdsNotice,
+  GcdsText,
 } from '@cdssnc/gcds-components-react';
 import '@cdssnc/gcds-components-react/gcds.css';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Loading from '../Loading';
@@ -17,6 +17,9 @@ ForwardSinglefetch.propTypes = {
 
 export default function ForwardSinglefetch({ onResponseData }) {
   const { t, i18n } = useTranslation();
+  const [resetNotice, setResetNotice] = useState(null);
+  const [moreInformation, setMoreInformation] = useState(null);
+
   const [formData, setFormData] = useState({
     address: '',
     city: '',
@@ -34,6 +37,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
 
   // Handle input changes
   const handleInputChange = (event) => {
+    setResetNotice(false);
     const { name, value } = event.target;
 
     // Update form data
@@ -112,7 +116,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
   // Submit form with address validation and API request
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setResetNotice(false);
     // Validate all fields at once
     const newErrors = {
       address: formData.address.trim()
@@ -128,7 +132,6 @@ export default function ForwardSinglefetch({ onResponseData }) {
 
     setErrors(newErrors);
 
-    // Display toasts only for newly detected errors
     Object.keys(newErrors).forEach((key) => {
       if (newErrors[key] && !errors[key]) {
         return;
@@ -178,9 +181,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
             (firstFeature.place_type.includes('region') ||
               firstFeature.place_type.includes('locality'))
           ) {
-            toast.warn(
-              t('components.apiFetch.forwardSingleFetch.alerts.moreSpecific'),
-            );
+            setMoreInformation(true);
           } else {
             const result = {
               ...data,
@@ -190,17 +191,13 @@ export default function ForwardSinglefetch({ onResponseData }) {
             onResponseData(result);
           }
         } else {
-          toast.error(
-            t('components.apiFetch.forwardSingleFetch.alerts.noResults'),
-          );
+          setMoreInformation(true);
         }
       })
 
       .catch((error) => {
         console.error('Error:', error);
-        toast.error(
-          `${t('components.apiFetch.forwardSingleFetch.alerts.error')} ${error}`,
-        );
+
         setLoading(false);
       });
   };
@@ -217,7 +214,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
       city: '',
       province: '',
     });
-    toast.info(t('components.apiFetch.forwardSingleFetch.alerts.formReset'));
+    setResetNotice(true);
   };
 
   // Reset form when the language changes
@@ -235,10 +232,70 @@ export default function ForwardSinglefetch({ onResponseData }) {
   }, [i18n.language]);
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        height: '100%',
+      }}
+    >
       <GcdsHeading tag="h3" characterLimit="false">
         {t('components.apiFetch.forwardSingleFetch.inputHeader')}
       </GcdsHeading>
+      <div role="status" aria-live="polite">
+        {resetNotice === true ? (
+          <>
+            <GcdsNotice
+              type="info"
+              noticeTitleTag="h4"
+              lang={i18n.language}
+              noticeTitle={t(
+                'components.apiFetch.forwardSingleFetch.alerts.formResetTitle',
+              )}
+            >
+              <GcdsText>
+                {t('components.apiFetch.forwardSingleFetch.alerts.formReset')}
+              </GcdsText>
+              <GcdsButton
+                buttonRole="danger"
+                buttonId={t(
+                  'components.apiFetch.forwardSingleFetch.alerts.formResetButtonID',
+                )}
+                size="small"
+                name={t(
+                  'components.apiFetch.forwardSingleFetch.alerts.formResetButton',
+                )}
+                onClick={() => setResetNotice(false)}
+              >
+                {t(
+                  'components.apiFetch.forwardSingleFetch.alerts.formResetButton',
+                )}
+              </GcdsButton>
+            </GcdsNotice>
+            <br />
+          </>
+        ) : null}
+        {moreInformation === true ? (
+          <>
+            <GcdsNotice
+              type="warning"
+              noticeTitleTag="h4"
+              lang={i18n.language}
+              noticeTitle={t(
+                'components.apiFetch.forwardSingleFetch.alerts.moreSpecific',
+              )}
+            >
+              <GcdsText>
+                {t(
+                  'components.apiFetch.forwardSingleFetch.alerts.moreSpecific',
+                )}
+              </GcdsText>
+            </GcdsNotice>
+            <br />
+          </>
+        ) : null}
+      </div>
       <form onSubmit={handleSubmit} key={i18n.language}>
         <br />
         <GcdsInput
@@ -249,6 +306,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           name="address"
           value={formData.address}
           onGcdsChange={handleInputChange}
+          validateOn="other"
           lang={i18n.language}
           errorMessage={errors.address}
         />
@@ -258,6 +316,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           type="text"
           id="city"
           name="city"
+          validateOn="other"
           value={formData.city}
           onGcdsChange={handleInputChange}
           lang={i18n.language}
@@ -269,6 +328,7 @@ export default function ForwardSinglefetch({ onResponseData }) {
           type="text"
           id="province"
           name="province"
+          validateOn="other"
           value={formData.province}
           onGcdsChange={handleInputChange}
           lang={i18n.language}

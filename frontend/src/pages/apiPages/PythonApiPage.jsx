@@ -6,14 +6,38 @@ import {
 } from '@cdssnc/gcds-components-react';
 import '@cdssnc/gcds-components-react/gcds.css';
 import { copyToClipboard } from '../../assets/copyToClipboard.jsx';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import PythonZipDownload from '../../components/zipDowloads/PythonZipDownload.jsx';
+import CopyNoticeApiPages from './copyNoticeApiPages.jsx';
 
 export default function PythonAPIPage() {
   const [pythonForwardCode, setPythonForwardCode] = useState('');
   const [pythonReverseCode, setPythonReverseCode] = useState('');
+
+  const [copyStatus, setCopyStatus] = useState({
+    field: '',
+    status: '',
+  });
+
+  const handleCopy = (text, field) => {
+    if (!text) {
+      setCopyStatus({ field, status: 'error' });
+      return;
+    }
+
+    copyToClipboard(text, () => {
+      setCopyStatus({ field, status: 'success' });
+
+      setTimeout(() => {
+        setCopyStatus({ field: '', status: '' });
+      }, 30000); // 30 seconds
+    });
+  };
+
+  const handleCopyPythonForward = () =>
+    handleCopy(pythonForwardCode, 'forward');
+  const handleCopyPythonReverse = () =>
+    handleCopy(pythonReverseCode, 'reverse');
 
   const { t } = useTranslation();
 
@@ -55,22 +79,6 @@ export default function PythonAPIPage() {
     fetchRScript();
   }, []);
 
-  const handleCopyPythonForward = () => {
-    copyToClipboard(pythonForwardCode, () => {
-      toast.success(t('codeCopied'), {
-        'aria-live': 'assertive', // Ensure it's announced by screen readers
-      });
-    });
-  };
-
-  const handleCopyPythonReverse = () => {
-    copyToClipboard(pythonReverseCode, () => {
-      toast.success(t('codeCopied'), {
-        'aria-live': 'assertive', // Ensure it's announced by screen readers
-      });
-    });
-  };
-
   const codeBlockStyles = {
     marginTop: '20px',
     overflowWrap: 'break-word',
@@ -95,6 +103,12 @@ export default function PythonAPIPage() {
           >
             {t('copyCode')}
           </GcdsButton>
+          <CopyNoticeApiPages
+            field="forward"
+            copyStatus={copyStatus}
+            successKey="codeCopied"
+            errorKey="codeUnavailable"
+          />
         </div>
         <div>
           <pre style={codeBlockStyles}>
@@ -117,6 +131,12 @@ export default function PythonAPIPage() {
           >
             {t('copyCode')}
           </GcdsButton>
+          <CopyNoticeApiPages
+            field="reverse"
+            copyStatus={copyStatus}
+            successKey="codeCopied"
+            errorKey="codeUnavailable"
+          />
         </div>
         <pre style={codeBlockStyles}>
           <code

@@ -1,5 +1,5 @@
 # Stage 1: Build the React application using Node.js
-FROM node:18-alpine as builder
+FROM node:20-alpine AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -12,9 +12,6 @@ RUN rm -rf node_modules
 
 # Install dependencies using npm ci to ensure consistency with package-lock.json
 RUN npm ci || npm install --force
-
-# Install the optional Rollup dependency
-RUN npm install @rollup/rollup-linux-x64-musl
 
 # Copy the rest of the application code to the container
 COPY . .

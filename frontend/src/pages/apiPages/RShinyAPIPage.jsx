@@ -4,12 +4,11 @@ import {
   GcdsDetails,
   GcdsHeading,
 } from '@cdssnc/gcds-components-react';
-import '@cdssnc/gcds-components-react/gcds.css'; // Import the CSS file if necessary
-import { copyToClipboard } from '../../assets/copyToClipboard.jsx'; // Adjust the path as necessary
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import '@cdssnc/gcds-components-react/gcds.css';
+import { copyToClipboard } from '../../assets/copyToClipboard.jsx';
 import { useTranslation } from 'react-i18next';
 import RZipDownload from '../../components/zipDowloads/RZipDownload.jsx';
+import CopyNoticeApiPages from './copyNoticeApiPages.jsx'; // Notice component
 
 export default function RShinyAPIPage() {
   const [rForwardCode, setRForwardCode] = useState('');
@@ -17,59 +16,62 @@ export default function RShinyAPIPage() {
 
   const { t } = useTranslation();
 
+  const [copyStatus, setCopyStatus] = useState({
+    field: '',
+    status: '',
+  });
+
+  const handleCopy = (text, field) => {
+    if (!text) {
+      setCopyStatus({ field, status: 'error' });
+      return;
+    }
+
+    copyToClipboard(text, () => {
+      setCopyStatus({ field, status: 'success' });
+
+      setTimeout(() => {
+        setCopyStatus({ field: '', status: '' });
+      }, 30000); // clear after 30 seconds
+    });
+  };
+
+  // Fetch forward R script
   useEffect(() => {
     const fetchRScript = async () => {
       try {
         const response = await fetch(
           '/codeZips/R/forwardGeocode_R_script_v1.r',
         );
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
         const text = await response.text();
         setRForwardCode(text);
       } catch (error) {
-        console.error('Failed to fetch R script:', error);
+        console.error('Failed to fetch R forward script:', error);
       }
     };
-
     fetchRScript();
   }, []);
 
+  // Fetch reverse R script
   useEffect(() => {
     const fetchRScript = async () => {
       try {
         const response = await fetch(
           '/codeZips/R/reverseGeocode_R_script_v1.r',
         );
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
         const text = await response.text();
         setRReverseCode(text);
       } catch (error) {
-        console.error('Failed to fetch R script:', error);
+        console.error('Failed to fetch R reverse script:', error);
       }
     };
-
     fetchRScript();
   }, []);
 
-  const handleCopyRForward = () => {
-    copyToClipboard(rForwardCode, () => {
-      toast.success(t('codeCopied'), {
-        'aria-live': 'assertive', // Ensure it's announced by screen readers
-      });
-    });
-  };
-
-  const handleCopyRReverse = () => {
-    copyToClipboard(rReverseCode, () => {
-      toast.success(t('codeCopied'), {
-        'aria-live': 'assertive', // Ensure it's announced by screen readers
-      });
-    });
-  };
+  const handleCopyRForward = () => handleCopy(rForwardCode, 'forward');
+  const handleCopyRReverse = () => handleCopy(rReverseCode, 'reverse');
 
   const codeBlockStyles = {
     marginTop: '20px',
@@ -83,6 +85,7 @@ export default function RShinyAPIPage() {
       <div style={{ overflow: 'auto' }}>
         <p>{t('pages.rshiny.rshinyParagraph')}</p>
       </div>
+
       <div style={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
         <RZipDownload />
         <br />
@@ -96,6 +99,12 @@ export default function RShinyAPIPage() {
             >
               {t('copyCode')}
             </GcdsButton>
+            <CopyNoticeApiPages
+              field="forward"
+              copyStatus={copyStatus}
+              successKey="codeCopied"
+              errorKey="codeUnavailable"
+            />
           </div>
           <div>
             <pre style={codeBlockStyles}>
@@ -108,7 +117,9 @@ export default function RShinyAPIPage() {
             </pre>
           </div>
         </GcdsDetails>
+
         <br />
+
         <GcdsDetails detailsTitle={t('pages.rshiny.reverseRDetails')}>
           <div>
             <GcdsButton
@@ -118,6 +129,12 @@ export default function RShinyAPIPage() {
             >
               {t('copyCode')}
             </GcdsButton>
+            <CopyNoticeApiPages
+              field="reverse"
+              copyStatus={copyStatus}
+              successKey="codeCopied"
+              errorKey="codeUnavailable"
+            />
           </div>
           <pre style={codeBlockStyles}>
             <code
@@ -128,38 +145,7 @@ export default function RShinyAPIPage() {
             </code>
           </pre>
         </GcdsDetails>
-
-        {/* 
-
-				<div style={commonStyles}>
-					<h2
-						id="reverseRCodeHeader"
-						onClick={() => setIsReverseOpen(!isReverseOpen)}
-						onKeyDown={event => handleKeyDown(event, setIsReverseOpen)}
-						style={{ cursor: "pointer" }}
-						aria-expanded={isReverseOpen}
-						aria-controls="reverseRCodeContent"
-						tabIndex="0"
-					>
-						{t("pages.rshiny.reverseRCode")}
-					</h2>
-					{isReverseOpen && (
-						<div id="reverseRCodeContent" tabIndex="0">
-							<div style={{ position: "absolute", top: "10px", right: "10px" }}>
-								<GcdsButton size="small" onClick={handleCopyRReverse} aria-label="Copy Reverse Geocoding R code to clipboard">
-									{t("copyCode")}
-								</GcdsButton>
-							</div>
-							<pre style={codeBlockStyles}>
-								<code style={codeBlockStyles} aria-label="Reverse Geocoding R Code">
-									{rReverseCode}
-								</code>
-							</pre>
-						</div>
-					)}
-				</div> */}
       </div>
-      <ToastContainer />
     </>
   );
 }
