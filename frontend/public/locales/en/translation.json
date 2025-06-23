@@ -319,7 +319,8 @@
       "previous": "Previous",
       "ariaPrevious": "Previous page",
       "goToPage": "Go to page"
-    }
+    },
+    "submittedAnnouncement": "File accepted. {{submitted}} rows were submitted via CSV. {{valid}} rows are valid. {{errors}} rows contain errors. See the Data Processing Summary in the next section to continue."
   },
   "footer": {
     "additionalNav": "Additional navigation",

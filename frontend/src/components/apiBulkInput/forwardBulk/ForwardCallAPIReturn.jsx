@@ -14,6 +14,7 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
   const [parsedResults, setParsedResults] = useState([]);
   const [inputtedResults, setInputtedResults] = useState([]);
   const { t } = useTranslation();
+  const [announcement, setAnnouncement] = useState('');
 
   useEffect(() => {
     // Only run if results are available and changed
@@ -147,7 +148,26 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
   const validResults = parsedResults.filter(
     (parsedResult) => parsedResult.streetName !== null,
   );
+  useEffect(() => {
+    if (results.length > 0) {
+      const timer = setTimeout(() => {
+        const msg = t('components.submittedAnnouncement', {
+          submitted: totalRowsSubmitted,
+          valid: parsedResults.length,
+          errors: invalidResults.length,
+        });
+        setAnnouncement(msg);
+      }, 500); // 0.5 second delay
 
+      return () => clearTimeout(timer); // clean up on unmount or change
+    }
+  }, [
+    results,
+    totalRowsSubmitted,
+    parsedResults.length,
+    invalidResults.length,
+    t,
+  ]);
   return (
     <>
       <GcdsHeading tag="h4" characterLimit="false">
@@ -167,6 +187,12 @@ export default function ForwardCallAPIReturn({ results, sendFilteredResults }) {
           color: '#FFFFFF',
         }}
       >
+        <div
+          aria-live="assertive"
+          style={{ position: 'absolute', left: '-9999px' }}
+        >
+          {announcement}
+        </div>
         <GcdsText textRole="light" characterLimit="false">
           <strong>
             {t('components.forwardBulk.forwardCallAPIReturn.inputLength')}

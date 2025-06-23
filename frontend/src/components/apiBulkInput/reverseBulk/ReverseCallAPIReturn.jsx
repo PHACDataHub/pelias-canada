@@ -15,6 +15,7 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
   const [inputtedResults, setInputtedResults] = useState([]);
   const [invalidResults, setInvalidResults] = useState([]);
   const { t } = useTranslation();
+  const [announcement, setAnnouncement] = useState('');
 
   const LAT_MIN = 41.679999;
   const LAT_MAX = 83.113336;
@@ -52,7 +53,26 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
       sendFilteredResults(validResults);
     }
   }, [results, sendFilteredResults]);
+  useEffect(() => {
+    if (results.length > 0) {
+      const timer = setTimeout(() => {
+        const msg = t('components.submittedAnnouncement', {
+          submitted: totalRowsSubmitted,
+          valid: parsedResults.length,
+          errors: invalidResults.length,
+        });
+        setAnnouncement(msg);
+      }, 500); // 0.5 second delay
 
+      return () => clearTimeout(timer); // clean up on unmount or change
+    }
+  }, [
+    results,
+    totalRowsSubmitted,
+    parsedResults.length,
+    invalidResults.length,
+    t,
+  ]);
   return (
     <>
       <GcdsHeading tag="h4">
@@ -72,6 +92,12 @@ export default function ReverseCallAPIReturn({ results, sendFilteredResults }) {
           color: '#FFFFFF',
         }}
       >
+        <div
+          aria-live="assertive"
+          style={{ position: 'absolute', left: '-9999px' }}
+        >
+          {announcement}
+        </div>
         <GcdsText textRole="light">
           <strong>
             {t('components.reverseBulk.reverseCallAPIReturn.inputLength')}
