@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   GcdsErrorMessage,
   GcdsText,
   GcdsHeading,
+  GcdsNotice,
 } from '@cdssnc/gcds-components-react';
 import ReversePaginatedTable from '../../tables/ReverseDataTable';
 import ReverseConfidenceTable from '../../tables/ReverseConfidenceTable';
@@ -22,6 +23,31 @@ export default function ReverseResultsDisplay({
   const [errors, setErrors] = useState([]);
   const [singleResultIDs, setSingleResultIDs] = useState([]); // Stores inputIDs with only 1 result
   const { t } = useTranslation();
+
+  const timerRef = useRef(null); // Store interval reference
+
+  const callEstTime = 0.3258;
+  // Estimated API call time based on 0.3058 sec per call
+  // added .02 per call for grace period
+  const estimatedApiTime = (filteredResults.length * callEstTime).toFixed(2);
+  const [elapsedTime, setElapsedTime] = useState(0); // Track elapsed time (in seconds)
+
+  useEffect(() => {
+    if (loading) {
+      setElapsedTime(0); // Reset timer when loading starts
+      timerRef.current = setInterval(() => {
+        setElapsedTime((prevTime) => prevTime + 0.01); // Increment by 10ms (0.01 sec)
+      }, 10);
+    } else if (timerRef.current) {
+      clearInterval(timerRef.current); // Stop timer when loading ends
+      timerRef.current = null;
+    }
+
+    // Cleanup function to clear interval on unmount
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [loading]);
 
   useEffect(() => {
     if (filteredResults && filteredResults.length > 0) {
@@ -81,6 +107,43 @@ export default function ReverseResultsDisplay({
 
   return (
     <div>
+      <GcdsText characterLimit="false">
+        <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
+      </GcdsText>
+      <GcdsHeading tag="h2" characterLimit="false">
+        {t('components.forwardBulk.callTimes.header')}
+      </GcdsHeading>
+      <GcdsNotice
+        type="info"
+        noticeTitleTag="h3"
+        noticeTitle={t('timeEst')}
+        characterLimit="false"
+      >
+        <GcdsText characterLimit="false">
+          <i>
+            {t('components.forwardBulk.callTimes.estSingle1')} {callEstTime}
+            &nbsp;
+            {t('components.forwardBulk.callTimes.estSingle2')}
+          </i>
+        </GcdsText>
+        <GcdsText characterLimit="false">
+          {t('components.forwardBulk.callTimes.estCallTime1')}
+          {filteredResults.length}
+          {t('components.forwardBulk.callTimes.estCallTime2')}
+          <Colon />
+          {estimatedApiTime}
+          &nbsp;
+          {t('components.forwardBulk.callTimes.seconds')}
+        </GcdsText>
+        <GcdsText characterLimit="false">
+          {t('components.forwardBulk.callTimes.realTime')}
+          <Colon />
+          {elapsedTime.toFixed(1)}
+          &nbsp;
+          {t('components.forwardBulk.callTimes.seconds')}
+        </GcdsText>
+      </GcdsNotice>
+      <br />
       {loading && (
         <>
           <Loading loading={loading} />
@@ -101,20 +164,13 @@ export default function ReverseResultsDisplay({
           </ul>
         </div>
       )}
-
+      <GcdsText characterLimit="false">
+        {t('components.forwardBulk.resultsTable.validRows')}
+        <Colon />
+        {filteredResults.length}
+      </GcdsText>
       {filteredApiResults.length > 0 && (
         <>
-          <GcdsText characterLimit="false">
-            <i>{t('components.forwardBulk.callTimes.headerPara')}</i>
-          </GcdsText>
-          <GcdsHeading tag="h2" characterLimit="false">
-            {t('components.forwardBulk.callTimes.header')}
-          </GcdsHeading>
-          <GcdsText characterLimit="false">
-            {t('components.forwardBulk.resultsTable.validRows')}
-            <Colon />
-            {filteredResults.length}
-          </GcdsText>
           <GcdsText characterLimit="false">
             {t('components.forwardBulk.resultsTable.returnedRows')}
             <Colon />

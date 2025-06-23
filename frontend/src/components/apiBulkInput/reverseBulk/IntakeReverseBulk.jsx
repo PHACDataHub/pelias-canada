@@ -100,10 +100,12 @@ export default function ReverseBulk() {
       <br />
 
       {filteredResults.length > 0 && continueStatus && (
-        <ReverseResultsDisplay
-          filteredResults={filteredResults}
-          itemsPerCall={itemsPerCall}
-        />
+        <div id="results">
+          <ReverseResultsDisplay
+            filteredResults={filteredResults}
+            itemsPerCall={itemsPerCall}
+          />
+        </div>
       )}
     </>
   );

@@ -104,12 +104,13 @@ export default function FilteredResultsDisplay({
           {t('components.forwardBulk.callTimes.estCallTime2')}
           <Colon />
           {estimatedApiTime}
+          &nbsp;
           {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
         <GcdsText characterLimit="false">
           {t('components.forwardBulk.callTimes.realTime')}
           <Colon />
-          {elapsedTime.toFixed(1)}
+          {elapsedTime.toFixed(1)}&nbsp;
           {t('components.forwardBulk.callTimes.seconds')}
         </GcdsText>
       </GcdsNotice>
