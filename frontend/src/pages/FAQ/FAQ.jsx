@@ -128,7 +128,9 @@ export default function FAQ() {
             <p aria-live="polite">{t('loading')}</p>
           ) : (
             <>
-              <GcdsHeading tag="h2">{t('pages.faq.category')}</GcdsHeading>
+              <GcdsHeading tag="h2" characterLimit="false">
+                {t('pages.faq.category')}
+              </GcdsHeading>
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 {faqData &&
                   Object.keys(faqData).map((category) => (
@@ -172,7 +174,11 @@ export default function FAQ() {
                 tabIndex={-1}
                 aria-labelledby="category-heading"
               >
-                <GcdsHeading tag="h3" id="category-heading">
+                <GcdsHeading
+                  tag="h3"
+                  id="category-heading"
+                  characterLimit="false"
+                >
                   {selectedCategory}
                 </GcdsHeading>
               </div>
@@ -198,7 +204,12 @@ export default function FAQ() {
                 {faqData[selectedCategory].map(
                   ({ Question, Answer }, index) => (
                     <li key={index} style={{ marginBottom: '20px' }}>
-                      <GcdsHeading tag="h4" tabIndex={0}>
+                      <GcdsHeading
+                        tag="h4"
+                        tabIndex={0}
+                        characterLimit="false"
+                        marginBottom="50"
+                      >
                         {Question}
                       </GcdsHeading>
                       <GcdsText characterLimit="false" style={{ margin: 0 }}>
