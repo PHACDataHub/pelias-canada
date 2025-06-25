@@ -87,7 +87,9 @@ export default function PythonAPIPage() {
 
   return (
     <>
-      <GcdsHeading tag="h1">{t('pages.python.title')}</GcdsHeading>
+      <GcdsHeading tag="h1" characterLimit="false">
+        {t('pages.python.title')}
+      </GcdsHeading>
       <div style={{ overflow: 'auto' }}>
         <p>{t('pages.python.pythonParagraph')}</p>
       </div>

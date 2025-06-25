@@ -156,7 +156,9 @@ export default function ContactUs() {
 
   return (
     <>
-      <GcdsHeading tag="h1">{t('pages.contactUs.title')}</GcdsHeading>
+      <GcdsHeading tag="h1" characterLimit="false">
+        {t('pages.contactUs.title')}
+      </GcdsHeading>
 
       {submitted ? (
         <div style={{ padding: '20px', marginTop: '20px' }}>
