@@ -85,7 +85,7 @@ export default function PaginatedTable({ apiResults }) {
         <option value="50">50</option>
         <option value="100">100</option>
       </GcdsSelect>
-      <div className="table-wrapper" tabIndex="0">
+      <div className="table-wrapper">
         <table>
           <caption>
             {i18n.language === 'en'
@@ -162,7 +162,7 @@ export default function PaginatedTable({ apiResults }) {
               justifyContent: 'center',
               gap: '8px',
               paddingTop: '16px',
-              width: 'full',
+              width: '100%',
               flexWrap: 'wrap',
             }}
           >
@@ -196,7 +196,7 @@ export default function PaginatedTable({ apiResults }) {
               justifyContent: 'center',
               gap: '8px',
               padding: '16px',
-              width: 'full',
+              width: '100%',
               flexWrap: 'wrap',
             }}
           >

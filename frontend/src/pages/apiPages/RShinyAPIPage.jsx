@@ -81,7 +81,9 @@ export default function RShinyAPIPage() {
 
   return (
     <>
-      <GcdsHeading tag="h1">{t('pages.rshiny.title')}</GcdsHeading>
+      <GcdsHeading tag="h1" characterLimit="false">
+        {t('pages.rshiny.title')}
+      </GcdsHeading>
       <div style={{ overflow: 'auto' }}>
         <p>{t('pages.rshiny.rshinyParagraph')}</p>
       </div>

@@ -147,7 +147,7 @@ export default function GeocodingExplanation() {
   const { t } = useTranslation();
   return (
     <div className="geocoding-explanation">
-      <GcdsHeading tag="h1">
+      <GcdsHeading tag="h1" characterLimit="false">
         {t('pages.geocodingExplanation.title')}
       </GcdsHeading>
       <section>
